@@ -24,7 +24,7 @@ public class KeyHandler implements KeyListener {
         if (gamePanel.gameState == gamePanel.titleState) {
             if (code == KeyEvent.VK_W) {
                 gamePanel.ui.command--;
-                gamePanel.playSoundEffect(1);
+                //gamePanel.playSoundEffect(1);
                 if (gamePanel.ui.command < 0) {
                     gamePanel.ui.command = 2;
 
@@ -32,7 +32,7 @@ public class KeyHandler implements KeyListener {
             }
             if (code == KeyEvent.VK_S) {
                 gamePanel.ui.command++;
-                gamePanel.playSoundEffect(1);
+                //gamePanel.playSoundEffect(1);
                 if (gamePanel.ui.command > 2) {
                     gamePanel.ui.command = 0;
 
@@ -40,11 +40,11 @@ public class KeyHandler implements KeyListener {
             }
 
             if (code == KeyEvent.VK_ENTER) {
-                gamePanel.playSoundEffect(2);
+                //gamePanel.playSoundEffect(2);
 
                 if (gamePanel.ui.command == 0) {
                     gamePanel.gameState = gamePanel.playState;
-                    gamePanel.playMusic(0);
+                    //gamePanel.playMusic(0);
                 }
                 if (gamePanel.ui.command == 1) {
                     gamePanel.gameState = gamePanel.settingsState;
@@ -59,14 +59,14 @@ public class KeyHandler implements KeyListener {
         if (gamePanel.gameState == gamePanel.settingsState) {
             if (code == KeyEvent.VK_ESCAPE) {
                 gamePanel.gameState = gamePanel.titleState;
-                gamePanel.stopMusic();
+                //gamePanel.stopMusic();
             }
         }
 
         if (gamePanel.gameState == gamePanel.playState) {
             if (code == KeyEvent.VK_ESCAPE) {
                 gamePanel.gameState = gamePanel.titleState;
-                gamePanel.stopMusic();
+                //gamePanel.stopMusic();
             }
         }
     }
