@@ -1,7 +1,10 @@
 package main;
 
+import test.Test;
+
 import java.awt.*;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Objects;
 
 @SuppressWarnings({"SpellCheckingInspection", "Duplicates"})
@@ -42,7 +45,7 @@ public class UI {
             drawPlayState();
         }
 
-        if (gamePanel.gameState == gamePanel.leaderboardsState){
+        if (gamePanel.gameState == gamePanel.leaderboardsState) {
             drawLeaderboardsState();
         }
     }
@@ -85,6 +88,7 @@ public class UI {
         drawCenteredText("Start Screen", 96F, gamePanel.tileSize * 3);
 
         drawCenteredText("00:30", 48F, gamePanel.tileSize * 5);
+
     }
 
     private void drawCenteredText(String text, float fontSize, int y) {

@@ -3,7 +3,7 @@ package main;
 import javax.swing.*;
 import java.awt.*;
 
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends JPanel implements Runnable {
 
     public final int originalTileSize = 16;
     public final int scale = 3;
@@ -16,7 +16,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int screenWidth = tileSize * maxScreenColumn;
     public final int screenHeight = tileSize * maxScreenRow;
 
-    public final int FPS = 120;
+    public final int FPS = 10000;
     public int gameState;
     public final int titleState = 0;
     public final int playState = 1;
@@ -27,7 +27,6 @@ public class GamePanel extends JPanel implements Runnable{
     KeyHandler keyHandler = new KeyHandler(this);
     Thread gameThread;
     UI ui = new UI(this);
-
 
 
     int x = 100;
@@ -43,33 +42,33 @@ public class GamePanel extends JPanel implements Runnable{
         this.setFocusable(true);
     }
 
-    public void setUpGame(){
+    public void setUpGame() {
         gameState = titleState;
         //playMusic(0);
     }
 
-    public void startGameThread(){
+    public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
     }
 
+
+
     @Override
     public void run() {
-
-
-        double drawInterval = (double) 1000000000 /FPS;
+        double drawInterval = (double) 1000000000 / FPS;
         double delta = 0;
 
         long lastTime = System.nanoTime();
         long currentTime;
 
 
-        while(gameThread != null){
+        while (gameThread != null) {
             currentTime = System.nanoTime();
             delta += (currentTime - lastTime) / drawInterval;
 
             lastTime = currentTime;
-            if(delta >= 1){
+            if (delta >= 1) {
                 update();
                 repaint();
                 delta--;
@@ -78,56 +77,51 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
 
-    public void update(){
-        if(keyHandler.up){
+    public void update() {
+        if (keyHandler.up) {
             y -= speed;
 
-        }
-
-        else if(keyHandler.down){
+        } else if (keyHandler.down) {
             y += speed;
-        }
-
-        else if(keyHandler.left){
+        } else if (keyHandler.left) {
             x -= speed;
-        }
-        else if(keyHandler.right){
+        } else if (keyHandler.right) {
             x += speed;
         }
     }
 
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-        if(gameState == titleState){
+        if (gameState == titleState) {
             ui.draw(g2d);
         }
 
-        if(gameState == settingsState){
+        if (gameState == settingsState) {
             ui.draw(g2d);
         }
 
-        if(gameState == playState){
+        if (gameState == playState) {
             ui.draw(g2d);
         }
 
-        if(gameState == leaderboardsState){
+        if (gameState == leaderboardsState) {
             ui.draw(g2d);
         }
     }
 
-    public void playMusic(int i){
+    public void playMusic(int i) {
         sound.setFile(i);
         sound.playSound();
         sound.loopSound();
     }
 
-    public void stopMusic(){
+    public void stopMusic() {
         sound.stopSound();
     }
 
-    public void playSoundEffect(int i){
+    public void playSoundEffect(int i) {
         sound.setFile(i);
         sound.playSound();
     }

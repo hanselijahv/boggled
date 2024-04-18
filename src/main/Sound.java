@@ -28,18 +28,18 @@ public class Sound {
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
-    public void setFile(int i){
+    public void setFile(int i) {
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundURL[i]);
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println("Error: No Audio Devices Found!");
-        } catch (LineUnavailableException ex){
+        } catch (LineUnavailableException ex) {
             System.out.println("Error: Requested line is already in use by another application!");
-        } catch (IOException ioe){
+        } catch (IOException ioe) {
             System.out.println("Error: File not found!");
-        } catch (UnsupportedAudioFileException uae){
+        } catch (UnsupportedAudioFileException uae) {
             System.out.println("Error: Unsupported audio format!");
         }
     }

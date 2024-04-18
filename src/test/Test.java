@@ -72,7 +72,7 @@ public class Test {
         System.out.println("Words entered: " + words);
     }
 
-    private static void loadDictionary() {
+    public static void loadDictionary() {
         dictionary = new HashSet<>();
         try (BufferedReader br = new BufferedReader(new FileReader("res/text/words.txt"))) {
             String line;
@@ -86,7 +86,7 @@ public class Test {
     }
 
 
-    private static List<Character> generateRandomLetters() {
+    public static List<Character> generateRandomLetters() {
         List<Character> randomLetters = new ArrayList<>();
         randomLetters.addAll(generateRandomVowels());
         randomLetters.addAll(generateRandomConsonants());
