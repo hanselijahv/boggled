@@ -1,8 +1,7 @@
 package main;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+import javax.sound.sampled.*;
+import java.io.IOException;
 import java.net.URL;
 
 public class Sound {
@@ -34,8 +33,14 @@ public class Sound {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundURL[i]);
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
-        } catch (Exception e){
-            System.out.println("Error setting sound file: " + e.getMessage());
+        } catch (IllegalArgumentException e){
+            System.out.println("Error: No Audio Devices Found!");
+        } catch (LineUnavailableException ex){
+            System.out.println("Error: Requested line is already in use by another application!");
+        } catch (IOException ioe){
+            System.out.println("Error: File not found!");
+        } catch (UnsupportedAudioFileException uae){
+            System.out.println("Error: Unsupported audio format!");
         }
     }
 }
