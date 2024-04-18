@@ -23,7 +23,7 @@ public class WordGame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        //gamePanel.startGameThread();
+        gamePanel.startGameThread();
         gamePanel.setUpGame();
     }
 
