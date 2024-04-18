@@ -21,6 +21,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int titleState = 0;
     public final int playState = 1;
     public final int settingsState = 2;
+    public final int leaderboardsState = 3;
 
     Sound sound = new Sound();
     KeyHandler keyHandler = new KeyHandler(this);
@@ -108,6 +109,10 @@ public class GamePanel extends JPanel implements Runnable{
         }
 
         if(gameState == playState){
+            ui.draw(g2d);
+        }
+
+        if(gameState == leaderboardsState){
             ui.draw(g2d);
         }
     }
