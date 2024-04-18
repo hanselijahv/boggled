@@ -59,7 +59,8 @@ public class UI {
 
         drawMenuOption("New Game", 0);
         drawMenuOption("Leaderboards", 1);
-        drawMenuOption("Quit", 2);
+        drawMenuOption("Settings", 2);
+        drawMenuOption("Quit", 3);
 
     }
 
@@ -68,7 +69,7 @@ public class UI {
         graphics2D.setFont(graphics2D.getFont().deriveFont(32F));
         graphics2D.fillRect(0, 0, gamePanel.screenWidth, gamePanel.screenHeight);
 
-        drawCenteredText("Settings Screen", 96F, gamePanel.tileSize * 3);
+        drawCenteredText("Settings", 96F, gamePanel.tileSize * 3);
     }
 
     public void drawLeaderboardsState() {
@@ -85,9 +86,7 @@ public class UI {
         graphics2D.setFont(graphics2D.getFont().deriveFont(32F));
         graphics2D.fillRect(0, 0, gamePanel.screenWidth, gamePanel.screenHeight);
 
-        drawCenteredText("Start Screen", 96F, gamePanel.tileSize * 3);
-
-        drawCenteredText("00:30", 48F, gamePanel.tileSize * 5);
+        drawCenteredText("Start", 96F, gamePanel.tileSize * 3);
 
     }
 
