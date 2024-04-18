@@ -1,6 +1,7 @@
 package run;
 
 import main.WordGame;
+
 import javax.swing.SwingUtilities;
 
 public class AppLauncher {
