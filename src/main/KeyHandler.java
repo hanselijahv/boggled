@@ -47,7 +47,7 @@ public class KeyHandler implements KeyListener {
                     //gamePanel.playMusic(0);
                 }
                 if (gamePanel.ui.command == 1) {
-                    gamePanel.gameState = gamePanel.settingsState;
+                    gamePanel.gameState = gamePanel.leaderboardsState;
                 }
 
                 if (gamePanel.ui.command == 2) {
@@ -57,6 +57,13 @@ public class KeyHandler implements KeyListener {
         }
 
         if (gamePanel.gameState == gamePanel.settingsState) {
+            if (code == KeyEvent.VK_ESCAPE) {
+                gamePanel.gameState = gamePanel.titleState;
+                //gamePanel.stopMusic();
+            }
+        }
+
+        if (gamePanel.gameState == gamePanel.leaderboardsState) {
             if (code == KeyEvent.VK_ESCAPE) {
                 gamePanel.gameState = gamePanel.titleState;
                 //gamePanel.stopMusic();
