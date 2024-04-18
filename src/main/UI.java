@@ -41,6 +41,10 @@ public class UI {
         if (gamePanel.gameState == gamePanel.playState) {
             drawPlayState();
         }
+
+        if (gamePanel.gameState == gamePanel.leaderboardsState){
+            drawLeaderboardsState();
+        }
     }
 
     public void drawTitleScreen() {
@@ -48,10 +52,10 @@ public class UI {
         graphics2D.fillRect(0, 0, gamePanel.screenWidth, gamePanel.screenHeight);
 
 
-        drawCenteredText("Wordify", 96F, gamePanel.tileSize * 3);
+        drawCenteredText("Boggled", 96F, gamePanel.tileSize * 3);
 
         drawMenuOption("New Game", 0);
-        drawMenuOption("Settings", 1);
+        drawMenuOption("Leaderboards", 1);
         drawMenuOption("Quit", 2);
 
     }
@@ -63,6 +67,15 @@ public class UI {
 
         drawCenteredText("Settings Screen", 96F, gamePanel.tileSize * 3);
     }
+
+    public void drawLeaderboardsState() {
+        graphics2D.setColor(Color.decode("#0d1b2a"));
+        graphics2D.setFont(graphics2D.getFont().deriveFont(32F));
+        graphics2D.fillRect(0, 0, gamePanel.screenWidth, gamePanel.screenHeight);
+
+        drawCenteredText("Leaderboards", 96F, gamePanel.tileSize * 3);
+    }
+
 
     public void drawPlayState() {
         graphics2D.setColor(Color.decode("#0d1b2a"));
