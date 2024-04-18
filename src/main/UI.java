@@ -48,7 +48,7 @@ public class UI {
         graphics2D.fillRect(0, 0, gamePanel.screenWidth, gamePanel.screenHeight);
 
 
-        drawCenteredText("Wordify", 96F, gamePanel.tileSize * 3);
+        drawCenteredText("Boggled", 96F, gamePanel.tileSize * 3);
 
         drawMenuOption("New Game", 0);
         drawMenuOption("Settings", 1);
