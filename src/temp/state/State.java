@@ -33,6 +33,7 @@ public abstract class State {
     }
 
     public void update(Game game) {
+        audioPlayer.update();
         time.update();
         for (UIContainer uiContainer : uiContainers) {
             uiContainer.update(this);

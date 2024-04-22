@@ -3,6 +3,7 @@ package temp.audio;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import temp.game.settings.AudioSettings;
 
@@ -22,10 +23,12 @@ public class AudioPlayer {
     public void update() {
         audioClips.forEach(audioClip -> audioClip.update(audioSettings));
 
-        for (AudioClip audioClip : audioClips) {
-            if(audioClip.hasFinishedPlaying()){
+        Iterator<AudioClip> iterator = audioClips.iterator();
+        while (iterator.hasNext()) {
+            AudioClip audioClip = iterator.next();
+            if (audioClip.hasFinishedPlaying()) {
                 audioClip.cleanUp();
-                audioClips.remove(audioClip);
+                iterator.remove(); // Use iterator to safely remove the element
             }
         }
     }

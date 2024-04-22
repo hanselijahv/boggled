@@ -67,7 +67,6 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        System.out.println("Mouse pressed at: " + e.getPoint());
         mousePressed = true;
     }
 
