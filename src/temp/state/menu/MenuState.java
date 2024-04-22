@@ -12,13 +12,13 @@ public class MenuState extends State {
     public MenuState(Size windowSize, Input input, GameSettings gameSettings) {
         super(windowSize, input, gameSettings);
 
-        uiContainers.add(new UIMainMenu(windowSize));
+        uiCanvas.addUIComponent(new UIMainMenu());
         audioPlayer.playMusic("main.wav");
 
     }
 
     public void enterMenu(UIContainer container) {
-        uiContainers.clear();
-        uiContainers.add(container);
+        uiCanvas.clear();
+        uiCanvas.addUIComponent(container);
     }
 }

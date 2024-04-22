@@ -4,7 +4,7 @@ import temp.core.Size;
 import temp.state.State;
 import temp.ui.Spacing;
 import temp.ui.UIContainer;
-import temp.ui.UIText;
+import temp.ui.text.UIText;
 import temp.ui.VerticalContainer;
 
 import java.awt.*;
@@ -26,7 +26,7 @@ public class UIButton extends UIClickable {
 
         setMargin(new Spacing(5, 0, 0, 0));
 
-        container = new VerticalContainer(new Size(0, 0));
+        container = new VerticalContainer();
         container.setCenterChildren(true);
         container.addUIComponent(this.label);
         container.setFixedSize(new Size(150, 30));

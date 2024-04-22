@@ -6,6 +6,9 @@ import temp.game.Game;
 import temp.game.Time;
 import temp.game.settings.GameSettings;
 import temp.input.Input;
+import temp.ui.AlignableContainer;
+import temp.ui.UICanvas;
+import temp.ui.UIComponent;
 import temp.ui.UIContainer;
 
 import java.awt.*;
@@ -15,10 +18,10 @@ import java.util.List;
 
 public abstract class State {
     protected Input input;
-    protected List<UIContainer> uiContainers;
     protected Time time;
     private State nextState;
     protected AudioPlayer audioPlayer;
+    protected UICanvas uiCanvas;
     protected GameSettings gameSettings;
     protected Size windowSize;
 
@@ -27,18 +30,17 @@ public abstract class State {
         this.gameSettings = gameSettings;
         this.windowSize = windowSize;
         this.input = input;
-        time = new Time();
         audioPlayer = new AudioPlayer(gameSettings.getAudioSettings());
-        uiContainers = new ArrayList<>();
+
+        uiCanvas = new UICanvas(windowSize);
+        time = new Time();
     }
 
     public void update(Game game) {
         audioPlayer.update();
         time.update();
-        for (UIContainer uiContainer : uiContainers) {
-            uiContainer.update(this);
+        uiCanvas.update(this);
 
-        }
         handleMouseInput();
 
         if (nextState != null) {
@@ -46,9 +48,6 @@ public abstract class State {
         }
     }
 
-    public List<UIContainer> getUiContainers() {
-        return uiContainers;
-    }
 
     public Time getTime() {
         return time;
@@ -58,11 +57,14 @@ public abstract class State {
         return input;
     }
 
-
-
     private void handleMouseInput() {
         input.clearMouseClick();
     }
+
+    public AlignableContainer getUiCanvas() {
+        return uiCanvas;
+    }
+
 
     public void setNextState(State nextState) {
         this.nextState = nextState;
@@ -79,4 +81,16 @@ public abstract class State {
     public Size getWindowSize() {
         return windowSize;
     }
+
+    public void cleanup() {
+        new Thread(() -> {
+            audioPlayer.clear();
+        }).start();
+    }
+
+    public void resize(Size size) {
+        windowSize = size;
+        uiCanvas.resize(size);
+    }
+
 }

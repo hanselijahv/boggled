@@ -23,14 +23,14 @@ public class AudioPlayer {
     public void update() {
         audioClips.forEach(audioClip -> audioClip.update(audioSettings));
 
-        Iterator<AudioClip> iterator = audioClips.iterator();
-        while (iterator.hasNext()) {
-            AudioClip audioClip = iterator.next();
+        List<AudioClip> clipsCopy = new ArrayList<>(audioClips);
+
+        clipsCopy.forEach(audioClip -> {
             if (audioClip.hasFinishedPlaying()) {
                 audioClip.cleanUp();
-                iterator.remove(); // Use iterator to safely remove the element
+                audioClips.remove(audioClip);
             }
-        }
+        });
     }
 
     public void playMusic(String fileName) {

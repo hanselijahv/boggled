@@ -19,8 +19,8 @@ public class Game {
     public Game(int width, int height) {
         input = new Input();
         gameSettings = new GameSettings(false);
-        display = new Display(width, height, input);
         state = new MenuState(new Size(width, height), input, gameSettings);
+        display = new Display(width, height, input, this::resize);
 
     }
 
@@ -37,6 +37,11 @@ public class Game {
     }
 
     public void enterState(State nextState) {
+        state.cleanup();
         state = nextState;
+    }
+
+    public void resize(Size size) {
+        state.resize(size);
     }
 }

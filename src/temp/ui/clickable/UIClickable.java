@@ -24,6 +24,10 @@ public abstract class UIClickable extends UIComponent implements MouseAction {
             onClick(state);
         }
 
+        if(hasFocus && state.getInput().isMousePressed()) {
+            onDrag(state);
+        }
+
         if(!previousFocus && hasFocus) {
             onFocus(state);
         }
@@ -31,6 +35,7 @@ public abstract class UIClickable extends UIComponent implements MouseAction {
 
 
     protected abstract void onFocus(State state);
+    public abstract void onDrag(State state);
 
     private Rectangle getBounds() {
         return new Rectangle(

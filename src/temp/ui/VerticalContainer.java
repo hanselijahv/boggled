@@ -4,10 +4,6 @@ import temp.core.Position;
 import temp.core.Size;
 
 public class VerticalContainer extends UIContainer {
-    public VerticalContainer(Size windowSize) {
-        super(windowSize);
-    }
-
     @Override
     protected Size calculateContentSize() {
         int combinedChildHeight = 0;

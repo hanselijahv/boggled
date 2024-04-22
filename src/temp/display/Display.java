@@ -1,12 +1,16 @@
 package temp.display;
 
 
+import temp.core.Size;
 import temp.game.Game;
+import temp.game.ResizeCallback;
 import temp.input.Input;
 import temp.state.State;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.image.BufferStrategy;
 
 @SuppressWarnings("all")
@@ -16,10 +20,19 @@ public class Display extends JFrame {
     private Game game;
     private Renderer renderer;
 
-    public Display(int width, int height, Input input) {
-        setTitle("Boggled");
+    public Display(int width, int height, Input input, ResizeCallback resizeCallback) {
+        setTitle("Isobubbler");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
+
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setPreferredSize(e.getComponent().getSize());
+                pack();
+                resizeCallback.resize(new Size(getContentPane().getWidth(), getContentPane().getHeight()));
+                canvas.setPreferredSize(getContentPane().getPreferredSize());
+            }
+        });
 
         this.renderer = new Renderer();
 
@@ -37,6 +50,7 @@ public class Display extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
+
 
     public void render(State state){
         BufferStrategy bufferStrategy = canvas.getBufferStrategy();

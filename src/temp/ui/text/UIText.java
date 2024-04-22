@@ -1,8 +1,9 @@
-package temp.ui;
+package temp.ui.text;
 
 import temp.core.Size;
 import temp.gfx.ImageUtils;
 import temp.state.State;
+import temp.ui.UIComponent;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -19,7 +20,7 @@ public class UIText extends UIComponent {
     protected final Color color;
 
     private final boolean dropShadow;
-    private final int dropShadowOffset;
+    protected int dropShadowOffset;
     private final Color shadowColor;
 
     private Font font;
@@ -56,7 +57,6 @@ public class UIText extends UIComponent {
 
     @Override
     public void update(State state) {
-        //createFont();
         calculateSize();
     }
 

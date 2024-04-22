@@ -19,6 +19,7 @@ public class UISlider extends UIClickable {
         this.max = max;
         this.value = max;
         this.size = new Size(360, 10);
+        this.margin = new Spacing(0,0,15,0);
     }
 
     @Override
@@ -28,7 +29,7 @@ public class UISlider extends UIClickable {
 
     @Override
     public void onDrag(State state) {
-
+        this.value = getValueAt(state.getInput().getMousePosition().getX());
     }
 
     @Override

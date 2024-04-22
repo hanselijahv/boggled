@@ -1,36 +1,90 @@
 package temp.state.game;
 
 import temp.core.Size;
+import temp.game.Game;
+import temp.game.Time;
+import temp.game.Timer;
 import temp.game.settings.GameSettings;
+import temp.state.game.elements.UIGameMenu;
 import temp.state.game.elements.UIGameTime;
 import temp.input.Input;
 import temp.state.State;
-import temp.state.menu.MenuState;
 import temp.ui.*;
-import temp.ui.clickable.UIButton;
+import temp.ui.text.UIHeader;
 
-import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class GameState extends State {
+    private boolean playing;
+    private boolean paused;
+    private UIGameMenu gameMenu;
+
+
+    private Timer gameTimer;
+
     public GameState(Size windowSize, Input input, GameSettings gameSettings) {
         super(windowSize, input, gameSettings);
-        initializeUI(windowSize);
+
+        gameMenu = new UIGameMenu(input, gameSettings);
+        gameTimer = new Timer(30, this::lose);
+
+        playing = true;
+        initializeUI();
+
+        audioPlayer.playMusic("main.wav");
 
     }
 
-    private void initializeUI(Size windowSize) {
-        uiContainers.add(new UIGameTime(windowSize));
-
-        VerticalContainer verticalContainer = new VerticalContainer(windowSize);
-        verticalContainer.setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER));
-        verticalContainer.setBackgroundColor(Color.DARK_GRAY);
-        verticalContainer.addUIComponent(new UIButton("Menu", 16, (state) -> state.setNextState(new MenuState(windowSize, input, gameSettings))));
-        verticalContainer.addUIComponent(new UIButton("Options", 16, (state) -> System.out.println("Button 2 pressed!")));
-        verticalContainer.addUIComponent(new UIButton("Exit", 16, (state) -> System.exit(0)));
-        uiContainers.add(verticalContainer);
-
-
+    private void initializeUI() {
+        uiCanvas.addUIComponent(new UIGameTime());
     }
 
+    private void lose() {
+        playing = false;
+        UIContainer content = new VerticalContainer();
+        content.addUIComponent(new UIHeader("DEFEAT", 32));
+        gameMenu.setHeaderContent(content);
+        toggleMenu(true);
+    }
+
+    public void togglePause(boolean shouldPause) {
+        if(shouldPause) {
+            paused = true;
+            UIContainer content = new VerticalContainer();
+            content.addUIComponent(new UIHeader("PAUSED", 32));
+            gameMenu.setHeaderContent(content);
+            toggleMenu(true);
+        } else {
+            paused = false;
+            toggleMenu(false);
+        }
+    }
+
+    private void toggleMenu(boolean shouldShowMenu) {
+        if(shouldShowMenu && !uiCanvas.hasComponent(gameMenu)) {
+            uiCanvas.addUIComponent(gameMenu);
+        } else if (!shouldShowMenu) {
+            uiCanvas.removeComponent(gameMenu);
+        }
+    }
+
+    private void handleInput() {
+        if(input.isPressed(KeyEvent.VK_ESCAPE)) {
+            togglePause(!paused);
+        }
+    }
+
+    @Override
+    public void update(Game game) {
+        super.update(game);
+        if(!paused) {
+            gameTimer.update();
+            handleInput();
+        }
+    }
+
+    public Timer getGameTimer() {
+        return gameTimer;
+    }
 
 }

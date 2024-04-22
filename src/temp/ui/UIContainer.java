@@ -8,6 +8,7 @@ import temp.gfx.ImageUtils;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class UIContainer extends UIComponent {
@@ -15,7 +16,6 @@ public abstract class UIContainer extends UIComponent {
     protected Color backgroundColor;
 
     protected Alignment alignment;
-    protected Size windowSize;
     protected boolean centerChildren;
 
     protected Size fixedSize;
@@ -23,10 +23,9 @@ public abstract class UIContainer extends UIComponent {
     protected List<UIComponent> children;
     protected Image sprite;
 
-    public UIContainer(Size windowSize) {
+    public UIContainer() {
         super();
         centerChildren = false;
-        this.windowSize = windowSize;
         alignment = new Alignment(Alignment.Position.START, Alignment.Position.START);
         backgroundColor = new Color(0, 0, 0, 0);
         margin = new Spacing(5);
@@ -35,6 +34,7 @@ public abstract class UIContainer extends UIComponent {
     }
 
     protected abstract Size calculateContentSize();
+
     protected abstract void calculateContentPosition();
 
     private void calculateSize() {
@@ -47,40 +47,53 @@ public abstract class UIContainer extends UIComponent {
     }
 
     private void calculatePosition() {
-        int x = padding.getLeft();
-        if(alignment.getHorizontal().equals(Alignment.Position.CENTER)) {
-            x = windowSize.getWidth() / 2 - size.getWidth() / 2;
+        int x = margin.getLeft();
+        if (alignment.getHorizontal().equals(Alignment.Position.CENTER)) {
+            x = parent.getSize().getWidth() / 2 - size.getWidth() / 2;
         }
-        if(alignment.getHorizontal().equals(Alignment.Position.END)) {
-            x = windowSize.getWidth() - size.getWidth() - margin.getRight();
+        if (alignment.getHorizontal().equals(Alignment.Position.END)) {
+            x = parent.getSize().getWidth() - size.getWidth() - margin.getRight();
         }
 
-        int y = padding.getTop();
-        if(alignment.getVertical().equals(Alignment.Position.CENTER)) {
-            y = windowSize.getHeight() / 2 - size.getHeight() / 2;
+        int y = margin.getTop();
+        if (alignment.getVertical().equals(Alignment.Position.CENTER)) {
+            y = parent.getSize().getHeight() / 2 - size.getHeight() / 2;
         }
-        if(alignment.getVertical().equals(Alignment.Position.END)) {
-            y = windowSize.getHeight() - size.getHeight() - margin.getBottom();
+        if (alignment.getVertical().equals(Alignment.Position.END)) {
+            y = parent.getSize().getHeight() - size.getHeight() - margin.getBottom();
         }
 
         this.relativePosition = new Position(x, y);
-        this.absolutePosition = new Position(x, y);
         calculateContentPosition();
     }
+
 
     @Override
     public Image getSprite() {
         return sprite;
     }
 
-    protected void generateSprite(){
+    @Override
+    public void update(State state) {
+        //children.forEach(component -> component.update(state));
+        List<UIComponent> copyOfChildren = new ArrayList<>(children);
+        copyOfChildren.forEach(component -> component.update(state));
+        calculateSize();
+        calculatePosition();
+
+        if (state.getTime().secondsDividableBy(0.05)) {
+            generateSprite();
+        }
+    }
+
+    protected void generateSprite() {
         sprite = ImageUtils.createCompatibleImage(size, ImageUtils.ALPHA_BIT_MASKED);
         Graphics2D graphics = (Graphics2D) sprite.getGraphics();
 
         graphics.setColor(backgroundColor);
         graphics.fillRect(0, 0, size.getWidth(), size.getHeight());
 
-        for(UIComponent uiComponent : children) {
+        for (UIComponent uiComponent : children) {
             graphics.drawImage(
                     uiComponent.getSprite(),
                     uiComponent.getRelativePosition().intX(),
@@ -92,15 +105,9 @@ public abstract class UIContainer extends UIComponent {
         graphics.dispose();
     }
 
-    @Override
-    public void update(State state) {
-        children.forEach(component -> component.update(state));
-        calculateSize();
-        calculatePosition();
 
-        if(state.getTime().secondsDividableBy(0.05)) {
-            generateSprite();
-        }
+    public void clear() {
+        children.clear();
     }
 
     public void addUIComponent(UIComponent uiComponent) {
@@ -119,8 +126,20 @@ public abstract class UIContainer extends UIComponent {
     public void setFixedSize(Size fixedSize) {
         this.fixedSize = fixedSize;
     }
+
     public void setCenterChildren(boolean centerChildren) {
         this.centerChildren = centerChildren;
     }
 
+    public boolean hasComponent(UIComponent component) {
+        return children.contains(component);
+    }
+
+    public void removeComponent(UIComponent component) {
+        children.remove(component);
+    }
+
+    public List<UIComponent> getComponents() {
+        return children;
+    }
 }
