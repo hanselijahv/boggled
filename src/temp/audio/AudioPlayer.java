@@ -10,8 +10,9 @@ import javax.sound.sampled.*;
 
 public class AudioPlayer {
 
-    private AudioSettings audioSettings;
-    private List<AudioClip> audioClips;
+    private final AudioSettings audioSettings;
+    private final List<AudioClip> audioClips;
+    private Clip clip;
 
     public AudioPlayer(AudioSettings audioSettings) {
         this.audioSettings = audioSettings;
@@ -30,7 +31,7 @@ public class AudioPlayer {
     }
 
     public void playMusic(String fileName) {
-        final Clip clip = getClip(fileName);
+        clip = getClip(fileName);
         final MusicClip musicClip = new MusicClip(clip);
         clip.loop(Clip.LOOP_CONTINUOUSLY);
         musicClip.setVolume(audioSettings);
@@ -48,7 +49,7 @@ public class AudioPlayer {
         final URL soundFile = AudioPlayer.class.getResource("/sound/" + fileName);
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-            final Clip clip = AudioSystem.getClip();
+            clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.setMicrosecondPosition(0);
             return clip;
