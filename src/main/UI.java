@@ -1,13 +1,10 @@
 package main;
 
-import test.Test;
-
 import java.awt.*;
 import java.io.InputStream;
-import java.util.List;
 import java.util.Objects;
 
-@SuppressWarnings({"SpellCheckingInspection", "Duplicates"})
+@SuppressWarnings({"Duplicates"})
 public class UI {
 
     GamePanel gamePanel;

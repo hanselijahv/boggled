@@ -1,12 +1,22 @@
 package references;
 
 public class Player {
+    private String playerId;
     private String username;
     private String password;
 
-    public Player(String username, String password) {
+    public Player(String playerId, String username, String password) {
+        this.playerId = playerId;
         this.username = username;
         this.password = password;
+    }
+
+    public String getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(String playerId) {
+        this.playerId = playerId;
     }
 
     public String getUsername() {
@@ -26,6 +36,6 @@ public class Player {
     }
 
     public String toString() {
-        return "Username: " + username + "\nPassword: " + password;
+        return "Player ID: " + playerId + "\nUsername: " + username + "\nPassword: " + password;
     }
 }

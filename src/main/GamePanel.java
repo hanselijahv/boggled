@@ -16,7 +16,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenWidth = tileSize * maxScreenColumn;
     public final int screenHeight = tileSize * maxScreenRow;
 
-    public final int FPS = 10000;
+    public final int FPS = 60;
     public int gameState;
     public final int titleState = 0;
     public final int playState = 1;
@@ -53,7 +53,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
 
-
     @Override
     public void run() {
 
@@ -81,7 +80,6 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         if (keyHandler.up) {
             y -= speed;
-
         } else if (keyHandler.down) {
             y += speed;
         } else if (keyHandler.left) {
