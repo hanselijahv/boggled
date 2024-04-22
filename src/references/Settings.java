@@ -1,29 +1,30 @@
 package references;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 
 public class Settings {
-    private Time waitingTime;
-    private Time roundTime;
+    private Timestamp waitingTime;
+    private Timestamp roundTime;
 
-    public Settings(Time waitingTime, Time roundTime) {
+    public Settings(Timestamp waitingTime, Timestamp roundTime) {
         this.waitingTime = waitingTime;
         this.roundTime = roundTime;
     }
 
-    public Time getWaitingTime() {
+    public Timestamp getWaitingTime() {
         return waitingTime;
     }
 
-    public void setWaitingTime(Time waitingTime) {
+    public void setWaitingTime(Timestamp waitingTime) {
         this.waitingTime = waitingTime;
     }
 
-    public Time getRoundTime() {
+    public Timestamp getRoundTime() {
         return roundTime;
     }
 
-    public void setRoundTime(Time roundTime) {
+    public void setRoundTime(Timestamp roundTime) {
         this.roundTime = roundTime;
     }
 
