@@ -16,7 +16,6 @@ public class UIText extends UIComponent {
     protected String text;
     protected final int fontSize;
     protected final int fontStyle;
-    protected final String fontFamily;
     protected final Color color;
 
     private final boolean dropShadow;
@@ -30,7 +29,6 @@ public class UIText extends UIComponent {
         this.fontSize = fontSize;
         this.fontStyle = Font.BOLD;
         this.color = Color.WHITE;
-        this.fontFamily = "Times New Roman";
         this.dropShadow = true;
         this.dropShadowOffset = 2;
         this.shadowColor = new Color(140,140, 140);
@@ -77,7 +75,7 @@ public class UIText extends UIComponent {
 
     private void createFont() {
         try {
-            InputStream inputStream = UIText.class.getResourceAsStream("/font/MP16REG.ttf");
+            InputStream inputStream = getClass().getResourceAsStream("/font/MP16REG.ttf");
             Font customFont = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(inputStream));
             font = customFont.deriveFont(fontStyle, fontSize);
         } catch (IOException ioe) {

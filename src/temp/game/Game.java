@@ -14,13 +14,14 @@ public class Game {
     private Input input;
     private State state;
     private Display display;
-    private GameSettings settings;
+    private GameSettings gameSettings;
 
     public Game(int width, int height) {
         input = new Input();
+        gameSettings = new GameSettings(false);
         display = new Display(width, height, input);
-        state = new MenuState( new Size(width, height), input);
-        settings = new GameSettings(false);
+        state = new MenuState(new Size(width, height), input, gameSettings);
+
     }
 
     public void update(){
@@ -32,7 +33,7 @@ public class Game {
     }
 
     public GameSettings getSettings() {
-        return settings;
+        return gameSettings;
     }
 
     public void enterState(State nextState) {

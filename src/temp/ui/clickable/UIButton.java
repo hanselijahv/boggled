@@ -2,6 +2,7 @@ package temp.ui.clickable;
 
 import temp.core.Size;
 import temp.state.State;
+import temp.ui.Spacing;
 import temp.ui.UIContainer;
 import temp.ui.UIText;
 import temp.ui.VerticalContainer;
@@ -15,11 +16,18 @@ public class UIButton extends UIClickable {
 
     private ClickAction clickAction;
 
+    protected Color backgroundColor;
+
     public UIButton(String label, int fontSize, ClickAction clickAction) {
         this.label = new UIText(label, fontSize);
         this.clickAction = clickAction;
 
+        backgroundColor = Color.GRAY;
+
+        setMargin(new Spacing(5, 0, 0, 0));
+
         container = new VerticalContainer(new Size(0, 0));
+        container.setCenterChildren(true);
         container.addUIComponent(this.label);
         container.setFixedSize(new Size(150, 30));
     }
@@ -30,7 +38,7 @@ public class UIButton extends UIClickable {
         container.update(state);
         size = container.getSize();
 
-        Color color = Color.GRAY;
+        Color color = backgroundColor;
 
         if(hasFocus) {
             color = Color.LIGHT_GRAY;
@@ -44,8 +52,23 @@ public class UIButton extends UIClickable {
     }
 
     @Override
-    protected void onClick(State state) {
+    protected void onFocus(State state) {
+        state.getAudioPlayer().playSound("selectSE.wav");
+    }
+
+    @Override
+    public void onClick(State state) {
         clickAction.execute(state);
+    }
+
+    @Override
+    public void onDrag(State state) {
+
+    }
+
+    @Override
+    public void onRelease(State state) {
+
     }
 
     @Override

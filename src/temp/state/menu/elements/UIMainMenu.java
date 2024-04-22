@@ -6,19 +6,22 @@ import temp.state.menu.MenuState;
 import temp.ui.*;
 import temp.ui.clickable.UIButton;
 
+import java.awt.*;
+
 public class UIMainMenu extends VerticalContainer {
     public UIMainMenu(Size windowSize) {
         super(windowSize);
-        alignment = new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER);
+        setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER));
+        setBackgroundColor(Color.DARK_GRAY);
         centerChildren = true;
-        UIContainer titleContainer = new HorizontalContainer(windowSize);
-        titleContainer.setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.START));
-        titleContainer.addUIComponent(new UIText("Boggled", 56));
 
-        addUIComponent(titleContainer);
+        addUIComponent(new UIText("BOGGLED", 24));
 
-        addUIComponent(new UIButton("PLAY", 16,  (state) -> state.setNextState(new GameState(windowSize, state.getInput()))));
+        setPadding(new Spacing(10));
+        addUIComponent(new UIButton("PLAY", 16,  (state) -> state.setNextState(new GameState(state.getWindowSize(), state.getInput(), state.getGameSettings()))));
         addUIComponent(new UIButton("OPTIONS", 16, (state) -> ((MenuState)state).enterMenu(new UIOptionMenu(windowSize))));
         addUIComponent(new UIButton("EXIT", 16, (state) -> System.exit(0)));
+
+
     }
 }

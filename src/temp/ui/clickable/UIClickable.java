@@ -1,12 +1,13 @@
 package temp.ui.clickable;
 
 import temp.core.Position;
+import temp.input.MouseAction;
 import temp.state.State;
 import temp.ui.UIComponent;
 
 import java.awt.*;
 
-public abstract class UIClickable extends UIComponent {
+public abstract class UIClickable extends UIComponent implements MouseAction {
 
     protected boolean hasFocus;
     protected boolean isPressed;
@@ -14,6 +15,7 @@ public abstract class UIClickable extends UIComponent {
     @Override
     public void update(State state) {
         Position mousePosition = state.getInput().getMousePosition();
+        boolean previousFocus = hasFocus;
 
         hasFocus = getBounds().contains(mousePosition.intX(), mousePosition.intY());
         isPressed = hasFocus && state.getInput().isMousePressed();
@@ -21,9 +23,14 @@ public abstract class UIClickable extends UIComponent {
         if(hasFocus && state.getInput().isMouseClicked()) {
             onClick(state);
         }
+
+        if(!previousFocus && hasFocus) {
+            onFocus(state);
+        }
     }
 
-    protected abstract void onClick(State state);
+
+    protected abstract void onFocus(State state);
 
     private Rectangle getBounds() {
         return new Rectangle(

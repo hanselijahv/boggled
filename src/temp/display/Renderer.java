@@ -12,7 +12,7 @@ public class Renderer {
         renderUI(state, graphics);
     }
 
-    private void renderUI(State state, Graphics graphics){
+    private void renderUI(State state, Graphics graphics) {
         state.getUiContainers().forEach(uiContainer -> graphics.drawImage(
                 uiContainer.getSprite(),
                 uiContainer.getRelativePosition().intX(),

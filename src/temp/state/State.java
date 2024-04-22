@@ -4,6 +4,7 @@ import temp.audio.AudioPlayer;
 import temp.core.Size;
 import temp.game.Game;
 import temp.game.Time;
+import temp.game.settings.GameSettings;
 import temp.input.Input;
 import temp.ui.UIContainer;
 
@@ -18,11 +19,16 @@ public abstract class State {
     protected Time time;
     private State nextState;
     protected AudioPlayer audioPlayer;
+    protected GameSettings gameSettings;
+    protected Size windowSize;
 
-    public State(Size windowSize, Input input) {
+
+    public State(Size windowSize, Input input, GameSettings gameSettings) {
+        this.gameSettings = gameSettings;
+        this.windowSize = windowSize;
         this.input = input;
         time = new Time();
-        audioPlayer = new AudioPlayer();
+        audioPlayer = new AudioPlayer(gameSettings.getAudioSettings());
         uiContainers = new ArrayList<>();
     }
 
@@ -51,11 +57,25 @@ public abstract class State {
         return input;
     }
 
+
+
     private void handleMouseInput() {
         input.clearMouseClick();
     }
 
     public void setNextState(State nextState) {
         this.nextState = nextState;
+    }
+
+    public AudioPlayer getAudioPlayer() {
+        return audioPlayer;
+    }
+
+    public GameSettings getGameSettings() {
+        return gameSettings;
+    }
+
+    public Size getWindowSize() {
+        return windowSize;
     }
 }
