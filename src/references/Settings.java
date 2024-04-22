@@ -6,10 +6,20 @@ import java.sql.Timestamp;
 public class Settings {
     private Timestamp waitingTime;
     private Timestamp roundTime;
+    private int numberOfRounds;
 
-    public Settings(Timestamp waitingTime, Timestamp roundTime) {
+    public Settings(Timestamp waitingTime, Timestamp roundTime, int numberOfRounds) {
         this.waitingTime = waitingTime;
         this.roundTime = roundTime;
+        this.numberOfRounds = numberOfRounds;
+    }
+
+    public int getNumberOfRounds() {
+        return numberOfRounds;
+    }
+
+    public void setNumberOfRounds(int numberOfRounds) {
+        this.numberOfRounds = numberOfRounds;
     }
 
     public Timestamp getWaitingTime() {
@@ -33,6 +43,7 @@ public class Settings {
         return "Settings{" +
                 "waitingTime=" + waitingTime +
                 ", roundTime=" + roundTime +
+                ", numberOfRounds=" + numberOfRounds +
                 '}';
     }
 }

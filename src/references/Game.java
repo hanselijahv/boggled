@@ -5,12 +5,20 @@ import java.util.List;
 public class Game {
     public String gameId;
     private List<Player> playerList;
-    private Leaderboard winner;
+    private int highestScore;
 
-    public Game(String gameId, List<Player> playerList, Leaderboard winner) {
+    public Game(String gameId, List<Player> playerList, int highestScore) {
         this.gameId = gameId;
         this.playerList = playerList;
-        this.winner = winner;
+        this.highestScore = highestScore;
+    }
+
+    public int getHighestScore() {
+        return highestScore;
+    }
+
+    public void setHighestScore(int highestScore) {
+        this.highestScore = highestScore;
     }
 
     public String getGameId() {
@@ -28,20 +36,11 @@ public class Game {
         this.playerList = playerList;
     }
 
-    public Leaderboard getWinner() {
-        return winner;
-    }
-
-    public void setWinner(Leaderboard winner) {
-        this.winner = winner;
-    }
-
     @Override
     public String toString() {
         return "Game{" +
                 "gameId='" + gameId + '\'' +
                 ", playerList=" + playerList +
-                ", winner=" + winner +
                 '}';
     }
 }
