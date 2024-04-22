@@ -1,29 +1,33 @@
-package display;
+package temp.display;
 
-import state.State;
-import input.Input;
+
+import temp.game.Game;
+import temp.input.Input;
+import temp.state.State;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
+@SuppressWarnings("all")
 public class Display extends JFrame {
 
     private Canvas canvas;
+    private Game game;
     private Renderer renderer;
-    //private DebugRenderer debugRenderer;
 
     public Display(int width, int height, Input input) {
         setTitle("Boggled");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
 
-        //this.renderer = new Renderer();
-        //this.debugRenderer = new DebugRenderer();
+        this.renderer = new Renderer();
 
         canvas = new Canvas();
         canvas.setPreferredSize(new Dimension(width, height));
         canvas.setFocusable(false);
+        canvas.addMouseListener(input);
+        canvas.addMouseMotionListener(input);
         add(canvas);
         addKeyListener(input);
         pack();
@@ -34,8 +38,7 @@ public class Display extends JFrame {
         setVisible(true);
     }
 
-    /*
-    public void render(State state, boolean debugMode){
+    public void render(State state){
         BufferStrategy bufferStrategy = canvas.getBufferStrategy();
         Graphics graphics = bufferStrategy.getDrawGraphics();
 
@@ -43,13 +46,8 @@ public class Display extends JFrame {
         graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         renderer.render(state, graphics);
-        if(debugMode) {
-            debugRenderer.render(state, graphics);
-        }
 
         graphics.dispose();
         bufferStrategy.show();
     }
-
-     */
 }

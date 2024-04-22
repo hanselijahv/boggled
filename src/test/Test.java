@@ -37,7 +37,7 @@ public class Test {
         Scanner scanner = new Scanner(System.in);
         String input;
         do {
-            System.out.println("Enter your word (minimum 4 letters) or type 'exit' to end the game: ");
+            System.out.println("Enter your word (minimum 4 letters) or type 'exit' to end the temp.game: ");
             input = scanner.next();
 
             if ("exit".equalsIgnoreCase(input)) {

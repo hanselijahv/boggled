@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- *  Creates a throwable when a game has less than 2 players.
+ *  Creates a throwable when a temp.game has less than 2 players.
  */
 public class InsufficientPlayersException extends Exception {
 

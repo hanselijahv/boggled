@@ -1,4 +1,4 @@
-package core;
+package temp.core;
 
 public class Size {
     private int width, height;
