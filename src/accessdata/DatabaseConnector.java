@@ -15,7 +15,6 @@ public class DatabaseConnector {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            // init connection
             connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
             System.out.println("Database connection initialized.");
         } catch (SQLException e) {
