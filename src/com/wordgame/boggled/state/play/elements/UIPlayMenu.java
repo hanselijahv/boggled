@@ -1,8 +1,8 @@
-package com.wordgame.boggled.state.game.elements;
+package com.wordgame.boggled.state.play.elements;
 
 import com.wordgame.boggled.game.settings.GameSettings;
 import com.wordgame.boggled.input.Input;
-import com.wordgame.boggled.state.game.GameState;
+import com.wordgame.boggled.state.play.PlayState;
 import com.wordgame.boggled.state.menu.MenuState;
 import com.wordgame.boggled.ui.Alignment;
 import com.wordgame.boggled.ui.Spacing;
@@ -12,11 +12,11 @@ import com.wordgame.boggled.ui.clickable.UIButton;
 
 
 
-public class UIGameMenu extends VerticalContainer {
+public class UIPlayMenu extends VerticalContainer {
 
     private final UIContainer headerContent;
 
-    public UIGameMenu(Input input, GameSettings settings) {
+    public UIPlayMenu(Input input, GameSettings settings) {
         setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER));
         centerChildren = true;
 
@@ -28,7 +28,7 @@ public class UIGameMenu extends VerticalContainer {
         buttonContainer.setPadding(new Spacing(0, 5, 5, 5));
 
         buttonContainer.addUIComponent(new UIButton("MENU", 16, (state) -> state.setNextState(new MenuState(state.getWindowSize(), input, settings))));
-        buttonContainer.addUIComponent(new UIButton("RESUME", 16, (state) -> ((GameState) state).togglePause(false)));
+        buttonContainer.addUIComponent(new UIButton("RESUME", 16, (state) -> ((PlayState) state).togglePause(false)));
         buttonContainer.addUIComponent(new UIButton("EXIT", 16, (state) -> System.exit(0)));
 
         addUIComponent(headerContent);

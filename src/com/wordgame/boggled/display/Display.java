@@ -21,6 +21,7 @@ public class Display extends JFrame {
     public Display(int width, int height, Input input, ResizeCallback resizeCallback) {
         setTitle("Boggled");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         addComponentListener(new ComponentAdapter() {
             @Override
@@ -45,6 +46,7 @@ public class Display extends JFrame {
 
         canvas.createBufferStrategy(2);
 
+        setSize(Toolkit.getDefaultToolkit().getScreenSize());
         setLocationRelativeTo(null);
         setVisible(true);
     }

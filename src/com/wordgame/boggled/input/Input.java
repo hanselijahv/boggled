@@ -3,8 +3,6 @@ package com.wordgame.boggled.input;
 import com.wordgame.boggled.core.Position;
 
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Input implements KeyListener, MouseListener, MouseMotionListener {
 
@@ -19,15 +17,14 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
     private boolean wheelMousePressed;
     private boolean wheelMouseReleased;
 
-    private boolean[] currentlyPressed;
-    private boolean[] pressed;
-    private List<Integer> typedKeyBuffer;
+    private final boolean[] currentlyPressed;
+    private final boolean[] pressed;
+
 
     public Input() {
         pressed = new boolean[1000];
         currentlyPressed = new boolean[1000];
         mousePosition = new Position(-1, -1);
-        typedKeyBuffer = new ArrayList<>();
     }
 
     public boolean isPressed(int keyCode) {
@@ -52,7 +49,7 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
         rightMouseReleased = false;
         wheelMouseReleased = false;
 
-        typedKeyBuffer.clear();
+
     }
 
     public Position getMousePosition() {
@@ -107,7 +104,6 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
     public void keyReleased(KeyEvent e) {
         currentlyPressed[e.getKeyCode()] = false;
         pressed[e.getKeyCode()] = false;
-        typedKeyBuffer.add(e.getKeyCode());
     }
 
     @Override

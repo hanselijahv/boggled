@@ -1,11 +1,11 @@
-package com.wordgame.boggled.state.game;
+package com.wordgame.boggled.state.play;
 
 import com.wordgame.boggled.core.Size;
 import com.wordgame.boggled.game.Game;
 import com.wordgame.boggled.game.time.Timer;
 import com.wordgame.boggled.game.settings.GameSettings;
-import com.wordgame.boggled.state.game.elements.UIGameMenu;
-import com.wordgame.boggled.state.game.elements.UIGameTime;
+import com.wordgame.boggled.state.play.elements.UIPlayMenu;
+import com.wordgame.boggled.state.play.elements.UIPlayTime;
 import com.wordgame.boggled.input.Input;
 import com.wordgame.boggled.state.State;
 import com.wordgame.boggled.ui.*;
@@ -13,18 +13,18 @@ import com.wordgame.boggled.ui.text.UIHeader;
 
 import java.awt.event.KeyEvent;
 
-public class GameState extends State {
+public class PlayState extends State {
     private boolean paused;
     private boolean inputEnabled;
-    private final UIGameMenu gameMenu;
+    private final UIPlayMenu gameMenu;
 
 
     private final Timer gameTimer;
 
-    public GameState(Size windowSize, Input input, GameSettings gameSettings) {
+    public PlayState(Size windowSize, Input input, GameSettings gameSettings) {
         super(windowSize, input, gameSettings);
 
-        gameMenu = new UIGameMenu(input, gameSettings);
+        gameMenu = new UIPlayMenu(input, gameSettings);
         gameTimer = new Timer(30, this::lose);
         inputEnabled = true;
         initializeUI();
@@ -34,7 +34,7 @@ public class GameState extends State {
     }
 
     private void initializeUI() {
-        uiCanvas.addUIComponent(new UIGameTime());
+        uiCanvas.addUIComponent(new UIPlayTime());
     }
 
     private void lose() {

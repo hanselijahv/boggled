@@ -1,6 +1,6 @@
 package com.wordgame.boggled.state.menu.elements;
 
-import com.wordgame.boggled.state.game.GameState;
+import com.wordgame.boggled.state.play.PlayState;
 import com.wordgame.boggled.state.menu.MenuState;
 import com.wordgame.boggled.ui.*;
 import com.wordgame.boggled.ui.clickable.UIButton;
@@ -16,7 +16,7 @@ public class UIMainMenu extends VerticalContainer {
         header.setPadding(new Spacing(0,0,50,0));
         addUIComponent(header);
 
-        addUIComponent(new UIButton("PLAY", 16, (state) -> state.setNextState(new GameState(state.getWindowSize(), state.getInput(), state.getGameSettings()))));
+        addUIComponent(new UIButton("PLAY", 16, (state) -> state.setNextState(new PlayState(state.getWindowSize(), state.getInput(), state.getGameSettings()))));
         addUIComponent(new UIButton("OPTIONS", 16, (state) -> ((MenuState) state).enterMenu(new UIOptionMenu(state.getGameSettings()))));
         addUIComponent(new UIButton("EXIT", 16, (state) -> System.exit(0)));
 
