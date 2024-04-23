@@ -10983,7 +10983,7 @@ contriving
 control
 controllable
 controlled
-temp.state.controller
+boggled.state.controller
 controllers
 controlling
 controls
@@ -11237,7 +11237,7 @@ cordons
 cords
 corduroy
 corduroys
-temp.core
+boggled.core
 cored
 coreligionist
 coreligionists
@@ -15270,7 +15270,7 @@ displaced
 displacement
 displaces
 displacing
-temp.display
+boggled.display
 displayed
 displaying
 displays
@@ -21887,7 +21887,7 @@ gamboling
 gambolled
 gambolling
 gambols
-temp.game
+boggled.game
 gamekeeper
 gamekeepers
 gamely
@@ -27397,7 +27397,7 @@ inordinately
 inorganic
 inpatient
 inpatients
-temp.state.input
+boggled.state.input
 inputs
 inputted
 inputting
@@ -50454,7 +50454,7 @@ stashed
 stashes
 stashing
 stasis
-temp.state
+boggled.state
 stated
 statehood
 statehouse
@@ -53225,7 +53225,7 @@ telltale
 telltales
 telly
 temerity
-temp
+boggled
 temped
 temper
 tempera
