@@ -11,6 +11,12 @@ public class Player {
         this.password = password;
     }
 
+    public Player() {
+        this.playerId = null;
+        this.username = null;
+        this.password = null;
+    }
+
     public String getPlayerId() {
         return playerId;
     }
