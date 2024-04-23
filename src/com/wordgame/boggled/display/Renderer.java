@@ -7,6 +7,11 @@ import java.awt.*;
 
 public class Renderer {
 
+    private Display display;
+
+    public Renderer(Display display) {
+        this.display = display; // Initialize the display object in the constructor
+    }
 
     public void render(State state, Graphics graphics){
         renderUI(state, graphics);
@@ -26,5 +31,26 @@ public class Renderer {
                 uiContainer.getRelativePosition().intY(),
                 null
         ));
+
+        if (state.getGameSettings().isFullScreenMode().get()){
+            graphics.setColor(Color.RED);
+            graphics.setFont(new Font("Arial", Font.PLAIN, 10));
+            graphics.drawString("TODO", 100, 100);
+        }
     }
+
+    public Display getDisplay() {
+        return display;
+    }
+
+    private void centerDisplayOnScreen(Dimension screenSize) {
+        if (display != null) {
+            Dimension windowSize = display.getSize();
+            int x = (screenSize.width - windowSize.width) / 2;
+            int y = (screenSize.height - windowSize.height) / 2;
+            display.setLocation(x, y);
+        }
+    }
+
+
 }

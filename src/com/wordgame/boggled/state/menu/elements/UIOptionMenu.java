@@ -5,8 +5,11 @@ import com.wordgame.boggled.state.State;
 import com.wordgame.boggled.state.menu.MenuState;
 import com.wordgame.boggled.ui.*;
 import com.wordgame.boggled.ui.clickable.UIButton;
+import com.wordgame.boggled.ui.clickable.UICheckbox;
 import com.wordgame.boggled.ui.clickable.UISlider;
 import com.wordgame.boggled.ui.text.UIText;
+
+import java.awt.*;
 
 public class UIOptionMenu extends VerticalContainer {
     private final UISlider musicVolSlider;
@@ -27,17 +30,25 @@ public class UIOptionMenu extends VerticalContainer {
         soundVolSlider.setValue(settings.getAudioSettings().getSoundVolume());
         soundVolLabel = new UIText("", 18);
 
+        UIContainer labelContainer = new VerticalContainer();
+
+        labelContainer.addUIComponent(new UICheckbox("FULLSCREEN", settings.isFullScreenMode()));
+        labelContainer.setMargin(new Spacing(0));
+        labelContainer.setPadding(new Spacing(10));
 
         UIContainer contentContainer = new VerticalContainer();
         contentContainer.setMargin(new Spacing(0));
         contentContainer.setPadding(new Spacing(10));
+
         contentContainer.addUIComponent(musicVolLabel);
         contentContainer.addUIComponent(musicVolSlider);
         contentContainer.addUIComponent(soundVolLabel);
         contentContainer.addUIComponent(soundVolSlider);
 
-        contentContainer.addUIComponent(new UIButton("BACK", 16, (state) -> ((MenuState)state).enterMenu(new UIMainMenu())));
+        contentContainer.addUIComponent(new UIButton("BACK", 16, (state) -> ((MenuState) state).enterMenu(new UIMainMenu())));
 
+        setBackgroundColor(Color.decode("#051923"));
+        addUIComponent(labelContainer);
         addUIComponent(contentContainer);
     }
 

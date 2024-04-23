@@ -30,10 +30,11 @@ public class Display extends JFrame {
                 pack();
                 resizeCallback.resize(new Size(getContentPane().getWidth(), getContentPane().getHeight()));
                 canvas.setPreferredSize(getContentPane().getPreferredSize());
+
             }
         });
 
-        this.renderer = new Renderer();
+        this.renderer = new Renderer(this);
 
         canvas = new Canvas();
         canvas.setPreferredSize(new Dimension(width, height));
@@ -46,7 +47,7 @@ public class Display extends JFrame {
 
         canvas.createBufferStrategy(2);
 
-        setSize(Toolkit.getDefaultToolkit().getScreenSize());
+        //setSize(Toolkit.getDefaultToolkit().getScreenSize());
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -58,7 +59,6 @@ public class Display extends JFrame {
         Graphics2D graphics2D = (Graphics2D) graphics;
         do {
             try {
-
                 graphics2D.setColor(Color.decode("#0d1b2a"));
                 graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 renderer.render(state, graphics);

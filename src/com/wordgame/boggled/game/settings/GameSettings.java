@@ -1,19 +1,27 @@
 package com.wordgame.boggled.game.settings;
 
+import com.wordgame.boggled.core.Value;
+
 public class GameSettings {
 
     private boolean debugMode;
     private double gameSpeedMultiplier;
     private final AudioSettings audioSettings;
+    private final Value<Boolean> fullScreenMode;
 
     public GameSettings(boolean debugMode) {
         this.debugMode = debugMode;
         gameSpeedMultiplier = 1;
         audioSettings = new AudioSettings();
+        fullScreenMode = new Value<>(false);
     }
 
     public boolean isDebugMode() {
         return debugMode;
+    }
+
+    public Value<Boolean> isFullScreenMode(){
+        return fullScreenMode;
     }
 
     public void toggleDebugMode() {
