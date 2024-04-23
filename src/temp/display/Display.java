@@ -55,13 +55,17 @@ public class Display extends JFrame {
     public void render(State state){
         BufferStrategy bufferStrategy = canvas.getBufferStrategy();
         Graphics graphics = bufferStrategy.getDrawGraphics();
+        Graphics2D graphics2D = (Graphics2D) graphics;
+        do {
+            try{
 
-        graphics.setColor(Color.BLACK);
-        graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
-        renderer.render(state, graphics);
-
-        graphics.dispose();
-        bufferStrategy.show();
+                graphics2D.setColor(Color.decode("#0d1b2a"));
+                graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                renderer.render(state, graphics);
+            } finally {
+                graphics.dispose();
+            }
+            bufferStrategy.show();
+        } while (bufferStrategy.contentsLost());
     }
 }

@@ -3,20 +3,31 @@ package temp.input;
 import temp.core.Position;
 
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Input implements KeyListener, MouseListener, MouseMotionListener {
 
     private Position mousePosition;
     private boolean mouseClicked;
     private boolean mousePressed;
+    private boolean mouseReleased;
+    private boolean rightMouseClicked;
+    private boolean rightMousePressed;
+    private boolean rightMouseReleased;
+    private boolean wheelMouseClicked;
+    private boolean wheelMousePressed;
+    private boolean wheelMouseReleased;
 
     private boolean[] currentlyPressed;
     private boolean[] pressed;
+    private List<Integer> typedKeyBuffer;
 
     public Input() {
         pressed = new boolean[1000];
         currentlyPressed = new boolean[1000];
         mousePosition = new Position(-1, -1);
+        typedKeyBuffer = new ArrayList<>();
     }
 
     public boolean isPressed(int keyCode) {
@@ -32,8 +43,16 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
         return currentlyPressed[keyCode];
     }
 
-    public void clearMouseClick() {
+    public void cleanUpInputEvents() {
         mouseClicked = false;
+        rightMouseClicked = false;
+        wheelMouseClicked = false;
+
+        mouseReleased = false;
+        rightMouseReleased = false;
+        wheelMouseReleased = false;
+
+        typedKeyBuffer.clear();
     }
 
     public Position getMousePosition() {
@@ -48,6 +67,34 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
         return mousePressed;
     }
 
+    public boolean isRightMouseClicked() {
+        return rightMouseClicked;
+    }
+
+    public boolean isRightMousePressed() {
+        return rightMousePressed;
+    }
+
+    public boolean isWheelMouseClicked() {
+        return wheelMouseClicked;
+    }
+
+    public boolean isWheelMousePressed() {
+        return wheelMousePressed;
+    }
+
+    public boolean isMouseReleased() {
+        return mouseReleased;
+    }
+
+    public boolean isRightMouseReleased() {
+        return rightMouseReleased;
+    }
+
+    public boolean isWheelMouseReleased() {
+        return wheelMouseReleased;
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {}
 
@@ -60,6 +107,7 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
     public void keyReleased(KeyEvent e) {
         currentlyPressed[e.getKeyCode()] = false;
         pressed[e.getKeyCode()] = false;
+        typedKeyBuffer.add(e.getKeyCode());
     }
 
     @Override
@@ -67,13 +115,28 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        mousePressed = true;
+        mousePressed = e.getButton() == MouseEvent.BUTTON1;
+        rightMousePressed = e.getButton() == MouseEvent.BUTTON3;
+        wheelMousePressed = e.getButton() == MouseEvent.BUTTON2;
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        mouseClicked = true;
-        mousePressed = false;
+        if(e.getButton() == MouseEvent.BUTTON1) {
+            mouseClicked = true;
+            mousePressed = false;
+            mouseReleased = true;
+        }
+        if(e.getButton() == MouseEvent.BUTTON2) {
+            wheelMouseClicked = true;
+            wheelMousePressed = false;
+            wheelMouseReleased = true;
+        }
+        if(e.getButton() == MouseEvent.BUTTON3) {
+            rightMouseClicked = true;
+            rightMousePressed = false;
+            rightMouseReleased = true;
+        }
     }
 
     @Override
@@ -91,4 +154,5 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
     public void mouseMoved(MouseEvent e) {
         mousePosition = new Position(e.getPoint().getX(), e.getPoint().getY());
     }
+
 }

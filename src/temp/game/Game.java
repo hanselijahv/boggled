@@ -9,7 +9,7 @@ import temp.state.State;
 import temp.state.menu.MenuState;
 
 public class Game {
-    public static int TILE_SIZE = 16;
+    //public static int TILE_SIZE = 16;
 
     private Input input;
     private State state;

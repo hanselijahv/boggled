@@ -1,10 +1,11 @@
 package temp.input;
 
 import temp.state.State;
+import temp.ui.UIImage;
 
-public interface MouseAction {
+public abstract class MouseAction implements MouseConsumer{
 
-    void onClick(State state);
-    void onDrag(State state);
-    void onRelease(State state);
+    public abstract void update(State state);
+    public abstract UIImage getSprite();
+    public abstract void cleanUp();
 }

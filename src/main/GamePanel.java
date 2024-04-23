@@ -16,12 +16,17 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenWidth = tileSize * maxScreenColumn;
     public final int screenHeight = tileSize * maxScreenRow;
 
-    public final int FPS = 60;
+    public int FPS = 60;
+    public int UPS;
     public int gameState;
     public final int titleState = 0;
     public final int playState = 1;
     public final int settingsState = 2;
     public final int leaderboardsState = 3;
+    public final int tabState = 4;
+    public final int pauseState = 5;
+
+    long nextStatTime;
 
     Sound sound = new Sound();
     KeyHandler keyHandler = new KeyHandler(this);
@@ -58,6 +63,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         double drawInterval = (double) 1000000000 / FPS;
         double delta = 0;
+         nextStatTime = System.currentTimeMillis() + 1000;
 
         long lastTime = System.nanoTime();
         long currentTime;
@@ -69,13 +75,17 @@ public class GamePanel extends JPanel implements Runnable {
 
             lastTime = currentTime;
             if (delta >= 1) {
-                update();
-                repaint();
+                //update();
+                UPS++;
                 delta--;
+                repaint();
             }
+            printStats();
 
         }
     }
+
+
 
     public void update() {
         if (keyHandler.up) {
@@ -91,8 +101,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
 
+        Graphics2D g2d = (Graphics2D) g;
         if (gameState == titleState) {
             ui.draw(g2d);
         }
@@ -108,6 +118,17 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState == leaderboardsState) {
             ui.draw(g2d);
         }
+
+        if (gameState == pauseState){
+            ui.draw(g2d);
+        }
+
+        if (gameState == tabState) {
+            ui.draw(g2d);
+        }
+
+
+
     }
 
     public void playMusic(int i) {
@@ -123,6 +144,16 @@ public class GamePanel extends JPanel implements Runnable {
     public void playSoundEffect(int i) {
         sound.setFile(i);
         sound.playSound();
+    }
+
+    private void printStats() {
+        FPS++;
+        if (System.currentTimeMillis() > nextStatTime) {
+            System.out.println(String.format("FPS: %d, UPS: %d", FPS, UPS));
+            FPS = 0;
+            UPS = 0;
+            nextStatTime = System.currentTimeMillis() + 1000;
+        }
     }
 
 

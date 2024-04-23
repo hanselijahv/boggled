@@ -22,6 +22,7 @@ public abstract class UIContainer extends UIComponent {
 
     protected List<UIComponent> children;
     protected Image sprite;
+    protected float opacity;
 
     public UIContainer() {
         super();
@@ -34,7 +35,6 @@ public abstract class UIContainer extends UIComponent {
     }
 
     protected abstract Size calculateContentSize();
-
     protected abstract void calculateContentPosition();
 
     private void calculateSize() {
@@ -48,18 +48,18 @@ public abstract class UIContainer extends UIComponent {
 
     private void calculatePosition() {
         int x = margin.getLeft();
-        if (alignment.getHorizontal().equals(Alignment.Position.CENTER)) {
+        if(alignment.getHorizontal().equals(Alignment.Position.CENTER)) {
             x = parent.getSize().getWidth() / 2 - size.getWidth() / 2;
         }
-        if (alignment.getHorizontal().equals(Alignment.Position.END)) {
+        if(alignment.getHorizontal().equals(Alignment.Position.END)) {
             x = parent.getSize().getWidth() - size.getWidth() - margin.getRight();
         }
 
         int y = margin.getTop();
-        if (alignment.getVertical().equals(Alignment.Position.CENTER)) {
+        if(alignment.getVertical().equals(Alignment.Position.CENTER)) {
             y = parent.getSize().getHeight() / 2 - size.getHeight() / 2;
         }
-        if (alignment.getVertical().equals(Alignment.Position.END)) {
+        if(alignment.getVertical().equals(Alignment.Position.END)) {
             y = parent.getSize().getHeight() - size.getHeight() - margin.getBottom();
         }
 
@@ -75,7 +75,6 @@ public abstract class UIContainer extends UIComponent {
 
     @Override
     public void update(State state) {
-        //children.forEach(component -> component.update(state));
         List<UIComponent> copyOfChildren = new ArrayList<>(children);
         copyOfChildren.forEach(component -> component.update(state));
         calculateSize();
@@ -93,7 +92,7 @@ public abstract class UIContainer extends UIComponent {
         graphics.setColor(backgroundColor);
         graphics.fillRect(0, 0, size.getWidth(), size.getHeight());
 
-        for (UIComponent uiComponent : children) {
+        for(UIComponent uiComponent : children) {
             graphics.drawImage(
                     uiComponent.getSprite(),
                     uiComponent.getRelativePosition().intX(),
@@ -105,10 +104,6 @@ public abstract class UIContainer extends UIComponent {
         graphics.dispose();
     }
 
-
-    public void clear() {
-        children.clear();
-    }
 
     public void addUIComponent(UIComponent uiComponent) {
         children.add(uiComponent);
@@ -133,6 +128,10 @@ public abstract class UIContainer extends UIComponent {
 
     public boolean hasComponent(UIComponent component) {
         return children.contains(component);
+    }
+
+    public void clear() {
+        children.clear();
     }
 
     public void removeComponent(UIComponent component) {

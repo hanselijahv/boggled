@@ -81,7 +81,17 @@ public class KeyHandler implements KeyListener {
                 gamePanel.gameState = gamePanel.titleState;
                 gamePanel.stopMusic();
             }
+
+            if (code == KeyEvent.VK_P) {
+                gamePanel.gameState = gamePanel.pauseState;
+            }
+
+            if (code == KeyEvent.VK_U){
+                gamePanel.gameState = gamePanel.tabState;
+            }
         }
+
+
     }
 
     @Override

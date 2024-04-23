@@ -1,13 +1,13 @@
 package temp.ui.clickable;
 
 import temp.core.Position;
-import temp.input.MouseAction;
+import temp.input.MouseConsumer;
 import temp.state.State;
 import temp.ui.UIComponent;
 
 import java.awt.*;
 
-public abstract class UIClickable extends UIComponent implements MouseAction {
+public abstract class UIClickable extends UIComponent implements MouseConsumer {
 
     protected boolean hasFocus;
     protected boolean isPressed;

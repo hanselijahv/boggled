@@ -15,20 +15,19 @@ import temp.ui.text.UIHeader;
 import java.awt.event.KeyEvent;
 
 public class GameState extends State {
-    private boolean playing;
     private boolean paused;
-    private UIGameMenu gameMenu;
+    private boolean inputEnabled;
+    private final UIGameMenu gameMenu;
 
 
-    private Timer gameTimer;
+    private final Timer gameTimer;
 
     public GameState(Size windowSize, Input input, GameSettings gameSettings) {
         super(windowSize, input, gameSettings);
 
         gameMenu = new UIGameMenu(input, gameSettings);
         gameTimer = new Timer(30, this::lose);
-
-        playing = true;
+        inputEnabled = true;
         initializeUI();
 
         audioPlayer.playMusic("main.wav");
@@ -40,9 +39,9 @@ public class GameState extends State {
     }
 
     private void lose() {
-        playing = false;
+        inputEnabled = false;
         UIContainer content = new VerticalContainer();
-        content.addUIComponent(new UIHeader("DEFEAT", 32));
+        content.addUIComponent(new UIHeader("ROUND OVER", 72));
         gameMenu.setHeaderContent(content);
         toggleMenu(true);
     }
@@ -51,7 +50,7 @@ public class GameState extends State {
         if(shouldPause) {
             paused = true;
             UIContainer content = new VerticalContainer();
-            content.addUIComponent(new UIHeader("PAUSED", 32));
+            content.addUIComponent(new UIHeader("PAUSED", 72));
             gameMenu.setHeaderContent(content);
             toggleMenu(true);
         } else {
@@ -68,8 +67,9 @@ public class GameState extends State {
         }
     }
 
-    private void handleInput() {
-        if(input.isPressed(KeyEvent.VK_ESCAPE)) {
+    @Override
+    protected void handleInput() {
+        if (inputEnabled && !paused && input.isPressed(KeyEvent.VK_ESCAPE)) {
             togglePause(!paused);
         }
     }

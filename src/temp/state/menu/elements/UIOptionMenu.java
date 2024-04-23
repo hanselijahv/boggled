@@ -1,6 +1,5 @@
 package temp.state.menu.elements;
 
-import temp.core.Size;
 import temp.game.settings.GameSettings;
 import temp.state.State;
 import temp.state.menu.MenuState;
@@ -12,13 +11,13 @@ import temp.ui.text.UIText;
 import java.awt.*;
 
 public class UIOptionMenu extends VerticalContainer {
-    private UISlider musicVolSlider;
-    private UIText musicVolLabel;
-    private UISlider soundVolSlider;
-    private UIText soundVolLabel;
+    private final UISlider musicVolSlider;
+    private final UIText musicVolLabel;
+    private final UISlider soundVolSlider;
+    private final UIText soundVolLabel;
 
 
-    public UIOptionMenu(Size windowSize, GameSettings settings) {
+    public UIOptionMenu(GameSettings settings) {
 
         alignment = new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER);
 
@@ -30,14 +29,10 @@ public class UIOptionMenu extends VerticalContainer {
         soundVolSlider.setValue(settings.getAudioSettings().getSoundVolume());
         soundVolLabel = new UIText("", 18);
 
-        UIContainer labelContainer = new VerticalContainer();
-        labelContainer.setBackgroundColor(Color.DARK_GRAY);
-        labelContainer.addUIComponent(new UIText("OPTIONS",20));
 
         UIContainer contentContainer = new VerticalContainer();
         contentContainer.setMargin(new Spacing(0));
         contentContainer.setPadding(new Spacing(10));
-        contentContainer.setBackgroundColor(Color.DARK_GRAY);
         contentContainer.addUIComponent(musicVolLabel);
         contentContainer.addUIComponent(musicVolSlider);
         contentContainer.addUIComponent(soundVolLabel);
@@ -45,7 +40,6 @@ public class UIOptionMenu extends VerticalContainer {
 
         contentContainer.addUIComponent(new UIButton("BACK", 16, (state) -> ((MenuState)state).enterMenu(new UIMainMenu())));
 
-        addUIComponent(labelContainer);
         addUIComponent(contentContainer);
     }
 

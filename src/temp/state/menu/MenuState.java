@@ -21,4 +21,9 @@ public class MenuState extends State {
         uiCanvas.clear();
         uiCanvas.addUIComponent(container);
     }
+
+    @Override
+    protected void handleInput() {
+
+    }
 }

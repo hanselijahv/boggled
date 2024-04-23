@@ -6,6 +6,7 @@ import temp.game.Game;
 import temp.game.Time;
 import temp.game.settings.GameSettings;
 import temp.input.Input;
+import temp.input.MouseHandler;
 import temp.ui.AlignableContainer;
 import temp.ui.UICanvas;
 import temp.ui.UIComponent;
@@ -24,6 +25,7 @@ public abstract class State {
     protected UICanvas uiCanvas;
     protected GameSettings gameSettings;
     protected Size windowSize;
+    protected MouseHandler mouseHandler;
 
 
     public State(Size windowSize, Input input, GameSettings gameSettings) {
@@ -31,7 +33,7 @@ public abstract class State {
         this.windowSize = windowSize;
         this.input = input;
         audioPlayer = new AudioPlayer(gameSettings.getAudioSettings());
-
+        mouseHandler = new MouseHandler();
         uiCanvas = new UICanvas(windowSize);
         time = new Time();
     }
@@ -40,8 +42,8 @@ public abstract class State {
         audioPlayer.update();
         time.update();
         uiCanvas.update(this);
+        mouseHandler.update(this);
 
-        handleMouseInput();
 
         if (nextState != null) {
             game.enterState(nextState);
@@ -57,8 +59,9 @@ public abstract class State {
         return input;
     }
 
-    private void handleMouseInput() {
-        input.clearMouseClick();
+
+    public MouseHandler getMouseHandler() {
+        return mouseHandler;
     }
 
     public AlignableContainer getUiCanvas() {
@@ -92,5 +95,7 @@ public abstract class State {
         windowSize = size;
         uiCanvas.resize(size);
     }
+
+    protected abstract void handleInput();
 
 }
