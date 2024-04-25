@@ -6,11 +6,10 @@ import com.wordgame.db.SettingsDB;
 import com.wordgame.references.Player;
 import com.wordgame.references.Settings;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Server {
+public class ServerTest {
 
     static Scanner scanner = new Scanner(System.in);
     static PlayerDB playerDB = new PlayerDB();
