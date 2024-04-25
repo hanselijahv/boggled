@@ -3,6 +3,7 @@ package com.wordgame.boggled.display;
 
 import com.wordgame.boggled.state.State;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Renderer {
@@ -33,9 +34,9 @@ public class Renderer {
         ));
 
         if (state.getGameSettings().isFullScreenMode().get()){
-            graphics.setColor(Color.RED);
-            graphics.setFont(new Font("Arial", Font.PLAIN, 10));
-            graphics.drawString("TODO", 100, 100);
+            display.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        } else {
+            display.setExtendedState(JFrame.NORMAL);
         }
     }
 
