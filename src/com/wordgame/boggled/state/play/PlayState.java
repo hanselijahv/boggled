@@ -17,15 +17,16 @@ public class PlayState extends State {
     private boolean paused;
     private boolean inputEnabled;
     private final UIPlayMenu gameMenu;
-
+    private State state;
 
     private final Timer gameTimer;
 
     public PlayState(Size windowSize, Input input, GameSettings gameSettings) {
         super(windowSize, input, gameSettings);
 
+
         gameMenu = new UIPlayMenu(input, gameSettings);
-        gameTimer = new Timer(30, this::lose);
+        gameTimer = new Timer(5, this::lose);
         inputEnabled = true;
         initializeUI();
 
@@ -43,13 +44,14 @@ public class PlayState extends State {
         content.addUIComponent(new UIHeader("ROUND OVER", 72));
         gameMenu.setHeaderContent(content);
         toggleMenu(true);
+
     }
 
-    public void togglePause(boolean shouldPause) {
-        if(shouldPause) {
+    public void toggleScore(boolean show) {
+        if(show) {
             paused = true;
             UIContainer content = new VerticalContainer();
-            content.addUIComponent(new UIHeader("PAUSED", 72));
+            content.addUIComponent(new UIHeader("SCORE", 72));
             gameMenu.setHeaderContent(content);
             toggleMenu(true);
         } else {
@@ -68,8 +70,8 @@ public class PlayState extends State {
 
     @Override
     protected void handleInput() {
-        if (inputEnabled && !paused && input.isPressed(KeyEvent.VK_ESCAPE)) {
-            togglePause(!paused);
+        if (inputEnabled && !paused && input.isPressed(KeyEvent.VK_F1)) {
+            toggleScore(!paused);
         }
     }
 

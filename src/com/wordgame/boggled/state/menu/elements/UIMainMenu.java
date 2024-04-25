@@ -12,7 +12,7 @@ public class UIMainMenu extends VerticalContainer {
         centerChildren = true;
 
         setPadding(new Spacing(0,0,50,0));
-        final UIHeader header = new UIHeader("Boggled", 72);
+        final UIHeader header = new UIHeader("Boggled", 120);
         header.setPadding(new Spacing(0,0,50,0));
         addUIComponent(header);
 

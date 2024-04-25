@@ -11,7 +11,6 @@ import com.wordgame.boggled.ui.VerticalContainer;
 import com.wordgame.boggled.ui.clickable.UIButton;
 
 
-
 public class UIPlayMenu extends VerticalContainer {
 
     private final UIContainer headerContent;
@@ -22,17 +21,18 @@ public class UIPlayMenu extends VerticalContainer {
 
         setPadding(new Spacing(0,0,50,0));
         headerContent = new VerticalContainer();
-        headerContent.setPadding(new Spacing(0,0,50,0));
+        headerContent.setPadding(new Spacing(0,0,10,0));
 
         UIContainer buttonContainer = new VerticalContainer();
         buttonContainer.setPadding(new Spacing(0, 5, 5, 5));
 
-        buttonContainer.addUIComponent(new UIButton("MENU", 16, (state) -> state.setNextState(new MenuState(state.getWindowSize(), input, settings))));
-        buttonContainer.addUIComponent(new UIButton("RESUME", 16, (state) -> ((PlayState) state).togglePause(false)));
-        buttonContainer.addUIComponent(new UIButton("EXIT", 16, (state) -> System.exit(0)));
+        buttonContainer.addUIComponent(new UIButton("RESUME", 16, (state) -> ((PlayState) state).toggleScore(false)));
+        buttonContainer.addUIComponent(new UIButton("HOME", 16, (state) -> state.setNextState(new MenuState(state.getWindowSize(), input, settings))));
+        //buttonContainer.addUIComponent(new UIButton("EXIT", 16, (state) -> System.exit(0)));
 
         addUIComponent(headerContent);
         addUIComponent(buttonContainer);
+
     }
 
     public void setHeaderContent(UIContainer content) {
