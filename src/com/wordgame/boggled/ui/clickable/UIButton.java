@@ -53,7 +53,7 @@ public class UIButton extends UIClickable {
 
     @Override
     protected void onFocus(State state) {
-        state.getAudioPlayer().playSound("selectSE.wav");
+        //state.getAudioPlayer().playSound("selectSE.wav");
     }
 
     @Override

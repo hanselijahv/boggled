@@ -29,7 +29,7 @@ public class PlayState extends State {
         inputEnabled = true;
         initializeUI();
 
-        audioPlayer.playMusic("main.wav");
+        //audioPlayer.playMusic("main.wav");
 
     }
 

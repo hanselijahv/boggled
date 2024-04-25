@@ -13,7 +13,7 @@ public class MenuState extends State {
         super(windowSize, input, gameSettings);
 
         uiCanvas.addUIComponent(new UIMainMenu());
-        audioPlayer.playMusic("main.wav");
+        //audioPlayer.playMusic("main.wav");
 
     }
 
