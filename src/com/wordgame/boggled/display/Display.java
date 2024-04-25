@@ -47,7 +47,7 @@ public class Display extends JFrame {
 
         canvas.createBufferStrategy(2);
 
-        setSize(Toolkit.getDefaultToolkit().getScreenSize());
+        //setSize(Toolkit.getDefaultToolkit().getScreenSize());
         setLocationRelativeTo(null);
         setVisible(true);
     }
