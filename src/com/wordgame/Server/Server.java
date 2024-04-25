@@ -1,8 +1,10 @@
 package com.wordgame.Server;
 
+import com.wordgame.db.DatabaseConnector;
 import com.wordgame.db.PlayerDB;
 import com.wordgame.db.SettingsDB;
 import com.wordgame.references.Player;
+import com.wordgame.references.Settings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,7 @@ public class Server {
     public static void main(String[] args) {
         try {
             // TO DO: console testing, remove later
+            DatabaseConnector.getInstance();
             home();
 
         } catch (Exception e) {
@@ -45,6 +48,7 @@ public class Server {
                         changeSettings();
                         break;
                     case 3:
+                        System.out.println("Shutting down game...");
                         System.exit(0);
                 }
 
@@ -146,9 +150,9 @@ public class Server {
                 System.out.println("No player found with ID: " + playerIdToUpdate);
             } else {
                 System.out.print("Enter new username: ");
-                String newUsername = scanner.next();
+                String newUsername = scanner.nextLine();
                 System.out.print("Enter new password: ");
-                String newPassword = scanner.next();
+                String newPassword = scanner.nextLine();
 
                 playerToUpdate.setUsername(newUsername);
                 playerToUpdate.setPassword(newPassword);
@@ -188,8 +192,7 @@ public class Server {
             if (playerToRemove == null) {
                 System.out.println("No player found with ID: " + playerIdToRemove);
             } else {
-                players.remove(playerToRemove);
-
+                playerDB.removePlayer(playerToRemove);
                 System.out.println("Player removed successfully!");
             }
         } catch (Exception e) {
@@ -200,7 +203,42 @@ public class Server {
     }
 
     public static void changeSettings() {
+        try {
+            System.out.println("ADMIN - Edit Settings");
+            System.out.println("---------------");
+            System.out.print("Enter new Waiting Time (in seconds): ");
+            int waitingTime = Integer.parseInt(scanner.nextLine());
 
+            while (waitingTime < 10 || waitingTime > 30) {
+                System.out.println("Waiting Time must be between 10 and 30 seconds.");
+                System.out.print("Enter new Waiting Time (in seconds): ");
+                waitingTime = Integer.parseInt(scanner.nextLine());
+            }
+
+            System.out.print("Enter new Round Time (in seconds): ");
+            int roundTime = Integer.parseInt(scanner.nextLine());
+
+            while (roundTime < 30 || roundTime > 120) {
+                System.out.println("Round Time must be between 30 and 120 seconds.");
+                System.out.print("Enter new Round Time (in seconds): ");
+                roundTime = Integer.parseInt(scanner.nextLine());
+            }
+
+            System.out.print("Enter new Number of Rounds: ");
+            int numberOfRounds = Integer.parseInt(scanner.nextLine());
+
+            while (numberOfRounds < 3 || numberOfRounds > 10) {
+                System.out.println("Number of Rounds must be between 3 and 10.");
+                System.out.print("Enter new Number of Rounds: ");
+                numberOfRounds = Integer.parseInt(scanner.nextLine());
+            }
+
+            Settings settings = new Settings(waitingTime, roundTime, numberOfRounds);
+            settingsDB.updateSettings(settings);
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
 
     }
 }

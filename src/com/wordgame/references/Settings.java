@@ -3,11 +3,11 @@ package com.wordgame.references;
 import java.sql.Timestamp;
 
 public class Settings {
-    private Timestamp waitingTime;
-    private Timestamp roundTime;
+    private int waitingTime;
+    private int roundTime;
     private int numberOfRounds;
 
-    public Settings(Timestamp waitingTime, Timestamp roundTime, int numberOfRounds) {
+    public Settings(int waitingTime, int roundTime, int numberOfRounds) {
         this.waitingTime = waitingTime;
         this.roundTime = roundTime;
         this.numberOfRounds = numberOfRounds;
@@ -21,19 +21,19 @@ public class Settings {
         this.numberOfRounds = numberOfRounds;
     }
 
-    public Timestamp getWaitingTime() {
+    public int getWaitingTime() {
         return waitingTime;
     }
 
-    public void setWaitingTime(Timestamp waitingTime) {
+    public void setWaitingTime(int waitingTime) {
         this.waitingTime = waitingTime;
     }
 
-    public Timestamp getRoundTime() {
+    public int getRoundTime() {
         return roundTime;
     }
 
-    public void setRoundTime(Timestamp roundTime) {
+    public void setRoundTime(int roundTime) {
         this.roundTime = roundTime;
     }
 

@@ -21,7 +21,7 @@ public class PlayerDB {
             throw new IllegalArgumentException("Username already exists");
         }
         String playerId = generatePlayerId();
-        String sql = "INSERT INTO player (player_id, username, password) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO players (player_id, username, password) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, playerId);
             statement.setString(2, username);
@@ -31,7 +31,7 @@ public class PlayerDB {
     }
 
     private String generatePlayerId() throws SQLException {
-        String sql = "SELECT MAX(player_id) FROM player";
+        String sql = "SELECT MAX(player_id) FROM players";
         try (PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
             if (resultSet.next()) {
@@ -43,7 +43,7 @@ public class PlayerDB {
     }
 
     public boolean usernameExists(String username) throws SQLException {
-        String sql = "SELECT COUNT(*) FROM player WHERE username = ?";
+        String sql = "SELECT COUNT(*) FROM players WHERE username = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, username);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -58,7 +58,7 @@ public class PlayerDB {
 
     public List<Player> getAllPlayers() throws SQLException {
         List<Player> players = new ArrayList<>();
-        String sql = "SELECT * FROM player";
+        String sql = "SELECT * FROM players";
         try (PreparedStatement statement = connection.prepareStatement(sql); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 Player player = new Player();
@@ -72,7 +72,7 @@ public class PlayerDB {
     }
 
     public boolean authenticatePlayer(Player player) {
-        String sql = "SELECT COUNT(*) FROM player WHERE player_id = ? AND password = ?";
+        String sql = "SELECT COUNT(*) FROM players WHERE player_id = ? AND password = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, player.getPlayerId());
             statement.setString(2, player.getPassword());
@@ -89,7 +89,7 @@ public class PlayerDB {
     }
 
     public void removePlayer(Player player) {
-        String sql = "DELETE FROM player WHERE player_id = ?";
+        String sql = "DELETE FROM players WHERE player_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, player.getPlayerId());
             statement.execute();
@@ -99,7 +99,7 @@ public class PlayerDB {
     }
 
     public void updatePlayer(Player player) throws SQLException {
-        String sql = "UPDATE player SET username = ?, password = ? WHERE player_id = ?";
+        String sql = "UPDATE players SET username = ?, password = ? WHERE player_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, player.getUsername());
             statement.setString(2, player.getPassword());
