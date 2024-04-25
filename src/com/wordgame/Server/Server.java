@@ -165,6 +165,37 @@ public class Server {
     }
 
     public static void removeUser() {
+        try {
+            List<Player> players = playerDB.getAllPlayers();
+            System.out.println("Players: ");
+            for (Player player : players) {
+                System.out.println(player.getPlayerId() + ", " + player.getUsername() + ", " + player.getPassword());
+            }
+            System.out.println();
+
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter player ID to remove: ");
+            String playerIdToRemove = scanner.nextLine();
+
+            Player playerToRemove = null;
+            for (Player player : players) {
+                if (player.getPlayerId().equalsIgnoreCase(playerIdToRemove)) {
+                    playerToRemove = player;
+                    break;
+                }
+            }
+
+            if (playerToRemove == null) {
+                System.out.println("No player found with ID: " + playerIdToRemove);
+            } else {
+                players.remove(playerToRemove);
+
+                System.out.println("Player removed successfully!");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
 
     }
 
