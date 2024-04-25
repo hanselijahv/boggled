@@ -15,10 +15,10 @@ public class SettingsDB {
     }
 
     public void updateSettings(Settings settings){ // needs testing
-        String query = "UPDATE settings SET waitingTime = ?, roundTime = ?, numberOfRounds = ?";
+        String query = "UPDATE settings SET waiting_time = ?, round_time = ?, number_of_rounds = ?";
         try(PreparedStatement statement = connection.prepareStatement(query)){
-            statement.setTimestamp(1,settings.getWaitingTime());
-            statement.setTimestamp(2,settings.getRoundTime());
+            statement.setInt(1,settings.getWaitingTime());
+            statement.setInt(2,settings.getRoundTime());
             statement.setInt(3,settings.getNumberOfRounds());
             statement.execute();
             System.out.println("Saved Settings...");
@@ -26,4 +26,6 @@ public class SettingsDB {
             System.out.println(e.getMessage());
         }
     }
+
+
 }
