@@ -139,7 +139,7 @@ public class View extends JFrame {
         System.out.println("Enter your word (minimum 4 letters) or type 'exit' to end the temp.game: ");
 
         if ("exit".equalsIgnoreCase(input)) {
-            valid = false;
+            endGame();
         }
 
         if (input.length() < MIN_WORD_LENGTH) {
