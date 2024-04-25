@@ -1,17 +1,17 @@
-package com.wordgame.boggled.state.play.elements;
+package com.wordgame.boggled.state.wait.elements;
 
 import com.wordgame.boggled.game.time.Time;
 import com.wordgame.boggled.state.State;
-import com.wordgame.boggled.state.play.PlayState;
+import com.wordgame.boggled.state.wait.WaitState;
 import com.wordgame.boggled.ui.Alignment;
 import com.wordgame.boggled.ui.HorizontalContainer;
 import com.wordgame.boggled.ui.text.UIText;
 
-public class UIPlayTime extends HorizontalContainer {
+public class UIWaitTime extends HorizontalContainer {
 
     private final UIText gameTime;
 
-    public UIPlayTime() {
+    public UIWaitTime() {
         super();
         this.alignment = new Alignment(Alignment.Position.CENTER, Alignment.Position.START);
         this.gameTime = new UIText("", 32);
@@ -21,7 +21,7 @@ public class UIPlayTime extends HorizontalContainer {
     @Override
     public void update(State state) {
         super.update(state);
-        Time gameTime = ((PlayState) state).getGameTimer();
+        Time gameTime = ((WaitState) state).getGameTimer();
         this.gameTime.setText(gameTime.getFormattedTime());
     }
 }

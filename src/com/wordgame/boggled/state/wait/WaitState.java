@@ -1,31 +1,33 @@
-package com.wordgame.boggled.state.play;
+package com.wordgame.boggled.state.wait;
 
 import com.wordgame.boggled.core.Size;
 import com.wordgame.boggled.game.Game;
 import com.wordgame.boggled.game.time.Timer;
 import com.wordgame.boggled.game.settings.GameSettings;
-import com.wordgame.boggled.state.play.elements.UIPlayMenu;
-import com.wordgame.boggled.state.play.elements.UIPlayTime;
+import com.wordgame.boggled.state.wait.elements.UIWaitMenu;
+import com.wordgame.boggled.state.wait.elements.UIWaitTime;
 import com.wordgame.boggled.input.Input;
 import com.wordgame.boggled.state.State;
 import com.wordgame.boggled.ui.*;
 import com.wordgame.boggled.ui.text.UIHeader;
+import com.wordgame.boggled.ui.text.UIText;
 
 import java.awt.event.KeyEvent;
 
-public class PlayState extends State {
+public class WaitState extends State {
     private boolean paused;
     private boolean inputEnabled;
-    private final UIPlayMenu gameMenu;
+    private final UIWaitMenu gameMenu;
 
 
     private final Timer gameTimer;
 
-    public PlayState(Size windowSize, Input input, GameSettings gameSettings) {
+    public WaitState(Size windowSize, Input input, GameSettings gameSettings) {
         super(windowSize, input, gameSettings);
 
-        gameMenu = new UIPlayMenu(input, gameSettings);
-        gameTimer = new Timer(30, this::lose);
+
+        gameMenu = new UIWaitMenu(input, gameSettings);
+        gameTimer = new Timer(10, this::lose);
         inputEnabled = true;
         initializeUI();
 
@@ -34,22 +36,30 @@ public class PlayState extends State {
     }
 
     private void initializeUI() {
-        uiCanvas.addUIComponent(new UIPlayTime());
+        uiCanvas.addUIComponent(new UIWaitTime());
+
+        UIContainer label = new VerticalContainer();
+        label.setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.START));
+        label.addUIComponent(new UIText("WAITING...", 29));
+        label.setPadding(new Spacing(100,0,0,0));
+
+        uiCanvas.addUIComponent(label);
     }
 
     private void lose() {
         inputEnabled = false;
         UIContainer content = new VerticalContainer();
-        content.addUIComponent(new UIHeader("ROUND OVER", 72));
+        content.addUIComponent(new UIHeader("NO PLAYERS JOINED", 72));
         gameMenu.setHeaderContent(content);
         toggleMenu(true);
+
     }
 
-    public void togglePause(boolean shouldPause) {
-        if(shouldPause) {
+    public void toggleScore(boolean show) {
+        if(show) {
             paused = true;
             UIContainer content = new VerticalContainer();
-            content.addUIComponent(new UIHeader("PAUSED", 72));
+            content.addUIComponent(new UIHeader("SCORE", 72));
             gameMenu.setHeaderContent(content);
             toggleMenu(true);
         } else {
@@ -68,8 +78,8 @@ public class PlayState extends State {
 
     @Override
     protected void handleInput() {
-        if (inputEnabled && !paused && input.isPressed(KeyEvent.VK_ESCAPE)) {
-            togglePause(!paused);
+        if (inputEnabled && !paused && input.isPressed(KeyEvent.VK_F1)) {
+            toggleScore(!paused);
         }
     }
 
