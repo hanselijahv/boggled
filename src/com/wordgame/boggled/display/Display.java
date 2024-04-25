@@ -52,7 +52,6 @@ public class Display extends JFrame {
         setVisible(true);
     }
 
-
     public void render(State state) {
         BufferStrategy bufferStrategy = canvas.getBufferStrategy();
         Graphics graphics = bufferStrategy.getDrawGraphics();
