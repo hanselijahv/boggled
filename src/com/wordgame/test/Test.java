@@ -94,7 +94,6 @@ public class Test {
         return randomLetters;
     }
 
-
     private static List<Character> generateRandomVowels() {
         List<Character> vowels = new ArrayList<>();
         Random random = new Random();
