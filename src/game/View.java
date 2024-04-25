@@ -8,22 +8,42 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.List;
+import java.util.Timer;
 
 public class View extends JFrame {
-
 
     private static int totalScore;
     private static final int VOWEL_COUNT = 7;
     private static final int CONSONANT_COUNT = 13;
     private static Font calculatorFont;
     private static List<Character> letters;
-
+    private static Set<String> dictionary;
+    private static final List<String> words = new ArrayList<>();
+    private static final int MIN_WORD_LENGTH = 4;
+    private static final int GAME_DURATION = 120;
     private ImageTextField inputField;
+
+    public static void loadDictionary() {
+        dictionary = new HashSet<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("res/text/words.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                dictionary.add(line.toLowerCase());
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading dictionary file: " + e.getMessage());
+            System.exit(1);
+        }
+    }
+
 
     public static List<Character> generateRandomLetters() {
         List<Character> randomLetters = new ArrayList<>();
@@ -43,6 +63,7 @@ public class View extends JFrame {
         return vowels;
     }
 
+
     private static List<Character> generateRandomConsonants() {
         List<Character> consonants = new ArrayList<>();
         Random random = new Random();
@@ -56,14 +77,99 @@ public class View extends JFrame {
         return consonants;
     }
 
+    private static boolean canFormWord(String word) {
+        List<Character> remainingLetters = new ArrayList<>(letters);
+        for (char letter : word.toCharArray()) {
+            boolean found = false;
+            for (Iterator<Character> iterator = remainingLetters.iterator(); iterator.hasNext(); ) {
+                char currentLetter = iterator.next();
+                if (Character.toLowerCase(currentLetter) == Character.toLowerCase(letter)) {
+                    iterator.remove();
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean isValidWord(String word) {
+        return dictionary.contains(word.toLowerCase());
+    }
+
+    private static void endGame() {
+        System.out.println("Time's up!");
+        System.out.println("Total Score: " + totalScore);
+        System.out.println("Words entered: " + words);
+        System.exit(0);
+    }
+
     public static void main(String[] args) {
         try {
             View view = new View();
             view.createJFrame();
 
+            loadDictionary();
+
+            letters = generateRandomLetters();
+
+            System.out.println("Random letters: " + letters);
+
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    endGame();
+                }
+            }, GAME_DURATION * 1000);
+
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
         }
+    }
+
+    public void duringGame(String input) {
+        int wordScore = 0;
+        boolean valid = true;
+
+        System.out.println("Random letters: " + letters);
+        System.out.println("Enter your word (minimum 4 letters) or type 'exit' to end the temp.game: ");
+
+        if ("exit".equalsIgnoreCase(input)) {
+            valid = false;
+        }
+
+        if (input.length() < MIN_WORD_LENGTH) {
+            System.out.println("Word must be at least 4 letters long.");
+            valid = false;
+        }
+
+        if (!canFormWord(input)) {
+            System.out.println("Word cannot be formed from the given letters.");
+            valid = false;
+        }
+
+        if (!isValidWord(input)) {
+            System.out.println("Word is not found in the dictionary.");
+            valid = false;
+        }
+
+        if (words.contains(input)) {
+            System.out.println("Word duplicated not counted");
+            valid = false;
+        }
+
+        if (valid) {
+            words.add(input);
+            wordScore = input.length();
+            totalScore += wordScore;
+        }
+
+        System.out.println("Word Score: " + wordScore);
+        System.out.println("Total Score: " + totalScore);
     }
 
     public void createJFrame() throws IOException, FontFormatException {
@@ -102,9 +208,25 @@ public class View extends JFrame {
         inputField.setBackground(new Color(212, 226, 227));
         inputField.setBorder(new CompoundBorder(new LineBorder(Color.BLACK), new EmptyBorder(10, 10, 10, 10)));
         inputField.setHorizontalAlignment(JTextField.RIGHT);
+
+        // NEW
+        inputField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                duringGame(handleInputFieldEnter());
+                inputField.setText("");
+            }
+        });
+
         return inputField;
     }
 
+    // NEW
+    private String handleInputFieldEnter() {
+        String inputText = inputField.getText();
+        //System.out.println("Entered text: " + inputText);
+        return inputText;
+    }
 
     public JPanel buttonPanel() {
         JPanel buttonPanel = new JPanel(new GridLayout(5, 4, 5, 5));
@@ -154,14 +276,11 @@ public class View extends JFrame {
         }
     }
 
-
     public ImageIcon createScaledImageIcon(String path) {
         ImageIcon image = new ImageIcon(Objects.requireNonNull(getClass().getResource(path)));
         Image scaledImg = image.getImage().getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
         return new ImageIcon(scaledImg);
     }
-
-
 }
 
 class ImageTextField extends JTextField {
@@ -183,7 +302,6 @@ class ImageTextField extends JTextField {
     public void setImage(ImageIcon icon) {
         this.imageIcon = icon;
     }
-
 }
 
 class StyledButtonUI extends BasicButtonUI {
