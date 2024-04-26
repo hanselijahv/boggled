@@ -82,6 +82,7 @@ public class UICheckbox extends UIComponent {
         public void onClick(State state) {
             if(hasFocus) {
                 value.setValue(!value.get());
+                state.getAudioPlayer().playSound("SFX_UI_MenuSelections.wav");
             }
         }
 

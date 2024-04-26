@@ -59,7 +59,7 @@ public class AudioPlayer {
         } catch (IllegalArgumentException e) {
             System.out.println("Error: No Audio Devices Found!");
         } catch (LineUnavailableException ex) {
-            System.out.println("Error: Requested line is already in use by another application!");
+            System.out.println("Error: Requested line is already in use by another application!" + ex.getMessage());
         } catch (IOException ioe) {
             System.out.println("Error: File not found!");
         } catch (UnsupportedAudioFileException uae) {

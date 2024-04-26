@@ -28,6 +28,7 @@ public abstract class UIComponent {
     }
 
     public abstract Image getSprite();
+
     public abstract void update(State state) throws SQLException;
 
     public Position getRelativePosition() {

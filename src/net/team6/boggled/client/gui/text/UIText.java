@@ -1,6 +1,7 @@
 package net.team6.boggled.client.gui.text;
 
 import net.team6.boggled.client.core.Size;
+import net.team6.boggled.utilities.BoggledColors;
 import net.team6.boggled.utilities.ImageUtils;
 import net.team6.boggled.client.state.State;
 import net.team6.boggled.client.gui.component.UIComponent;
@@ -29,10 +30,10 @@ public class UIText extends UIComponent {
         this.text = text;
         this.fontSize = fontSize;
         this.fontStyle = Font.BOLD;
-        this.color = Color.WHITE;
+        this.color = BoggledColors.PRIMARY_COLOR;
         this.dropShadow = true;
         this.dropShadowOffset = 2;
-        this.shadowColor = new Color(140,140, 140);
+        this.shadowColor = BoggledColors.PRIMARY_SHADOW_COLOR;
 
         createFont();
     }

@@ -149,4 +149,9 @@ public abstract class UIContainer extends UIComponent {
     public List<UIComponent> getComponents() {
         return children;
     }
+
+    public void setDimmedBackground(Color color) {
+        backgroundColor = color;
+        generateSprite();
+    }
 }

@@ -6,6 +6,7 @@ import net.team6.boggled.client.gui.tools.Spacing;
 import net.team6.boggled.client.gui.container.UIContainer;
 import net.team6.boggled.client.gui.text.UIText;
 import net.team6.boggled.client.gui.container.VerticalContainer;
+import net.team6.boggled.utilities.BoggledColors;
 
 import java.awt.*;
 import java.sql.SQLException;
@@ -22,7 +23,6 @@ public class UIButton extends UIClickable {
     public UIButton(String label, int fontSize, ClickAction clickAction) {
         this.label = new UIText(label, fontSize);
         this.clickAction = clickAction;
-
         backgroundColor = Color.GRAY;
 
         setMargin(new Spacing(5, 0, 0, 0));
@@ -39,14 +39,14 @@ public class UIButton extends UIClickable {
         container.update(state);
         size = container.getSize();
 
-        Color color = backgroundColor;
+        Color color = BoggledColors.BUTTON_COLOR;
 
         if(hasFocus) {
-            color = Color.LIGHT_GRAY;
+            color = BoggledColors.BUTTON_HIGHLIGHTED_COLOR;
         }
 
         if(isPressed) {
-            color = Color.DARK_GRAY;
+            color = BoggledColors.BUTTON_PRESSED_COLOR;
         }
 
         container.setBackgroundColor(color);
@@ -54,12 +54,12 @@ public class UIButton extends UIClickable {
 
     @Override
     protected void onFocus(State state) {
-        state.getAudioPlayer().playSound("selectSE.wav");
     }
 
     @Override
     public void onClick(State state) {
         clickAction.execute(state);
+        state.getAudioPlayer().playSound("SFX_UI_MenuSelections.wav");
     }
 
     @Override

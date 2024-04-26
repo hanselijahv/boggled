@@ -5,6 +5,7 @@ import net.team6.boggled.client.core.Size;
 import net.team6.boggled.client.game.ResizeCallback;
 import net.team6.boggled.client.input.Input;
 import net.team6.boggled.client.state.State;
+import net.team6.boggled.utilities.BoggledColors;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,7 +59,7 @@ public class Display extends JFrame {
         Graphics2D graphics2D = (Graphics2D) graphics;
         do {
             try {
-                graphics2D.setColor(Color.decode("#0d1b2a"));
+                graphics2D.setColor(BoggledColors.SYSTEM_COLOR);
                 graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 renderer.render(state, graphics);
             } finally {

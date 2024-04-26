@@ -15,13 +15,15 @@ import net.team6.boggled.client.gui.text.UIHeader;
 import net.team6.boggled.client.gui.text.UIText;
 import net.team6.boggled.client.gui.tools.Alignment;
 import net.team6.boggled.client.gui.tools.Spacing;
+import net.team6.boggled.utilities.BoggledColors;
 
+import javax.sound.sampled.LineUnavailableException;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 
 public class WaitingState extends State {
-    private boolean paused;
+    private boolean showScore;
     private boolean inputEnabled;
     private final UIWaitingMenu gameMenu;
 
@@ -53,7 +55,7 @@ public class WaitingState extends State {
 
         UIContainer text = new VerticalContainer();
         text.setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER));
-        text.setBackgroundColor(Color.WHITE);
+        text.setBackgroundColor(BoggledColors.MENU_BACKGROUND_COLOR);
         text.setPadding(new Spacing(200,70));
 
         uiCanvas.addUIComponent(text);
@@ -62,24 +64,27 @@ public class WaitingState extends State {
     }
 
     private void lose() {
+        uiCanvas.clear();
         inputEnabled = false;
         UIContainer content = new VerticalContainer();
         content.addUIComponent(new UIHeader("NO PLAYERS JOINED", 72));
         gameMenu.setHeaderContent(content);
+        cleanup();
 
+        audioPlayer.playMusic("SFX_UI_ROOM_ERROR.wav");
         toggleMenu(true);
-
     }
 
     public void toggleScore(boolean show) {
         if(show) {
-            paused = true;
+            showScore = true;
             UIContainer content = new VerticalContainer();
             content.addUIComponent(new UIHeader("SCORE", 72));
+            content.setDimmedBackground(new Color(0,0,0,90));
             gameMenu.setHeaderContent(content);
             toggleMenu(true);
         } else {
-            paused = false;
+            showScore = false;
             toggleMenu(false);
         }
     }
@@ -94,17 +99,19 @@ public class WaitingState extends State {
 
     @Override
     protected void handleInput() {
-        if (inputEnabled && !paused && input.isPressed(KeyEvent.VK_F1)) {
-            toggleScore(!paused);
+        if (inputEnabled && !showScore && input.isPressed(KeyEvent.VK_1)) {
+            toggleScore(!showScore);
         }
     }
 
     @Override
     public void update(Game game) throws SQLException {
         super.update(game);
-        if(!paused) {
+        if(!showScore) {
             gameTimer.update();
             handleInput();
+        } else {
+            gameTimer.update();
         }
     }
 

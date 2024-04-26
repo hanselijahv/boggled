@@ -11,8 +11,8 @@ import net.team6.boggled.client.gui.clickable.UISlider;
 import net.team6.boggled.client.gui.text.UIText;
 import net.team6.boggled.client.gui.tools.Alignment;
 import net.team6.boggled.client.gui.tools.Spacing;
+import net.team6.boggled.utilities.BoggledColors;
 
-import java.awt.*;
 import java.sql.SQLException;
 
 public class UIHomeOptionMenu extends VerticalContainer {
@@ -51,7 +51,7 @@ public class UIHomeOptionMenu extends VerticalContainer {
 
         contentContainer.addUIComponent(new UIButton("BACK", 16, (state) -> ((HomeState) state).enterMenu(new UIHomeMenu())));
 
-        setBackgroundColor(Color.decode("#051923"));
+        setBackgroundColor(BoggledColors.MENU_BACKGROUND_COLOR);
         addUIComponent(labelContainer);
         addUIComponent(contentContainer);
     }

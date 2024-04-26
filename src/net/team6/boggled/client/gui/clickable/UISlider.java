@@ -1,6 +1,7 @@
 package net.team6.boggled.client.gui.clickable;
 
 import net.team6.boggled.client.core.Size;
+import net.team6.boggled.utilities.BoggledColors;
 import net.team6.boggled.utilities.ImageUtils;
 import net.team6.boggled.client.state.State;
 import net.team6.boggled.client.gui.tools.Spacing;
@@ -11,8 +12,8 @@ import java.awt.image.BufferedImage;
 public class UISlider extends UIClickable {
 
     private double value;
-    private double min;
-    private double max;
+    private final double min;
+    private final double max;
 
     public UISlider(double min, double max) {
         this.min = min;
@@ -59,10 +60,10 @@ public class UISlider extends UIClickable {
         BufferedImage sprite = (BufferedImage) ImageUtils.createCompatibleImage(size, ImageUtils.ALPHA_OPAQUE);
         Graphics2D graphics = sprite.createGraphics();
 
-        graphics.setColor(Color.GRAY);
+        graphics.setColor(BoggledColors.PRIMARY_SHADOW_COLOR);
         graphics.fillRect(0, 0, size.getWidth(), size.getHeight());
 
-        graphics.setColor(Color.WHITE);
+        graphics.setColor(BoggledColors.PRIMARY_COLOR);
         graphics.fillRect(0, 0, getPixelsOfCurrentValue(), size.getHeight());
 
         graphics.dispose();

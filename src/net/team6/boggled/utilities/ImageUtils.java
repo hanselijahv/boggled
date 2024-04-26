@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class ImageUtils {
 
@@ -15,7 +16,7 @@ public class ImageUtils {
 
     public static Image loadImage(String filePath) {
         try {
-            Image imageFromDisk = ImageIO.read(ImageUtils.class.getResource(filePath));
+            Image imageFromDisk = ImageIO.read(Objects.requireNonNull(ImageUtils.class.getResource(filePath)));
             BufferedImage compatibleImage = (BufferedImage) createCompatibleImage(
                     new Size(imageFromDisk.getWidth(null), imageFromDisk.getHeight(null)),
                     ALPHA_BIT_MASKED
