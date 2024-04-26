@@ -21,6 +21,7 @@ import java.util.Timer;
 
 public class View extends JFrame {
 
+    private JPanel buttonPanel; // Add this line
     private static int totalScore;
     private static final int VOWEL_COUNT = 7;
     private static final int CONSONANT_COUNT = 13;
@@ -42,7 +43,7 @@ public class View extends JFrame {
 
 
             System.out.println("Random letters: " + letters);
-            view.printAllPossibleWords();
+//            view.printAllPossibleWords();
 
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {
@@ -77,7 +78,6 @@ public class View extends JFrame {
             System.exit(1);
         }
     }
-
 
     public static List<Character> generateRandomLetters() {
         List<Character> randomLetters = new ArrayList<>();
@@ -199,9 +199,11 @@ public class View extends JFrame {
         JPanel contentPane = new JPanel(new BorderLayout(5, 5));
         contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
         JTextField inputField = inputField();
-        JPanel buttonPanel = buttonPanel();
+        buttonPanel = buttonPanel();
+        JPanel actionPanel = createActionPanel();
         contentPane.add(inputField, BorderLayout.NORTH);
         contentPane.add(buttonPanel, BorderLayout.CENTER);
+        contentPane.add(actionPanel, BorderLayout.SOUTH);
         setContentPane(contentPane);
         return contentPane;
     }
@@ -243,6 +245,75 @@ public class View extends JFrame {
         buttonPanel.setPreferredSize(new Dimension(325, 300));
         addButtonsToPanel(buttonPanel);
         return buttonPanel;
+    }
+    public JPanel createActionPanel() {
+        JPanel actionPanel = new JPanel(new GridLayout(1, 3, 5, 5));
+
+        JButton reshuffleButton = new JButton();
+        reshuffleButton.setIcon(createScaledImageIcon("res/img/redo.png"));
+        reshuffleButton.setFont(calculatorFont);
+        reshuffleButton.setBackground(new Color(213, 215, 216));
+        reshuffleButton.setUI(new StyledButtonUI());
+
+        reshuffleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Step 1: Create a list of all the buttons in the buttonPanel
+                List<JButton> buttons = new ArrayList<>();
+                for (Component component : buttonPanel.getComponents()) {
+                    if (component instanceof JButton) {
+                        buttons.add((JButton) component);
+                    }
+                }
+
+                // Step 2: Remove all components from the buttonPanel
+                buttonPanel.removeAll();
+
+                // Step 3: Shuffle the list of buttons
+                Collections.shuffle(buttons);
+
+                // Step 4: Re-add the buttons to the buttonPanel in their new order
+                for (JButton button : buttons) {
+                    buttonPanel.add(button);
+                }
+
+                // Refresh the buttonPanel
+                buttonPanel.revalidate();
+                buttonPanel.repaint();
+            }
+        });
+        actionPanel.add(reshuffleButton);
+
+        JButton clearButton = new JButton();
+        clearButton.setIcon(createScaledImageIcon("res/img/trash.png"));
+        clearButton.setFont(calculatorFont);
+        clearButton.setBackground(new Color(213, 215, 216));
+        clearButton.setUI(new StyledButtonUI());
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                inputField.setText("");
+            }
+        });
+        actionPanel.add(clearButton);
+
+        JButton removeLetterButton = new JButton();
+        removeLetterButton.setIcon(createScaledImageIcon("res/img/delete.png"));
+        removeLetterButton.setFont(calculatorFont);
+        removeLetterButton.setBackground(new Color(213, 215, 216));
+        removeLetterButton.setUI(new StyledButtonUI());
+        removeLetterButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String text = inputField.getText();
+                if (!text.isEmpty()) {
+                    inputField.setText(text.substring(0, text.length() - 1));
+                }
+            }
+        });
+        actionPanel.add(removeLetterButton);
+
+        return actionPanel;
     }
 
     public void addButtonsToPanel(JPanel buttonPanel) {
