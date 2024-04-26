@@ -8,7 +8,7 @@ import java.sql.*;
 public class SettingsDB {
     //TODO Bryan
 
-    private Connection connection;
+    private static Connection connection;
 
     public SettingsDB(){
         this.connection = DatabaseConnector.getInstance().getConnection();
@@ -21,10 +21,25 @@ public class SettingsDB {
             statement.setInt(2,settings.getRoundTime());
             statement.setInt(3,settings.getRoundsToWin());
             statement.execute();
-            System.out.println("Saved Settings...");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public Settings getSettings(){ // needs testing
+        String query = "SELECT * FROM settings";
+        try(PreparedStatement statement = connection.prepareStatement(query)) {
+            ResultSet resultSet = statement.executeQuery(query);
+            if(resultSet.next()){
+                return new Settings(
+                        resultSet.getInt("waiting_time"),
+                        resultSet.getInt("round_time"),
+                        resultSet.getInt("number_of_rounds"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
 

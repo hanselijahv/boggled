@@ -1,20 +1,16 @@
-package com.wordgame.boggled.display;
-
+package com.wordgame.boggled.server.display;
 
 import com.wordgame.boggled.state.State;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class
-Renderer {
+public class DevRenderer {
+    private DevDisplay display;
 
-    private Display display;
-
-    public Renderer(Display display) {
-        this.display = display; // Initialize the display object in the constructor
+    public DevRenderer(DevDisplay display) {
+        this.display = display;
     }
-
 
     public void render(State state, Graphics graphics){
         renderUI(state, graphics);
@@ -35,14 +31,14 @@ Renderer {
                 null
         ));
 
-        if (state.getGameSettings().isFullScreenMode().get()){
+        if (state.getBoggledSettings().isFullScreenMode().get()){
             display.setExtendedState(JFrame.MAXIMIZED_BOTH);
         } else {
             display.setExtendedState(JFrame.NORMAL);
         }
     }
 
-    public Display getDisplay() {
+    public DevDisplay getDisplay() {
         return display;
     }
 
@@ -54,6 +50,5 @@ Renderer {
             display.setLocation(x, y);
         }
     }
-
 
 }
