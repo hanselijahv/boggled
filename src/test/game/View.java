@@ -1,12 +1,17 @@
-package game;
+package test.game;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,10 +20,8 @@ import java.util.*;
 import java.util.List;
 import java.util.Timer;
 
-
 public class View extends JFrame {
 
-    private JPanel buttonPanel; // Add this line
     private static int totalScore;
     private static final int VOWEL_COUNT = 7;
     private static final int CONSONANT_COUNT = 13;
@@ -26,42 +29,11 @@ public class View extends JFrame {
     private static List<Character> letters;
     private static Set<String> dictionary;
     private static final List<String> words = new ArrayList<>();
+    private static Map<Character, Integer> letterOccurrences;
     private static final int MIN_WORD_LENGTH = 4;
     private static final int GAME_DURATION = 120;
+    private static char deletedChar;
     private ImageTextField inputField;
-
-    public static void main(String[] args) {
-        try {
-            View view = new View();
-            view.createJFrame();
-
-            loadDictionary();
-            letters = generateRandomLetters();
-
-
-            System.out.println("Random letters: " + letters);
-//            view.printAllPossibleWords();
-
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    endGame();
-                }
-            }, GAME_DURATION * 1000);
-
-        } catch (IOException | FontFormatException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void printAllPossibleWords() {
-        for (String word : dictionary) {
-            if (canFormWord(word)) {
-                System.out.println(word);
-            }
-        }
-    }
 
     public static void loadDictionary() {
         dictionary = new HashSet<>();
@@ -75,6 +47,7 @@ public class View extends JFrame {
             System.exit(1);
         }
     }
+
 
     public static List<Character> generateRandomLetters() {
         List<Character> randomLetters = new ArrayList<>();
@@ -138,13 +111,36 @@ public class View extends JFrame {
         System.exit(0);
     }
 
+    public static void main(String[] args) {
+        try {
+            View view = new View();
+            view.createJFrame();
+
+            loadDictionary();
+
+            letters = generateRandomLetters();
+
+            System.out.println("Random letters: " + letters);
+
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    endGame();
+                }
+            }, GAME_DURATION * 1000);
+
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void duringGame(String input) {
         int wordScore = 0;
+        boolean valid = true;
 
         System.out.println("Random letters: " + letters);
         System.out.println("Enter your word (minimum 4 letters) or type 'exit' to end the temp.game: ");
-
 
         if ("exit".equalsIgnoreCase(input)) {
             endGame();
@@ -152,22 +148,25 @@ public class View extends JFrame {
 
         if (input.length() < MIN_WORD_LENGTH) {
             System.out.println("Word must be at least 4 letters long.");
+            valid = false;
         }
 
         if (!canFormWord(input)) {
             System.out.println("Word cannot be formed from the given letters.");
+            valid = false;
         }
 
         if (!isValidWord(input)) {
             System.out.println("Word is not found in the dictionary.");
+            valid = false;
         }
 
         if (words.contains(input)) {
             System.out.println("Word duplicated not counted");
+            valid = false;
         }
 
-        if (isValidWord(input)) {
-            System.out.println("Word is found in the dictionary.");
+        if (valid) {
             words.add(input);
             wordScore = input.length();
             totalScore += wordScore;
@@ -195,12 +194,11 @@ public class View extends JFrame {
     public JPanel contentPane() throws IOException, FontFormatException {
         JPanel contentPane = new JPanel(new BorderLayout(5, 5));
         contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
+        letters = generateRandomLetters();
         JTextField inputField = inputField();
-        buttonPanel = buttonPanel();
-        JPanel actionPanel = createActionPanel();
+        JPanel buttonPanel = buttonPanel();
         contentPane.add(inputField, BorderLayout.NORTH);
         contentPane.add(buttonPanel, BorderLayout.CENTER);
-        contentPane.add(actionPanel, BorderLayout.SOUTH);
         setContentPane(contentPane);
         return contentPane;
     }
@@ -225,7 +223,18 @@ public class View extends JFrame {
             }
         });
 
-//        inputField.setFocusable(false); //TODO: to be removed when correct updateButtonColor is implemented
+        // TODO listener for backspace
+        inputField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                    String text = inputField.getText();
+                    if (text.length() > 0) {
+                        deletedChar = text.charAt(text.length() - 1);
+                    }
+                }
+            }
+        });
 
         return inputField;
     }
@@ -233,7 +242,6 @@ public class View extends JFrame {
     // NEW
     private String handleInputFieldEnter() {
         String inputText = inputField.getText();
-        System.out.println("Entered text: " + inputText);
         return inputText;
     }
 
@@ -243,130 +251,138 @@ public class View extends JFrame {
         addButtonsToPanel(buttonPanel);
         return buttonPanel;
     }
-    public JPanel createActionPanel() {
-        JPanel actionPanel = new JPanel(new GridLayout(1, 3, 5, 5));
 
-        JButton reshuffleButton = new JButton();
-        reshuffleButton.setIcon(createScaledImageIcon("res/img/redo.png"));
-        reshuffleButton.setFont(calculatorFont);
-        reshuffleButton.setBackground(new Color(213, 215, 216));
-        reshuffleButton.setUI(new StyledButtonUI());
-
-        reshuffleButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                List<JButton> buttons = new ArrayList<>();
-                for (Component component : buttonPanel.getComponents()) {
-                    if (component instanceof JButton) {
-                        buttons.add((JButton) component);
-                    }
-                }
-                buttonPanel.removeAll();
-                Collections.shuffle(buttons);
-                for (JButton button : buttons) {
-                    buttonPanel.add(button);
-                }
-
-                buttonPanel.revalidate();
-                buttonPanel.repaint();
-            }
-        });
-        actionPanel.add(reshuffleButton);
-
-        JButton clearButton = new JButton();
-        clearButton.setIcon(createScaledImageIcon("res/img/trash.png"));
-        clearButton.setFont(calculatorFont);
-        clearButton.setBackground(new Color(213, 215, 216));
-        clearButton.setUI(new StyledButtonUI());
-        clearButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                inputField.setText("");
-            }
-        });
-        actionPanel.add(clearButton);
-
-        JButton removeLetterButton = new JButton();
-        removeLetterButton.setIcon(createScaledImageIcon("res/img/delete.png"));
-        removeLetterButton.setFont(calculatorFont);
-        removeLetterButton.setBackground(new Color(213, 215, 216));
-        removeLetterButton.setUI(new StyledButtonUI());
-        removeLetterButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String text = inputField.getText();
-                if (!text.isEmpty()) {
-                    inputField.setText(text.substring(0, text.length() - 1));
-                }
-            }
-        });
-        actionPanel.add(removeLetterButton);
-
-        return actionPanel;
-    }
+//    public void addButtonsToPanel(JPanel buttonPanel) {
+//        letters = generateRandomLetters();
+//        for (Character letter : letters) {
+//            JButton button = new JButton(letter.toString());
+//            button.setPreferredSize(new Dimension(55, 55));
+//            button.setFont(calculatorFont);
+//            button.setBackground(new Color(213, 215, 216));
+//            button.setUI(new StyledButtonUI());
+//            buttonPanel.add(button);
+//            addColorChangeListener(button);
+//        }
+//    }
 
     public void addButtonsToPanel(JPanel buttonPanel) {
-        letters = generateRandomLetters();
+        Map<Character, Integer> letterOccurrences = new HashMap<>();
+        letters.forEach(letter -> letterOccurrences.put(letter, letterOccurrences.getOrDefault(letter, 0) + 1));
         for (Character letter : letters) {
             JButton button = new JButton(letter.toString());
+            button.addActionListener(e -> {
+                addColorChangeListener(button);
+                //if (letterOccurrences.get(letter) > 0) {
+                inputField.setText(inputField.getText() + letter);
+                letterOccurrences.put(letter, letterOccurrences.get(letter) - 1);
+                disableButton(buttonPanel, letterOccurrences);
+                //}
+            });
             button.setPreferredSize(new Dimension(55, 55));
             button.setFont(calculatorFont);
             button.setBackground(new Color(213, 215, 216));
             button.setUI(new StyledButtonUI());
             buttonPanel.add(button);
-
-            button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String buttonText = button.getText();
-                    String inputText = inputField.getText();
-
-                    if (inputText.contains(buttonText)) {
-                        inputText = inputText.replaceFirst(buttonText, "");
-                        inputField.setText(inputText);
-                        button.setBackground(new Color(213, 215, 216));
-                    } else {
-                        inputField.setText(inputText + buttonText);
-                        button.setBackground(new Color(90, 171, 93));
-                    }
-                }
-            });
         }
     }
 
-//    public void addColorChangeListener(JButton button) {
-//        inputField.getDocument().addDocumentListener(new DocumentListener() {
-//            @Override
-//            public void insertUpdate(DocumentEvent e) {
-//                updateButtonColor(button);
-//            }
-//
-//            @Override
-//            public void removeUpdate(DocumentEvent e) {
-//                updateButtonColor(button);
-//            }
-//
-//            @Override
-//            public void changedUpdate(DocumentEvent e) {
-//                updateButtonColor(button);
-//            }
-//        });
-//    }
+    private void disableButton(JPanel buttonPanel, Map<Character, Integer> letterOccurrences) {
+        for (Component component : buttonPanel.getComponents()) {
+            JButton button = (JButton) component;
+            if (component instanceof JButton) {
+                button = (JButton) component;
+                char letter = button.getText().charAt(0);
+                button.setEnabled(letterOccurrences.get(letter) > 0);
+            }
+        }
+    }
 
-//    public void updateButtonColor(JButton button) {
-//        String input = inputField.getText();
-//        if (input.contains(button.getText())) {
-//            button.setBackground(new Color(90, 171, 93));
-//        } else {
-//            button.setBackground(new Color(213, 215, 216));
-//        }
-//    }
+    public void addColorChangeListener(JButton button) {
+        inputField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateButtonColor(button);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateButtonColor(button);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateButtonColor(button);
+            }
+        });
+    }
+
+    public void updateButtonColor(JButton button) {
+        String input = inputField.getText();
+        if (input.contains(button.getText())) {
+            button.setBackground(new Color(90, 171, 93));
+        } else {
+            button.setBackground(new Color(213, 215, 216));
+            button.setEnabled(true);
+        }
+    }
 
     public ImageIcon createScaledImageIcon(String path) {
         ImageIcon image = new ImageIcon(Objects.requireNonNull(getClass().getResource(path)));
-        Image scaledImg = image.getImage().getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
+        Image scaledImg = image.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         return new ImageIcon(scaledImg);
     }
-} // end of view class
+}
 
+class ImageTextField extends JTextField {
+    private ImageIcon imageIcon;
 
+    public ImageTextField(ImageIcon icon) {
+        super();
+        this.imageIcon = icon;
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        int imageX = 5;
+        int imageY = (getHeight() - imageIcon.getIconHeight()) / 2;
+        imageIcon.paintIcon(this, g, imageX, imageY);
+    }
+
+    public void setImage(ImageIcon icon) {
+        this.imageIcon = icon;
+    }
+}
+
+class StyledButtonUI extends BasicButtonUI {
+
+    @Override
+    public void installUI(JComponent c) {
+        super.installUI(c);
+        AbstractButton button = (AbstractButton) c;
+        button.setOpaque(false);
+        button.setBorder(new EmptyBorder(5, 15, 5, 15));
+    }
+
+    @Override
+    public void paint(Graphics g, JComponent c) {
+        AbstractButton b = (AbstractButton) c;
+        paintBackground(g, b, b.getModel().isPressed() ? 2 : 0);
+        super.paint(g, c);
+    }
+
+    private void paintBackground(Graphics g, JComponent c, int yOffset) {
+        Dimension size = c.getSize();
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        if (c instanceof JToggleButton) {
+            yOffset += 2;
+        }
+
+        g.setColor(c.getBackground().darker());
+        g.fillRoundRect(0, yOffset, size.width, size.height - yOffset, 10, 10);
+        g.setColor(c.getBackground());
+        g.fillRoundRect(0, yOffset, size.width, size.height + yOffset - 5, 10, 10);
+    }
+}
