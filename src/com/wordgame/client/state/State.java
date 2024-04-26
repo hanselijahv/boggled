@@ -12,6 +12,7 @@ import com.wordgame.server.state.settings.BoggledSettings;
 import com.wordgame.client.gui.AlignableContainer;
 import com.wordgame.client.gui.UICanvas;
 
+import java.sql.SQLException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -47,7 +48,7 @@ public abstract class State {
         time = new Time();
     }
 
-    public void update(Game game) {
+    public void update(Game game) throws SQLException {
         audioPlayer.update();
         time.update();
         uiCanvas.update(this);
@@ -58,7 +59,7 @@ public abstract class State {
         }
     }
 
-    public void serverUpdate(Server server) {
+    public void serverUpdate(Server server) throws SQLException {
         // audioPlayer.update();
         time.update();
         uiCanvas.update(this);

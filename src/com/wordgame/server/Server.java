@@ -8,19 +8,21 @@ import com.wordgame.server.state.menu.ServerMenuState;
 import com.wordgame.server.state.settings.BoggledSettings;
 import com.wordgame.client.state.State;
 
+import java.sql.SQLException;
+
 public class Server {
     private State state;
     private final DevDisplay display;
     private final BoggledSettings boggledSettings;
 
-    public Server(int width, int height) {
+    public Server(int width, int height) throws SQLException {
         Input input = new Input();
         boggledSettings = new BoggledSettings(false);
         state = new ServerMenuState(new Size(width, height), input, boggledSettings);
         display = new DevDisplay(width, height, input, this::resize);
     }
 
-    public void update(){
+    public void update() throws SQLException {
         state.serverUpdate(this);
     }
 

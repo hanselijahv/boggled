@@ -1,27 +1,27 @@
 package com.wordgame.client.game.settings;
 
 public class AudioSettings {
-    private float musicVolume;
-    private float soundVolume;
+    private int musicVolume;
+    private int soundVolume;
 
     public AudioSettings() {
-        musicVolume = 0.8f;
-        soundVolume = 0.75f;
+        musicVolume = 80;
+        soundVolume = 75;
     }
 
-    public float getMusicVolume() {
+    public int getMusicVolume() {
         return musicVolume;
     }
 
-    public void setMusicVolume(float musicVolume) {
+    public void setMusicVolume(int musicVolume) {
         this.musicVolume = musicVolume;
     }
 
-    public float getSoundVolume() {
+    public int getSoundVolume() {
         return soundVolume;
     }
 
-    public void setSoundVolume(float soundVolume) {
+    public void setSoundVolume(int soundVolume) {
         this.soundVolume = soundVolume;
     }
 }

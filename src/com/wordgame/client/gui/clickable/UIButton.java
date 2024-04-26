@@ -8,6 +8,7 @@ import com.wordgame.client.gui.text.UIText;
 import com.wordgame.client.gui.VerticalContainer;
 
 import java.awt.*;
+import java.sql.SQLException;
 
 public class UIButton extends UIClickable {
 
@@ -33,7 +34,7 @@ public class UIButton extends UIClickable {
     }
 
     @Override
-    public void update(State state) {
+    public void update(State state) throws SQLException {
         super.update(state);
         container.update(state);
         size = container.getSize();
@@ -53,7 +54,7 @@ public class UIButton extends UIClickable {
 
     @Override
     protected void onFocus(State state) {
-        //state.getAudioPlayer().playSound("selectSE.wav");
+        // state.getAudioPlayer().playSound("selectSE.wav");
     }
 
     @Override

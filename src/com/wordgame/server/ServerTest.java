@@ -104,7 +104,8 @@ public class ServerTest {
                 }
 
 
-                playerDAOImpl.addPlayer(userName, password);
+                Player player = new Player(null, userName, password);
+                playerDAOImpl.insert(player);
                 System.out.println("Added successfully!");
 
                 System.out.println();
@@ -124,7 +125,7 @@ public class ServerTest {
 
     public static void updateUser() {
         try {
-            List<Player> players = playerDAOImpl.getAllPlayers();
+            List<Player> players = playerDAOImpl.getAll();
             System.out.println("Players: ");
             for (Player player : players) {
                 System.out.println(player.getPlayerId() + ", " + player.getUsername() + ", " + player.getPassword());
@@ -152,10 +153,9 @@ public class ServerTest {
                 System.out.print("Enter new password: ");
                 String newPassword = scanner.nextLine();
 
-                playerToUpdate.setUsername(newUsername);
-                playerToUpdate.setPassword(newPassword);
+                String[] params = {newUsername, newPassword};
 
-                playerDAOImpl.updatePlayer(playerToUpdate);
+                playerDAOImpl.update(playerToUpdate, params);
 
                 System.out.println("Player updated successfully!");
             }
@@ -168,7 +168,7 @@ public class ServerTest {
 
     public static void removeUser() {
         try {
-            List<Player> players = playerDAOImpl.getAllPlayers();
+            List<Player> players = playerDAOImpl.getAll();
             System.out.println("Players: ");
             for (Player player : players) {
                 System.out.println(player.getPlayerId() + ", " + player.getUsername() + ", " + player.getPassword());
@@ -190,7 +190,7 @@ public class ServerTest {
             if (playerToRemove == null) {
                 System.out.println("No player found with ID: " + playerIdToRemove);
             } else {
-                playerDAOImpl.removePlayer(playerToRemove);
+                playerDAOImpl.delete(playerToRemove);
                 System.out.println("Player removed successfully!");
             }
         } catch (Exception e) {

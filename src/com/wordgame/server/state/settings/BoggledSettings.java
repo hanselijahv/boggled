@@ -5,17 +5,19 @@ import com.wordgame.client.core.Value;
 import com.wordgame.common.model.Settings;
 import com.wordgame.common.db.SettingsDAO;
 
+import java.sql.SQLException;
+
 public class BoggledSettings {
     private boolean debugMode;
     private double gameSpeedMultiplier;
     private Settings settings;
     private final Value<Boolean> fullScreenMode;
 
-    public BoggledSettings(boolean debugMode) {
+    public BoggledSettings(boolean debugMode) throws SQLException {
         this.debugMode = debugMode;
         gameSpeedMultiplier = 1;
         SettingsDAO settingsDAO = new SettingsDAO();
-        settings = settingsDAO.getSettings();
+        settings = settingsDAO.getAll().get(0);
         fullScreenMode = new Value<>(false);
     }
 

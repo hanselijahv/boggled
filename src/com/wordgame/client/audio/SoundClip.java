@@ -11,6 +11,6 @@ public class SoundClip extends AudioClip {
 
     @Override
     protected float getVolume(AudioSettings audioSettings) {
-        return audioSettings.getSoundVolume();
+        return audioSettings.getSoundVolume() / 100f;
     }
 }

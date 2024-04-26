@@ -19,6 +19,20 @@ public class SettingsDAO implements DAO<Settings> {
 
     @Override
     public List<Settings> getAll() throws SQLException {
+        String query = "SELECT * FROM settings";
+        try(PreparedStatement statement = connection.prepareStatement(query)){
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                return Collections.singletonList(new Settings(
+                        resultSet.getInt("waiting_time"),
+                        resultSet.getInt("round_time"),
+                        resultSet.getInt("number_of_rounds")
+                ));
+            }
+        } catch (SQLException e) {
+            throw new SQLException("[ERROR] Failed to get settings: " + e.getMessage());
+        }
+
         return Collections.emptyList(); // TODO: Implement
     }
 

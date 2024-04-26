@@ -1,5 +1,7 @@
 package com.wordgame.server;
 
+import java.sql.SQLException;
+
 @SuppressWarnings("Duplicates")
 public class ServerRunnable implements Runnable {
     public static final int UPDATES_PER_SECOND = 60;
@@ -30,7 +32,11 @@ public class ServerRunnable implements Runnable {
 
             if (accumulator >= updateRate) {
                 while (accumulator >= updateRate) {
-                    update();
+                    try {
+                        update();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                     accumulator -= updateRate;
                     shouldRender = true;
 
@@ -55,7 +61,7 @@ public class ServerRunnable implements Runnable {
         }
     }
 
-    private void update() {
+    private void update() throws SQLException {
         server.update();
         ups++;
     }

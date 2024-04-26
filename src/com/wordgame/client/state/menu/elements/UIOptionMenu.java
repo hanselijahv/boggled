@@ -10,6 +10,7 @@ import com.wordgame.client.gui.clickable.UISlider;
 import com.wordgame.client.gui.text.UIText;
 
 import java.awt.*;
+import java.sql.SQLException;
 
 public class UIOptionMenu extends VerticalContainer {
     private final UISlider musicVolSlider;
@@ -22,11 +23,11 @@ public class UIOptionMenu extends VerticalContainer {
 
         alignment = new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER);
 
-        musicVolSlider = new UISlider(0, 1);
+        musicVolSlider = new UISlider(0, 100);
         musicVolSlider.setValue(settings.getAudioSettings().getMusicVolume());
         musicVolLabel = new UIText("", 18);
 
-        soundVolSlider = new UISlider(0, 1);
+        soundVolSlider = new UISlider(0, 100);
         soundVolSlider.setValue(settings.getAudioSettings().getSoundVolume());
         soundVolLabel = new UIText("", 18);
 
@@ -53,17 +54,21 @@ public class UIOptionMenu extends VerticalContainer {
     }
 
     @Override
-    public void update(State state) {
+    public void update(State state) throws SQLException {
         super.update(state);
         handleVolume(state);
     }
 
     private void handleVolume(State state) {
-        state.getGameSettings().getAudioSettings().setMusicVolume((float) musicVolSlider.getValue());
-        musicVolLabel.setText(String.format("MUSIC VOL: %d", Math.round(musicVolSlider.getValue() * 100)));
+        int musicVolume = (int) musicVolSlider.getValue();
+        int soundVolume = (int) soundVolSlider.getValue();
 
-        state.getGameSettings().getAudioSettings().setSoundVolume((float) soundVolSlider.getValue());
-        soundVolLabel.setText(String.format("SOUND EFFECT VOL: %d", Math.round(soundVolSlider.getValue() * 100)));
+
+        state.getGameSettings().getAudioSettings().setMusicVolume(musicVolume);
+        musicVolLabel.setText(String.format("MUSIC VOL: %d", musicVolume));
+
+        state.getGameSettings().getAudioSettings().setSoundVolume(soundVolume);
+        soundVolLabel.setText(String.format("SOUND EFFECT VOL: %d", soundVolume));
     }
 }
 
