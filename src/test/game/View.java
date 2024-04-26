@@ -16,23 +16,24 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
 import java.util.List;
 import java.util.Timer;
+import java.util.*;
 
 public class View extends JFrame {
 
-    private static int totalScore;
     private static final int VOWEL_COUNT = 7;
     private static final int CONSONANT_COUNT = 13;
+    private static final List<String> words = new ArrayList<>();
+    private static final int MIN_WORD_LENGTH = 4;
+    private static final int GAME_DURATION = 120;
+    private static int totalScore;
     private static Font calculatorFont;
     private static List<Character> letters;
     private static Set<String> dictionary;
-    private static final List<String> words = new ArrayList<>();
     private static Map<Character, Integer> letterOccurrences;
-    private static final int MIN_WORD_LENGTH = 4;
-    private static final int GAME_DURATION = 120;
     private static char deletedChar;
+    private JPanel buttonPanel;
     private ImageTextField inputField;
 
     public static void loadDictionary() {
@@ -119,6 +120,7 @@ public class View extends JFrame {
             loadDictionary();
 
             letters = generateRandomLetters();
+            view.printAllPossibleWords();
 
             System.out.println("Random letters: " + letters);
 
@@ -135,12 +137,22 @@ public class View extends JFrame {
         }
     }
 
+    private void printAllPossibleWords() {
+        Set<String> possibleWords = new HashSet<>();
+        for (String word : dictionary) {
+            if (canFormWord(word)) {
+                possibleWords.add(word);
+            }
+        }
+        System.out.println("Possible words: " + possibleWords);
+    }
+
     public void duringGame(String input) {
         int wordScore = 0;
-        boolean valid = true;
 
         System.out.println("Random letters: " + letters);
         System.out.println("Enter your word (minimum 4 letters) or type 'exit' to end the temp.game: ");
+
 
         if ("exit".equalsIgnoreCase(input)) {
             endGame();
@@ -148,25 +160,22 @@ public class View extends JFrame {
 
         if (input.length() < MIN_WORD_LENGTH) {
             System.out.println("Word must be at least 4 letters long.");
-            valid = false;
         }
 
         if (!canFormWord(input)) {
             System.out.println("Word cannot be formed from the given letters.");
-            valid = false;
         }
 
         if (!isValidWord(input)) {
             System.out.println("Word is not found in the dictionary.");
-            valid = false;
         }
 
         if (words.contains(input)) {
             System.out.println("Word duplicated not counted");
-            valid = false;
         }
 
-        if (valid) {
+        if (isValidWord(input)) {
+            System.out.println("Word is found in the dictionary.");
             words.add(input);
             wordScore = input.length();
             totalScore += wordScore;
@@ -196,9 +205,11 @@ public class View extends JFrame {
         contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
         letters = generateRandomLetters();
         JTextField inputField = inputField();
-        JPanel buttonPanel = buttonPanel();
+        buttonPanel = buttonPanel();
+        JPanel actionPanel = createActionPanel();
         contentPane.add(inputField, BorderLayout.NORTH);
         contentPane.add(buttonPanel, BorderLayout.CENTER);
+        contentPane.add(actionPanel, BorderLayout.SOUTH);
         setContentPane(contentPane);
         return contentPane;
     }
@@ -252,7 +263,7 @@ public class View extends JFrame {
         return buttonPanel;
     }
 
-//    public void addButtonsToPanel(JPanel buttonPanel) {
+    //    public void addButtonsToPanel(JPanel buttonPanel) {
 //        letters = generateRandomLetters();
 //        for (Character letter : letters) {
 //            JButton button = new JButton(letter.toString());
@@ -264,6 +275,68 @@ public class View extends JFrame {
 //            addColorChangeListener(button);
 //        }
 //    }
+    public JPanel createActionPanel() {
+        JPanel actionPanel = new JPanel(new GridLayout(1, 3, 5, 5));
+
+        JButton reshuffleButton = new JButton();
+        reshuffleButton.setIcon(createScaledImageIcon("res/img/redo.png"));
+        reshuffleButton.setFont(calculatorFont);
+        reshuffleButton.setBackground(new Color(213, 215, 216));
+        reshuffleButton.setUI(new StyledButtonUI());
+
+        reshuffleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                List<JButton> buttons = new ArrayList<>();
+                for (Component component : buttonPanel.getComponents()) {
+                    if (component instanceof JButton) {
+                        buttons.add((JButton) component);
+                    }
+                }
+                System.out.println("Before shuffle: " + buttons);
+                buttonPanel.removeAll();
+                Collections.shuffle(buttons);
+                for (JButton button : buttons) {
+                    buttonPanel.add(button);
+                }
+                buttonPanel.revalidate();
+                buttonPanel.repaint();
+                System.out.println("After shuffle: " + buttons);
+            }
+        });
+        actionPanel.add(reshuffleButton);
+
+        JButton clearButton = new JButton();
+        clearButton.setIcon(createScaledImageIcon("res/img/trash.png"));
+        clearButton.setFont(calculatorFont);
+        clearButton.setBackground(new Color(213, 215, 216));
+        clearButton.setUI(new StyledButtonUI());
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                inputField.setText("");
+            }
+        });
+        actionPanel.add(clearButton);
+
+        JButton removeLetterButton = new JButton();
+        removeLetterButton.setIcon(createScaledImageIcon("res/img/delete.png"));
+        removeLetterButton.setFont(calculatorFont);
+        removeLetterButton.setBackground(new Color(213, 215, 216));
+        removeLetterButton.setUI(new StyledButtonUI());
+        removeLetterButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String text = inputField.getText();
+                if (!text.isEmpty()) {
+                    inputField.setText(text.substring(0, text.length() - 1));
+                }
+            }
+        });
+        actionPanel.add(removeLetterButton);
+
+        return actionPanel;
+    }
 
     public void addButtonsToPanel(JPanel buttonPanel) {
         Map<Character, Integer> letterOccurrences = new HashMap<>();
