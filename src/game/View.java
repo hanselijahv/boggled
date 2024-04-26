@@ -258,26 +258,18 @@ public class View extends JFrame {
         reshuffleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Step 1: Create a list of all the buttons in the buttonPanel
                 List<JButton> buttons = new ArrayList<>();
                 for (Component component : buttonPanel.getComponents()) {
                     if (component instanceof JButton) {
                         buttons.add((JButton) component);
                     }
                 }
-
-                // Step 2: Remove all components from the buttonPanel
                 buttonPanel.removeAll();
-
-                // Step 3: Shuffle the list of buttons
                 Collections.shuffle(buttons);
-
-                // Step 4: Re-add the buttons to the buttonPanel in their new order
                 for (JButton button : buttons) {
                     buttonPanel.add(button);
                 }
 
-                // Refresh the buttonPanel
                 buttonPanel.revalidate();
                 buttonPanel.repaint();
             }
