@@ -80,10 +80,10 @@ public class UISettingsMenu extends VerticalContainer {
         settingsDB.updateSettings(newSettings);
 
         state.getBoggledSettings().getGameSettings().setRoundTime(wTime);
-        waitTimeText.setText(String.format("WAIT TIME: %d", wTime));
+        waitTimeText.setText(String.format("WAIT TIME: %ds", wTime));
 
         state.getBoggledSettings().getGameSettings().setWaitingTime(rTime);
-        roundTimeText.setText(String.format("ROUND TIME: %d", rTime));
+        roundTimeText.setText(String.format("ROUND TIME: %ds", rTime));
 
         state.getBoggledSettings().getGameSettings().setRoundsToWin(nRounds);
         numRoundsText.setText(String.format("NUM ROUNDS: %d", nRounds));
