@@ -42,7 +42,9 @@ public class UISlider extends UIClickable {
         double percentage = positionOnSlider / size.getWidth();
         double range = max - min;
 
-        return min + range * percentage;
+        double value = min + range * percentage;
+
+        return Math.round(value);
     }
 
     private int getPixelsOfCurrentValue() {

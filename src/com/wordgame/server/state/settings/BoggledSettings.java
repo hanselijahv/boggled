@@ -3,6 +3,7 @@ package com.wordgame.server.state.settings;
 import com.wordgame.client.core.Value;
 
 import com.wordgame.common.model.Settings;
+import com.wordgame.common.db.SettingsDAO;
 
 public class BoggledSettings {
     private boolean debugMode;
@@ -13,8 +14,8 @@ public class BoggledSettings {
     public BoggledSettings(boolean debugMode) {
         this.debugMode = debugMode;
         gameSpeedMultiplier = 1;
-        //SettingsDB settingsDB = new SettingsDB();
-        //settings = settingsDB.getSettings();
+        SettingsDAO settingsDAO = new SettingsDAO();
+        settings = settingsDAO.getSettings();
         fullScreenMode = new Value<>(false);
     }
 
