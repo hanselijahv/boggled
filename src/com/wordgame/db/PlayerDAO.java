@@ -1,4 +1,4 @@
-package com.wordgame.db.old;
+package com.wordgame.db;
 
 import com.wordgame.references.Player;
 
@@ -9,10 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerDB {
-    private Connection connection;
+public class PlayerDAO {
+    private final Connection connection;
 
-    public PlayerDB() {
+    public PlayerDAO() {
         this.connection = DatabaseConnector.getInstance().getConnection();
     }
 

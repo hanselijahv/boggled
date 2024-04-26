@@ -1,8 +1,8 @@
 package com.wordgame.Server;
 
-import com.wordgame.db.old.DatabaseConnector;
-import com.wordgame.db.old.PlayerDB;
-import com.wordgame.db.old.SettingsDB;
+import com.wordgame.db.DatabaseConnector;
+import com.wordgame.db.PlayerDAO;
+import com.wordgame.db.impl.SettingsDB;
 import com.wordgame.references.Player;
 import com.wordgame.references.Settings;
 
@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class ServerTest {
 
     static Scanner scanner = new Scanner(System.in);
-    static PlayerDB playerDB = new PlayerDB();
+    static PlayerDAO playerDAOImpl = new PlayerDAO();
     static SettingsDB settingsDB = new SettingsDB();
 
 
@@ -105,7 +105,7 @@ public class ServerTest {
                 }
 
 
-                playerDB.addPlayer(userName, password);
+                playerDAOImpl.addPlayer(userName, password);
                 System.out.println("Added successfully!");
 
                 System.out.println();
@@ -125,7 +125,7 @@ public class ServerTest {
 
     public static void updateUser() {
         try {
-            List<Player> players = playerDB.getAllPlayers();
+            List<Player> players = playerDAOImpl.getAllPlayers();
             System.out.println("Players: ");
             for (Player player : players) {
                 System.out.println(player.getPlayerId() + ", " + player.getUsername() + ", " + player.getPassword());
@@ -156,7 +156,7 @@ public class ServerTest {
                 playerToUpdate.setUsername(newUsername);
                 playerToUpdate.setPassword(newPassword);
 
-                playerDB.updatePlayer(playerToUpdate);
+                playerDAOImpl.updatePlayer(playerToUpdate);
 
                 System.out.println("Player updated successfully!");
             }
@@ -169,7 +169,7 @@ public class ServerTest {
 
     public static void removeUser() {
         try {
-            List<Player> players = playerDB.getAllPlayers();
+            List<Player> players = playerDAOImpl.getAllPlayers();
             System.out.println("Players: ");
             for (Player player : players) {
                 System.out.println(player.getPlayerId() + ", " + player.getUsername() + ", " + player.getPassword());
@@ -191,7 +191,7 @@ public class ServerTest {
             if (playerToRemove == null) {
                 System.out.println("No player found with ID: " + playerIdToRemove);
             } else {
-                playerDB.removePlayer(playerToRemove);
+                playerDAOImpl.removePlayer(playerToRemove);
                 System.out.println("Player removed successfully!");
             }
         } catch (Exception e) {

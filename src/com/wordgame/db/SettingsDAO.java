@@ -1,16 +1,16 @@
-package com.wordgame.db.old;
+package com.wordgame.db;
 
 
 import com.wordgame.references.Settings;
 import java.sql.*;
 
 
-public class SettingsDB {
+public class SettingsDAO {
     //TODO Bryan
 
-    private Connection connection;
+    private final Connection connection;
 
-    public SettingsDB(){
+    public SettingsDAO(){
         this.connection = DatabaseConnector.getInstance().getConnection();
     }
 
