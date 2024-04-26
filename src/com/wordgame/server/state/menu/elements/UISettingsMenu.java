@@ -79,10 +79,10 @@ public class UISettingsMenu extends VerticalContainer {
         SettingsDAO settingsDAO = new SettingsDAO();
         settingsDAO.updateSettings(newSettings);
 
-        state.getBoggledSettings().getGameSettings().setRoundTime(wTime);
+        state.getBoggledSettings().getGameSettings().setWaitingTime(wTime);
         waitTimeText.setText(String.format("WAIT TIME: %ds", wTime));
 
-        state.getBoggledSettings().getGameSettings().setWaitingTime(rTime);
+        state.getBoggledSettings().getGameSettings().setRoundTime(rTime);
         roundTimeText.setText(String.format("ROUND TIME: %ds", rTime));
 
         state.getBoggledSettings().getGameSettings().setRoundsToWin(nRounds);
