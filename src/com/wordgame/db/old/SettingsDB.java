@@ -19,7 +19,7 @@ public class SettingsDB {
         try(PreparedStatement statement = connection.prepareStatement(query)){
             statement.setInt(1,settings.getWaitingTime());
             statement.setInt(2,settings.getRoundTime());
-            statement.setInt(3,settings.getNumberOfRounds());
+            statement.setInt(3,settings.getRoundsToWin());
             statement.execute();
             System.out.println("Saved Settings...");
         } catch (SQLException e) {

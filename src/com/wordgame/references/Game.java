@@ -37,9 +37,9 @@ public class Game {
 
     @Override
     public String toString() {
-        return "Game{" +
-                "gameId='" + gameId + '\'' +
-                ", playerId=" + playerId +
-                '}';
+        return "Game Details: \n" +
+               "\tGame ID: " + gameId + "\n" +
+               "\tPlayer ID: " + playerId + "\n" +
+               "\tHighest Score: " + highestScore;
     }
 }

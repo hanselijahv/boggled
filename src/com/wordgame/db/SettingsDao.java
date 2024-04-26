@@ -40,7 +40,7 @@ public class SettingsDao implements Dao<Settings> {
 	public boolean update(Settings setting, String[] params) {
 		setting.setWaitingTime(Integer.parseInt(params[0]));
 		setting.setRoundTime(Integer.parseInt(params[1]));
-		setting.setNumberOfRounds(Integer.parseInt(params[2]));
+		setting.setRoundsToWin(Integer.parseInt(params[2]));
 		return true;
 	}
 

@@ -223,16 +223,16 @@ public class ServerTest {
                 roundTime = Integer.parseInt(scanner.nextLine());
             }
 
-            System.out.print("Enter new Number of Rounds: ");
-            int numberOfRounds = Integer.parseInt(scanner.nextLine());
+            System.out.print("Enter new Number of Rounds to Win: ");
+            int numRoundsToWin = Integer.parseInt(scanner.nextLine());
 
-            while (numberOfRounds < 3 || numberOfRounds > 10) {
+            while (numRoundsToWin < 3 || numRoundsToWin > 10) {
                 System.out.println("Number of Rounds must be between 3 and 10.");
-                System.out.print("Enter new Number of Rounds: ");
-                numberOfRounds = Integer.parseInt(scanner.nextLine());
+                System.out.print("Enter new Number of Rounds to Win: ");
+                numRoundsToWin = Integer.parseInt(scanner.nextLine());
             }
 
-            Settings settings = new Settings(waitingTime, roundTime, numberOfRounds);
+            Settings settings = new Settings(waitingTime, roundTime, numRoundsToWin);
             settingsDB.updateSettings(settings);
 
         } catch (Exception e) {
