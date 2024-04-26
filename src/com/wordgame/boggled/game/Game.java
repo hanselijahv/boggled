@@ -10,7 +10,9 @@ import com.wordgame.boggled.state.menu.MenuState;
 public class Game {
 
     private State state;
+
     private final Display display;
+
     private final GameSettings gameSettings;
 
     public Game(int width, int height) {
@@ -27,6 +29,7 @@ public class Game {
     public void render(){
         display.render(state);
     }
+
 
     public GameSettings getSettings() {
         return gameSettings;

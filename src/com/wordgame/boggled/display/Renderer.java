@@ -6,13 +6,15 @@ import com.wordgame.boggled.state.State;
 import javax.swing.*;
 import java.awt.*;
 
-public class Renderer {
+public class
+Renderer {
 
     private Display display;
 
     public Renderer(Display display) {
         this.display = display; // Initialize the display object in the constructor
     }
+
 
     public void render(State state, Graphics graphics){
         renderUI(state, graphics);
