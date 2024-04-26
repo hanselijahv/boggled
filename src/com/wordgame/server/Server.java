@@ -2,6 +2,7 @@ package com.wordgame.server;
 
 import com.wordgame.client.core.Size;
 import com.wordgame.client.input.Input;
+import com.wordgame.common.model.Settings;
 import com.wordgame.server.display.DevDisplay;
 import com.wordgame.server.state.menu.ServerMenuState;
 import com.wordgame.server.state.settings.BoggledSettings;
