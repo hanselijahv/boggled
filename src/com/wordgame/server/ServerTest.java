@@ -1,4 +1,4 @@
-package com.wordgame.Server;
+package com.wordgame.server;
 
 import com.wordgame.db.DatabaseConnector;
 import com.wordgame.db.PlayerDAO;
