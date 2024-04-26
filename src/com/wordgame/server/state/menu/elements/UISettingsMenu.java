@@ -10,6 +10,7 @@ import com.wordgame.client.gui.clickable.UICheckbox;
 import com.wordgame.client.gui.clickable.UISlider;
 import com.wordgame.client.gui.text.UIText;
 import com.wordgame.common.model.Settings;
+import com.wordgame.common.db.SettingsDAO;
 
 import java.awt.*;
 
@@ -24,15 +25,15 @@ public class UISettingsMenu extends VerticalContainer {
     public UISettingsMenu(BoggledSettings settings) {
         alignment = new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER);
 
-        waitTimeSlider = new UISlider(10, 61);
+        waitTimeSlider = new UISlider(10, 60);
         waitTimeSlider.setValue(settings.getGameSettings().getWaitingTime());
         waitTimeText = new UIText("", 18);
 
-        roundTimeSlider = new UISlider(30, 121);
+        roundTimeSlider = new UISlider(30, 120);
         roundTimeSlider.setValue(settings.getGameSettings().getRoundTime());
         roundTimeText = new UIText("", 18);
 
-        numRoundsSlider = new UISlider(3, 6);
+        numRoundsSlider = new UISlider(3, 5);
         numRoundsSlider.setValue(settings.getGameSettings().getRoundsToWin());
         numRoundsText = new UIText("", 18);
 
@@ -75,13 +76,13 @@ public class UISettingsMenu extends VerticalContainer {
         int nRounds = (int) numRoundsSlider.getValue();
 
         Settings newSettings = new Settings(wTime, rTime, nRounds);
-        //SettingsDB settingsDB = new SettingsDB();
-        //settingsDB.updateSettings(newSettings);
+        SettingsDAO settingsDAO = new SettingsDAO();
+        settingsDAO.updateSettings(newSettings);
 
-        state.getBoggledSettings().getGameSettings().setRoundTime(wTime);
+        state.getBoggledSettings().getGameSettings().setWaitingTime(wTime);
         waitTimeText.setText(String.format("WAIT TIME: %ds", wTime));
 
-        state.getBoggledSettings().getGameSettings().setWaitingTime(rTime);
+        state.getBoggledSettings().getGameSettings().setRoundTime(rTime);
         roundTimeText.setText(String.format("ROUND TIME: %ds", rTime));
 
         state.getBoggledSettings().getGameSettings().setRoundsToWin(nRounds);

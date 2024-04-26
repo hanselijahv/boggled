@@ -40,7 +40,7 @@ public class DevDisplay extends JFrame {
         canvas.setFocusable(false);
         canvas.addMouseListener(input);
         canvas.addMouseMotionListener(input);
-        canvas.setBackground(Color.decode("#0d1b2a"));
+        canvas.setBackground(Color.decode("#1f4164"));
         add(canvas);
         addKeyListener(input);
         pack();
@@ -59,7 +59,7 @@ public class DevDisplay extends JFrame {
         Graphics2D graphics2D = (Graphics2D) graphics;
         do {
             try {
-                graphics2D.setColor(Color.decode("#0d1b2a"));
+                graphics2D.setColor(Color.decode("#1f4164"));
                 graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 renderer.render(state, graphics);
             } finally {
