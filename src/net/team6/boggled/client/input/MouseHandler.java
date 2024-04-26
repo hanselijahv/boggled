@@ -1,7 +1,7 @@
 package net.team6.boggled.client.input;
 
 import net.team6.boggled.client.state.State;
-import net.team6.boggled.client.gui.UIImage;
+import net.team6.boggled.client.gui.component.UIImage;
 
 import java.util.Optional;
 

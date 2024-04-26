@@ -1,20 +1,20 @@
-package net.team6.boggled.client.state.wait.elements;
+package net.team6.boggled.client.state.waiting.elements;
 
 import net.team6.boggled.client.game.settings.GameSettings;
 import net.team6.boggled.client.input.Input;
-import net.team6.boggled.client.state.menu.MenuState;
-import net.team6.boggled.client.gui.Alignment;
-import net.team6.boggled.client.gui.Spacing;
+import net.team6.boggled.client.state.home.HomeState;
+import net.team6.boggled.client.gui.tools.Alignment;
+import net.team6.boggled.client.gui.tools.Spacing;
 import net.team6.boggled.client.gui.container.UIContainer;
 import net.team6.boggled.client.gui.container.VerticalContainer;
 import net.team6.boggled.client.gui.clickable.UIButton;
 
 
-public class UIWaitMenu extends VerticalContainer {
+public class UIWaitingMenu extends VerticalContainer {
 
     private final UIContainer headerContent;
 
-    public UIWaitMenu(Input input, GameSettings settings) {
+    public UIWaitingMenu(Input input, GameSettings settings) {
         setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER));
         centerChildren = true;
 
@@ -26,7 +26,7 @@ public class UIWaitMenu extends VerticalContainer {
         buttonContainer.setPadding(new Spacing(0, 5, 5, 5));
 
         //buttonContainer.addUIComponent(new UIButton("RESUME", 16, (state) -> ((WaitState) state).toggleScore(false)));
-        buttonContainer.addUIComponent(new UIButton("HOME", 16, (state) -> state.setNextState(new MenuState(state.getWindowSize(), input, settings))));
+        buttonContainer.addUIComponent(new UIButton("HOME", 16, (state) -> state.setNextState(new HomeState(state.getWindowSize(), input, settings))));
         //buttonContainer.addUIComponent(new UIButton("EXIT", 16, (state) -> System.exit(0)));
 
         addUIComponent(headerContent);

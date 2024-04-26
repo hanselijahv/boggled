@@ -1,4 +1,4 @@
-package net.team6.boggled.client.gui;
+package net.team6.boggled.client.gui.tools;
 
 public class Spacing {
 

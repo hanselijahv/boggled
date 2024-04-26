@@ -5,7 +5,7 @@ import net.team6.boggled.client.display.Display;
 import net.team6.boggled.client.game.settings.GameSettings;
 import net.team6.boggled.client.input.Input;
 import net.team6.boggled.client.state.State;
-import net.team6.boggled.client.state.menu.MenuState;
+import net.team6.boggled.client.state.home.HomeState;
 
 import java.sql.SQLException;
 
@@ -20,7 +20,7 @@ public class Game {
     public Game(int width, int height) {
         Input input = new Input();
         gameSettings = new GameSettings(false);
-        state = new MenuState(new Size(width, height), input, gameSettings);
+        state = new HomeState(new Size(width, height), input, gameSettings);
         display = new Display(width, height, input, this::resize);
     }
 

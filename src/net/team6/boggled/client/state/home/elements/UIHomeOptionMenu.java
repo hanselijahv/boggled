@@ -1,28 +1,28 @@
-package net.team6.boggled.client.state.menu.elements;
+package net.team6.boggled.client.state.home.elements;
 
 import net.team6.boggled.client.game.settings.GameSettings;
 import net.team6.boggled.client.gui.container.UIContainer;
 import net.team6.boggled.client.gui.container.VerticalContainer;
 import net.team6.boggled.client.state.State;
-import net.team6.boggled.client.state.menu.MenuState;
+import net.team6.boggled.client.state.home.HomeState;
 import net.team6.boggled.client.gui.clickable.UIButton;
 import net.team6.boggled.client.gui.clickable.UICheckbox;
 import net.team6.boggled.client.gui.clickable.UISlider;
 import net.team6.boggled.client.gui.text.UIText;
-import net.team6.boggled.client.gui.Alignment;
-import net.team6.boggled.client.gui.Spacing;
+import net.team6.boggled.client.gui.tools.Alignment;
+import net.team6.boggled.client.gui.tools.Spacing;
 
 import java.awt.*;
 import java.sql.SQLException;
 
-public class UIOptionMenu extends VerticalContainer {
+public class UIHomeOptionMenu extends VerticalContainer {
     private final UISlider musicVolSlider;
     private final UIText musicVolLabel;
     private final UISlider soundVolSlider;
     private final UIText soundVolLabel;
 
 
-    public UIOptionMenu(GameSettings settings) {
+    public UIHomeOptionMenu(GameSettings settings) {
 
         alignment = new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER);
 
@@ -49,7 +49,7 @@ public class UIOptionMenu extends VerticalContainer {
         contentContainer.addUIComponent(soundVolLabel);
         contentContainer.addUIComponent(soundVolSlider);
 
-        contentContainer.addUIComponent(new UIButton("BACK", 16, (state) -> ((MenuState) state).enterMenu(new UIMainMenu())));
+        contentContainer.addUIComponent(new UIButton("BACK", 16, (state) -> ((HomeState) state).enterMenu(new UIHomeMenu())));
 
         setBackgroundColor(Color.decode("#051923"));
         addUIComponent(labelContainer);

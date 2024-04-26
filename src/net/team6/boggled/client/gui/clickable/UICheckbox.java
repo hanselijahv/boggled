@@ -5,7 +5,7 @@ import net.team6.boggled.client.core.Value;
 import net.team6.boggled.utilities.ImageUtils;
 import net.team6.boggled.client.state.State;
 import net.team6.boggled.client.gui.container.HorizontalContainer;
-import net.team6.boggled.client.gui.Spacing;
+import net.team6.boggled.client.gui.tools.Spacing;
 import net.team6.boggled.client.gui.component.UIComponent;
 import net.team6.boggled.client.gui.container.UIContainer;
 import net.team6.boggled.client.gui.text.UIText;

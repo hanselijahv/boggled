@@ -1,7 +1,8 @@
 package net.team6.boggled.client.core;
 
 public class Size {
-    private int width, height;
+    private final int width;
+    private final int height;
 
 
     public Size(int width, int height) {

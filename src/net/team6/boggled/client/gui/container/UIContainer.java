@@ -2,8 +2,8 @@ package net.team6.boggled.client.gui.container;
 
 import net.team6.boggled.client.core.Position;
 import net.team6.boggled.client.core.Size;
-import net.team6.boggled.client.gui.Alignment;
-import net.team6.boggled.client.gui.Spacing;
+import net.team6.boggled.client.gui.tools.Alignment;
+import net.team6.boggled.client.gui.tools.Spacing;
 import net.team6.boggled.client.gui.component.UIComponent;
 import net.team6.boggled.client.state.State;
 import net.team6.boggled.utilities.ImageUtils;

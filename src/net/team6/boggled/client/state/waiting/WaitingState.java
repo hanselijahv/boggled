@@ -1,36 +1,37 @@
-package net.team6.boggled.client.state.wait;
+package net.team6.boggled.client.state.waiting;
 
 import net.team6.boggled.client.core.Size;
 import net.team6.boggled.client.game.Game;
 import net.team6.boggled.client.game.time.Timer;
 import net.team6.boggled.client.game.settings.GameSettings;
+import net.team6.boggled.client.gui.container.HorizontalContainer;
 import net.team6.boggled.client.gui.container.UIContainer;
 import net.team6.boggled.client.gui.container.VerticalContainer;
-import net.team6.boggled.client.state.wait.elements.UIWaitMenu;
-import net.team6.boggled.client.state.wait.elements.UIWaitTime;
+import net.team6.boggled.client.state.waiting.elements.UIWaitingMenu;
+import net.team6.boggled.client.state.waiting.elements.UIWaitingTimer;
 import net.team6.boggled.client.input.Input;
 import net.team6.boggled.client.state.State;
 import net.team6.boggled.client.gui.text.UIHeader;
 import net.team6.boggled.client.gui.text.UIText;
-import net.team6.boggled.client.gui.Alignment;
-import net.team6.boggled.client.gui.Spacing;
+import net.team6.boggled.client.gui.tools.Alignment;
+import net.team6.boggled.client.gui.tools.Spacing;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 
-public class WaitState extends State {
+public class WaitingState extends State {
     private boolean paused;
     private boolean inputEnabled;
-    private final UIWaitMenu gameMenu;
+    private final UIWaitingMenu gameMenu;
 
 
     private final Timer gameTimer;
 
-    public WaitState(Size windowSize, Input input, GameSettings gameSettings) {
+    public WaitingState(Size windowSize, Input input, GameSettings gameSettings) {
         super(windowSize, input, gameSettings);
 
-
-        gameMenu = new UIWaitMenu(input, gameSettings);
+        gameMenu = new UIWaitingMenu(input, gameSettings);
         gameTimer = new Timer(10, this::lose);
         inputEnabled = true;
         initializeUI();
@@ -40,13 +41,23 @@ public class WaitState extends State {
     }
 
     private void initializeUI() {
-        uiCanvas.addUIComponent(new UIWaitTime());
+        UIContainer timer = new HorizontalContainer();
+        timer.setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.START));
+        timer.addUIComponent(new UIWaitingTimer());
 
         UIContainer label = new VerticalContainer();
         label.setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.START));
         label.addUIComponent(new UIText("WAITING...", 29));
         label.setPadding(new Spacing(100,0,0,0));
 
+
+        UIContainer text = new VerticalContainer();
+        text.setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER));
+        text.setBackgroundColor(Color.WHITE);
+        text.setPadding(new Spacing(200,70));
+
+        uiCanvas.addUIComponent(text);
+        uiCanvas.addUIComponent(timer);
         uiCanvas.addUIComponent(label);
     }
 
@@ -55,6 +66,7 @@ public class WaitState extends State {
         UIContainer content = new VerticalContainer();
         content.addUIComponent(new UIHeader("NO PLAYERS JOINED", 72));
         gameMenu.setHeaderContent(content);
+
         toggleMenu(true);
 
     }

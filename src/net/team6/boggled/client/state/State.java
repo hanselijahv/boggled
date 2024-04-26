@@ -101,18 +101,17 @@ public abstract class State {
         return gameSettings;
     }
 
-    public BoggledSettings getBoggledSettings() { return boggledSettings; }
+    public BoggledSettings getBoggledSettings() {
+        return boggledSettings;
+    }
 
     public Size getWindowSize() {
         return windowSize;
     }
 
     public void cleanup() {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        executor.submit(() -> {
-            audioPlayer.clear();
-            executor.shutdown(); // Shut down the executor after the cleanup is complete
-        });
+        audioPlayer.clear();
+
     }
 
     public void resize(Size size) {
