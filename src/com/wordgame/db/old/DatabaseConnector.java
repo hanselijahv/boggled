@@ -1,4 +1,4 @@
-package com.wordgame.db;
+package com.wordgame.db.old;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

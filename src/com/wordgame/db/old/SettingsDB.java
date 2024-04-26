@@ -1,4 +1,4 @@
-package com.wordgame.db;
+package com.wordgame.db.old;
 
 
 import com.wordgame.references.Settings;

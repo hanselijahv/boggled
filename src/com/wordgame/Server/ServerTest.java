@@ -1,8 +1,8 @@
 package com.wordgame.Server;
 
-import com.wordgame.db.DatabaseConnector;
-import com.wordgame.db.PlayerDB;
-import com.wordgame.db.SettingsDB;
+import com.wordgame.db.old.DatabaseConnector;
+import com.wordgame.db.old.PlayerDB;
+import com.wordgame.db.old.SettingsDB;
 import com.wordgame.references.Player;
 import com.wordgame.references.Settings;
 
