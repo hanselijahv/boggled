@@ -18,6 +18,7 @@ import java.util.*;
 import java.util.List;
 import java.util.Timer;
 
+
 public class View extends JFrame {
 
     private static int totalScore;
@@ -30,6 +31,39 @@ public class View extends JFrame {
     private static final int MIN_WORD_LENGTH = 4;
     private static final int GAME_DURATION = 120;
     private ImageTextField inputField;
+
+    public static void main(String[] args) {
+        try {
+            View view = new View();
+            view.createJFrame();
+
+            loadDictionary();
+            letters = generateRandomLetters();
+
+
+            System.out.println("Random letters: " + letters);
+            view.printAllPossibleWords();
+
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    endGame();
+                }
+            }, GAME_DURATION * 1000);
+
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void printAllPossibleWords() {
+        for (String word : dictionary) {
+            if (canFormWord(word)) {
+                System.out.println(word);
+            }
+        }
+    }
 
     public static void loadDictionary() {
         dictionary = new HashSet<>();
@@ -107,36 +141,13 @@ public class View extends JFrame {
         System.exit(0);
     }
 
-    public static void main(String[] args) {
-        try {
-            View view = new View();
-            view.createJFrame();
-
-            loadDictionary();
-
-            letters = generateRandomLetters();
-
-            System.out.println("Random letters: " + letters);
-
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    endGame();
-                }
-            }, GAME_DURATION * 1000);
-
-        } catch (IOException | FontFormatException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void duringGame(String input) {
         int wordScore = 0;
-        boolean valid = true;
 
         System.out.println("Random letters: " + letters);
         System.out.println("Enter your word (minimum 4 letters) or type 'exit' to end the temp.game: ");
+
 
         if ("exit".equalsIgnoreCase(input)) {
             endGame();
@@ -144,25 +155,22 @@ public class View extends JFrame {
 
         if (input.length() < MIN_WORD_LENGTH) {
             System.out.println("Word must be at least 4 letters long.");
-            valid = false;
         }
 
         if (!canFormWord(input)) {
             System.out.println("Word cannot be formed from the given letters.");
-            valid = false;
         }
 
         if (!isValidWord(input)) {
             System.out.println("Word is not found in the dictionary.");
-            valid = false;
         }
 
         if (words.contains(input)) {
             System.out.println("Word duplicated not counted");
-            valid = false;
         }
 
-        if (valid) {
+        if (isValidWord(input)) {
+            System.out.println("Word is found in the dictionary.");
             words.add(input);
             wordScore = input.length();
             totalScore += wordScore;
@@ -218,13 +226,15 @@ public class View extends JFrame {
             }
         });
 
+//        inputField.setFocusable(false); //TODO: to be removed when correct updateButtonColor is implemented
+
         return inputField;
     }
 
     // NEW
     private String handleInputFieldEnter() {
         String inputText = inputField.getText();
-        //System.out.println("Entered text: " + inputText);
+        System.out.println("Entered text: " + inputText);
         return inputText;
     }
 
@@ -244,44 +254,60 @@ public class View extends JFrame {
             button.setBackground(new Color(213, 215, 216));
             button.setUI(new StyledButtonUI());
             buttonPanel.add(button);
-            addColorChangeListener(button);
+
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String buttonText = button.getText();
+                    String inputText = inputField.getText();
+
+                    if (inputText.contains(buttonText)) {
+                        inputText = inputText.replaceFirst(buttonText, "");
+                        inputField.setText(inputText);
+                        button.setBackground(new Color(213, 215, 216));
+                    } else {
+                        inputField.setText(inputText + buttonText);
+                        button.setBackground(new Color(90, 171, 93));
+                    }
+                }
+            });
         }
     }
 
-    public void addColorChangeListener(JButton button) {
-        inputField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                updateButtonColor(button);
-            }
+//    public void addColorChangeListener(JButton button) {
+//        inputField.getDocument().addDocumentListener(new DocumentListener() {
+//            @Override
+//            public void insertUpdate(DocumentEvent e) {
+//                updateButtonColor(button);
+//            }
+//
+//            @Override
+//            public void removeUpdate(DocumentEvent e) {
+//                updateButtonColor(button);
+//            }
+//
+//            @Override
+//            public void changedUpdate(DocumentEvent e) {
+//                updateButtonColor(button);
+//            }
+//        });
+//    }
 
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                updateButtonColor(button);
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                updateButtonColor(button);
-            }
-        });
-    }
-
-    public void updateButtonColor(JButton button) {
-        String input = inputField.getText();
-        if (input.contains(button.getText())) {
-            button.setBackground(new Color(90, 171, 93));
-        } else {
-            button.setBackground(new Color(213, 215, 216));
-        }
-    }
+//    public void updateButtonColor(JButton button) {
+//        String input = inputField.getText();
+//        if (input.contains(button.getText())) {
+//            button.setBackground(new Color(90, 171, 93));
+//        } else {
+//            button.setBackground(new Color(213, 215, 216));
+//        }
+//    }
 
     public ImageIcon createScaledImageIcon(String path) {
         ImageIcon image = new ImageIcon(Objects.requireNonNull(getClass().getResource(path)));
         Image scaledImg = image.getImage().getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
         return new ImageIcon(scaledImg);
     }
-}
+} // end of view class
 
 class ImageTextField extends JTextField {
     private ImageIcon imageIcon;
