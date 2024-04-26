@@ -1,10 +1,9 @@
 package com.wordgame.server;
 
-import com.wordgame.db.DatabaseConnector;
-import com.wordgame.db.PlayerDAO;
-import com.wordgame.db.impl.SettingsDB;
-import com.wordgame.references.Player;
-import com.wordgame.references.Settings;
+import com.wordgame.common.db.DatabaseConnector;
+import com.wordgame.common.db.PlayerDAO;
+import com.wordgame.common.model.Player;
+import com.wordgame.common.model.Settings;
 
 import java.util.List;
 import java.util.Scanner;
@@ -13,7 +12,7 @@ public class ServerTest {
 
     static Scanner scanner = new Scanner(System.in);
     static PlayerDAO playerDAOImpl = new PlayerDAO();
-    static SettingsDB settingsDB = new SettingsDB();
+    //static SettingsDB settingsDB = new SettingsDB();
 
 
     public static void main(String[] args) {
@@ -233,7 +232,7 @@ public class ServerTest {
             }
 
             Settings settings = new Settings(waitingTime, roundTime, numRoundsToWin);
-            settingsDB.updateSettings(settings);
+            //settingsDB.updateSettings(settings);
 
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

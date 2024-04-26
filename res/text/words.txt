@@ -5307,7 +5307,7 @@ boggier
 boggiest
 bogging
 boggle
-com.wordgame.boggled
+com.wordgame.client
 boggles
 boggling
 boggy
@@ -10983,7 +10983,7 @@ contriving
 control
 controllable
 controlled
-com.wordgame.boggled.state.controller
+com.wordgame.client.state.controller
 controllers
 controlling
 controls
@@ -11237,7 +11237,7 @@ cordons
 cords
 corduroy
 corduroys
-com.wordgame.boggled.core
+com.wordgame.client.core
 cored
 coreligionist
 coreligionists
@@ -15270,7 +15270,7 @@ displaced
 displacement
 displaces
 displacing
-com.wordgame.boggled.display
+com.wordgame.client.display
 displayed
 displaying
 displays
@@ -18437,7 +18437,7 @@ exception
 exceptionable
 exceptional
 exceptionally
-com.wordgame.exceptions
+com.wordgame.common.exceptions
 excepts
 excerpt
 excerpted
@@ -21887,7 +21887,7 @@ gamboling
 gambolled
 gambolling
 gambols
-com.wordgame.boggled.game
+com.wordgame.client.game
 gamekeeper
 gamekeepers
 gamely
@@ -27397,7 +27397,7 @@ inordinately
 inorganic
 inpatient
 inpatients
-com.wordgame.boggled.state.input
+com.wordgame.client.state.input
 inputs
 inputted
 inputting
@@ -42934,7 +42934,7 @@ refereeing
 referees
 reference
 referenced
-com.wordgame.references
+com.wordgame.common.model
 referencing
 referenda
 referendum
@@ -50454,7 +50454,7 @@ stashed
 stashes
 stashing
 stasis
-com.wordgame.boggled.state
+com.wordgame.client.state
 stated
 statehood
 statehouse
@@ -53225,7 +53225,7 @@ telltale
 telltales
 telly
 temerity
-com.wordgame.boggled
+com.wordgame.client
 temped
 temper
 tempera
@@ -53438,7 +53438,7 @@ tertiary
 tessellated
 tessellation
 tessellations
-com.wordgame.test
+com.wordgame.console
 testament
 testaments
 tested
