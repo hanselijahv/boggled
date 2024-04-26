@@ -7,13 +7,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Data Access Object for the Game class
+ */
 public class GameDAO implements com.wordgame.common.db.DAO<Game> {
     private final Connection connection;
 
+    /**
+     * Constructor for the GameDAO class
+     */
     public GameDAO() {
         this.connection = com.wordgame.common.db.DatabaseConnector.getInstance().getConnection();
     }
 
+    /**
+     * Insert a game into the database
+     * @param game The game to insert
+     * @return True if the game was inserted, false otherwise
+     * @throws SQLException If an error occurs while inserting the game
+     */
     @Override
     public boolean insert(Game game) throws SQLException {
         String query = "INSERT INTO game (game_id, player_id, highest_score) VALUES (?, ?, ?)";
@@ -29,6 +41,11 @@ public class GameDAO implements com.wordgame.common.db.DAO<Game> {
         }
     }
 
+    /**
+     * Get all games from the database
+     * @return A list of all games
+     * @throws SQLException If an error occurs while selecting the games
+     */
     @Override
     public List<Game> getAll() throws SQLException {
         ArrayList<Game> gameArrayList = new ArrayList<>();
@@ -52,6 +69,13 @@ public class GameDAO implements com.wordgame.common.db.DAO<Game> {
         }
     }
 
+    /**
+     *  Update a game in the database
+     * @param game The game to update
+     * @param params The new values for the game
+     * @return True if the game was updated, false otherwise
+     * @throws SQLException If an error occurs while updating the game
+     */
     @Override
     public boolean update(Game game, String[] params) throws SQLException {
         String query = "UPDATE game SET game_id = ?, player_id = ?, highest_score = ? WHERE game_id = ?";
@@ -68,6 +92,12 @@ public class GameDAO implements com.wordgame.common.db.DAO<Game> {
         }
     }
 
+    /**
+     *  Delete a game from the database
+     * @param game The game to delete
+     * @return True if the game was deleted, false otherwise
+     * @throws SQLException If an error occurs while deleting the game
+     */
     @Override
     public boolean delete(Game game) throws SQLException {
         String query = "DELETE FROM game WHERE game_id = ?";
@@ -81,6 +111,10 @@ public class GameDAO implements com.wordgame.common.db.DAO<Game> {
         }
     }
 
+    /**
+     * Generate a unique game ID
+     * @return The generated game ID
+     */
     private String generateGameID() {
         UUID uuid = UUID.randomUUID();
         String id = uuid.toString().replaceAll("-", "").substring(0, 10);
@@ -92,6 +126,11 @@ public class GameDAO implements com.wordgame.common.db.DAO<Game> {
         }
     }
 
+    /**
+     * Check if the generated ID already exists in the database
+     * @param id The generated ID
+     * @return True if the ID exists, false otherwise
+     */
     private boolean idExists(String id) {
         Connection connection = com.wordgame.common.db.DatabaseConnector.getInstance().getConnection();
         String query = "SELECT * FROM game WHERE game_id = ?";
