@@ -6,6 +6,7 @@ import com.wordgame.client.state.State;
 import com.wordgame.client.gui.UIComponent;
 
 import java.awt.*;
+import java.sql.SQLException;
 
 public abstract class UIClickable extends UIComponent implements MouseConsumer {
 
@@ -13,7 +14,7 @@ public abstract class UIClickable extends UIComponent implements MouseConsumer {
     protected boolean isPressed;
 
     @Override
-    public void update(State state) {
+    public void update(State state) throws SQLException {
         Position mousePosition = state.getInput().getMousePosition();
         boolean previousFocus = hasFocus;
 

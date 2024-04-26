@@ -6,6 +6,7 @@ import com.wordgame.client.state.State;
 import com.wordgame.utilities.ImageUtils;
 
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,9 +73,15 @@ public abstract class UIContainer extends UIComponent {
     }
 
     @Override
-    public void update(State state) {
+    public void update(State state) throws SQLException {
         List<UIComponent> copyOfChildren = new ArrayList<>(children);
-        copyOfChildren.forEach(component -> component.update(state));
+        copyOfChildren.forEach(component -> {
+            try {
+                component.update(state);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
         calculateSize();
         calculatePosition();
 

@@ -5,6 +5,7 @@ import com.wordgame.client.core.Size;
 import com.wordgame.client.state.State;
 
 import java.awt.*;
+import java.sql.SQLException;
 
 public abstract class UIComponent {
 
@@ -25,7 +26,7 @@ public abstract class UIComponent {
     }
 
     public abstract Image getSprite();
-    public abstract void update(State state);
+    public abstract void update(State state) throws SQLException;
 
     public Position getRelativePosition() {
         return relativePosition;

@@ -13,6 +13,7 @@ import com.wordgame.common.model.Settings;
 import com.wordgame.common.db.SettingsDAO;
 
 import java.awt.*;
+import java.sql.SQLException;
 
 public class UISettingsMenu extends VerticalContainer {
     private final UISlider waitTimeSlider;
@@ -63,21 +64,23 @@ public class UISettingsMenu extends VerticalContainer {
 
     }
 
-    public void update(State state) {
+    public void update(State state) throws SQLException {
         super.update(state);
         handleSettings(state);
     }
 
 
-    private void handleSettings(State state) {
+    private void handleSettings(State state) throws SQLException {
 
         int wTime = (int) waitTimeSlider.getValue();
         int rTime = (int) roundTimeSlider.getValue();
         int nRounds = (int) numRoundsSlider.getValue();
 
-        Settings newSettings = new Settings(wTime, rTime, nRounds);
+        String[] params = {String.valueOf(wTime), String.valueOf(rTime), String.valueOf(nRounds)};
+
+        Settings oldSettings = state.getBoggledSettings().getGameSettings();
         SettingsDAO settingsDAO = new SettingsDAO();
-        settingsDAO.updateSettings(newSettings);
+        settingsDAO.update(oldSettings, params);
 
         state.getBoggledSettings().getGameSettings().setWaitingTime(wTime);
         waitTimeText.setText(String.format("WAIT TIME: %ds", wTime));

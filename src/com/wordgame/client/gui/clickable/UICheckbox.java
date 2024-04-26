@@ -12,6 +12,7 @@ import com.wordgame.client.gui.text.UIText;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.sql.SQLException;
 
 public class UICheckbox extends UIComponent {
 
@@ -32,7 +33,7 @@ public class UICheckbox extends UIComponent {
 
 
     @Override
-    public void update(State state) {
+    public void update(State state) throws SQLException {
         container.update(state);
         size = container.getSize();
         container.setParent(parent);
@@ -52,7 +53,7 @@ public class UICheckbox extends UIComponent {
         }
 
         @Override
-        public void update(State state) {
+        public void update(State state) throws SQLException {
             super.update(state);
 
             color = value.get() ? Color.WHITE : Color.GRAY;

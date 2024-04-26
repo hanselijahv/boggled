@@ -1,5 +1,7 @@
 package com.wordgame.client.game;
 
+import java.sql.SQLException;
+
 public class GameLoop implements Runnable {
     public static final int UPDATES_PER_SECOND = 60;
 
@@ -33,7 +35,11 @@ public class GameLoop implements Runnable {
 
             if (accumulator >= updateRate) {
                 while (accumulator >= updateRate) {
-                    update();
+                    try {
+                        update();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                     accumulator -= updateRate;
                     shouldRender = true;
                 }
@@ -56,7 +62,7 @@ public class GameLoop implements Runnable {
         }
     }
 
-    private void update() {
+    private void update() throws SQLException {
         game.update();
         ups++;
     }

@@ -7,6 +7,8 @@ import com.wordgame.client.input.Input;
 import com.wordgame.client.state.State;
 import com.wordgame.client.state.menu.MenuState;
 
+import java.sql.SQLException;
+
 public class Game {
 
     private State state;
@@ -22,7 +24,7 @@ public class Game {
         display = new Display(width, height, input, this::resize);
     }
 
-    public void update(){
+    public void update() throws SQLException {
         state.update(this);
     }
 

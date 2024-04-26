@@ -13,6 +13,7 @@ import com.wordgame.client.gui.text.UIHeader;
 import com.wordgame.client.gui.text.UIText;
 
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 
 public class WaitState extends State {
     private boolean paused;
@@ -84,7 +85,7 @@ public class WaitState extends State {
     }
 
     @Override
-    public void update(Game game) {
+    public void update(Game game) throws SQLException {
         super.update(game);
         if(!paused) {
             gameTimer.update();

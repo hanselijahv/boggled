@@ -7,6 +7,8 @@ import com.wordgame.client.gui.Alignment;
 import com.wordgame.client.gui.HorizontalContainer;
 import com.wordgame.client.gui.text.UIText;
 
+import java.sql.SQLException;
+
 public class UIWaitTime extends HorizontalContainer {
 
     private final UIText gameTime;
@@ -19,7 +21,7 @@ public class UIWaitTime extends HorizontalContainer {
     }
 
     @Override
-    public void update(State state) {
+    public void update(State state) throws SQLException {
         super.update(state);
         Time gameTime = ((WaitState) state).getGameTimer();
         this.gameTime.setText(gameTime.getFormattedTime());
