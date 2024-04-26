@@ -4,7 +4,7 @@ import net.team6.boggled.client.game.time.Time;
 import net.team6.boggled.client.state.State;
 import net.team6.boggled.client.state.wait.WaitState;
 import net.team6.boggled.client.gui.Alignment;
-import net.team6.boggled.client.gui.HorizontalContainer;
+import net.team6.boggled.client.gui.container.HorizontalContainer;
 import net.team6.boggled.client.gui.text.UIText;
 
 import java.sql.SQLException;

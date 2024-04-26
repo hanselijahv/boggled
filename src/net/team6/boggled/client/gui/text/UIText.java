@@ -3,7 +3,7 @@ package net.team6.boggled.client.gui.text;
 import net.team6.boggled.client.core.Size;
 import net.team6.boggled.utilities.ImageUtils;
 import net.team6.boggled.client.state.State;
-import net.team6.boggled.client.gui.UIComponent;
+import net.team6.boggled.client.gui.component.UIComponent;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

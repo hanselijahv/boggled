@@ -1,6 +1,7 @@
-package net.team6.boggled.client.gui;
+package net.team6.boggled.client.gui.component;
 
 import net.team6.boggled.client.core.Size;
+import net.team6.boggled.client.gui.container.AlignableContainer;
 
 public class UICanvas extends AlignableContainer {
     public UICanvas(Size fixedSize) {

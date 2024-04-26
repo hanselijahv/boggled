@@ -4,8 +4,8 @@ import net.team6.boggled.client.core.Size;
 import net.team6.boggled.client.game.Game;
 import net.team6.boggled.client.game.time.Timer;
 import net.team6.boggled.client.game.settings.GameSettings;
-import net.team6.boggled.client.gui.UIContainer;
-import net.team6.boggled.client.gui.VerticalContainer;
+import net.team6.boggled.client.gui.container.UIContainer;
+import net.team6.boggled.client.gui.container.VerticalContainer;
 import net.team6.boggled.client.state.wait.elements.UIWaitMenu;
 import net.team6.boggled.client.state.wait.elements.UIWaitTime;
 import net.team6.boggled.client.input.Input;
@@ -35,7 +35,7 @@ public class WaitState extends State {
         inputEnabled = true;
         initializeUI();
 
-        //audioPlayer.playMusic("main.wav");
+        audioPlayer.playMusic("main.wav");
 
     }
 

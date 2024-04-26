@@ -1,12 +1,13 @@
 package net.team6.boggled.client.gui;
 
 import net.team6.boggled.client.core.Size;
+import net.team6.boggled.client.gui.component.UIComponent;
 import net.team6.boggled.client.state.State;
 
 import java.awt.Image;
 
 
-public class UIImage extends UIComponent{
+public class UIImage extends UIComponent {
     private Image image;
 
     public UIImage(Image image) {

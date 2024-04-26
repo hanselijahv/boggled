@@ -1,7 +1,8 @@
-package net.team6.boggled.client.gui;
+package net.team6.boggled.client.gui.container;
 
 import net.team6.boggled.client.core.Position;
 import net.team6.boggled.client.core.Size;
+import net.team6.boggled.client.gui.component.UIComponent;
 
 public class VerticalContainer extends UIContainer {
     @Override

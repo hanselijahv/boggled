@@ -1,7 +1,7 @@
 package net.team6.boggled.server.state.menu.elements;
 
 import net.team6.boggled.server.state.menu.ServerMenuState;
-import net.team6.boggled.client.gui.VerticalContainer;
+import net.team6.boggled.client.gui.container.VerticalContainer;
 import net.team6.boggled.client.gui.Alignment;
 import net.team6.boggled.client.gui.Spacing;
 import net.team6.boggled.client.gui.clickable.UIButton;

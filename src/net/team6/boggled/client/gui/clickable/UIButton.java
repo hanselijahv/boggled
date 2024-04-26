@@ -3,9 +3,9 @@ package net.team6.boggled.client.gui.clickable;
 import net.team6.boggled.client.core.Size;
 import net.team6.boggled.client.state.State;
 import net.team6.boggled.client.gui.Spacing;
-import net.team6.boggled.client.gui.UIContainer;
+import net.team6.boggled.client.gui.container.UIContainer;
 import net.team6.boggled.client.gui.text.UIText;
-import net.team6.boggled.client.gui.VerticalContainer;
+import net.team6.boggled.client.gui.container.VerticalContainer;
 
 import java.awt.*;
 import java.sql.SQLException;
@@ -54,7 +54,7 @@ public class UIButton extends UIClickable {
 
     @Override
     protected void onFocus(State state) {
-        // state.getAudioPlayer().playSound("selectSE.wav");
+        state.getAudioPlayer().playSound("selectSE.wav");
     }
 
     @Override

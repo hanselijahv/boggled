@@ -6,14 +6,14 @@ import net.team6.boggled.client.game.settings.GameSettings;
 import net.team6.boggled.client.input.Input;
 import net.team6.boggled.client.state.State;
 import net.team6.boggled.client.state.menu.elements.UIMainMenu;
-import net.team6.boggled.client.gui.UIContainer;
+import net.team6.boggled.client.gui.container.UIContainer;
 
 public class MenuState extends State {
     public MenuState(Size windowSize, Input input, GameSettings gameSettings) {
         super(windowSize, input, gameSettings);
 
         uiCanvas.addUIComponent(new UIMainMenu());
-        // audioPlayer.playMusic("main.wav");
+        audioPlayer.playMusic("main.wav");
 
     }
 

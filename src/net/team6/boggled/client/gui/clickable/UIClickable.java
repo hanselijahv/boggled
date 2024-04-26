@@ -3,7 +3,7 @@ package net.team6.boggled.client.gui.clickable;
 import net.team6.boggled.client.core.Position;
 import net.team6.boggled.client.input.MouseConsumer;
 import net.team6.boggled.client.state.State;
-import net.team6.boggled.client.gui.UIComponent;
+import net.team6.boggled.client.gui.component.UIComponent;
 
 import java.awt.*;
 import java.sql.SQLException;

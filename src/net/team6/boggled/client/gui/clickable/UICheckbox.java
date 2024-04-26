@@ -4,10 +4,10 @@ import net.team6.boggled.client.core.Size;
 import net.team6.boggled.client.core.Value;
 import net.team6.boggled.utilities.ImageUtils;
 import net.team6.boggled.client.state.State;
-import net.team6.boggled.client.gui.HorizontalContainer;
+import net.team6.boggled.client.gui.container.HorizontalContainer;
 import net.team6.boggled.client.gui.Spacing;
-import net.team6.boggled.client.gui.UIComponent;
-import net.team6.boggled.client.gui.UIContainer;
+import net.team6.boggled.client.gui.component.UIComponent;
+import net.team6.boggled.client.gui.container.UIContainer;
 import net.team6.boggled.client.gui.text.UIText;
 
 import java.awt.*;

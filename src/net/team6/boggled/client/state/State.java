@@ -7,8 +7,8 @@ import net.team6.boggled.client.game.time.Time;
 import net.team6.boggled.client.game.settings.GameSettings;
 import net.team6.boggled.client.input.Input;
 import net.team6.boggled.client.input.MouseHandler;
-import net.team6.boggled.client.gui.AlignableContainer;
-import net.team6.boggled.client.gui.UICanvas;
+import net.team6.boggled.client.gui.container.AlignableContainer;
+import net.team6.boggled.client.gui.component.UICanvas;
 import net.team6.boggled.server.Server;
 import net.team6.boggled.server.state.settings.BoggledSettings;
 

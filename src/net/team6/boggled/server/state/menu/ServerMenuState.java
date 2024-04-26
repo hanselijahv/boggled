@@ -5,7 +5,7 @@ import net.team6.boggled.client.input.Input;
 import net.team6.boggled.server.state.menu.elements.ServerUIMainMenu;
 import net.team6.boggled.server.state.settings.BoggledSettings;
 import net.team6.boggled.client.state.State;
-import net.team6.boggled.client.gui.UIContainer;
+import net.team6.boggled.client.gui.container.UIContainer;
 
 public class ServerMenuState extends State {
     public ServerMenuState(Size windowSize, Input input, BoggledSettings boggledSettings) {
