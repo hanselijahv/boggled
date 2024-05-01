@@ -42,6 +42,6 @@ public class Player {
     }
 
     public String toString() {
-        return "Player ID: " + playerId + "\nUsername: " + username + "\nPassword: " + password;
+        return "\nPlayer ID: " + playerId + "\nUsername: " + username;
     }
 }
