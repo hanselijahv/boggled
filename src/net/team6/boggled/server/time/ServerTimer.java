@@ -1,7 +1,7 @@
 package net.team6.boggled.server.time;
 
 public class ServerTimer extends ServerTime {
-    private Runnable callBack;
+    private final Runnable callBack;
 
     public ServerTimer(double seconds, Runnable callBack) {
         currentUpdates = getUpdatesFromSeconds(seconds);
