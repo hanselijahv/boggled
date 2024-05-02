@@ -30,103 +30,6 @@ public class View extends JFrame {
     private static final int GAME_DURATION = 30;
     private ImageTextField inputField;
 
-    public static void loadDictionary() {
-        dictionary = new HashSet<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("res/text/words.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                dictionary.add(line.toLowerCase());
-            }
-        } catch (IOException e) {
-            System.err.println("Error reading dictionary file: " + e.getMessage());
-            System.exit(1);
-        }
-    }
-
-    public static List<Character> generateRandomLetters() {
-        List<Character> randomLetters = new ArrayList<>();
-        randomLetters.addAll(generateRandomVowels());
-        randomLetters.addAll(generateRandomConsonants());
-        Collections.shuffle(randomLetters);
-        return randomLetters;
-    }
-
-    private static List<Character> generateRandomVowels() {
-        List<Character> vowels = new ArrayList<>();
-        Random random = new Random();
-        char[] allVowels = {'a', 'e', 'i', 'o', 'u'};
-        for (int i = 0; i < VOWEL_COUNT; i++) {
-            vowels.add(allVowels[random.nextInt(allVowels.length)]);
-        }
-        return vowels;
-    }
-
-
-    private static List<Character> generateRandomConsonants() {
-        List<Character> consonants = new ArrayList<>();
-        Random random = new Random();
-        for (int i = 0; i < CONSONANT_COUNT; i++) {
-            char consonant;
-            do {
-                consonant = (char) ('a' + random.nextInt(26));
-            } while ("aeiou".indexOf(consonant) != -1); // Skip if it's a vowel
-            consonants.add(consonant);
-        }
-        return consonants;
-    }
-
-    private static boolean canFormWord(String word) {
-        List<Character> remainingLetters = new ArrayList<>(letters);
-        for (char letter : word.toCharArray()) {
-            boolean found = false;
-            for (Iterator<Character> iterator = remainingLetters.iterator(); iterator.hasNext(); ) {
-                char currentLetter = iterator.next();
-                if (Character.toLowerCase(currentLetter) == Character.toLowerCase(letter)) {
-                    iterator.remove();
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static boolean isValidWord(String word) {
-        return dictionary.contains(word.toLowerCase());
-    }
-
-    private static void endGame() {
-        System.out.println("Time's up!");
-        System.out.println("Total Score: " + totalScore);
-        System.out.println("Words entered: " + words);
-        System.exit(0);
-    }
-
-    public static void main(String[] args) {
-        try {
-            View view = new View();
-            view.createJFrame();
-
-            loadDictionary();
-
-            System.out.println("Random letters: " + letters);
-
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    endGame();
-                }
-            }, GAME_DURATION * 1000);
-
-        } catch (IOException | FontFormatException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void duringGame(String input) {
         int wordScore = 0;
         boolean valid = true;
@@ -164,8 +67,108 @@ public class View extends JFrame {
             totalScore += wordScore;
         }
 
-        System.out.println("Word Score: " + wordScore);
+        System.out.println("Word Score: " + returnWordScore(wordScore));
         System.out.println("Total Score: " + totalScore);
+    }
+
+    private static void endGame() {
+        System.out.println("Time's up!");
+        System.out.println("Total Score: " + totalScore);
+        System.out.println("Words entered: " + words);
+        System.exit(0);
+    }
+
+    private static int returnWordScore(int wordScore) {
+        return wordScore;
+    }
+
+    public static void loadDictionary() {
+        dictionary = new HashSet<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("res/text/words.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                dictionary.add(line.toLowerCase());
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading dictionary file: " + e.getMessage());
+            System.exit(1);
+        }
+    }
+
+    public static List<Character> generateRandomLetters() {
+        List<Character> randomLetters = new ArrayList<>();
+        randomLetters.addAll(generateRandomVowels());
+        randomLetters.addAll(generateRandomConsonants());
+        Collections.shuffle(randomLetters);
+        return randomLetters;
+    }
+
+    private static List<Character> generateRandomVowels() {
+        List<Character> vowels = new ArrayList<>();
+        Random random = new Random();
+        char[] allVowels = {'a', 'e', 'i', 'o', 'u'};
+        for (int i = 0; i < VOWEL_COUNT; i++) {
+            vowels.add(allVowels[random.nextInt(allVowels.length)]);
+        }
+        return vowels;
+    }
+
+    private static List<Character> generateRandomConsonants() {
+        List<Character> consonants = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < CONSONANT_COUNT; i++) {
+            char consonant;
+            do {
+                consonant = (char) ('a' + random.nextInt(26));
+            } while ("aeiou".indexOf(consonant) != -1); // Skip if it's a vowel
+            consonants.add(consonant);
+        }
+        return consonants;
+    }
+
+    private static boolean canFormWord(String word) {
+        List<Character> remainingLetters = new ArrayList<>(letters);
+        for (char letter : word.toCharArray()) {
+            boolean found = false;
+            for (Iterator<Character> iterator = remainingLetters.iterator(); iterator.hasNext(); ) {
+                char currentLetter = iterator.next();
+                if (Character.toLowerCase(currentLetter) == Character.toLowerCase(letter)) {
+                    iterator.remove();
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean isValidWord(String word) {
+        return dictionary.contains(word.toLowerCase());
+    }
+
+    public static void main(String[] args) {
+        try {
+            View view = new View();
+            view.createJFrame();
+
+            loadDictionary();
+
+            System.out.println("Random letters: " + letters);
+
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    endGame();
+                }
+            }, GAME_DURATION * 1000);
+
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+        }
     }
 
     public void createJFrame() throws IOException, FontFormatException {
@@ -240,7 +243,6 @@ public class View extends JFrame {
         return count >= Collections.frequency(letters, letter);
     }
 
-    // NEW
     private String returnInputToGame() {
         String inputText = inputField.getText();
         return inputText;
