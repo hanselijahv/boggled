@@ -1,6 +1,6 @@
 package net.team6.boggled.common.db;
 
-import net.team6.boggled.common.model.Game;
+import net.team6.boggled.common.model.GameResult;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.UUID;
 /**
  * Data Access Object for the Game class
  */
-public class GameDAO implements DAO<Game> {
+public class GameDAO implements DAO<GameResult> {
     private final Connection connection;
 
     /**
@@ -22,18 +22,18 @@ public class GameDAO implements DAO<Game> {
 
     /**
      * Insert a game into the database
-     * @param game The game to insert
+     * @param gameResult The game to insert
      * @return True if the game was inserted, false otherwise
      * @throws SQLException If an error occurs while inserting the game
      */
     @Override
-    public boolean insert(Game game) throws SQLException {
+    public boolean insert(GameResult gameResult) throws SQLException {
         String query = "INSERT INTO game (game_id, player_id, highest_score) VALUES (?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, generateGameID());
-            preparedStatement.setString(2, game.getPlayerId());
-            preparedStatement.setInt(3, game.getHighestScore());
+            preparedStatement.setString(2, gameResult.getPlayerId());
+            preparedStatement.setInt(3, gameResult.getHighestScore());
 
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -47,8 +47,8 @@ public class GameDAO implements DAO<Game> {
      * @throws SQLException If an error occurs while selecting the games
      */
     @Override
-    public List<Game> getAll() throws SQLException {
-        ArrayList<Game> gameArrayList = new ArrayList<>();
+    public List<GameResult> getAll() throws SQLException {
+        ArrayList<GameResult> gameResultArrayList = new ArrayList<>();
         String query = "SELECT * FROM game";
 
         try {
@@ -56,14 +56,14 @@ public class GameDAO implements DAO<Game> {
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
-                Game game = new Game(
+                GameResult gameResult = new GameResult(
                         resultSet.getString(1),
                         resultSet.getString(2),
                         resultSet.getInt(3));
-                gameArrayList.add(game);
+                gameResultArrayList.add(gameResult);
             }
 
-            return gameArrayList;
+            return gameResultArrayList;
         } catch (SQLException e) {
             throw new SQLException("[ERROR] Error selecting admin accounts: " + e.getMessage());
         }
@@ -71,20 +71,20 @@ public class GameDAO implements DAO<Game> {
 
     /**
      *  Update a game in the database
-     * @param game The game to update
+     * @param gameResult The game to update
      * @param params The new values for the game
      * @return True if the game was updated, false otherwise
      * @throws SQLException If an error occurs while updating the game
      */
     @Override
-    public boolean update(Game game, String[] params) throws SQLException {
+    public boolean update(GameResult gameResult, String[] params) throws SQLException {
         String query = "UPDATE game SET game_id = ?, player_id = ?, highest_score = ? WHERE game_id = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, params[0]);
             preparedStatement.setString(2, params[1]);
             preparedStatement.setInt(3, Integer.parseInt(params[2]));
-            preparedStatement.setString(4, game.getGameId());
+            preparedStatement.setString(4, gameResult.getGameId());
 
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -94,16 +94,16 @@ public class GameDAO implements DAO<Game> {
 
     /**
      *  Delete a game from the database
-     * @param game The game to delete
+     * @param gameResult The game to delete
      * @return True if the game was deleted, false otherwise
      * @throws SQLException If an error occurs while deleting the game
      */
     @Override
-    public boolean delete(Game game) throws SQLException {
+    public boolean delete(GameResult gameResult) throws SQLException {
         String query = "DELETE FROM game WHERE game_id = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, game.getGameId());
+            preparedStatement.setString(1, gameResult.getGameId());
             return preparedStatement.executeUpdate() > 0;
 
         } catch (SQLException e) {

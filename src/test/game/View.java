@@ -17,7 +17,7 @@ import java.util.*;
 import java.util.List;
 import java.util.Timer;
 
-public class View extends JFrame {
+public class View extends JPanel {
 
     private static int totalScore;
     private static final int VOWEL_COUNT = 7;
@@ -95,6 +95,16 @@ public class View extends JFrame {
         }
     }
 
+    public static void printDictionary() {
+        int i = 0;
+        for (String word : dictionary) {
+            if (canFormWord(word)) {
+                System.out.println(i + " " + word);
+                i++;
+            }
+        }
+    }
+
     public static List<Character> generateRandomLetters() {
         List<Character> randomLetters = new ArrayList<>();
         randomLetters.addAll(generateRandomVowels());
@@ -155,6 +165,7 @@ public class View extends JFrame {
             view.createJFrame();
 
             loadDictionary();
+            printDictionary();
 
             System.out.println("Random letters: " + letters);
 
@@ -193,7 +204,6 @@ public class View extends JFrame {
         JPanel buttonPanel = buttonPanel();
         contentPane.add(inputField, BorderLayout.NORTH);
         contentPane.add(buttonPanel, BorderLayout.CENTER);
-        setContentPane(contentPane);
         return contentPane;
     }
 

@@ -21887,7 +21887,7 @@ gamboling
 gambolled
 gambolling
 gambols
-com.wordgame.client.game
+com.wordgame.client.gameResult
 gamekeeper
 gamekeepers
 gamely
@@ -38894,8 +38894,8 @@ playbills
 playboy
 playboys
 played
-player
-players
+account
+accounts
 playful
 playfully
 playfulness
