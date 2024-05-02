@@ -1,17 +1,17 @@
 package net.team6.boggled.common.model;
 
-public class Player {
+public class Account {
     private String playerId;
     private String username;
     private String password;
 
-    public Player(String playerId, String username, String password) {
+    public Account(String playerId, String username, String password) {
         this.playerId = playerId;
         this.username = username;
         this.password = password;
     }
 
-    public Player() {
+    public Account() {
         this.playerId = null;
         this.username = null;
         this.password = null;

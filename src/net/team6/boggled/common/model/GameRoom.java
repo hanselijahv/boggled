@@ -7,23 +7,23 @@ import java.util.TimerTask;
 
 public class GameRoom {
 	private String roomId;
-	private List<Player> players;
+	private List<Account> accounts;
 	private boolean gameStarted;
 	private Timer timer;
 
-	public GameRoom(String roomId, List<Player> players, boolean gameStarted) {
+	public GameRoom(String roomId, List<Account> accounts, boolean gameStarted) {
 		this.roomId = roomId;
-		this.players = players;
+		this.accounts = accounts;
 		this.gameStarted = gameStarted;
 	}
 
-	public synchronized void joinRoom(Player player) {
+	public synchronized void joinRoom(Account account) {
 		if (gameStarted) {
 			// TODO: Delete print statements, transfer to controller
-			System.out.println( "[" + player.getUsername() + "] Game has already started. Cannot join the room.");
+			System.out.println( "[" + account.getUsername() + "] Game has already started. Cannot join the room.");
 
 		} else {
-			players.add(player);
+			accounts.add(account);
 		}
 	}
 
@@ -59,12 +59,12 @@ public class GameRoom {
 		this.roomId = roomId;
 	}
 
-	public List<Player> getPlayers() {
-		return players;
+	public List<Account> getPlayers() {
+		return accounts;
 	}
 
-	public void setPlayers(List<Player> players) {
-		this.players = players;
+	public void setPlayers(List<Account> accounts) {
+		this.accounts = accounts;
 	}
 
 	public void setGameStarted(boolean gameStarted) {
@@ -75,7 +75,7 @@ public class GameRoom {
 	public String toString() {
 		return "Game Room Details: \n" +
 			 "\tRoom ID: " + roomId + "\n" +
-			 "\tPlayers: " + players + "\n" +
+			 "\tPlayers: " + accounts + "\n" +
 			 "\tGame Started: " + gameStarted;
 	}
 }
