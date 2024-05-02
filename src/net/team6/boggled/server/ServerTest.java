@@ -2,7 +2,7 @@ package net.team6.boggled.server;
 
 import net.team6.boggled.common.db.DatabaseConnector;
 import net.team6.boggled.common.db.PlayerDAO;
-import net.team6.boggled.common.model.Player;
+import net.team6.boggled.common.model.Account;
 import net.team6.boggled.common.model.Settings;
 
 import java.util.List;
@@ -104,8 +104,8 @@ public class ServerTest {
                 }
 
 
-                Player player = new Player(null, userName, password);
-                playerDAOImpl.insert(player);
+                Account account = new Account(null, userName, password);
+                playerDAOImpl.insert(account);
                 System.out.println("Added successfully!");
 
                 System.out.println();
@@ -125,10 +125,10 @@ public class ServerTest {
 
     public static void updateUser() {
         try {
-            List<Player> players = playerDAOImpl.getAll();
+            List<Account> accounts = playerDAOImpl.getAll();
             System.out.println("Players: ");
-            for (Player player : players) {
-                System.out.println(player.getPlayerId() + ", " + player.getUsername() + ", " + player.getPassword());
+            for (Account account : accounts) {
+                System.out.println(account.getPlayerId() + ", " + account.getUsername() + ", " + account.getPassword());
             }
             System.out.println();
 
@@ -137,15 +137,15 @@ public class ServerTest {
             String playerIdToUpdate = scanner.nextLine();
 
 
-            Player playerToUpdate = null;
-            for (Player player : players) {
-                if (player.getPlayerId().equalsIgnoreCase(playerIdToUpdate)) {
-                    playerToUpdate = player;
+            Account accountToUpdate = null;
+            for (Account account : accounts) {
+                if (account.getPlayerId().equalsIgnoreCase(playerIdToUpdate)) {
+                    accountToUpdate = account;
                     break;
                 }
             }
 
-            if (playerToUpdate == null) {
+            if (accountToUpdate == null) {
                 System.out.println("No player found with ID: " + playerIdToUpdate);
             } else {
                 System.out.print("Enter new username: ");
@@ -155,7 +155,7 @@ public class ServerTest {
 
                 String[] params = {newUsername, newPassword};
 
-                playerDAOImpl.update(playerToUpdate, params);
+                playerDAOImpl.update(accountToUpdate, params);
 
                 System.out.println("Player updated successfully!");
             }
@@ -168,10 +168,10 @@ public class ServerTest {
 
     public static void removeUser() {
         try {
-            List<Player> players = playerDAOImpl.getAll();
+            List<Account> accounts = playerDAOImpl.getAll();
             System.out.println("Players: ");
-            for (Player player : players) {
-                System.out.println(player.getPlayerId() + ", " + player.getUsername() + ", " + player.getPassword());
+            for (Account account : accounts) {
+                System.out.println(account.getPlayerId() + ", " + account.getUsername() + ", " + account.getPassword());
             }
             System.out.println();
 
@@ -179,18 +179,18 @@ public class ServerTest {
             System.out.print("Enter player ID to remove: ");
             String playerIdToRemove = scanner.nextLine();
 
-            Player playerToRemove = null;
-            for (Player player : players) {
-                if (player.getPlayerId().equalsIgnoreCase(playerIdToRemove)) {
-                    playerToRemove = player;
+            Account accountToRemove = null;
+            for (Account account : accounts) {
+                if (account.getPlayerId().equalsIgnoreCase(playerIdToRemove)) {
+                    accountToRemove = account;
                     break;
                 }
             }
 
-            if (playerToRemove == null) {
+            if (accountToRemove == null) {
                 System.out.println("No player found with ID: " + playerIdToRemove);
             } else {
-                playerDAOImpl.delete(playerToRemove);
+                playerDAOImpl.delete(accountToRemove);
                 System.out.println("Player removed successfully!");
             }
         } catch (Exception e) {
