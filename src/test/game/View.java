@@ -17,15 +17,15 @@ import java.util.*;
 import java.util.List;
 import java.util.Timer;
 
-public class View extends JFrame {
+public class View extends JPanel {
 
     private static int totalScore;
     private static final int VOWEL_COUNT = 7;
     private static final int CONSONANT_COUNT = 13;
     private static Font calculatorFont;
-    private static List<Character> letters;
-    private static Set<String> dictionary;
-    private static final List<String> words = new ArrayList<>();
+    private static List<Character> letters;                         // list of random letters
+    private static Set<String> dictionary;                          // dictionary from txt file
+    private static final List<String> words = new ArrayList<>();    // list of words entered by user
     private static final int MIN_WORD_LENGTH = 4;
     private static final int GAME_DURATION = 30;
     private ImageTextField inputField;
@@ -40,6 +40,16 @@ public class View extends JFrame {
         } catch (IOException e) {
             System.err.println("Error reading dictionary file: " + e.getMessage());
             System.exit(1);
+        }
+    }
+
+    public static void printDictionary() {
+        int i = 0;
+        for (String word : dictionary) {
+            if (canFormWord(word)) {
+                System.out.println(i + " " + word);
+                i++;
+            }
         }
     }
 
@@ -111,6 +121,7 @@ public class View extends JFrame {
             view.createJFrame();
 
             loadDictionary();
+            printDictionary();
 
             System.out.println("Random letters: " + letters);
 
@@ -190,7 +201,6 @@ public class View extends JFrame {
         JPanel buttonPanel = buttonPanel();
         contentPane.add(inputField, BorderLayout.NORTH);
         contentPane.add(buttonPanel, BorderLayout.CENTER);
-        setContentPane(contentPane);
         return contentPane;
     }
 
