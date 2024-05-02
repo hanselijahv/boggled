@@ -14,6 +14,8 @@ import net.team6.boggled.server.Server;
 import net.team6.boggled.server.settings.BoggledSettings;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class State {
     protected Input input;
@@ -73,13 +75,16 @@ public abstract class State {
 
     private void handleKeyInput() {
         if (keyInputConsumer != null) {
-            for (int keyCode : input.getTypedKeyBuffer()) {
+            List<Integer> typedKeyBufferCopy = new ArrayList<>(input.getTypedKeyBuffer());
+
+            for (int keyCode : typedKeyBufferCopy) {
                 keyInputConsumer.onKeyPressed(keyCode);
             }
         } else {
             handleInput();
         }
     }
+
 
     public Time getTime() {
         return time;
