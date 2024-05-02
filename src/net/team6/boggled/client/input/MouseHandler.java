@@ -3,6 +3,7 @@ package net.team6.boggled.client.input;
 import net.team6.boggled.client.state.State;
 import net.team6.boggled.client.gui.component.UIImage;
 
+import java.sql.SQLException;
 import java.util.Optional;
 
 public class MouseHandler {
@@ -12,7 +13,7 @@ public class MouseHandler {
     private MouseAction wheelButtonAction;
     private MouseConsumer activeConsumer;
 
-    public void update(State state) {
+    public void update(State state) throws SQLException {
         final Input input = state.getInput();
 
         handlePrimaryButton(state);
@@ -23,7 +24,7 @@ public class MouseHandler {
         cleanUp(input);
     }
 
-    private void handleWheelButton(State state) {
+    private void handleWheelButton(State state) throws SQLException {
         if(wheelButtonAction != null) {
             wheelButtonAction.update(state);
             if(state.getInput().isWheelMouseClicked()) {
@@ -40,7 +41,7 @@ public class MouseHandler {
         }
     }
 
-    private void handleRightButton(State state) {
+    private void handleRightButton(State state) throws SQLException {
         if(rightButtonAction != null) {
             rightButtonAction.update(state);
             if(state.getInput().isRightMouseClicked()) {
@@ -72,7 +73,7 @@ public class MouseHandler {
         input.cleanUpInputEvents();
     }
 
-    private void handleActiveConsumer(State state, Input input) {
+    private void handleActiveConsumer(State state, Input input) throws SQLException {
         if(activeConsumer != null) {
             if(input.isMouseClicked()) {
                 activeConsumer.onClick(state);

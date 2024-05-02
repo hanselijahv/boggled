@@ -10,11 +10,9 @@ import net.team6.boggled.client.input.MouseHandler;
 import net.team6.boggled.client.gui.container.AlignableContainer;
 import net.team6.boggled.client.gui.component.UICanvas;
 import net.team6.boggled.server.Server;
-import net.team6.boggled.server.state.settings.BoggledSettings;
+import net.team6.boggled.server.settings.BoggledSettings;
 
 import java.sql.SQLException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public abstract class State {
     protected Input input;

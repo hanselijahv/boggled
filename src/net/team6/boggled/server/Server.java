@@ -4,7 +4,7 @@ import net.team6.boggled.client.core.Size;
 import net.team6.boggled.client.input.Input;
 import net.team6.boggled.server.display.DevDisplay;
 import net.team6.boggled.server.state.menu.ServerMenuState;
-import net.team6.boggled.server.state.settings.BoggledSettings;
+import net.team6.boggled.server.settings.BoggledSettings;
 import net.team6.boggled.client.state.State;
 
 import java.sql.SQLException;

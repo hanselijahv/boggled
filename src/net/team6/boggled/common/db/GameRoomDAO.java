@@ -4,6 +4,7 @@ import net.team6.boggled.common.model.GameRoom;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameRoomDAO implements DAO<GameRoom> {
@@ -17,6 +18,8 @@ public class GameRoomDAO implements DAO<GameRoom> {
     @Override
     public List<GameRoom> getAll() throws SQLException {
         String sql = "INSERT INTO gamerooms (room_id, )";
+        List<GameRoom> rooms = new ArrayList<GameRoom>();
+        return rooms;
     }
 
     @Override

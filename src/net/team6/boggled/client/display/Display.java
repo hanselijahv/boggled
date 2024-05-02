@@ -46,7 +46,7 @@ public class Display extends JFrame {
         addKeyListener(input);
         pack();
 
-        canvas.createBufferStrategy(2);
+        canvas.createBufferStrategy(3);
 
         //setSize(Toolkit.getDefaultToolkit().getScreenSize());
         setLocationRelativeTo(null);
@@ -56,10 +56,9 @@ public class Display extends JFrame {
     public void render(State state) {
         BufferStrategy bufferStrategy = canvas.getBufferStrategy();
         Graphics graphics = bufferStrategy.getDrawGraphics();
-        Graphics2D graphics2D = (Graphics2D) graphics;
         do {
             try {
-                graphics2D.setColor(BoggledColors.SYSTEM_COLOR);
+                graphics.setColor(BoggledColors.SYSTEM_COLOR);
                 graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 renderer.render(state, graphics);
             } finally {

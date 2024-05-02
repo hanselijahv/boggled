@@ -1,6 +1,6 @@
 package net.team6.boggled.client.game.time;
 
-import net.team6.boggled.client.game.GameLoop;
+import net.team6.boggled.client.game.Game;
 
 public class Time {
 
@@ -11,7 +11,7 @@ public class Time {
     }
 
     public int getUpdatesFromSeconds(double seconds) {
-        return (int) Math.round(seconds * GameLoop.UPDATES_PER_SECOND);
+        return (int) Math.round(seconds * Game.UPDATES_PER_SECOND);
     }
 
     public void update() {
@@ -20,8 +20,8 @@ public class Time {
 
     public String getFormattedTime() {
         StringBuilder stringBuilder = new StringBuilder();
-        int minutes = currentUpdates / GameLoop.UPDATES_PER_SECOND / 60;
-        int seconds = currentUpdates / GameLoop.UPDATES_PER_SECOND % 60;
+        int minutes = currentUpdates / Game.UPDATES_PER_SECOND / 60;
+        int seconds = currentUpdates / Game.UPDATES_PER_SECOND % 60;
 
         if(minutes < 10) {
             stringBuilder.append(0);
@@ -41,6 +41,6 @@ public class Time {
     }
 
     public int asSeconds() {
-        return currentUpdates / GameLoop.UPDATES_PER_SECOND;
+        return currentUpdates / Game.UPDATES_PER_SECOND;
     }
 }

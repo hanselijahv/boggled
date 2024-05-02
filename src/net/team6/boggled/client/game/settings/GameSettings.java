@@ -1,6 +1,7 @@
 package net.team6.boggled.client.game.settings;
 
 import net.team6.boggled.client.core.Value;
+import net.team6.boggled.common.model.Settings;
 
 public class GameSettings {
 
@@ -8,6 +9,7 @@ public class GameSettings {
     private double gameSpeedMultiplier;
     private final AudioSettings audioSettings;
     private final Value<Boolean> fullScreenMode;
+    private Settings settings;
 
     public GameSettings(boolean debugMode) {
         this.debugMode = debugMode;
@@ -42,5 +44,9 @@ public class GameSettings {
 
     public AudioSettings getAudioSettings() {
         return audioSettings;
+    }
+
+    public Settings getGameSettings() {
+        return settings;
     }
 }

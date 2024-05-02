@@ -15,6 +15,7 @@ import net.team6.boggled.client.gui.text.UIHeader;
 import net.team6.boggled.client.gui.text.UIText;
 import net.team6.boggled.client.gui.tools.Alignment;
 import net.team6.boggled.client.gui.tools.Spacing;
+import net.team6.boggled.server.settings.BoggledSettings;
 import net.team6.boggled.utilities.BoggledColors;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -30,11 +31,12 @@ public class WaitingState extends State {
 
     private final Timer gameTimer;
 
-    public WaitingState(Size windowSize, Input input, GameSettings gameSettings) {
+    public WaitingState(Size windowSize, Input input, GameSettings gameSettings) throws SQLException {
         super(windowSize, input, gameSettings);
 
+        BoggledSettings boggledSettings = new BoggledSettings(false);
         gameMenu = new UIWaitingMenu(input, gameSettings);
-        gameTimer = new Timer(10, this::lose);
+        gameTimer = new Timer(boggledSettings.getGameSettings().getWaitingTime(), this::lose);
         inputEnabled = true;
         initializeUI();
 

@@ -2,11 +2,16 @@ package net.team6.boggled.run;
 
 
 import net.team6.boggled.client.game.Game;
-import net.team6.boggled.client.game.GameLoop;
+import net.team6.boggled.common.db.DatabaseConnector;
+
+import java.applet.Applet;
 
 
-public class App {
+public class App extends Applet {
+    private static final Game game = new Game(1280, 720);
+
     public static void main(String[] args) {
-        new Thread(new GameLoop(new Game(1280, 720))).start();
+        game.start();
+        DatabaseConnector.getInstance();
     }
 }
