@@ -1,9 +1,10 @@
 module Boggled {
     interface Client {
-        boolean login(in string username, in string password);
+        void login(in string username, in string password);
         void logout(in string username);
-        boolean joinGame(in string username, in string gameid);
+        void joinGame(in string username, in string gameid);
         void sendWords(in string username, in sequence<string> words);
-        long getScore(in string username);
+        long getRoundScore(in string username, in string gameid);
+
     };
 };
