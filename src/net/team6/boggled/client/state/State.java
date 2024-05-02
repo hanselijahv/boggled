@@ -1,14 +1,15 @@
 package net.team6.boggled.client.state;
 
 import net.team6.boggled.client.audio.AudioPlayer;
-import net.team6.boggled.client.core.Size;
+import net.team6.boggled.common.core.Size;
 import net.team6.boggled.client.game.Game;
 import net.team6.boggled.client.game.time.Time;
 import net.team6.boggled.client.game.settings.GameSettings;
-import net.team6.boggled.client.input.Input;
-import net.team6.boggled.client.input.MouseHandler;
-import net.team6.boggled.client.gui.container.AlignableContainer;
-import net.team6.boggled.client.gui.component.UICanvas;
+import net.team6.boggled.common.input.Input;
+import net.team6.boggled.common.input.KeyInputConsumer;
+import net.team6.boggled.common.input.MouseHandler;
+import net.team6.boggled.common.gui.container.AlignableContainer;
+import net.team6.boggled.common.gui.component.UICanvas;
 import net.team6.boggled.server.Server;
 import net.team6.boggled.server.settings.BoggledSettings;
 
@@ -24,6 +25,7 @@ public abstract class State {
     protected BoggledSettings boggledSettings;
     protected Size windowSize;
     protected MouseHandler mouseHandler;
+    protected KeyInputConsumer keyInputConsumer;
 
 
     public State(Size windowSize, Input input, GameSettings gameSettings) {
@@ -50,6 +52,7 @@ public abstract class State {
         audioPlayer.update();
         time.update();
         uiCanvas.update(this);
+        handleKeyInput();
         mouseHandler.update(this);
 
         if (nextState != null) {
@@ -68,6 +71,15 @@ public abstract class State {
         }
     }
 
+    private void handleKeyInput() {
+        if (keyInputConsumer != null) {
+            for (int keyCode : input.getTypedKeyBuffer()) {
+                keyInputConsumer.onKeyPressed(keyCode);
+            }
+        } else {
+            handleInput();
+        }
+    }
 
     public Time getTime() {
         return time;
@@ -77,7 +89,6 @@ public abstract class State {
         return input;
     }
 
-
     public MouseHandler getMouseHandler() {
         return mouseHandler;
     }
@@ -85,7 +96,6 @@ public abstract class State {
     public AlignableContainer getUiCanvas() {
         return uiCanvas;
     }
-
 
     public void setNextState(State nextState) {
         this.nextState = nextState;
@@ -118,5 +128,13 @@ public abstract class State {
     }
 
     protected abstract void handleInput();
+
+    public KeyInputConsumer getKeyInputConsumer() {
+        return keyInputConsumer;
+    }
+
+    public void setKeyInputConsumer(KeyInputConsumer keyInputConsumer) {
+        this.keyInputConsumer = keyInputConsumer;
+    }
 
 }

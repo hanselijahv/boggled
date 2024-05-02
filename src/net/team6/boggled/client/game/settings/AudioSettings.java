@@ -5,8 +5,8 @@ public class AudioSettings {
     private int soundVolume;
 
     public AudioSettings() {
-        musicVolume = 80;
-        soundVolume = 75;
+        musicVolume = 70;
+        soundVolume = 85;
     }
 
     public int getMusicVolume() {

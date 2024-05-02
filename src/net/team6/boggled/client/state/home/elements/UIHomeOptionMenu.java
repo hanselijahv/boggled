@@ -1,16 +1,16 @@
 package net.team6.boggled.client.state.home.elements;
 
 import net.team6.boggled.client.game.settings.GameSettings;
-import net.team6.boggled.client.gui.container.UIContainer;
-import net.team6.boggled.client.gui.container.VerticalContainer;
+import net.team6.boggled.common.gui.container.UIContainer;
+import net.team6.boggled.common.gui.container.VerticalContainer;
 import net.team6.boggled.client.state.State;
 import net.team6.boggled.client.state.home.HomeState;
-import net.team6.boggled.client.gui.clickable.UIButton;
-import net.team6.boggled.client.gui.clickable.UICheckbox;
-import net.team6.boggled.client.gui.clickable.UISlider;
-import net.team6.boggled.client.gui.text.UIText;
-import net.team6.boggled.client.gui.tools.Alignment;
-import net.team6.boggled.client.gui.tools.Spacing;
+import net.team6.boggled.common.gui.clickable.UIButton;
+import net.team6.boggled.common.gui.clickable.UICheckbox;
+import net.team6.boggled.common.gui.clickable.UISlider;
+import net.team6.boggled.common.gui.text.UIText;
+import net.team6.boggled.common.gui.tools.Alignment;
+import net.team6.boggled.common.gui.tools.Spacing;
 import net.team6.boggled.utilities.BoggledColors;
 
 import java.sql.SQLException;

@@ -2,15 +2,15 @@ package net.team6.boggled.server.state.menu.elements;
 
 import net.team6.boggled.server.state.menu.ServerMenuState;
 import net.team6.boggled.server.settings.BoggledSettings;
-import net.team6.boggled.client.gui.tools.Alignment;
-import net.team6.boggled.client.gui.tools.Spacing;
-import net.team6.boggled.client.gui.container.UIContainer;
+import net.team6.boggled.common.gui.tools.Alignment;
+import net.team6.boggled.common.gui.tools.Spacing;
+import net.team6.boggled.common.gui.container.UIContainer;
 import net.team6.boggled.client.state.State;
-import net.team6.boggled.client.gui.container.VerticalContainer;
-import net.team6.boggled.client.gui.clickable.UIButton;
-import net.team6.boggled.client.gui.clickable.UICheckbox;
-import net.team6.boggled.client.gui.clickable.UISlider;
-import net.team6.boggled.client.gui.text.UIText;
+import net.team6.boggled.common.gui.container.VerticalContainer;
+import net.team6.boggled.common.gui.clickable.UIButton;
+import net.team6.boggled.common.gui.clickable.UICheckbox;
+import net.team6.boggled.common.gui.clickable.UISlider;
+import net.team6.boggled.common.gui.text.UIText;
 import net.team6.boggled.common.model.Settings;
 import net.team6.boggled.common.db.SettingsDAO;
 

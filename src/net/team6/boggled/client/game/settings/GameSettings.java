@@ -1,6 +1,6 @@
 package net.team6.boggled.client.game.settings;
 
-import net.team6.boggled.client.core.Value;
+import net.team6.boggled.common.core.Value;
 import net.team6.boggled.common.model.Settings;
 
 public class GameSettings {

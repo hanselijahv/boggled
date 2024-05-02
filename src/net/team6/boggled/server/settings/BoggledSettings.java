@@ -1,6 +1,6 @@
 package net.team6.boggled.server.settings;
 
-import net.team6.boggled.client.core.Value;
+import net.team6.boggled.common.core.Value;
 
 import net.team6.boggled.common.model.Settings;
 import net.team6.boggled.common.db.SettingsDAO;

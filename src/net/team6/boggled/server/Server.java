@@ -1,7 +1,7 @@
 package net.team6.boggled.server;
 
-import net.team6.boggled.client.core.Size;
-import net.team6.boggled.client.input.Input;
+import net.team6.boggled.common.core.Size;
+import net.team6.boggled.common.input.Input;
 import net.team6.boggled.server.display.DevDisplay;
 import net.team6.boggled.server.state.menu.ServerMenuState;
 import net.team6.boggled.server.settings.BoggledSettings;

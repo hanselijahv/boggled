@@ -1,9 +1,9 @@
 package net.team6.boggled.client.display;
 
 
-import net.team6.boggled.client.core.Size;
+import net.team6.boggled.common.core.Size;
 import net.team6.boggled.client.game.ResizeCallback;
-import net.team6.boggled.client.input.Input;
+import net.team6.boggled.common.input.Input;
 import net.team6.boggled.client.state.State;
 import net.team6.boggled.utilities.BoggledColors;
 
@@ -46,9 +46,8 @@ public class Display extends JFrame {
         addKeyListener(input);
         pack();
 
-        canvas.createBufferStrategy(3);
+        canvas.createBufferStrategy(2);
 
-        //setSize(Toolkit.getDefaultToolkit().getScreenSize());
         setLocationRelativeTo(null);
         setVisible(true);
     }

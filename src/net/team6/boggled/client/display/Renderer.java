@@ -21,6 +21,7 @@ Renderer {
     }
 
     private void renderUI(State state, Graphics graphics) {
+
         state.getMouseHandler().getPrimaryButtonUI().ifPresent(uiImage -> graphics.drawImage(
                 uiImage.getSprite(),
                 uiImage.getAbsolutePosition().intX(),
@@ -42,18 +43,6 @@ Renderer {
         }
     }
 
-    public Display getDisplay() {
-        return display;
-    }
-
-    private void centerDisplayOnScreen(Dimension screenSize) {
-        if (display != null) {
-            Dimension windowSize = display.getSize();
-            int x = (screenSize.width - windowSize.width) / 2;
-            int y = (screenSize.height - windowSize.height) / 2;
-            display.setLocation(x, y);
-        }
-    }
 
 
 }

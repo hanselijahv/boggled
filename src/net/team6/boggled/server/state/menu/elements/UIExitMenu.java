@@ -1,11 +1,11 @@
 package net.team6.boggled.server.state.menu.elements;
 
 import net.team6.boggled.server.state.menu.ServerMenuState;
-import net.team6.boggled.client.gui.container.VerticalContainer;
-import net.team6.boggled.client.gui.tools.Alignment;
-import net.team6.boggled.client.gui.tools.Spacing;
-import net.team6.boggled.client.gui.clickable.UIButton;
-import net.team6.boggled.client.gui.text.UIHeader;
+import net.team6.boggled.common.gui.container.VerticalContainer;
+import net.team6.boggled.common.gui.tools.Alignment;
+import net.team6.boggled.common.gui.tools.Spacing;
+import net.team6.boggled.common.gui.clickable.UIButton;
+import net.team6.boggled.common.gui.text.UIHeader;
 
 public class UIExitMenu extends VerticalContainer {
     public UIExitMenu() {
@@ -13,7 +13,7 @@ public class UIExitMenu extends VerticalContainer {
         centerChildren = true;
 
         setPadding(new Spacing(0,0,50,0));
-        final UIHeader header = new UIHeader("Shut down Boggled?", 80);
+        final UIHeader header = new UIHeader("EXIT?", 80);
         header.setPadding(new Spacing(0,0,50,0));
         addUIComponent(header);
 

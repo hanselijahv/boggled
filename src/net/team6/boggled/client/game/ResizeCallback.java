@@ -1,6 +1,6 @@
 package net.team6.boggled.client.game;
 
-import net.team6.boggled.client.core.Size;
+import net.team6.boggled.common.core.Size;
 
 public interface ResizeCallback {
 
