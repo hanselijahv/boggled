@@ -1,0 +1,134 @@
+package net.team6.boggled.user.client.state;
+
+import net.team6.boggled.user.client.audio.AudioPlayer;
+import net.team6.boggled.common.core.Size;
+import net.team6.boggled.user.client.game.Game;
+import net.team6.boggled.user.client.game.time.Time;
+import net.team6.boggled.user.client.game.settings.GameSettings;
+import net.team6.boggled.user.client.input.Input;
+import net.team6.boggled.user.client.input.KeyInputConsumer;
+import net.team6.boggled.user.client.input.MouseHandler;
+import net.team6.boggled.user.client.gui.container.AlignableContainer;
+import net.team6.boggled.user.client.gui.component.BoggledCanvas;
+import net.team6.boggled.user.server.dev.settings.ServerSettings;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class State {
+    protected Input input;
+    protected Time time;
+    private State nextState;
+    protected AudioPlayer audioPlayer;
+    protected BoggledCanvas boggledCanvas;
+    protected GameSettings gameSettings;
+    protected ServerSettings serverSettings;
+    protected Size windowSize;
+    protected MouseHandler mouseHandler;
+    protected KeyInputConsumer keyInputConsumer;
+
+
+    public State(Size windowSize, Input input, GameSettings gameSettings) {
+        this.gameSettings = gameSettings;
+        this.windowSize = windowSize;
+        this.input = input;
+        audioPlayer = new AudioPlayer(gameSettings.getAudioSettings());
+        mouseHandler = new MouseHandler();
+        boggledCanvas = new BoggledCanvas(windowSize);
+        time = new Time();
+    }
+
+    public State(Size windowSize, Input input, ServerSettings serverSettings) {
+        this.serverSettings = serverSettings;
+        this.windowSize = windowSize;
+        this.input = input;
+        // audioPlayer = new AudioPlayer(gameSettings.getAudioSettings());
+        mouseHandler = new MouseHandler();
+        boggledCanvas = new BoggledCanvas(windowSize);
+        time = new Time();
+    }
+
+    public void update(Game game) throws SQLException {
+        audioPlayer.update();
+        time.update();
+        boggledCanvas.update(this);
+        handleKeyInput();
+        mouseHandler.update(this);
+
+        if (nextState != null) {
+            game.enterState(nextState);
+        }
+    }
+
+
+    private void handleKeyInput() {
+        if (keyInputConsumer != null) {
+            List<Integer> typedKeyBufferCopy = new ArrayList<>(input.getTypedKeyBuffer());
+
+            for (int keyCode : typedKeyBufferCopy) {
+                keyInputConsumer.onKeyPressed(keyCode);
+            }
+        } else {
+            handleInput();
+        }
+    }
+
+
+    public Time getTime() {
+        return time;
+    }
+
+    public Input getInput() {
+        return input;
+    }
+
+    public MouseHandler getMouseHandler() {
+        return mouseHandler;
+    }
+
+    public AlignableContainer getUiCanvas() {
+        return boggledCanvas;
+    }
+
+    public void setNextState(State nextState) {
+        this.nextState = nextState;
+    }
+
+    public AudioPlayer getAudioPlayer() {
+        return audioPlayer;
+    }
+
+    public GameSettings getGameSettings() {
+        return gameSettings;
+    }
+
+    public ServerSettings getBoggledSettings() {
+        return serverSettings;
+    }
+
+    public Size getWindowSize() {
+        return windowSize;
+    }
+
+    public void cleanup() {
+        audioPlayer.clear();
+
+    }
+
+    public void resize(Size size) {
+        windowSize = size;
+        boggledCanvas.resize(size);
+    }
+
+    protected abstract void handleInput();
+
+    public KeyInputConsumer getKeyInputConsumer() {
+        return keyInputConsumer;
+    }
+
+    public void setKeyInputConsumer(KeyInputConsumer keyInputConsumer) {
+        this.keyInputConsumer = keyInputConsumer;
+    }
+
+}

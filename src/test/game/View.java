@@ -182,7 +182,7 @@ public class View extends JPanel {
         }
     }
 
-    public void createJFrame() throws IOException, FontFormatException {
+    public Component createJFrame() throws IOException, FontFormatException {
         JFrame jFrame = new JFrame();
         jFrame.setTitle("Boggled");
         ImageIcon icoImage = createScaledImageIcon("res/img/icon.png");
@@ -195,6 +195,8 @@ public class View extends JPanel {
         jFrame.setSize(311, 431);
         jFrame.setLocationRelativeTo(null);
         jFrame.setVisible(true);
+
+        return null;
     }
 
     public JPanel contentPane() throws IOException, FontFormatException {
@@ -256,6 +258,21 @@ public class View extends JPanel {
     private String returnInputToGame() {
         String inputText = inputField.getText();
         return inputText;
+    }
+
+    public JPanel createContentPanel() throws IOException, FontFormatException {
+        JPanel contentPanel = new JPanel(new BorderLayout(5, 5));
+        contentPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        // Create input field
+        JTextField inputField = inputField();
+        contentPanel.add(inputField, BorderLayout.NORTH);
+
+        // Create button panel
+        JPanel buttonPanel = buttonPanel();
+        contentPanel.add(buttonPanel, BorderLayout.CENTER);
+
+        return contentPanel;
     }
 
     public JPanel buttonPanel() {
@@ -333,6 +350,8 @@ class ImageTextField extends JTextField {
         int imageY = (getHeight() - imageIcon.getIconHeight()) / 2;
         imageIcon.paintIcon(this, g, imageX, imageY);
     }
+
+
 
     public void setImage(ImageIcon icon) {
         this.imageIcon = icon;

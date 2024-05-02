@@ -27397,7 +27397,7 @@ inordinately
 inorganic
 inpatient
 inpatients
-com.wordgame.client.state.input
+com.wordgame.client.state.serverInput
 inputs
 inputted
 inputting
