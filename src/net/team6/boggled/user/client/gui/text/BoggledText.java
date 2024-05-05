@@ -38,7 +38,6 @@ public class BoggledText extends BoggledComponent {
         createFont();
     }
 
-
     @Override
     public Image getSprite() {
         BufferedImage image = (BufferedImage) ImageUtils.createCompatibleImage(size, ImageUtils.ALPHA_BIT_MASKED);
@@ -57,7 +56,6 @@ public class BoggledText extends BoggledComponent {
         return image;
     }
 
-
     @Override
     public void update(State state) {
         calculateSize();
@@ -74,7 +72,6 @@ public class BoggledText extends BoggledComponent {
 
         size = new Size(width, height);
     }
-
 
     private void createFont() {
         try {

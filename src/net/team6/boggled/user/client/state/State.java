@@ -65,9 +65,14 @@ public abstract class State {
     private void handleKeyInput() {
         if (keyInputConsumer != null) {
             List<Integer> typedKeyBufferCopy = new ArrayList<>(input.getTypedKeyBuffer());
+            List<Integer> releasedKeyBufferCopy = new ArrayList<>(input.getReleasedKeysBuffer());
 
             for (int keyCode : typedKeyBufferCopy) {
                 keyInputConsumer.onKeyPressed(keyCode);
+            }
+
+            for (int keyCode : releasedKeyBufferCopy) {
+                keyInputConsumer.onKeyReleased(keyCode);
             }
         } else {
             handleInput();

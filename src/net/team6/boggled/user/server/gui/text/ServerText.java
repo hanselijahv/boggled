@@ -73,7 +73,6 @@ public class ServerText extends ServerComponent {
         size = new Size(width, height);
     }
 
-
     private void createFont() {
         try {
             InputStream inputStream = getClass().getResourceAsStream("/font/MP16REG.ttf");
