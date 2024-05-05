@@ -1,6 +1,9 @@
 package net.team6.boggled.user.server.state.users.elements;
 
 import net.team6.boggled.common.core.Value;
+import net.team6.boggled.common.db.AccountDAO;
+import net.team6.boggled.common.model.Account;
+import net.team6.boggled.user.server.state.menu.elements.ServerUsersMenu;
 import net.team6.boggled.user.server.gui.container.ServerContainer;
 import net.team6.boggled.user.server.gui.container.ServerVerticalContainer;
 import net.team6.boggled.user.server.gui.input.ServerTextInput;
@@ -34,7 +37,22 @@ public class CreateUsersUI extends ServerVerticalContainer {
 
         ServerContainer buttonContainer = new ServerVerticalContainer();
         buttonContainer.setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER));
-        buttonContainer.addUIComponent(new ServerButton("CREATE", 16, (state) -> state.setNextState(new ServerMenuState(state.getWindowSize(), state.getInput(), state.getBoggledSettings()))));
+        buttonContainer.addUIComponent(new ServerButton("CREATE", 16, (state) -> {
+            String username = this.username.get();
+            String password = this.password.get();
+            Account account = new Account(null, username, password);
+
+            AccountDAO accountDAO = new AccountDAO();
+            boolean success = accountDAO.insert(account);
+
+            if (success) {
+                state.setNextState(new ServerMenuState(state.getWindowSize(), state.getInput(), state.getBoggledSettings()));
+            } else {
+                System.out.println("Failed to create user");
+            }
+
+        }));
+        buttonContainer.addUIComponent(new ServerButton("BACK", 16, (state) -> ((ServerMenuState) state).enterMenu(new ServerUsersMenu())));
         buttonContainer.setMargin(new Spacing(0));
         buttonContainer.setPadding(new Spacing(10));
 

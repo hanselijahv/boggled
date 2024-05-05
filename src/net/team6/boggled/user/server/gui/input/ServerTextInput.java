@@ -24,6 +24,7 @@ public class ServerTextInput extends ServerClickable implements ServerKeyInputCo
 
     private final Value<String> value;
     private Timer backspaceTimer;
+    private boolean capsLock = false;
 
     private ServerContainer container;
     private ServerContainer borderContainer;
@@ -92,7 +93,9 @@ public class ServerTextInput extends ServerClickable implements ServerKeyInputCo
     public void onKeyPressed(int key) {
         String currentValue = value.get();
 
-        if(key == KeyEvent.VK_BACK_SPACE) {
+        if (key == KeyEvent.VK_CAPS_LOCK) {
+            capsLock = !capsLock;
+        } else if (key == KeyEvent.VK_BACK_SPACE) {
             backspaceTimer.start();
             if(!currentValue.isEmpty()) {
                 currentValue = currentValue.substring(0, currentValue.length() - 1);
@@ -105,7 +108,11 @@ public class ServerTextInput extends ServerClickable implements ServerKeyInputCo
         } else {
             String keyText = KeyEvent.getKeyText(key);
             if(keyText.length() == 1) {
-                currentValue += keyText;
+                if (capsLock) {
+                    currentValue += keyText.toUpperCase();
+                } else {
+                    currentValue += keyText.toLowerCase();
+                }
             }
         }
 
