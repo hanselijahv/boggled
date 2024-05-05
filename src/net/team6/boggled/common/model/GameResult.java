@@ -3,20 +3,20 @@ package net.team6.boggled.common.model;
 public class GameResult {
     public String gameId;
     private String playerId;
-    private int highestScore;
+    private int winningScore;
 
-    public GameResult(String gameId, String player, int highestScore) {
+    public GameResult(String gameId, String player, int winningScore) {
         this.gameId = gameId;
         this.playerId = player;
-        this.highestScore = highestScore;
+        this.winningScore = winningScore;
     }
 
-    public int getHighestScore() {
-        return highestScore;
+    public int getWinningScore() {
+        return winningScore;
     }
 
-    public void setHighestScore(int highestScore) {
-        this.highestScore = highestScore;
+    public void setWinningScore(int winningScore) {
+        this.winningScore = winningScore;
     }
 
     public String getPlayerId() {
@@ -40,6 +40,6 @@ public class GameResult {
         return "Game Details: \n" +
                "\tGame ID: " + gameId + "\n" +
                "\tPlayer ID: " + playerId + "\n" +
-               "\tHighest Score: " + highestScore;
+               "\tHighest Score: " + winningScore;
     }
 }

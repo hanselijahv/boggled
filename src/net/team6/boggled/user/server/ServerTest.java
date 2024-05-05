@@ -1,7 +1,7 @@
 package net.team6.boggled.user.server;
 
 import net.team6.boggled.common.db.DatabaseConnector;
-import net.team6.boggled.common.db.PlayerDAO;
+import net.team6.boggled.common.db.AccountDAO;
 import net.team6.boggled.common.model.Account;
 import net.team6.boggled.common.model.Settings;
 
@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class ServerTest {
 
     static Scanner scanner = new Scanner(System.in);
-    static PlayerDAO playerDAOImpl = new PlayerDAO();
+    static AccountDAO accountDAOImpl = new AccountDAO();
     //static SettingsDB settingsDB = new SettingsDB();
 
 
@@ -105,7 +105,7 @@ public class ServerTest {
 
 
                 Account account = new Account(null, userName, password);
-                playerDAOImpl.insert(account);
+                accountDAOImpl.insert(account);
                 System.out.println("Added successfully!");
 
                 System.out.println();
@@ -125,7 +125,7 @@ public class ServerTest {
 
     public static void updateUser() {
         try {
-            List<Account> accounts = playerDAOImpl.getAll();
+            List<Account> accounts = accountDAOImpl.getAll();
             System.out.println("Players: ");
             for (Account account : accounts) {
                 System.out.println(account.getPlayerId() + ", " + account.getUsername() + ", " + account.getPassword());
@@ -155,7 +155,7 @@ public class ServerTest {
 
                 String[] params = {newUsername, newPassword};
 
-                playerDAOImpl.update(accountToUpdate, params);
+                accountDAOImpl.update(accountToUpdate, params);
 
                 System.out.println("Player updated successfully!");
             }
@@ -168,7 +168,7 @@ public class ServerTest {
 
     public static void removeUser() {
         try {
-            List<Account> accounts = playerDAOImpl.getAll();
+            List<Account> accounts = accountDAOImpl.getAll();
             System.out.println("Players: ");
             for (Account account : accounts) {
                 System.out.println(account.getPlayerId() + ", " + account.getUsername() + ", " + account.getPassword());
@@ -190,7 +190,7 @@ public class ServerTest {
             if (accountToRemove == null) {
                 System.out.println("No player found with ID: " + playerIdToRemove);
             } else {
-                playerDAOImpl.delete(accountToRemove);
+                accountDAOImpl.delete(accountToRemove);
                 System.out.println("Player removed successfully!");
             }
         } catch (Exception e) {
