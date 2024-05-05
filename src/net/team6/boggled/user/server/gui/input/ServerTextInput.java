@@ -26,6 +26,7 @@ public class ServerTextInput extends ServerClickable implements KeyInputConsumer
     private ServerContainer contentContainer;
 
     public ServerTextInput(String label, Value<String> value) {
+
         this.value = value;
         margin = new Spacing(0);
         padding = new Spacing(0);
@@ -45,7 +46,11 @@ public class ServerTextInput extends ServerClickable implements KeyInputConsumer
         container = new ServerVerticalContainer();
         container.setMargin(new Spacing(0));
         container.setPadding(new Spacing(0));
-        container.addUIComponent(new ServerText(label, 16));
+
+        ServerText labelText = new ServerText(label, 16);
+        labelText.setPadding(new Spacing(0, 0, 10, 0));
+        container.addUIComponent(labelText);
+
         container.addUIComponent(borderContainer);
     }
 
