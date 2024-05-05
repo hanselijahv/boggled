@@ -13,13 +13,17 @@ import net.team6.boggled.user.server.gui.text.ServerText;
 import net.team6.boggled.user.server.gui.tools.Spacing;
 import net.team6.boggled.user.server.state.ServerState;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 
 public class ServerTextInput extends ServerClickable implements ServerKeyInputConsumer {
 
     private final Value<String> value;
+    private Timer backspaceTimer;
 
     private ServerContainer container;
     private ServerContainer borderContainer;
@@ -52,6 +56,19 @@ public class ServerTextInput extends ServerClickable implements ServerKeyInputCo
         container.addUIComponent(labelText);
 
         container.addUIComponent(borderContainer);
+
+        backspaceTimer = new Timer(200, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String currentValue = value.get();
+                if (!currentValue.isEmpty()) {
+                    currentValue = currentValue.substring(0, currentValue.length() - 1);
+                    value.setValue(currentValue);
+                    contentContainer.clear();
+                    contentContainer.addUIComponent(new ServerText(currentValue, 16));
+                }
+            }
+        });
     }
 
     @Override
@@ -69,13 +86,19 @@ public class ServerTextInput extends ServerClickable implements ServerKeyInputCo
         borderContainer.setBackgroundColor(borderColor);
     }
 
+
+
     @Override
     public void onKeyPressed(int key) {
         String currentValue = value.get();
 
         if(key == KeyEvent.VK_BACK_SPACE) {
+            backspaceTimer.start();
             if(!currentValue.isEmpty()) {
                 currentValue = currentValue.substring(0, currentValue.length() - 1);
+                value.setValue(currentValue);
+                contentContainer.clear();
+                contentContainer.addUIComponent(new ServerText(currentValue, 16));
             }
         } else if (key == KeyEvent.VK_SPACE) {
             currentValue += " ";
@@ -90,6 +113,13 @@ public class ServerTextInput extends ServerClickable implements ServerKeyInputCo
 
         contentContainer.clear();
         contentContainer.addUIComponent(new ServerText(currentValue, 16));
+    }
+
+    @Override
+    public void onKeyReleased(int key) {
+        if(key == KeyEvent.VK_BACK_SPACE) {
+            backspaceTimer.stop();
+        }
     }
 
     @Override

@@ -56,9 +56,14 @@ public abstract class ServerState {
     private void handleKeyInput() {
         if (keyInputConsumer != null) {
             List<Integer> typedKeyBufferCopy = new ArrayList<>(serverInput.getTypedKeyBuffer());
+            List<Integer> releasedKeysBufferCopy = new ArrayList<>(serverInput.getReleasedKeysBuffer());
 
             for (int keyCode : typedKeyBufferCopy) {
                 keyInputConsumer.onKeyPressed(keyCode);
+            }
+
+            for (int keyCode : releasedKeysBufferCopy) {
+                keyInputConsumer.onKeyReleased(keyCode);
             }
         } else {
             handleInput();

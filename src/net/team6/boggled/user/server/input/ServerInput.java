@@ -23,12 +23,15 @@ public class ServerInput implements KeyListener, MouseListener, MouseMotionListe
     private final boolean[] pressed;
     private List<Integer> typedKeyBuffer;
 
+    private List<Integer> releasedKeysBuffer;
+
 
     public ServerInput() {
         pressed = new boolean[1000];
         currentlyPressed = new boolean[1000];
         mousePosition = new Position(-1, -1);
         typedKeyBuffer = new ArrayList<>();
+        releasedKeysBuffer = new ArrayList<>();
     }
 
     public boolean isPressed(int keyCode) {
@@ -103,13 +106,14 @@ public class ServerInput implements KeyListener, MouseListener, MouseMotionListe
     @Override
     public void keyPressed(KeyEvent e) {
         currentlyPressed[e.getKeyCode()] = true;
+        typedKeyBuffer.add(e.getKeyCode());
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         currentlyPressed[e.getKeyCode()] = false;
         pressed[e.getKeyCode()] = false;
-        typedKeyBuffer.add(e.getKeyCode());
+        releasedKeysBuffer.add(e.getKeyCode());
     }
 
     @Override
@@ -159,5 +163,9 @@ public class ServerInput implements KeyListener, MouseListener, MouseMotionListe
 
     public List<Integer> getTypedKeyBuffer() {
         return typedKeyBuffer;
+    }
+
+    public List<Integer> getReleasedKeysBuffer() {
+        return releasedKeysBuffer;
     }
 }
