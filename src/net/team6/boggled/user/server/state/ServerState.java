@@ -5,8 +5,8 @@ import net.team6.boggled.user.client.game.settings.GameSettings;
 import net.team6.boggled.user.client.game.time.Time;
 import net.team6.boggled.common.core.Size;
 import net.team6.boggled.user.server.input.ServerInput;
-import net.team6.boggled.user.client.input.KeyInputConsumer;
 import net.team6.boggled.user.server.gui.container.ServerAlignableContainer;
+import net.team6.boggled.user.server.input.ServerKeyInputConsumer;
 import net.team6.boggled.user.server.input.ServerMouseHandler;
 import net.team6.boggled.user.server.dev.Server;
 import net.team6.boggled.user.server.audio.ServerAudioPlayer;
@@ -27,7 +27,7 @@ public abstract class ServerState {
     protected ServerSettings serverSettings;
     protected Size windowSize;
     protected ServerMouseHandler serverMouseHandler;
-    protected KeyInputConsumer keyInputConsumer;
+    protected ServerKeyInputConsumer keyInputConsumer;
 
 
     public ServerState(Size windowSize, ServerInput serverInput, ServerSettings serverSettings) {
@@ -45,6 +45,7 @@ public abstract class ServerState {
         serverAudioPlayer.update();
         time.update();
         serverCanvas.update(this);
+        handleKeyInput();
         serverMouseHandler.update(this);
 
         if (nextState != null) {
@@ -113,11 +114,11 @@ public abstract class ServerState {
 
     protected abstract void handleInput();
 
-    public KeyInputConsumer getKeyInputConsumer() {
+    public ServerKeyInputConsumer getKeyInputConsumer() {
         return keyInputConsumer;
     }
 
-    public void setKeyInputConsumer(KeyInputConsumer keyInputConsumer) {
+    public void setKeyInputConsumer(ServerKeyInputConsumer keyInputConsumer) {
         this.keyInputConsumer = keyInputConsumer;
     }
 

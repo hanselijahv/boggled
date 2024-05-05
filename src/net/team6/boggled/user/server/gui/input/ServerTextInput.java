@@ -4,7 +4,7 @@ package net.team6.boggled.user.server.gui.input;
 
 import net.team6.boggled.common.core.Size;
 import net.team6.boggled.common.core.Value;
-import net.team6.boggled.user.client.input.KeyInputConsumer;
+import net.team6.boggled.user.server.input.ServerKeyInputConsumer;
 import net.team6.boggled.user.server.gui.clickable.ServerClickable;
 import net.team6.boggled.user.server.gui.container.ServerContainer;
 import net.team6.boggled.user.server.gui.container.ServerHorizontalContainer;
@@ -17,7 +17,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 
-public class ServerTextInput extends ServerClickable implements KeyInputConsumer {
+public class ServerTextInput extends ServerClickable implements ServerKeyInputConsumer {
 
     private final Value<String> value;
 
