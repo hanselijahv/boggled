@@ -6,12 +6,12 @@ import net.team6.boggled.user.client.display.Display;
 import net.team6.boggled.user.client.game.settings.GameSettings;
 import net.team6.boggled.user.client.input.Input;
 import net.team6.boggled.user.client.state.State;
-import net.team6.boggled.user.client.state.playing.PlayState;
 
-import java.awt.*;
+import java.awt.FontFormatException;
 import java.io.IOException;
 import java.sql.SQLException;
 
+@SuppressWarnings("Duplicates")
 public class Game implements Runnable{
 
     private State state;
@@ -19,11 +19,9 @@ public class Game implements Runnable{
     private final GameSettings gameSettings;
     public static final int UPDATES_PER_SECOND = 60;
     private boolean running;
-    private final double updateRate = 1.0d / UPDATES_PER_SECOND;
     private long nextStatTime;
     private int fps, ups;
     public boolean isFrameCapped = false;
-    private Thread thread;
 
     public Game(int width, int height) throws IOException, FontFormatException {
         Input input = new Input();
@@ -60,6 +58,7 @@ public class Game implements Runnable{
             accumulator += lastRenderTimeInSeconds * getSettings().getGameSpeedMultiplier();
             lastUpdate = currentTime;
 
+            double updateRate = 1.0d / UPDATES_PER_SECOND;
             if (accumulator >= updateRate) {
                 while (accumulator >= updateRate) {
                     try {
@@ -101,7 +100,7 @@ public class Game implements Runnable{
 
     public synchronized void start(){
         running = true;
-        thread = new Thread(this, "Boggled");
+        Thread thread = new Thread(this, "Boggled");
         thread.start();
     }
 

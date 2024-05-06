@@ -21887,7 +21887,7 @@ gamboling
 gambolled
 gambolling
 gambols
-com.wordgame.client.gameResult
+com.wordgame.client.gameWinner
 gamekeeper
 gamekeepers
 gamely
