@@ -153,4 +153,9 @@ public class ServerTextInput extends ServerClickable implements ServerKeyInputCo
     public Image getSprite() {
         return container.getSprite();
     }
+
+    public void clearText() {
+        value.setValue("");
+        contentContainer.clear();
+    }
 }

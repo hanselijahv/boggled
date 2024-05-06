@@ -28,6 +28,7 @@ public class AccountDAO implements DAO<Account> {
     @Override
     public boolean insert(Account account) throws SQLException {
             String sql = "INSERT INTO accounts (player_id, username, password) VALUES (?, ?, ?)";
+
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                   statement.setString(1, generatePlayerId());
                   statement.setString(2, account.getUsername());
@@ -111,15 +112,21 @@ public class AccountDAO implements DAO<Account> {
 
     // TODO: Implement UUID for generating ID
     private String generatePlayerId() throws SQLException {
-        String sql = "SELECT MAX(player_id) FROM accounts";
+        String sql = "SELECT player_id FROM accounts";
+        int maxId = 0;
         try (PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
-            if (resultSet.next()) {
-                int maxId = resultSet.getInt(1);
-                return String.valueOf(maxId + 1);
+            while (resultSet.next()) {
+                String idStr = resultSet.getString(1);
+                if (idStr != null) {
+                    int id = Integer.parseInt(idStr);
+                    if (id > maxId) {
+                        maxId = id;
+                    }
+                }
             }
         }
-        return "1";
+        return String.valueOf(maxId + 1);
     }
 
     public boolean usernameExists(String username) throws SQLException {

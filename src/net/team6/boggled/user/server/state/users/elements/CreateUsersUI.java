@@ -22,7 +22,6 @@ import java.util.TimerTask;
 public class CreateUsersUI extends ServerVerticalContainer {
     private Value<String> username;
     private Value<String> password;
-    private Value<String> messageValue;
 
     public CreateUsersUI() {
         final ServerHeader header = new ServerHeader("Create a User", 80);
@@ -62,21 +61,24 @@ public class CreateUsersUI extends ServerVerticalContainer {
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
+                        usernameInput.clearText();
+                        passwordInput.clearText();
                         messageContainer.removeComponent(message);
                         timer.cancel();
                     }
-                }, 1000);
+                }, 2000);
+
 
             } else {
                 message = new ServerText("Failed to create user", 15);
             }
 
-            message.setMargin(new Spacing(10,0,0,0));
+            message.setMargin(new Spacing(0));
             messageContainer.addUIComponent(message);
 
         }));
         buttonContainer.addUIComponent(new ServerButton("BACK", 16, (state) -> ((UsersState) state).enterMenu(new ServerUsersMenu())));
-        buttonContainer.setMargin(new Spacing(0));
+        buttonContainer.setMargin(new Spacing(0, 0,10, 0));
         buttonContainer.setPadding(new Spacing(10));
 
 
