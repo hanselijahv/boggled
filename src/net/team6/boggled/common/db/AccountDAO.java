@@ -28,7 +28,9 @@ public class AccountDAO implements DAO<Account> {
     @Override
     public boolean insert(Account account) throws SQLException {
             String sql = "INSERT INTO accounts (player_id, username, password) VALUES (?, ?, ?)";
-
+            if (usernameExists(account.getUsername())) {
+                return false;
+            }
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                   statement.setString(1, generatePlayerId());
                   statement.setString(2, account.getUsername());
