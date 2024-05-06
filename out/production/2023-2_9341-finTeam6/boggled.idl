@@ -1,0 +1,59 @@
+module BoggledApp {
+    struct Account {
+        string playerID;
+        string username;
+        string password;
+    };
+
+    struct GamePlayer {
+        string gameID;
+        string playerID;
+        boolean isConnected;
+    };
+
+    struct GameResult {
+        string gameID;
+        string playerID;
+        long winningScore;
+    };
+
+    struct GameRoom {
+        string gameID;
+        boolean gameStarted;
+    };
+
+    struct Settings {
+        long waitingTime;
+        long roundTime;
+        long roundsToWin;
+    };
+
+    exception UserNotFoundException {
+        string reason;
+    };
+
+    exception NotLoggedInException {
+        string reason;
+    };
+
+    exception InsufficientPlayersException {
+        string reason;
+    };
+
+    exception InvalidWordException {
+        string reason;
+    };
+
+    interface Boggled {
+        void login(in Account player) raises (UserNotFoundException);
+        void logout(in Account player) raises (NotLoggedInException);
+        void reconnect(in Account player);
+        void playGame() raises (InsufficientPlayersException);
+        Settings getSettings();
+        GameResult getGameWinner();
+        GameResult getLeaderboards();
+        void sendWord(in string word) raises (InvalidWordException);
+
+
+    };
+};
