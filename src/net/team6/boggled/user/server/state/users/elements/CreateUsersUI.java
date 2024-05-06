@@ -12,6 +12,7 @@ import net.team6.boggled.user.server.gui.tools.Spacing;
 import net.team6.boggled.user.server.gui.clickable.ServerButton;
 import net.team6.boggled.user.server.state.menu.ServerMenuState;
 import net.team6.boggled.user.server.gui.text.ServerHeader;
+import net.team6.boggled.user.server.state.users.UsersState;
 
 public class CreateUsersUI extends ServerVerticalContainer {
     private Value<String> username;
@@ -52,7 +53,7 @@ public class CreateUsersUI extends ServerVerticalContainer {
             }
 
         }));
-        buttonContainer.addUIComponent(new ServerButton("BACK", 16, (state) -> ((ServerMenuState) state).enterMenu(new ServerUsersMenu())));
+        buttonContainer.addUIComponent(new ServerButton("BACK", 16, (state) -> ((UsersState) state).enterMenu(new ServerUsersMenu())));
         buttonContainer.setMargin(new Spacing(0));
         buttonContainer.setPadding(new Spacing(10));
 
