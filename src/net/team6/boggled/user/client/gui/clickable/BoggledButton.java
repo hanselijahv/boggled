@@ -59,7 +59,7 @@ public class BoggledButton extends BoggledClickable {
     @Override
     public void onClick(State state) throws SQLException {
         clickAction.execute(state);
-        state.getAudioPlayer().playSound("SFX_UI_MenuSelections.wav");
+        //state.getAudioPlayer().playSound("SFX_UI_MenuSelections.wav");
     }
 
     @Override

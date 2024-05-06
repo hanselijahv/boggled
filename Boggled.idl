@@ -1,0 +1,66 @@
+module BoggledApp {
+    interface Boggled {
+        typedef sequence<GameResult> leaderboards;
+        typedef sequence<GamePlayer> gamePlayers;
+
+        void login(in Account player) raises (UserNotFoundException);
+        void signup(in string username, in string password) raises ();
+        void logout(in Account player) raises (NotLoggedInException);
+
+        string playGame(in string username) raises (InsufficientPlayersException);
+        void sendWord(in string gameID, in string word) raises (InvalidWordException);
+
+        Settings getSettings();
+        RoundWinner getRoundWinner();
+        GameWinner getGameWinner();
+
+        leaderboards getLeaderboards();
+
+        // optional for tab scoreboard
+        gamePlayers getGamePlayers();
+    };
+
+    struct Account {
+            string playerID;
+            string username;
+            string password;
+    };
+
+    struct GameWinner {
+        string gameID;
+        string playerID;
+        long winningScore;
+    };
+
+    struct RoundWinner {
+        string gameID;
+        string playerID;
+        long roundScore;
+    }
+
+    struct Settings {
+        long waitingTime;
+        long roundTime;
+        long roundsToWin;
+    };
+
+    exception UserNotFoundException {
+        string reason;
+    };
+
+    exception NotLoggedInException {
+        string reason;
+    };
+
+    exception InsufficientPlayersException {
+        string reason;
+    };
+
+    exception InvalidWordException {
+        string reason;
+    };
+
+    exception UserAlreadyExistsException {
+        string reason;
+    };
+};

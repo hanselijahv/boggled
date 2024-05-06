@@ -1,11 +1,11 @@
 package net.team6.boggled.common.model;
 
-public class GameResult {
+public class GameWinner {
     public String gameId;
     private String playerId;
     private int winningScore;
 
-    public GameResult(String gameId, String player, int winningScore) {
+    public GameWinner(String gameId, String player, int winningScore) {
         this.gameId = gameId;
         this.playerId = player;
         this.winningScore = winningScore;
