@@ -1,5 +1,7 @@
 package net.team6.boggled.user.client.state.entry.elements;
 
+import net.team6.boggled.user.client.gui.text.BoggledHeader;
+import net.team6.boggled.user.client.gui.text.BoggledText;
 import net.team6.boggled.user.client.gui.tools.Spacing;
 import net.team6.boggled.user.client.state.menu.MenuState;
 import net.team6.boggled.common.core.Value;
@@ -18,6 +20,11 @@ public class BoggledLogin extends VerticalContainer {
         this.username = new Value<>("");
         this.password = new Value<>("");
         centerChildren = true;
+
+        setPadding(new Spacing(0,0,50,0));
+        final BoggledHeader header = new BoggledHeader("Boggled", 120);
+        header.setPadding(new Spacing(0,0,50,0));
+        addUIComponent(header);
 
         BoggledContainer contentContainer = new VerticalContainer();
         BoggledTextInput usernameInput = new BoggledTextInput("USERNAME", username);
