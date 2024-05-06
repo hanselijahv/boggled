@@ -3,6 +3,8 @@ package net.team6.boggled.user.server.state.users.elements;
 import net.team6.boggled.common.core.Value;
 import net.team6.boggled.common.db.AccountDAO;
 import net.team6.boggled.common.model.Account;
+import net.team6.boggled.user.server.dev.Server;
+import net.team6.boggled.user.server.gui.text.ServerText;
 import net.team6.boggled.user.server.state.menu.elements.ServerUsersMenu;
 import net.team6.boggled.user.server.gui.container.ServerContainer;
 import net.team6.boggled.user.server.gui.container.ServerVerticalContainer;
@@ -12,15 +14,19 @@ import net.team6.boggled.user.server.gui.tools.Spacing;
 import net.team6.boggled.user.server.gui.clickable.ServerButton;
 import net.team6.boggled.user.server.state.menu.ServerMenuState;
 import net.team6.boggled.user.server.gui.text.ServerHeader;
+import net.team6.boggled.user.server.state.users.UsersState;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class CreateUsersUI extends ServerVerticalContainer {
     private Value<String> username;
     private Value<String> password;
+    private Value<String> messageValue;
 
     public CreateUsersUI() {
         final ServerHeader header = new ServerHeader("Create a User", 80);
         header.setMargin(new Spacing(0, 0, 50, 0));
-        addUIComponent(header);
         alignment = new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER);
         this.username = new Value<>("");
         this.password = new Value<>("");
@@ -29,11 +35,14 @@ public class CreateUsersUI extends ServerVerticalContainer {
         ServerContainer contentContainer = new ServerVerticalContainer();
         ServerTextInput usernameInput = new ServerTextInput("USERNAME", username);
         usernameInput.setMargin(new Spacing(0, 0, 10, 0)); // Add bottom margin to create spacing
-        contentContainer.addUIComponent(usernameInput);
+
 
         ServerTextInput passwordInput = new ServerTextInput("PASSWORD", password);
         passwordInput.setMargin(new Spacing(10, 0, 0, 0)); // Add top margin to create spacing
-        contentContainer.addUIComponent(passwordInput);
+
+
+        ServerContainer messageContainer = new ServerVerticalContainer();
+        messageContainer.setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER));
 
         ServerContainer buttonContainer = new ServerVerticalContainer();
         buttonContainer.setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER));
@@ -45,19 +54,38 @@ public class CreateUsersUI extends ServerVerticalContainer {
             AccountDAO accountDAO = new AccountDAO();
             boolean success = accountDAO.insert(account);
 
+            ServerText message;
+
             if (success) {
-                state.setNextState(new ServerMenuState(state.getWindowSize(), state.getInput(), state.getBoggledSettings()));
+                message = new ServerText("User Created Successfully", 15);
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        messageContainer.removeComponent(message);
+                        timer.cancel();
+                    }
+                }, 1000);
+
             } else {
-                System.out.println("Failed to create user");
+                message = new ServerText("Failed to create user", 15);
             }
 
+            message.setMargin(new Spacing(10,0,0,0));
+            messageContainer.addUIComponent(message);
+
         }));
-        buttonContainer.addUIComponent(new ServerButton("BACK", 16, (state) -> ((ServerMenuState) state).enterMenu(new ServerUsersMenu())));
+        buttonContainer.addUIComponent(new ServerButton("BACK", 16, (state) -> ((UsersState) state).enterMenu(new ServerUsersMenu())));
         buttonContainer.setMargin(new Spacing(0));
         buttonContainer.setPadding(new Spacing(10));
 
+
+        addUIComponent(header);
+        contentContainer.addUIComponent(usernameInput);
+        contentContainer.addUIComponent(passwordInput);
         addUIComponent(contentContainer);
         addUIComponent(buttonContainer);
+        addUIComponent(messageContainer);
 
     }
 }

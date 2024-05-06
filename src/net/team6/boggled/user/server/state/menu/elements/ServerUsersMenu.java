@@ -21,8 +21,8 @@ public class ServerUsersMenu extends ServerVerticalContainer {
         addUIComponent(header);
 
 
-        addUIComponent(new ServerButton("CREATE A USER", 16, (state) -> state.setNextState(new UsersState(state.getWindowSize(), state.getInput(), state.getBoggledSettings()))));
-        addUIComponent(new ServerButton("UPDATE USERS", 16, (state) -> ((ServerMenuState) state).enterMenu(new UpdateUsersUI())));
-        addUIComponent(new ServerButton("BACK", 16, (state) -> ((ServerMenuState) state).enterMenu(new ServerMainMenu())));
+        addUIComponent(new ServerButton("CREATE A USER", 16, (state) -> ((UsersState) state).enterMenu(new CreateUsersUI())));
+        addUIComponent(new ServerButton("UPDATE USERS", 16, (state) -> ((UsersState) state).enterMenu(new UpdateUsersUI())));
+        addUIComponent(new ServerButton("BACK", 16, (state) -> state.setNextState(new ServerMenuState(state.getWindowSize(), state.getInput(), state.getBoggledSettings()))));
     }
 }

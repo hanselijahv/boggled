@@ -38,7 +38,7 @@ public class WaitingState extends State {
         inputEnabled = true;
         initializeUI();
 
-        audioPlayer.playMusic("main.wav");
+        //audioPlayer.playMusic("main.wav");
 
     }
 
@@ -72,7 +72,7 @@ public class WaitingState extends State {
         gameMenu.setHeaderContent(content);
         cleanup();
 
-        audioPlayer.playMusic("SFX_UI_ROOM_ERROR.wav");
+        //audioPlayer.playMusic("SFX_UI_ROOM_ERROR.wav");
         toggleMenu(true);
     }
 

@@ -13,7 +13,7 @@ public class MenuState extends State {
         super(windowSize, input, gameSettings);
 
         boggledCanvas.addUIComponent(new BoggledMainMenu());
-        audioPlayer.playMusic("main.wav");
+        //audioPlayer.playMusic("main.wav");
 
     }
 

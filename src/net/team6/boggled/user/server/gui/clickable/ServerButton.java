@@ -59,7 +59,7 @@ public class ServerButton extends ServerClickable {
     @Override
     public void onClick(ServerState state) throws SQLException {
         serverClickAction.execute(state);
-        state.getAudioPlayer().playSound("SFX_UI_MenuSelections.wav");
+       // state.getAudioPlayer().playSound("SFX_UI_MenuSelections.wav");
     }
 
     @Override
