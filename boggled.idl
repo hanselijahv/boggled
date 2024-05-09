@@ -70,7 +70,7 @@ module BoggledApp {
 
         leaderboards getLeaderboards();
 
-        // optional for tab screen
+        // TODO: implement for tab scoreboard
         gamePlayers getGamePlayers();
     };
 
