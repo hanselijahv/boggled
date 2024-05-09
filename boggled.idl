@@ -1,32 +1,9 @@
 module BoggledApp {
-    interface Boggled {
-        typedef sequence<GameResult> leaderboards;
-        typedef sequence<GamePlayer> gamePlayers;
-
-        void login(in Account player) raises (UserNotFoundException);
-        void signup(in string username, in string password) raises ();
-        void logout(in Account player) raises (NotLoggedInException);
-
-        string playGame(in string username) raises (InsufficientPlayersException);
-
-        void sendWord(in string gameID, in string word) raises (InvalidWordException);
-        boolean isGameOver(in string gameID);
-        boolean isRoundOver(in string gameID);
-
-        Settings getSettings();
-        RoundWinner getRoundWinner();
-        GameWinner getGameWinner();
-
-        leaderboards getLeaderboards();
-
-        // optional for tab screen
-        gamePlayers getGamePlayers();
-    };
 
     struct Account {
-            string playerID;
-            string username;
-            string password;
+        string playerID;
+        string username;
+        string password;
     };
 
     struct GameWinner {
@@ -39,7 +16,7 @@ module BoggledApp {
         string gameID;
         string playerID;
         long roundScore;
-    }
+    };
 
     struct Settings {
         long waitingTime;
@@ -51,7 +28,7 @@ module BoggledApp {
         string gameID;
         string playerID;
         boolean playerConnected;
-    }
+    };
 
     exception UserNotFoundException {
         string reason;
@@ -72,4 +49,29 @@ module BoggledApp {
     exception UserAlreadyExistsException {
         string reason;
     };
+
+    interface Boggled {
+        typedef sequence<GameWinner> leaderboards;
+        typedef sequence<GamePlayer> gamePlayers;
+
+        void login(in Account player) raises (UserNotFoundException);
+        void signup(in string username, in string password) raises (UserAlreadyExistsException);
+        void logout(in Account player) raises (NotLoggedInException);
+
+        string playGame(in string username) raises (InsufficientPlayersException);
+
+        void sendWord(in string gameID, in string word) raises (InvalidWordException);
+        boolean isGameOver(in string gameID);
+        boolean isRoundOver(in string gameID);
+
+        Settings getSettings();
+        RoundWinner getRoundWinner();
+        GameWinner getGameWinner();
+
+        leaderboards getLeaderboards();
+
+        // optional for tab screen
+        gamePlayers getGamePlayers();
+    };
+
 };
