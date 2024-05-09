@@ -2,7 +2,7 @@ package net.team6.boggled.run;
 
 import BoggledApp.Boggled;
 import BoggledApp.BoggledHelper;
-import BoggledApp.BoggledImpl;
+import BoggledApp.BoggledServant;
 import net.team6.boggled.user.server.dev.Server;
 import net.team6.boggled.common.db.DatabaseConnector;
 import org.omg.CORBA.ORB;
@@ -35,8 +35,7 @@ public class ServerLauncher extends Applet {
             POA rootpoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
             rootpoa.the_POAManager().activate();
 
-
-            BoggledImpl my = new BoggledImpl();
+            BoggledServant my = new BoggledServant();
             my.setORB(orb);
 
             // get object reference from the servant
@@ -50,7 +49,6 @@ public class ServerLauncher extends Applet {
             ncRef.rebind(path, href);
 
             System.out.println("Boggled Server Running ...");
-
 
             orb.run();
 

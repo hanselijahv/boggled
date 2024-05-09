@@ -2,25 +2,19 @@ package BoggledApp;
 
 import org.omg.CORBA.ORB;
 
-public class BoggledImpl extends BoggledPOA{
+public class BoggledServant extends BoggledPOA{
     private ORB orb;
 
     public void setORB(ORB orb_val) {
         orb = orb_val;
     }
-
     @Override
-    public void login(Account player) throws UserNotFoundException {
+    public void login(String username, String password) throws UserNotFoundException {
 
     }
 
     @Override
-    public void signup(String username, String password) throws UserAlreadyExistsException {
-
-    }
-
-    @Override
-    public void logout(Account player) throws NotLoggedInException {
+    public void logout(String username) throws NotLoggedInException {
 
     }
 
@@ -35,6 +29,11 @@ public class BoggledImpl extends BoggledPOA{
     }
 
     @Override
+    public char[] getLetters(String gameID) {
+        return new char[0];
+    }
+
+    @Override
     public boolean isGameOver(String gameID) {
         return false;
     }
@@ -45,18 +44,28 @@ public class BoggledImpl extends BoggledPOA{
     }
 
     @Override
-    public Settings getSettings() {
+    public RoundWinner getRoundWinner(String gameID) {
         return null;
     }
 
     @Override
-    public RoundWinner getRoundWinner() {
+    public GameWinner getGameWinner(String gameID) {
         return null;
     }
 
     @Override
-    public GameWinner getGameWinner() {
-        return null;
+    public int getRoundTime(String gameID) {
+        return 0;
+    }
+
+    @Override
+    public int getWaitingTime(String gameID) {
+        return 0;
+    }
+
+    @Override
+    public int getNumRounds(String gameID) {
+        return 0;
     }
 
     @Override
@@ -65,7 +74,7 @@ public class BoggledImpl extends BoggledPOA{
     }
 
     @Override
-    public GamePlayer[] getGamePlayers() {
+    public GamePlayer[] getGamePlayers(String gameID) {
         return new GamePlayer[0];
     }
 }
