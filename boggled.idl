@@ -1,32 +1,57 @@
 module BoggledApp {
+    interface Boggled {
+        typedef sequence<GameResult> leaderboards;
+        typedef sequence<GamePlayer> gamePlayers;
+
+        void login(in Account player) raises (UserNotFoundException);
+        void signup(in string username, in string password) raises ();
+        void logout(in Account player) raises (NotLoggedInException);
+
+        string playGame(in string username) raises (InsufficientPlayersException);
+
+        void sendWord(in string gameID, in string word) raises (InvalidWordException);
+        boolean isGameOver(in string gameID);
+        boolean isRoundOver(in string gameID);
+
+        Settings getSettings();
+        RoundWinner getRoundWinner();
+        GameWinner getGameWinner();
+
+        leaderboards getLeaderboards();
+
+        // optional for tab screen
+        gamePlayers getGamePlayers();
+    };
+
     struct Account {
-        string playerID;
-        string username;
-        string password;
+            string playerID;
+            string username;
+            string password;
     };
 
-    struct GamePlayer {
-        string gameID;
-        string playerID;
-        boolean isConnected;
-    };
-
-    struct GameResult {
+    struct GameWinner {
         string gameID;
         string playerID;
         long winningScore;
     };
 
-    struct GameRoom {
+    struct RoundWinner {
         string gameID;
-        boolean gameStarted
-    };
+        string playerID;
+        long roundScore;
+    }
 
     struct Settings {
         long waitingTime;
         long roundTime;
         long roundsToWin;
     };
+
+    struct GamePlayer {
+        string gameID;
+        string playerID;
+        boolean playerConnected;
+    }
 
     exception UserNotFoundException {
         string reason;
@@ -44,16 +69,7 @@ module BoggledApp {
         string reason;
     };
 
-    interface Boggled {
-        void login(in Account player) raises (UserNotFoundException);
-        void logout(in Account player) raises (NotLoggedInException);
-        void reconnect(in Account player);
-        void playGame() raises (InsufficientPlayersException);
-        Settings getSettings();
-        GameResult getGameWinner();
-        GameResult getLeaderboards();
-        void sendWord(in string word) raises (InvalidWordException);
-
-
+    exception UserAlreadyExistsException {
+        string reason;
     };
 };
