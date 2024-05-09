@@ -8,8 +8,14 @@ public class BoggledImpl extends BoggledPOA{
     public void setORB(ORB orb_val) {
         orb = orb_val;
     }
+
     @Override
     public void login(Account player) throws UserNotFoundException {
+
+    }
+
+    @Override
+    public void signup(String username, String password) throws UserAlreadyExistsException {
 
     }
 
@@ -19,13 +25,23 @@ public class BoggledImpl extends BoggledPOA{
     }
 
     @Override
-    public void reconnect(Account player) {
+    public String playGame(String username) throws InsufficientPlayersException {
+        return null;
+    }
+
+    @Override
+    public void sendWord(String gameID, String word) throws InvalidWordException {
 
     }
 
     @Override
-    public void playGame() throws InsufficientPlayersException {
-        System.out.println("Play game!");
+    public boolean isGameOver(String gameID) {
+        return false;
+    }
+
+    @Override
+    public boolean isRoundOver(String gameID) {
+        return false;
     }
 
     @Override
@@ -34,17 +50,22 @@ public class BoggledImpl extends BoggledPOA{
     }
 
     @Override
-    public GameResult getGameWinner() {
+    public RoundWinner getRoundWinner() {
         return null;
     }
 
     @Override
-    public GameResult getLeaderboards() {
+    public GameWinner getGameWinner() {
         return null;
     }
 
     @Override
-    public void sendWord(String word) throws InvalidWordException {
+    public GameWinner[] getLeaderboards() {
+        return new GameWinner[0];
     }
 
+    @Override
+    public GamePlayer[] getGamePlayers() {
+        return new GamePlayer[0];
+    }
 }
