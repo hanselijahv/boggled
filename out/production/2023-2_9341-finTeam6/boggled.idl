@@ -1,31 +1,22 @@
 module BoggledApp {
-    struct Account {
-        string playerID;
-        string username;
-        string password;
-    };
 
-    struct GamePlayer {
-        string gameID;
-        string playerID;
-        boolean isConnected;`
-    };
-
-    struct GameResult {
+    struct GameWinner {
         string gameID;
         string playerID;
         long winningScore;
     };
 
-    struct GameRoom {
+    struct RoundWinner {
         string gameID;
-        boolean gameStarted;
+        string playerID;
+        long roundScore;
     };
 
-    struct Settings {
-        long waitingTime;
-        long roundTime;
-        long roundsToWin;
+    struct GamePlayer {
+        string gameID;
+        string playerID;
+        long roundWins;
+        boolean playerConnected;
     };
 
     exception UserNotFoundException {
@@ -45,15 +36,30 @@ module BoggledApp {
     };
 
     interface Boggled {
-        void login(in Account player) raises (UserNotFoundException);
-        void logout(in Account player) raises (NotLoggedInException);
-        void reconnect(in Account player);
-        void playGame() raises (InsufficientPlayersException);
-        Settings getSettings();
-        GameResult getGameWinner();
-        GameResult getLeaderboards();
-        void sendWord(in string word) raises (InvalidWordException);
+        typedef sequence<GameWinner> leaderboards;
+        typedef sequence<GamePlayer> gamePlayers;
+        typedef sequence<char> letters;
 
+        // authentication logic
+        void login(in string username, in string password) raises (UserNotFoundException);
+        void logout(in string username) raises (NotLoggedInException);
 
+        // game logic
+        string playGame(in string username) raises (InsufficientPlayersException);
+        void sendWord(in string gameID, in string word) raises (InvalidWordException);
+        letters getLetters(in string gameID);
+        boolean isGameOver(in string gameID);
+        boolean isRoundOver(in string gameID);
+        RoundWinner getRoundWinner(in string gameID);
+        GameWinner getGameWinner(in string gameID);
+
+        // setting logic
+        long getRoundTime(in string gameID);
+        long getWaitingTime(in string gameID);
+        long getNumRounds(in string gameID);
+
+        // UI
+        leaderboards getLeaderboards();
+        gamePlayers getGamePlayers(in string gameID);
     };
 };
