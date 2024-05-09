@@ -27,6 +27,7 @@ module BoggledApp {
     struct GamePlayer {
         string gameID;
         string playerID;
+        long roundWins;
         boolean playerConnected;
     };
 
