@@ -8,7 +8,7 @@ module BoggledApp {
     struct GamePlayer {
         string gameID;
         string playerID;
-        boolean isConnected;
+        boolean isConnected;`
     };
 
     struct GameResult {

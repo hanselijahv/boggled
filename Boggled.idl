@@ -8,7 +8,10 @@ module BoggledApp {
         void logout(in Account player) raises (NotLoggedInException);
 
         string playGame(in string username) raises (InsufficientPlayersException);
+
         void sendWord(in string gameID, in string word) raises (InvalidWordException);
+        boolean isGameOver(in string gameID);
+        boolean isRoundOver(in string gameID);
 
         Settings getSettings();
         RoundWinner getRoundWinner();
@@ -16,7 +19,7 @@ module BoggledApp {
 
         leaderboards getLeaderboards();
 
-        // optional for tab scoreboard
+        // optional for tab screen
         gamePlayers getGamePlayers();
     };
 
@@ -43,6 +46,12 @@ module BoggledApp {
         long roundTime;
         long roundsToWin;
     };
+
+    struct GamePlayer {
+        string gameID;
+        string playerID;
+        boolean playerConnected;
+    }
 
     exception UserNotFoundException {
         string reason;

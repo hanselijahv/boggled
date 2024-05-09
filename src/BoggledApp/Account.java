@@ -25,4 +25,6 @@ public final class Account implements org.omg.CORBA.portable.IDLEntity
     password = _password;
   } // ctor
 
+
+
 } // class Account
