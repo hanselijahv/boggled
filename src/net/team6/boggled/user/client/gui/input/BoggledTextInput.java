@@ -12,14 +12,20 @@ import net.team6.boggled.user.client.gui.container.VerticalContainer;
 import net.team6.boggled.user.client.gui.text.BoggledText;
 import net.team6.boggled.user.client.gui.tools.Spacing;
 import net.team6.boggled.user.client.input.KeyInputConsumer;
+import net.team6.boggled.user.server.gui.text.ServerText;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 
 public class BoggledTextInput extends BoggledClickable implements KeyInputConsumer {
 
     private final Value<String> value;
+    private Timer backspaceTimer;
+    private boolean capsLock = false;
 
     private final BoggledContainer container;
     private final BoggledContainer borderContainer;
@@ -52,6 +58,19 @@ public class BoggledTextInput extends BoggledClickable implements KeyInputConsum
         container.addUIComponent(labelText);
 
         container.addUIComponent(borderContainer);
+
+        backspaceTimer = new Timer(200, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String currentValue = value.get();
+                if (!currentValue.isEmpty()) {
+                    currentValue = currentValue.substring(0, currentValue.length() - 1);
+                    value.setValue(currentValue);
+                    contentContainer.clear();
+                    contentContainer.addUIComponent(new BoggledText(currentValue, 16));
+                }
+            }
+        });
     }
 
     @Override
@@ -73,16 +92,26 @@ public class BoggledTextInput extends BoggledClickable implements KeyInputConsum
     public void onKeyPressed(int key) {
         String currentValue = value.get();
 
-        if (key == KeyEvent.VK_BACK_SPACE) {
-            if (!currentValue.isEmpty()) {
+        if (key == KeyEvent.VK_CAPS_LOCK) {
+            capsLock = !capsLock;
+        } else if (key == KeyEvent.VK_BACK_SPACE) {
+            backspaceTimer.start();
+            if(!currentValue.isEmpty()) {
                 currentValue = currentValue.substring(0, currentValue.length() - 1);
+                value.setValue(currentValue);
+                contentContainer.clear();
+                contentContainer.addUIComponent(new BoggledText(currentValue, 16));
             }
         } else if (key == KeyEvent.VK_SPACE) {
             currentValue += " ";
         } else {
-            char keyChar = (char) key;
-            if (Character.isLetterOrDigit(keyChar) || Character.isWhitespace(keyChar)) {
-                currentValue += keyChar;
+            String keyText = KeyEvent.getKeyText(key);
+            if(keyText.length() == 1) {
+                if (capsLock) {
+                    currentValue += keyText.toUpperCase();
+                } else {
+                    currentValue += keyText.toLowerCase();
+                }
             }
         }
 
@@ -90,6 +119,12 @@ public class BoggledTextInput extends BoggledClickable implements KeyInputConsum
 
         contentContainer.clear();
         contentContainer.addUIComponent(new BoggledText(currentValue, 16));
+    }
+
+    public void onKeyReleased(int key) {
+        if (key == KeyEvent.VK_BACK_SPACE) {
+            backspaceTimer.stop();
+        }
     }
 
 
