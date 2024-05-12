@@ -73,7 +73,7 @@ public class Game implements Runnable{
 
             if (shouldRender){
                 render();
-                printStats();
+                //printStats();
             }
 
         }

@@ -2,15 +2,22 @@ package BoggledApp;
 
 import org.omg.CORBA.ORB;
 
+import static net.team6.boggled.user.server.ServerTest.accountDAOImpl;
+
 public class BoggledServant extends BoggledPOA{
     private ORB orb;
 
     public void setORB(ORB orb_val) {
         orb = orb_val;
     }
+
     @Override
     public void login(String username, String password) throws UserNotFoundException {
-
+        boolean isAuthenticated = accountDAOImpl.authenticatePlayer(username, password);
+        if (!isAuthenticated) {
+            throw new UserNotFoundException("User '" + username + "' not found or invalid credentials.");
+        }
+        System.out.println("User '" + username + " logged in successfully.");
     }
 
     @Override

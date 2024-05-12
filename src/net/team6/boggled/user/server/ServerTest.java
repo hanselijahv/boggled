@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class ServerTest {
 
     static Scanner scanner = new Scanner(System.in);
-    static AccountDAO accountDAOImpl = new AccountDAO();
+    public static AccountDAO accountDAOImpl = new AccountDAO();
     //static SettingsDB settingsDB = new SettingsDB();
 
 
