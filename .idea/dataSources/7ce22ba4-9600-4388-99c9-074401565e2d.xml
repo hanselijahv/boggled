@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="boggled_game@localhost">
-  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.51">
-    <root id="1">
-      <DefaultCasing>lower/lower</DefaultCasing>
-      <DefaultEngine>MyISAM</DefaultEngine>
-      <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
-      <ServerVersion>8.2.0</ServerVersion>
-    </root>
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.52">
+    <root id="1"/>
     <schema id="2" parent="1" name="boggled_game">
       <Current>1</Current>
       <LastIntrospectionLocalTimestamp>2024-05-06.14:07:57</LastIntrospectionLocalTimestamp>

@@ -243,11 +243,11 @@ public class ServerTest {
 
     public static void login(String username, String password) throws UserNotFoundException {
         boolean isAuthenticated = accountDAOImpl.authenticatePlayer(username, password);
-        System.out.println(username + password);
+        //System.out.println(username + " " + password);
         if (!isAuthenticated) {
             throw new UserNotFoundException("User '" + username + "' not found or invalid credentials.");
         }
-        System.out.println("User '" + username + "' logged in successfully.");
+        System.out.println("User '" + username + " logged in successfully.");
     }
 
 }

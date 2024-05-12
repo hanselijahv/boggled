@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="IU-233.14015.106">
-    <data-source name="boggled_game@localhost" uuid="7ce22ba4-9600-4388-99c9-074401565e2d">
-      <database-info product="MySQL" version="8.2.0" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-j-8.2.0 (Revision: 06a1f724497fd81c6a659131fda822c9e5085b6c)" dbms="MYSQL" exact-version="8.2.0" exact-driver-version="8.2">
+  <component name="dataSourceStorageLocal" created-in="IU-241.14494.240">
+    <data-source name="boggled_game@localhost" uuid="fd379d58-6a6f-4851-9da2-caebaccfd639">
+      <database-info product="MySQL" version="5.5.5-10.4.32-MariaDB" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-j-8.2.0 (Revision: 06a1f724497fd81c6a659131fda822c9e5085b6c)" dbms="MARIADB" exact-version="10.4.32" exact-driver-version="8.2">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
         <jdbc-catalog-is-schema>true</jdbc-catalog-is-schema>
