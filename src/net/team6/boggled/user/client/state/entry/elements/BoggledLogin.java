@@ -50,7 +50,11 @@ public class BoggledLogin extends VerticalContainer {
 
         BoggledButton loginButton = getBoggledButton();
 
+
         buttonContainer.addUIComponent(loginButton);
+        buttonContainer.addUIComponent(new BoggledButton("EXIT", 16, (state) -> {
+            System.exit(0);
+        }));
         buttonContainer.setMargin(new Spacing(0));
         buttonContainer.setPadding(new Spacing(10));
         return buttonContainer;

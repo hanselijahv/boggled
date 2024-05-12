@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="SERVER RUN CONFIG" type="Application" factoryName="Application">
+  <configuration default="false" name="ServerLauncher" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="net.team6.boggled.run.ServerLauncher" />
     <module name="2023-2_9341-finTeam6" />
     <option name="PROGRAM_PARAMETERS" value="-ORBInitialPort 1055 -ORBInitialHost localhost" />

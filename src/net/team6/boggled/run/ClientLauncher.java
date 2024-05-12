@@ -41,14 +41,15 @@ public class ClientLauncher extends Applet {
             String name = "Boggled";
             Boggled boggledImpl = BoggledHelper.narrow(ncRef.resolve_str(name));
 
-            System.out.println
-                    ("Obtained a handle on server object: "
-                            + boggledImpl);
+            System.out.println("Obtained a handle on server object: " + boggledImpl);
+
 
         } catch (Exception e) {
             System.out.println("ERROR : " + e);
             e.printStackTrace(System.out);
         }
+
+
 
 
     }
