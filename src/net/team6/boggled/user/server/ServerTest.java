@@ -2,6 +2,7 @@ package net.team6.boggled.user.server;
 
 import net.team6.boggled.common.db.DatabaseConnector;
 import net.team6.boggled.common.db.AccountDAO;
+import net.team6.boggled.common.exceptions.UserNotFoundException;
 import net.team6.boggled.common.model.Account;
 import net.team6.boggled.common.model.Settings;
 
@@ -239,4 +240,14 @@ public class ServerTest {
         }
 
     }
+
+    public static void login(String username, String password) throws UserNotFoundException {
+        boolean isAuthenticated = accountDAOImpl.authenticatePlayer(username, password);
+        System.out.println(username + password);
+        if (!isAuthenticated) {
+            throw new UserNotFoundException("User '" + username + "' not found or invalid credentials.");
+        }
+        System.out.println("User '" + username + "' logged in successfully.");
+    }
+
 }

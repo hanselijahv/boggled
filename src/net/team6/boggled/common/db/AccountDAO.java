@@ -95,22 +95,24 @@ public class AccountDAO implements DAO<Account> {
         }
     }
 
-    public boolean authenticatePlayer(Account account) {
-        String sql = "SELECT COUNT(*) FROM accounts WHERE player_id = ? AND password = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, account.getPlayerId());
-            statement.setString(2, account.getPassword());
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    int count = resultSet.getInt(1);
-                    return count > 0;
-                }
+    public boolean authenticatePlayer(String username, String password) {
+        String sql = "SELECT COUNT(*) FROM accounts WHERE username = ? AND password = ?";
+        try (
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)
+        ) {
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count > 0;
             }
         } catch (SQLException e) {
-            System.out.println("Error authenticating player: " + e.getMessage());
+            e.printStackTrace();
         }
         return false;
     }
+
 
     // TODO: Implement UUID for generating ID
     private String generatePlayerId() throws SQLException {
