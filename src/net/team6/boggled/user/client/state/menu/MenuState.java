@@ -9,9 +9,9 @@ import net.team6.boggled.user.client.state.menu.elements.BoggledMainMenu;
 import net.team6.boggled.user.client.gui.container.BoggledContainer;
 
 public class MenuState extends State {
+
     public MenuState(Size windowSize, Input input, GameSettings gameSettings) {
         super(windowSize, input, gameSettings);
-
         boggledCanvas.addUIComponent(new BoggledMainMenu());
         //audioPlayer.playMusic("main.wav");
 

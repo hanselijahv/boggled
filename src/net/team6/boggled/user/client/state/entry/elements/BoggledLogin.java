@@ -11,6 +11,7 @@ import net.team6.boggled.user.client.gui.container.BoggledContainer;
 import net.team6.boggled.user.client.gui.container.VerticalContainer;
 import net.team6.boggled.user.client.gui.input.BoggledTextInput;
 import net.team6.boggled.user.client.gui.tools.Alignment;
+import net.team6.boggled.utilities.SessionManager;
 
 
 public class BoggledLogin extends VerticalContainer {
@@ -56,7 +57,7 @@ public class BoggledLogin extends VerticalContainer {
     }
 
     private BoggledButton getBoggledButton() {
-        BoggledServant boggledServant = new BoggledServant();
+        BoggledServant boggledServant = BoggledServant.getInstance();
 
         return new BoggledButton("LOGIN", 16, (state) -> {
             String user = username.get();
@@ -64,6 +65,9 @@ public class BoggledLogin extends VerticalContainer {
 
             try {
                 boggledServant.login(user, pass);
+                String sessionId = boggledServant.getSessionId(user);
+                System.out.println("Session ID: " + sessionId);
+                SessionManager.setSessionId(sessionId);
                 state.setNextState(new MenuState(state.getWindowSize(), state.getInput(), state.getGameSettings()));
             } catch (UserNotFoundException e) {
                 System.err.println("User '" + user + "' not found or invalid credentials.");

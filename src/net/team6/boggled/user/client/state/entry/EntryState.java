@@ -15,6 +15,7 @@ public class EntryState extends State {
 
         boggledCanvas.addUIComponent(new BoggledLogin());
 
+
     }
 
     public void enterMenu(BoggledContainer container) {

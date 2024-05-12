@@ -22,4 +22,5 @@ public class BoggledExitMenu extends VerticalContainer {
         addUIComponent(new BoggledButton("NO", 16, (state) -> ((MenuState) state).enterMenu(new BoggledMainMenu())));
 
     }
+
 }
