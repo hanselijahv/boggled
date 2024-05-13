@@ -23,7 +23,7 @@ public class View extends JPanel {
     private static final int VOWEL_COUNT = 7;
     private static final int CONSONANT_COUNT = 13;
     private static Font calculatorFont;
-    private static List<Character> letters;
+    public static List<Character> letters;
     private static Set<String> dictionary;
     private static final List<String> words = new ArrayList<>();
     private static final int MIN_WORD_LENGTH = 4;

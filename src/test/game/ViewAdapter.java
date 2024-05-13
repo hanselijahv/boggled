@@ -1,10 +1,10 @@
 package test.game;
 
 import net.team6.boggled.common.core.Size;
-import net.team6.boggled.user.client.gui.component.BoggledComponent;
-import net.team6.boggled.user.client.gui.container.BoggledContainer;
-import net.team6.boggled.user.client.gui.container.VerticalContainer;
-import net.team6.boggled.user.client.state.State;
+import net.team6.boggled.client.gui.component.BoggledComponent;
+import net.team6.boggled.client.gui.container.BoggledContainer;
+import net.team6.boggled.client.gui.container.VerticalContainer;
+import net.team6.boggled.client.state.State;
 
 import java.awt.*;
 import java.sql.SQLException;

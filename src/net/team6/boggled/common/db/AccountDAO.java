@@ -66,7 +66,7 @@ public class AccountDAO implements DAO<Account> {
      */
     @Override
     public boolean update(Account account, String[] params) throws SQLException {
-        String sql = "UPDATE account SET username = ?, password = ? WHERE player_id = ?";
+        String sql = "UPDATE accounts SET username = ?, password = ? WHERE player_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, params[0]);
             statement.setString(2, params[1]);
@@ -106,7 +106,7 @@ public class AccountDAO implements DAO<Account> {
             }
         }
 
-        String sql2 = "SELECT COUNT(*) FROM account WHERE player_id = ?";
+        String sql2 = "SELECT COUNT(*) FROM accounts WHERE player_id = ?";
         try (
                 PreparedStatement preparedStatement = connection.prepareStatement(sql2)
         ) {
@@ -125,7 +125,7 @@ public class AccountDAO implements DAO<Account> {
 
     // TODO: Implement UUID for generating ID
     private String generatePlayerId() throws SQLException {
-        String sql = "SELECT player_id FROM account";
+        String sql = "SELECT player_id FROM accounts";
         int maxId = 0;
         try (PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
@@ -143,7 +143,7 @@ public class AccountDAO implements DAO<Account> {
     }
 
     public boolean usernameExists(String username) throws SQLException {
-        String sql = "SELECT COUNT(*) FROM account WHERE username = ?";
+        String sql = "SELECT COUNT(*) FROM accounts WHERE username = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, username);
             try (ResultSet resultSet = statement.executeQuery()) {

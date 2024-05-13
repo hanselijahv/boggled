@@ -3,7 +3,7 @@ package net.team6.boggled.run;
 import BoggledApp.Boggled;
 import BoggledApp.BoggledHelper;
 import BoggledApp.BoggledServant;
-import net.team6.boggled.user.server.dev.Server;
+import net.team6.boggled.server.dev.Server;
 import net.team6.boggled.common.db.DatabaseConnector;
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.Object;

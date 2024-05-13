@@ -4,17 +4,20 @@ import net.team6.boggled.common.model.Account;
 import org.omg.CORBA.ORB;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import static net.team6.boggled.common.db.AccountDAO.accountDAOImpl;
 
+
+@SuppressWarnings({"Duplicates", "SpellCheckingInspection"})
 public class BoggledServant extends BoggledPOA{
     private ORB orb;
     private final Map<String, String> sessionMap = new HashMap<>();
+    public static List<Character> letters;
     private static BoggledServant instance = null;
+    private static final int VOWEL_COUNT = 7;
+    private static final int CONSONANT_COUNT = 13;
+    private static Set<String> dictionary;
 
     public static BoggledServant getInstance() {
         if (instance == null) {
@@ -76,8 +79,70 @@ public class BoggledServant extends BoggledPOA{
 
     @Override
     public char[] getLetters(String gameID) {
-        return new char[0];
+        letters = generateRandomLetters();
+        char[] lettersArray = new char[letters.size()];
+        for (int i = 0; i < letters.size(); i++) {
+            lettersArray[i] = letters.get(i);
+        }
+        return lettersArray;
     }
+
+    public static List<Character> generateRandomLetters() {
+        List<Character> randomLetters = new ArrayList<>();
+        randomLetters.addAll(generateRandomVowels());
+        randomLetters.addAll(generateRandomConsonants());
+        Collections.shuffle(randomLetters);
+        return randomLetters;
+    }
+
+    private static List<Character> generateRandomVowels() {
+        List<Character> vowels = new ArrayList<>();
+        Random random = new Random();
+        char[] allVowels = {'a', 'e', 'i', 'o', 'u'};
+        for (int i = 0; i < VOWEL_COUNT; i++) {
+            vowels.add(allVowels[random.nextInt(allVowels.length)]);
+        }
+        return vowels;
+    }
+
+
+
+    private static List<Character> generateRandomConsonants() {
+        List<Character> consonants = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < CONSONANT_COUNT; i++) {
+            char consonant;
+            do {
+                consonant = (char) ('a' + random.nextInt(26));
+            } while ("aeiou".indexOf(consonant) != -1); // Skip if it's a vowel
+            consonants.add(consonant);
+        }
+        return consonants;
+    }
+
+    private static boolean canFormWord(String word) {
+        List<Character> remainingLetters = new ArrayList<>(letters);
+        for (char letter : word.toCharArray()) {
+            boolean found = false;
+            for (Iterator<Character> iterator = remainingLetters.iterator(); iterator.hasNext(); ) {
+                char currentLetter = iterator.next();
+                if (Character.toLowerCase(currentLetter) == Character.toLowerCase(letter)) {
+                    iterator.remove();
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean isValidWord(String word) {
+        return dictionary.contains(word.toLowerCase());
+    }
+
 
     @Override
     public boolean isGameOver(String gameID) {
