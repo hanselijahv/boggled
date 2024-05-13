@@ -16,26 +16,24 @@ import java.io.IOException;
 
 
 public class ClientLauncher extends Applet {
-    private static final Game game;
 
-    static {
+    public static void main(String[] args) {
         try {
-            game = new Game(1280, 720);
-        } catch (IOException | FontFormatException e) {
-            throw new RuntimeException(e);
+            Boggled boggledImpl = Connect.createConnection(args);
+            startGame(boggledImpl);
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e);
+            e.printStackTrace(System.out);
         }
     }
 
-    public static void main(String[] args) {
-        game.start();
-
-        try{
-            Connect connect = new Connect();
-            Boggled boggledImpl = Connect.createConnection(args);
-            game.setBoggledImpl(boggledImpl);
-        } catch (Exception e) {
-            System.out.println("ERROR : " + e);
-            e.printStackTrace(System.out);
+    private static void startGame(Boggled boggledImpl) {
+        Game game;
+        try {
+            game = new Game(1280, 720, boggledImpl);
+            game.start();
+        } catch (IOException | FontFormatException e) {
+            throw new RuntimeException(e);
         }
     }
 }

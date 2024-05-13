@@ -84,7 +84,7 @@ public class Server implements Runnable {
 
             if (shouldRender) {
                 render();
-                printStats();
+               // printStats();
             }
 
         }

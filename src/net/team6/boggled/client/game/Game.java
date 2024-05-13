@@ -1,5 +1,6 @@
 package net.team6.boggled.client.game;
 
+import BoggledApp.Boggled;
 import net.team6.boggled.client.state.entry.EntryState;
 import net.team6.boggled.common.core.Size;
 import net.team6.boggled.client.display.Display;
@@ -14,6 +15,8 @@ import java.sql.SQLException;
 @SuppressWarnings("Duplicates")
 public class Game implements Runnable{
 
+
+
     private State state;
     private final Display display;
     private final GameSettings gameSettings;
@@ -23,10 +26,10 @@ public class Game implements Runnable{
     private int fps, ups;
     public boolean isFrameCapped = false;
 
-    public Game(int width, int height) throws IOException, FontFormatException {
+    public Game(int width, int height, Boggled boggledImpl) throws IOException, FontFormatException {
         Input input = new Input();
         gameSettings = new GameSettings(false);
-        state = new EntryState(new Size(width, height), input, gameSettings);
+        state = new EntryState(new Size(width, height), input, gameSettings, boggledImpl);
         display = new Display(width, height, input, this::resize);
     }
 

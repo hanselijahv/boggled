@@ -1,5 +1,6 @@
 package net.team6.boggled.client.state.entry.elements;
 
+import BoggledApp.Boggled;
 import BoggledApp.BoggledServant;
 import BoggledApp.UserNotFoundException;
 import net.team6.boggled.client.gui.text.BoggledHeader;
@@ -14,10 +15,12 @@ import net.team6.boggled.client.gui.tools.Alignment;
 import net.team6.boggled.utilities.SessionManager;
 
 public class BoggledLogin extends VerticalContainer {
+
+
     private final Value<String> username;
     private final Value<String> password;
 
-    public BoggledLogin() {
+    public BoggledLogin(Boggled boggledImpl) {
         alignment = new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER);
         this.username = new Value<>("");
         this.password = new Value<>("");
@@ -37,17 +40,18 @@ public class BoggledLogin extends VerticalContainer {
         passwordInput.setMargin(new Spacing(10, 0, 0, 0));
         contentContainer.addUIComponent(passwordInput);
 
-        BoggledContainer buttonContainer = getBoggledButtonContainer();
+        BoggledContainer buttonContainer = getBoggledButtonContainer(boggledImpl);
 
         addUIComponent(contentContainer);
         addUIComponent(buttonContainer);
     }
 
-    private BoggledContainer getBoggledButtonContainer() {
+
+    private BoggledContainer getBoggledButtonContainer(Boggled boggledImpl) {
         BoggledContainer buttonContainer = new VerticalContainer();
         buttonContainer.setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER));
 
-        BoggledButton loginButton = getBoggledButton();
+        BoggledButton loginButton = getBoggledButton(boggledImpl);
 
 
         buttonContainer.addUIComponent(loginButton);
@@ -59,18 +63,14 @@ public class BoggledLogin extends VerticalContainer {
         return buttonContainer;
     }
 
-    private BoggledButton getBoggledButton() {
-        BoggledServant boggledServant = BoggledServant.getInstance();
-
+    private BoggledButton getBoggledButton(Boggled boggledImpl) {
         return new BoggledButton("LOGIN", 16, (state) -> {
             String user = username.get();
             String pass = password.get();
 
             try {
-                boggledServant.login(user, pass);
-                String sessionId = boggledServant.getSessionId(user);
-                System.out.println("Session ID: " + sessionId);
-                SessionManager.setSessionId(sessionId);
+                boggledImpl.login(user, pass);
+                System.out.println("Login successful!");
                 state.setNextState(new MenuState(state.getWindowSize(), state.getInput(), state.getGameSettings()));
             } catch (UserNotFoundException e) {
                 System.err.println("User '" + user + "' not found or invalid credentials.");

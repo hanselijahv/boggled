@@ -33,7 +33,7 @@ public class BoggledMainMenu extends VerticalContainer {
         addUIComponent(new BoggledButton("LOGOUT", 16, (state) -> {
             try {
                 boggledServant.logout(sessionId); // Call logout with the session ID
-                state.setNextState(new EntryState(state.getWindowSize(), state.getInput(), state.getGameSettings()));
+         //       state.setNextState(new EntryState(state.getWindowSize(), state.getInput(), state.getGameSettings()));
             } catch (NotLoggedInException e) {
                 System.err.println("Session ID " + sessionId + " is not valid.");
             }
