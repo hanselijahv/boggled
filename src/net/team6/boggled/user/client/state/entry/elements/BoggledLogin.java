@@ -13,7 +13,6 @@ import net.team6.boggled.user.client.gui.input.BoggledTextInput;
 import net.team6.boggled.user.client.gui.tools.Alignment;
 import net.team6.boggled.utilities.SessionManager;
 
-
 public class BoggledLogin extends VerticalContainer {
     private final Value<String> username;
     private final Value<String> password;

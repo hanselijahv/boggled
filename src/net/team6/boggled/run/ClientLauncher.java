@@ -48,7 +48,5 @@ public class ClientLauncher extends Applet {
             System.out.println("ERROR : " + e);
             e.printStackTrace(System.out);
         }
-
-
     }
 }

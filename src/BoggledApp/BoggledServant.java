@@ -37,7 +37,7 @@ public class BoggledServant extends BoggledPOA{
             throw new RuntimeException(e);
         }
         if (!isAuthenticated) {
-            throw new UserNotFoundException("User '" + username + "' not found or invalid credentials.");
+            throw new UserNotFoundException();
         }
         String sessionId = generateSessionId();
         sessionMap.put(sessionId, username);
