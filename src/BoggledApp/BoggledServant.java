@@ -1,12 +1,15 @@
 package BoggledApp;
 
+import net.team6.boggled.common.model.Account;
 import org.omg.CORBA.ORB;
 
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import static net.team6.boggled.user.server.ServerTest.accountDAOImpl;
+import static net.team6.boggled.common.db.AccountDAO.accountDAOImpl;
 
 public class BoggledServant extends BoggledPOA{
     private ORB orb;
@@ -26,9 +29,15 @@ public class BoggledServant extends BoggledPOA{
 
     @Override
     public synchronized void login(String username, String password) throws UserNotFoundException {
-        boolean isAuthenticated = accountDAOImpl.authenticatePlayer(username, password);
+        Account account =  new Account(null, username, password);
+        boolean isAuthenticated = false;
+        try {
+            isAuthenticated = accountDAOImpl.authenticatePlayer(account);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         if (!isAuthenticated) {
-            throw new UserNotFoundException("User '" + username + "' not found or invalid credentials.");
+            throw new UserNotFoundException();
         }
         String sessionId = generateSessionId();
         sessionMap.put(sessionId, username);

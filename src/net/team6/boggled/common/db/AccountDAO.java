@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class AccountDAO implements DAO<Account> {
     private final Connection connection;
+    public static AccountDAO accountDAOImpl = new AccountDAO();
 
     public AccountDAO() {
         this.connection = DatabaseConnector.getInstance().getConnection();
@@ -57,6 +58,24 @@ public class AccountDAO implements DAO<Account> {
     }
 
     /**
+     * Update a player in the database
+     * @param account The player to update
+     * @param params The new values for the player
+     * @return True if the player was updated, false otherwise
+     * @throws SQLException If an error occurs while updating the player
+     */
+    @Override
+    public boolean update(Account account, String[] params) throws SQLException {
+        String sql = "UPDATE account SET username = ?, password = ? WHERE player_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, params[0]);
+            statement.setString(2, params[1]);
+            statement.setString(3, account.getPlayerId());
+            return statement.executeUpdate() > 0;
+        }
+    }
+
+    /**
      * Get all players from the database
      * @return A list of all players
      * @throws SQLException If an error occurs while selecting the players
@@ -77,31 +96,21 @@ public class AccountDAO implements DAO<Account> {
         return accounts;
     }
 
-    /**
-     * Update a player in the database
-     * @param account The player to update
-     * @param params The new values for the player
-     * @return True if the player was updated, false otherwise
-     * @throws SQLException If an error occurs while updating the player
-     */
-    @Override
-    public boolean update(Account account, String[] params) throws SQLException {
-        String sql = "UPDATE accounts SET username = ?, password = ? WHERE player_id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, params[0]);
-            statement.setString(2, params[1]);
-            statement.setString(3, account.getPlayerId());
-            return statement.executeUpdate() > 0;
-        }
-    }
+    public boolean authenticatePlayer(Account account) throws SQLException {
+        List<Account> accountToAuth = getAll();
+        String playerId = null;
 
-    public boolean authenticatePlayer(String username, String password) {
-        String sql = "SELECT COUNT(*) FROM accounts WHERE username = ? AND password = ?";
+        for (Account account1 : accountToAuth) {
+            if (account1.getUsername().equals(account.getUsername()) && account1.getPassword().equals(account.getPassword())) {
+                playerId = account1.getPlayerId();
+            }
+        }
+
+        String sql2 = "SELECT COUNT(*) FROM account WHERE player_id = ?";
         try (
-                PreparedStatement preparedStatement = connection.prepareStatement(sql)
+                PreparedStatement preparedStatement = connection.prepareStatement(sql2)
         ) {
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
+            preparedStatement.setString(1, playerId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 int count = resultSet.getInt(1);
@@ -116,7 +125,7 @@ public class AccountDAO implements DAO<Account> {
 
     // TODO: Implement UUID for generating ID
     private String generatePlayerId() throws SQLException {
-        String sql = "SELECT player_id FROM accounts";
+        String sql = "SELECT player_id FROM account";
         int maxId = 0;
         try (PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
@@ -134,7 +143,7 @@ public class AccountDAO implements DAO<Account> {
     }
 
     public boolean usernameExists(String username) throws SQLException {
-        String sql = "SELECT COUNT(*) FROM accounts WHERE username = ?";
+        String sql = "SELECT COUNT(*) FROM account WHERE username = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, username);
             try (ResultSet resultSet = statement.executeQuery()) {
