@@ -71,6 +71,14 @@ public class CreateUsersUI extends ServerVerticalContainer {
 
             } else {
                 message = new ServerText("Failed to create user", 15);
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        messageContainer.removeComponent(message);
+                        timer.cancel();
+                    }
+                }, 3000);
             }
 
             message.setMargin(new Spacing(0));

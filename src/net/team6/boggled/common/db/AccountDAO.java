@@ -27,7 +27,7 @@ public class AccountDAO implements DAO<Account> {
      */
     @Override
     public boolean insert(Account account) throws SQLException {
-            String sql = "INSERT INTO account (player_id, username, password) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO accounts (player_id, username, password) VALUES (?, ?, ?)";
             if (usernameExists(account.getUsername())) {
                 return false;
             }
@@ -47,7 +47,7 @@ public class AccountDAO implements DAO<Account> {
      */
     @Override
     public boolean delete(Account account) throws SQLException {
-        String sql = "DELETE FROM account WHERE player_id = ?";
+        String sql = "DELETE FROM accounts WHERE player_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, account.getPlayerId());
             return statement.execute();
@@ -64,7 +64,7 @@ public class AccountDAO implements DAO<Account> {
     @Override
     public List<Account> getAll() throws SQLException {
         List<Account> accounts = new ArrayList<>();
-        String sql = "SELECT * FROM account";
+        String sql = "SELECT * FROM accounts";
         try (PreparedStatement statement = connection.prepareStatement(sql); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 Account account = new Account();
