@@ -44,6 +44,8 @@ module BoggledApp {
         void login(in string username, in string password) raises (UserNotFoundException);
         void logout(in string username) raises (NotLoggedInException);
 
+        string getSessionId(in string username);
+
         // game logic
         string playGame(in string username) raises (InsufficientPlayersException);
         void sendWord(in string gameID, in string word) raises (InvalidWordException);
