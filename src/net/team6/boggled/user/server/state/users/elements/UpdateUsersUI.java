@@ -2,6 +2,7 @@ package net.team6.boggled.user.server.state.users.elements;
 
 import net.team6.boggled.common.core.Value;
 import net.team6.boggled.user.server.gui.container.ServerContainer;
+import net.team6.boggled.user.server.gui.container.ServerHorizontalContainer;
 import net.team6.boggled.user.server.gui.container.ServerVerticalContainer;
 import net.team6.boggled.user.server.gui.input.ServerTextInput;
 import net.team6.boggled.user.server.gui.text.ServerHeader;
@@ -12,6 +13,8 @@ import net.team6.boggled.user.server.state.menu.ServerMenuState;
 import net.team6.boggled.user.server.state.menu.elements.ServerMainMenu;
 import net.team6.boggled.user.server.state.menu.elements.ServerUsersMenu;
 import net.team6.boggled.user.server.state.users.UsersState;
+
+import javax.swing.*;
 
 public class UpdateUsersUI extends ServerVerticalContainer {
     private Value<String> username;
@@ -24,7 +27,11 @@ public class UpdateUsersUI extends ServerVerticalContainer {
         this.username = new Value<>("");
         this.password = new Value<>("");
         centerChildren = true;
+        ServerHorizontalContainer hc = new ServerHorizontalContainer();
+
         addUIComponent(header);
+
+        addUIComponent(hc);
 
         addUIComponent(new ServerButton("BACK", 16, (state) -> state.setNextState(new UsersState(state.getWindowSize(), state.getInput(), state.getBoggledSettings()))));
 
