@@ -34,7 +34,7 @@ public class WaitingState extends State {
 
         ServerSettings serverSettings = new ServerSettings(false);
         gameMenu = new BoggledWaitingMenu(input, gameSettings);
-        gameTimer = new Timer(serverSettings.getGameSettings().getWaitingTime(), this::lose);
+        gameTimer = new Timer(serverSettings.getGameSettings().getWaitingTime() + 1, this::lose);
         inputEnabled = true;
         initializeUI();
 
