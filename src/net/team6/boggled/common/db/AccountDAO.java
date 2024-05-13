@@ -51,7 +51,8 @@ public class AccountDAO implements DAO<Account> {
         String sql = "DELETE FROM accounts WHERE player_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, account.getPlayerId());
-            return statement.execute();
+            int affectedRows = statement.executeUpdate();
+            return affectedRows > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

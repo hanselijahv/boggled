@@ -25,6 +25,7 @@ public class ServerTextInput extends ServerClickable implements ServerKeyInputCo
     private final Value<String> value;
     private Timer backspaceTimer;
     private boolean capsLock = false;
+    private boolean editable = true;
 
     private ServerContainer container;
     private ServerContainer borderContainer;
@@ -91,6 +92,10 @@ public class ServerTextInput extends ServerClickable implements ServerKeyInputCo
 
     @Override
     public void onKeyPressed(int key) {
+        if (!editable) {
+            return;
+        }
+
         String currentValue = value.get();
 
         if (key == KeyEvent.VK_CAPS_LOCK) {
@@ -120,6 +125,14 @@ public class ServerTextInput extends ServerClickable implements ServerKeyInputCo
 
         contentContainer.clear();
         contentContainer.addUIComponent(new ServerText(currentValue, 16));
+    }
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 
     @Override
@@ -157,5 +170,11 @@ public class ServerTextInput extends ServerClickable implements ServerKeyInputCo
     public void clearText() {
         value.setValue("");
         contentContainer.clear();
+    }
+
+    public void setText(String text) {
+        value.setValue(text);
+        contentContainer.clear();
+        contentContainer.addUIComponent(new ServerText(text, 16));
     }
 }

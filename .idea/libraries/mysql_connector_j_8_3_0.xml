@@ -2,8 +2,6 @@
   <library name="mysql-connector-j-8.3.0">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/mysql-connector-j-8.3.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../../Downloads/Eto na mga beh/2022-2_9436-fingrp6_java - Copy/src/res/mysql-connector-j-8.0.31.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../../Downloads/Eto na mga beh/2022-2_9436-fingrp6_java - Copy/src/res/AbsoluteLayout-RELEASE170.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
