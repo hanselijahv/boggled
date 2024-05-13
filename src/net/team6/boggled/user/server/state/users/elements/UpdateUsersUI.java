@@ -19,6 +19,9 @@ import net.team6.boggled.user.server.state.menu.elements.ServerUsersMenu;
 import net.team6.boggled.user.server.state.users.UsersState;
 
 import javax.swing.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -27,6 +30,7 @@ public class UpdateUsersUI extends ServerVerticalContainer {
     private Value<String> password;
 
     public UpdateUsersUI() {
+        AccountDAO accountDB = new AccountDAO();
         final ServerHeader header = new ServerHeader("Update/Remove Users", 80);
         header.setMargin(new Spacing(0, 0, 50, 0));
         alignment = new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER);
@@ -37,6 +41,8 @@ public class UpdateUsersUI extends ServerVerticalContainer {
         hc.setMargin(new Spacing(0,10,0,10));
 
         ServerContainer tableContainer = new ServerHorizontalContainer();
+
+
         ServerContainer contentContainer = new ServerVerticalContainer();
         ServerTextInput usernameInput = new ServerTextInput("USERNAME", username);
         usernameInput.setMargin(new Spacing(0, 0, 10, 0)); // Add bottom margin to create spacing
