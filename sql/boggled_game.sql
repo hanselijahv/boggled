@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 12, 2024 at 10:44 AM
+-- Generation Time: May 14, 2024 at 10:14 AM
 -- Server version: 8.2.0
 -- PHP Version: 8.2.13
 
@@ -24,62 +24,39 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `accounts`
+-- Table structure for table `games`
 --
 
-DROP TABLE IF EXISTS `accounts`;
-CREATE TABLE IF NOT EXISTS `accounts` (
-  `player_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  PRIMARY KEY (`player_id`)
+DROP TABLE IF EXISTS `games`;
+CREATE TABLE IF NOT EXISTS `games` (
+  `game_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `game_started` tinyint(1) NOT NULL,
+  PRIMARY KEY (`game_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
---
--- Dumping data for table `accounts`
---
-
-INSERT INTO `accounts` (`player_id`, `username`, `password`) VALUES
-('1', 'neil briones', 'neil'),
-('2', 'matt bravo', 'matt'),
-('3', 'milton fabe', 'milton');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `game_player`
+-- Table structure for table `game_players`
 --
 
-DROP TABLE IF EXISTS `game_player`;
-CREATE TABLE IF NOT EXISTS `game_player` (
+DROP TABLE IF EXISTS `game_players`;
+CREATE TABLE IF NOT EXISTS `game_players` (
   `game_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `player_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `player_connected` tinyint(1) NOT NULL,
   PRIMARY KEY (`game_id`),
-  UNIQUE KEY `player_id` (`player_id`)
+  KEY `game_players_ibfk_2` (`player_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `game_room`
+-- Table structure for table `game_winners`
 --
 
-DROP TABLE IF EXISTS `game_room`;
-CREATE TABLE IF NOT EXISTS `game_room` (
-  `room_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `game_started` tinyint(1) NOT NULL,
-  PRIMARY KEY (`room_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `game_winner`
---
-
-DROP TABLE IF EXISTS `game_winner`;
-CREATE TABLE IF NOT EXISTS `game_winner` (
+DROP TABLE IF EXISTS `game_winners`;
+CREATE TABLE IF NOT EXISTS `game_winners` (
   `game_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `player_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `winning_score` int NOT NULL,
@@ -90,14 +67,39 @@ CREATE TABLE IF NOT EXISTS `game_winner` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `round_winner`
+-- Table structure for table `players`
 --
 
-DROP TABLE IF EXISTS `round_winner`;
-CREATE TABLE IF NOT EXISTS `round_winner` (
+DROP TABLE IF EXISTS `players`;
+CREATE TABLE IF NOT EXISTS `players` (
+  `player_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  PRIMARY KEY (`player_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `players`
+--
+
+INSERT INTO `players` (`player_id`, `username`, `password`) VALUES
+('1', 'neil briones', 'neil'),
+('2', 'matt bravo', 'matt'),
+('3', 'milton fabe', 'milton');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `round_winners`
+--
+
+DROP TABLE IF EXISTS `round_winners`;
+CREATE TABLE IF NOT EXISTS `round_winners` (
+  `round_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `game_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `player_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `round_score` int NOT NULL
+  `round_score` int NOT NULL,
+  PRIMARY KEY (`round_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
@@ -125,10 +127,23 @@ INSERT INTO `settings` (`waiting_time`, `round_time`, `number_of_rounds`) VALUES
 --
 
 --
--- Constraints for table `game_winner`
+-- Constraints for table `games`
 --
-ALTER TABLE `game_winner`
-  ADD CONSTRAINT `game_winner_ibfk_1` FOREIGN KEY (`player_id`) REFERENCES `accounts` (`player_id`);
+ALTER TABLE `games`
+  ADD CONSTRAINT `games_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `game_players` (`game_id`);
+
+--
+-- Constraints for table `game_players`
+--
+ALTER TABLE `game_players`
+  ADD CONSTRAINT `game_players_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `games` (`game_id`),
+  ADD CONSTRAINT `game_players_ibfk_2` FOREIGN KEY (`player_id`) REFERENCES `players` (`player_id`);
+
+--
+-- Constraints for table `game_winners`
+--
+ALTER TABLE `game_winners`
+  ADD CONSTRAINT `game_winners_ibfk_1` FOREIGN KEY (`player_id`) REFERENCES `players` (`player_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
