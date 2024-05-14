@@ -56,9 +56,9 @@ module BoggledApp {
         GameWinner getGameWinner(in string gameID);
 
         // setting logic
-        long getRoundTime(in string gameID);
-        long getWaitingTime(in string gameID);
-        long getNumRounds(in string gameID);
+        long getRoundTime();
+        long getWaitingTime();
+        long getNumRounds();
 
         // UI
         leaderboards getLeaderboards();

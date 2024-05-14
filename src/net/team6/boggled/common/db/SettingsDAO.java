@@ -3,6 +3,7 @@ package net.team6.boggled.common.db;
 
 import net.team6.boggled.common.model.Settings;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public class SettingsDAO implements DAO<Settings> {
 
     private final Connection connection;
+    public static SettingsDAO settingsDAOImpl = new SettingsDAO();
 
     public SettingsDAO(){
         this.connection = DatabaseConnector.getInstance().getConnection();
@@ -19,21 +21,22 @@ public class SettingsDAO implements DAO<Settings> {
 
     @Override
     public List<Settings> getAll() throws SQLException {
-        String query = "SELECT * FROM settings";
-        try(PreparedStatement statement = connection.prepareStatement(query)){
-            ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()){
-                return Collections.singletonList(new Settings(
-                        resultSet.getInt("waiting_time"),
-                        resultSet.getInt("round_time"),
-                        resultSet.getInt("number_of_rounds")
-                ));
+        List<Settings> settingsList = new ArrayList<>();
+        try (
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM settings")) {
+            while (resultSet.next()) {
+                int waitingTime = resultSet.getInt("waiting_time");
+                int roundTime = resultSet.getInt("round_time");
+                int numberOfRounds = resultSet.getInt("number_of_rounds");
+
+                Settings settings = new Settings(waitingTime, roundTime, numberOfRounds);
+                settingsList.add(settings);
             }
         } catch (SQLException e) {
-            throw new SQLException("[ERROR] Failed to get settings: " + e.getMessage());
+            e.printStackTrace();
         }
-
-        return Collections.emptyList(); // TODO: Implement
+        return settingsList;
     }
 
     @Override

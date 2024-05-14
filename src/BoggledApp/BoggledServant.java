@@ -1,13 +1,15 @@
 package BoggledApp;
 
+import net.team6.boggled.common.db.SettingsDAO;
 import net.team6.boggled.common.model.Account;
+import net.team6.boggled.common.model.Settings;
 import org.omg.CORBA.ORB;
 
 import java.sql.SQLException;
 import java.util.*;
 
 import static net.team6.boggled.common.db.AccountDAO.accountDAOImpl;
-
+import static net.team6.boggled.common.db.SettingsDAO.settingsDAOImpl;
 
 @SuppressWarnings({"Duplicates", "SpellCheckingInspection"})
 public class BoggledServant extends BoggledPOA{
@@ -17,7 +19,9 @@ public class BoggledServant extends BoggledPOA{
     private static final int VOWEL_COUNT = 7;
     private static final int CONSONANT_COUNT = 13;
     private static Set<String> dictionary;
-
+    private static int roundTime;
+    private static int waitingTime;
+    private static int numOfRounds;
 
     public void setORB(ORB orb_val) {
         orb = orb_val;
@@ -50,7 +54,6 @@ public class BoggledServant extends BoggledPOA{
         }
         return null;
     }
-
 
     @Override
     public synchronized void logout(String sessionId) throws NotLoggedInException {
@@ -166,19 +169,40 @@ public class BoggledServant extends BoggledPOA{
 
     //TODO: IMPLEMENTATION
     @Override
-    public int getRoundTime(String gameID) {
-        return 0;
+    public int getRoundTime() {
+        try {
+            List<Settings> roundTimeSetting = settingsDAOImpl.getAll();
+            Settings setting = roundTimeSetting.get(0);
+            roundTime = setting.getRoundTime();
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return roundTime;
     }
 
     //TODO: IMPLEMENTATION
     @Override
-    public int getWaitingTime(String gameID) {
-        return 0;
+    public int getWaitingTime() {
+        try {
+            List<Settings> waitingTimeSetting = settingsDAOImpl.getAll();
+            Settings setting = waitingTimeSetting.get(0);
+            waitingTime = setting.getWaitingTime();
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return waitingTime;
     }
 
     @Override
-    public int getNumRounds(String gameID) {
-        return 0;
+    public int getNumRounds() {
+        try {
+            List<Settings> numOfRoundsSetting = settingsDAOImpl.getAll();
+            Settings setting = numOfRoundsSetting.get(0);
+            numOfRounds = setting.getRoundsToWin();
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return numOfRounds;
     }
 
     //TODO: IMPLEMENTATION
