@@ -33,6 +33,18 @@ public class BoggledButton extends BoggledClickable {
         container.setFixedSize(new Size(150, 30));
     }
 
+    public BoggledButton(String label, int fontSize) {
+        this.label = new BoggledText(label, fontSize);
+        backgroundColor = Color.GRAY;
+
+        setMargin(new Spacing(5, 0, 0, 0));
+
+        container = new VerticalContainer();
+        container.setCenterChildren(true);
+        container.addUIComponent(this.label);
+        container.setFixedSize(new Size(150, 30));
+    }
+
     @Override
     public void update(State state) throws SQLException {
         super.update(state);

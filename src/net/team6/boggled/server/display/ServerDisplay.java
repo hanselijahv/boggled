@@ -19,7 +19,7 @@ public class ServerDisplay extends JFrame {
 
 
     public ServerDisplay(int width, int height, ServerInput serverInput, ResizeCallback resizeCallback) {
-        ImageIcon img = new ImageIcon("res/icons/boggled_icon.png");
+        ImageIcon img = new ImageIcon("res/icons/serverIcon.png");
         this.setIconImage(img.getImage());
 
         setTitle("Boggled Server Settings");

@@ -13,13 +13,19 @@ import net.team6.boggled.server.gui.tools.Alignment;
 import net.team6.boggled.server.gui.tools.Spacing;
 import net.team6.boggled.server.gui.clickable.ServerButton;
 import net.team6.boggled.server.state.users.UsersState;
+import net.team6.boggled.utilities.BoggledColors;
+import net.team6.boggled.utilities.FontUtils;
+import net.team6.boggled.utilities.OptionPaneButtonUI;
+import net.team6.boggled.utilities.StyledButtonUI;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -30,8 +36,9 @@ public class UpdateUsersUI extends ServerVerticalContainer {
     private Value<String> password;
     private DefaultTableModel tableModel;
     private JTable table;
+    private Font font = FontUtils.loadFont("/font/MP16REG.ttf", 16);
 
-    public UpdateUsersUI() throws SQLException {
+    public UpdateUsersUI() {
         final ServerHeader header = new ServerHeader("Update/Remove Users", 80);
         header.setMargin(new Spacing(0, 0, 50, 0));
         addUIComponent(header);
@@ -47,12 +54,36 @@ public class UpdateUsersUI extends ServerVerticalContainer {
                 return false;
             }
         };
-        table = new JTable(tableModel);
+
+        table = new JTable(tableModel) {
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component c = super.prepareRenderer(renderer, row, column);
+                if (c instanceof JComponent) {
+                    ((JComponent) c).setBorder(null);
+                }
+                return c;
+            }
+        };
         table.getTableHeader().setReorderingAllowed(false);
         table.setShowVerticalLines(false);
         tableModel.addColumn("Player ID");
         tableModel.addColumn("Username");
         tableModel.addColumn("Password");
+
+
+        table.setBackground(BoggledColors.SYSTEM_COLOR);
+        table.setForeground(BoggledColors.PRIMARY_COLOR);
+        table.setFont(font);
+        table.setGridColor(BoggledColors.SYSTEM_COLOR);
+        table.setRowHeight(25);
+        table.setSelectionBackground(BoggledColors.TABLE_HIGHLIGHTED_COLOR);
+
+
+        JTableHeader tableHeader = table.getTableHeader();
+        tableHeader.setBackground(BoggledColors.MENU_BACKGROUND_COLOR);
+        tableHeader.setForeground(BoggledColors.PRIMARY_COLOR);
+        tableHeader.setFont(font);
 
         ServerContainer contentContainer = new ServerVerticalContainer();
 
@@ -77,15 +108,25 @@ public class UpdateUsersUI extends ServerVerticalContainer {
                 password.setValue((String) tableModel.getValueAt(row, 2));
             }
         });
-        addUIComponent(new ServerButton("SHOW USERS", 16, (state) -> {
-            populateTable();
-            int result = JOptionPane.showConfirmDialog(null, new JScrollPane(table), "Select a User", JOptionPane.OK_CANCEL_OPTION);
 
-            if (result == JOptionPane.OK_OPTION) {
-                idInput.setText(id.get());
-                usernameInput.setText(username.get());
-                passwordInput.setText(password.get());
-            }
+        addUIComponent(new ServerButton("SHOW USERS", 16, (state) -> {
+            UIManager.put("OptionPane.background", BoggledColors.SYSTEM_COLOR);
+            UIManager.put("Panel.background", BoggledColors.SYSTEM_COLOR);
+            UIManager.put("OptionPane.messageFont", font);
+            UIManager.put("OptionPane.messageForeground", BoggledColors.PRIMARY_COLOR);
+
+            populateTable();
+
+            JScrollPane scrollPane = new JScrollPane(table);
+            scrollPane.setBorder(null);
+            scrollPane.getViewport().setBackground(BoggledColors.SYSTEM_COLOR);
+
+            JButton okButton = getOkButton(idInput, usernameInput, passwordInput);
+
+            JButton cancelButton = getCancelButton();
+
+            Object[] options = {okButton, cancelButton};
+            JOptionPane.showOptionDialog(null, scrollPane, "Select a User", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
         }));
 
 
@@ -185,23 +226,58 @@ public class UpdateUsersUI extends ServerVerticalContainer {
             messageContainer.addUIComponent(message);
 
         });
-        removeButton.setMargin(new Spacing(0,10,0,0));
-        updateButton.setMargin(new Spacing(0,0,0,10));
+        removeButton.setMargin(new Spacing(0, 10, 0, 0));
+        updateButton.setMargin(new Spacing(0, 0, 0, 10));
         contentContainer.addUIComponent(idInput);
         contentContainer.addUIComponent(usernameInput);
         contentContainer.addUIComponent(passwordInput);
 
         buttonContainer.addUIComponent(removeButton);
         buttonContainer.addUIComponent(updateButton);
-        buttonContainer.setMargin(new Spacing(0, 50,10, 50));
+        buttonContainer.setMargin(new Spacing(0, 50, 10, 50));
         buttonContainer.setPadding(new Spacing(10));
 
-        contentContainer.addUIComponent(buttonContainer);
-        contentContainer.addUIComponent(messageContainer);
+
         addUIComponent(contentContainer);
+        addUIComponent(buttonContainer);
+        contentContainer.addUIComponent(messageContainer);
 
         addUIComponent(new ServerButton("BACK", 16, (state) -> state.setNextState(new UsersState(state.getWindowSize(), state.getInput(), state.getBoggledSettings()))));
 
+    }
+
+    private JButton getCancelButton() {
+        JButton cancelButton = new JButton("Cancel");
+        cancelButton.setFont(font);
+        cancelButton.setBackground(BoggledColors.BUTTON_COLOR);
+        cancelButton.setForeground(BoggledColors.PRIMARY_COLOR);
+        cancelButton.setUI(new OptionPaneButtonUI());
+        cancelButton.addActionListener(e -> {
+            Window window = SwingUtilities.getWindowAncestor(cancelButton);
+            if (window != null) {
+                window.dispose();
+            }
+        });
+        return cancelButton;
+    }
+
+    private JButton getOkButton(ServerTextInput idInput, ServerTextInput usernameInput, ServerTextInput passwordInput) {
+        JButton okButton = new JButton("Ok");
+        okButton.setFont(font);
+        okButton.setBackground(BoggledColors.BUTTON_COLOR);
+        okButton.setForeground(BoggledColors.PRIMARY_COLOR);
+        okButton.setUI(new OptionPaneButtonUI());
+        okButton.addActionListener(e -> {
+            idInput.setText(id.get());
+            usernameInput.setText(username.get());
+            passwordInput.setText(password.get());
+            // Close the JOptionPane
+            Window window = SwingUtilities.getWindowAncestor(okButton);
+            if (window != null) {
+                window.dispose();
+            }
+        });
+        return okButton;
     }
 
     private void populateTable() throws SQLException {

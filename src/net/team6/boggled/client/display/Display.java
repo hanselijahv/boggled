@@ -20,7 +20,7 @@ public class Display extends JFrame {
     private final Renderer renderer;
 
     public Display(int width, int height, Input input, ResizeCallback resizeCallback) {
-        ImageIcon img = new ImageIcon("res/icons/boggled_icon.png");
+        ImageIcon img = new ImageIcon("res/icons/clientIcon.png");
         this.setIconImage(img.getImage());
         setTitle("Boggled");
         setDefaultCloseOperation(EXIT_ON_CLOSE);

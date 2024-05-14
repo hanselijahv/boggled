@@ -220,12 +220,9 @@ public class View extends JPanel {
         inputField.setBorder(new CompoundBorder(new LineBorder(Color.BLACK), new EmptyBorder(10, 10, 10, 10)));
         inputField.setHorizontalAlignment(JTextField.RIGHT);
 
-        inputField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                duringGame(returnInputToGame());
-                inputField.setText("");
-            }
+        inputField.addActionListener(e -> {
+            duringGame(returnInputToGame());
+            inputField.setText("");
         });
 
         inputField.addKeyListener(new KeyListener() {

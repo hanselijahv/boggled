@@ -10,6 +10,9 @@ import net.team6.boggled.client.gui.tools.Alignment;
 import net.team6.boggled.client.gui.tools.Spacing;
 import net.team6.boggled.run.Connect;
 
+import java.awt.*;
+import java.io.IOException;
+
 public class BoggledMainMenu extends VerticalContainer {
 
 
@@ -25,7 +28,15 @@ public class BoggledMainMenu extends VerticalContainer {
 
 
 
-        addUIComponent(new BoggledButton("PLAY GAME", 16, (state) -> new InGameState(state.getGameSettings())));
+        addUIComponent(new BoggledButton("PLAY GAME", 16, (state) -> {
+            try {
+                new InGameState(state.getGameSettings());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (FontFormatException e) {
+                throw new RuntimeException(e);
+            }
+        }));
         addUIComponent(new BoggledButton("OPTIONS", 16, (state) -> ((MenuState) state).enterMenu(new BoggledOptionMenu(state.getGameSettings()))));
         addUIComponent(new BoggledButton("LOGOUT", 16, (state) -> {
             try {

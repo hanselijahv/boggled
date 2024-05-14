@@ -1,6 +1,7 @@
 package net.team6.boggled.client.game;
 
 import net.team6.boggled.client.state.entry.EntryState;
+import net.team6.boggled.client.state.menu.MenuState;
 import net.team6.boggled.common.core.Size;
 import net.team6.boggled.client.display.Display;
 import net.team6.boggled.client.game.settings.GameSettings;
@@ -26,7 +27,7 @@ public class Game implements Runnable{
     public Game(int width, int height) throws IOException, FontFormatException {
         Input input = new Input();
         gameSettings = new GameSettings(false);
-        state = new EntryState(new Size(width, height), input, gameSettings);
+        state = new MenuState(new Size(width, height), input, gameSettings);
         display = new Display(width, height, input, this::resize);
     }
 
