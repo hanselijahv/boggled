@@ -1,6 +1,5 @@
 package net.team6.boggled.client.state.entry.elements;
 
-import BoggledApp.BoggledServant;
 import BoggledApp.UserNotFoundException;
 import net.team6.boggled.client.gui.text.BoggledHeader;
 import net.team6.boggled.client.gui.tools.Spacing;
@@ -12,7 +11,6 @@ import net.team6.boggled.client.gui.container.VerticalContainer;
 import net.team6.boggled.client.gui.input.BoggledTextInput;
 import net.team6.boggled.client.gui.tools.Alignment;
 import net.team6.boggled.run.Connect;
-import net.team6.boggled.utilities.SessionManager;
 
 public class BoggledLogin extends VerticalContainer {
     private final Value<String> username;
@@ -61,7 +59,6 @@ public class BoggledLogin extends VerticalContainer {
     }
 
     private BoggledButton getBoggledButton() {
-        BoggledServant boggledServant = BoggledServant.getInstance();
 
         return new BoggledButton("LOGIN", 16, (state) -> {
             String user = username.get();

@@ -25,17 +25,17 @@ public class BoggledMainMenu extends VerticalContainer {
         header.setPadding(new Spacing(0, 0, 50, 0));
         addUIComponent(header);
 
-        BoggledServant boggledServant = BoggledServant.getInstance();
-        String sessionId = SessionManager.getSessionId();
+
 
         addUIComponent(new BoggledButton("PLAY GAME", 16, (state) -> new InGameState(state.getGameSettings())));
         addUIComponent(new BoggledButton("OPTIONS", 16, (state) -> ((MenuState) state).enterMenu(new BoggledOptionMenu(state.getGameSettings()))));
         addUIComponent(new BoggledButton("LOGOUT", 16, (state) -> {
             try {
-                boggledServant.logout(sessionId); // Call logout with the session ID
+             //   boggledServant.logout(sessionId); // Call logout with the session ID
+                String sessionId = SessionManager.getSessionId();
                 state.setNextState(new EntryState(state.getWindowSize(), state.getInput(), state.getGameSettings()));
-            } catch (NotLoggedInException e) {
-                System.err.println("Session ID " + sessionId + " is not valid.");
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }));
 

@@ -14,17 +14,10 @@ public class BoggledServant extends BoggledPOA{
     private ORB orb;
     private final Map<String, String> sessionMap = new HashMap<>();
     public static List<Character> letters;
-    private static BoggledServant instance = null;
     private static final int VOWEL_COUNT = 7;
     private static final int CONSONANT_COUNT = 13;
     private static Set<String> dictionary;
 
-    public static BoggledServant getInstance() {
-        if (instance == null) {
-            instance = new BoggledServant();
-        }
-        return instance;
-    }
 
     public void setORB(ORB orb_val) {
         orb = orb_val;
@@ -40,7 +33,7 @@ public class BoggledServant extends BoggledPOA{
             throw new RuntimeException(e);
         }
         if (!isAuthenticated) {
-            throw new UserNotFoundException();
+            throw new UserNotFoundException("User not found!");
         }
         String sessionId = generateSessionId();
         sessionMap.put(sessionId, username);
@@ -104,7 +97,6 @@ public class BoggledServant extends BoggledPOA{
         }
         return vowels;
     }
-
 
 
     private static List<Character> generateRandomConsonants() {
