@@ -1,6 +1,5 @@
 package net.team6.boggled.client.state.entry;
 
-import BoggledApp.Boggled;
 import net.team6.boggled.client.game.settings.GameSettings;
 import net.team6.boggled.client.state.State;
 import net.team6.boggled.client.state.entry.elements.BoggledLogin;
@@ -11,10 +10,10 @@ import net.team6.boggled.client.input.Input;
 public class EntryState extends State {
 
 
-    public EntryState(Size windowSize, Input input, GameSettings gameSettings, Boggled boggledImpl) {
+    public EntryState(Size windowSize, Input input, GameSettings gameSettings) {
         super(windowSize, input, gameSettings);
 
-        boggledCanvas.addUIComponent(new BoggledLogin(boggledImpl));
+        boggledCanvas.addUIComponent(new BoggledLogin());
 
 
     }

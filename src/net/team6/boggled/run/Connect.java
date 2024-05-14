@@ -11,18 +11,16 @@ public class Connect {
 
     public static Boggled boggledImpl;
 
-    public static Boggled createConnection(String[] args) {
+    public static void createConnection(String[] args) {
         try {
             ORB orb = ORB.init(args, null);
             org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
             NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
             String name = "Boggled";
             boggledImpl = BoggledHelper.narrow(ncRef.resolve_str(name));
-            return boggledImpl;
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
-        return null;
     }
 
 }
