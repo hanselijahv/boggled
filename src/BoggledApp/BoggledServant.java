@@ -62,11 +62,14 @@ public class BoggledServant extends BoggledPOA{
         System.out.println("User '" + username + "' logged out successfully.");
     }
 
+
+    //TODO: IMPLEMENTATION
     @Override
     public String playGame(String username) throws InsufficientPlayersException {
         return null;
     }
 
+    //TODO: IMPLEMENTATION
     @Override
     public void sendWord(String gameID, String word) throws InvalidWordException {
 
@@ -137,32 +140,37 @@ public class BoggledServant extends BoggledPOA{
         return dictionary.contains(word.toLowerCase());
     }
 
-
+    //TODO: IMPLEMENTATION
     @Override
     public boolean isGameOver(String gameID) {
         return false;
     }
 
+    //TODO: IMPLEMENTATION
     @Override
     public boolean isRoundOver(String gameID) {
         return false;
     }
 
+    //TODO: IMPLEMENTATION
     @Override
     public RoundWinner getRoundWinner(String gameID) {
         return null;
     }
 
+    //TODO: IMPLEMENTATION
     @Override
     public GameWinner getGameWinner(String gameID) {
         return null;
     }
 
+    //TODO: IMPLEMENTATION
     @Override
     public int getRoundTime(String gameID) {
         return 0;
     }
 
+    //TODO: IMPLEMENTATION
     @Override
     public int getWaitingTime(String gameID) {
         return 0;
@@ -173,11 +181,13 @@ public class BoggledServant extends BoggledPOA{
         return 0;
     }
 
+    //TODO: IMPLEMENTATION
     @Override
     public GameWinner[] getLeaderboards() {
         return new GameWinner[0];
     }
 
+    //TODO: IMPLEMENTATION
     @Override
     public GamePlayer[] getGamePlayers(String gameID) {
         return new GamePlayer[0];
