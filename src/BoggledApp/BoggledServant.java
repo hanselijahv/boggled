@@ -23,6 +23,7 @@ public class BoggledServant extends BoggledPOA{
         orb = orb_val;
     }
 
+
     @Override
     public synchronized void login(String username, String password) throws UserNotFoundException {
         Account account =  new Account(null, username, password);
@@ -40,6 +41,7 @@ public class BoggledServant extends BoggledPOA{
         System.out.println("User '" + username + "' logged in successfully. Session ID: " + sessionId);
     }
 
+    @Override
     public synchronized String getSessionId(String username) {
         for (Map.Entry<String, String> entry : sessionMap.entrySet()) {
             if (entry.getValue().equals(username)) {

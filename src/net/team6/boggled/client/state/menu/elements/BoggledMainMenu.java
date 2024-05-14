@@ -1,7 +1,5 @@
 package net.team6.boggled.client.state.menu.elements;
 
-import BoggledApp.BoggledServant;
-import BoggledApp.NotLoggedInException;
 import net.team6.boggled.client.gui.container.VerticalContainer;
 import net.team6.boggled.client.state.ingame.InGameState;
 import net.team6.boggled.client.state.entry.EntryState;
@@ -10,7 +8,7 @@ import net.team6.boggled.client.gui.clickable.BoggledButton;
 import net.team6.boggled.client.gui.text.BoggledHeader;
 import net.team6.boggled.client.gui.tools.Alignment;
 import net.team6.boggled.client.gui.tools.Spacing;
-import net.team6.boggled.utilities.SessionManager;
+import net.team6.boggled.run.Connect;
 
 public class BoggledMainMenu extends VerticalContainer {
 
@@ -31,8 +29,7 @@ public class BoggledMainMenu extends VerticalContainer {
         addUIComponent(new BoggledButton("OPTIONS", 16, (state) -> ((MenuState) state).enterMenu(new BoggledOptionMenu(state.getGameSettings()))));
         addUIComponent(new BoggledButton("LOGOUT", 16, (state) -> {
             try {
-             //   boggledServant.logout(sessionId); // Call logout with the session ID
-                String sessionId = SessionManager.getSessionId();
+                Connect.boggledImpl.logout(Connect.sessionID);
                 state.setNextState(new EntryState(state.getWindowSize(), state.getInput(), state.getGameSettings()));
             } catch (Exception e) {
                 System.out.println(e.getMessage());

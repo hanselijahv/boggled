@@ -66,6 +66,7 @@ public class BoggledLogin extends VerticalContainer {
 
             try {
                 Connect.boggledImpl.login(user, pass);
+                Connect.sessionID = Connect.boggledImpl.getSessionId(user);
                 state.setNextState(new MenuState(state.getWindowSize(), state.getInput(), state.getGameSettings()));
             } catch (UserNotFoundException e) {
                 System.err.println("User '" + user + "' not found or invalid credentials.");

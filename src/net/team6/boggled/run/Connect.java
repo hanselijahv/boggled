@@ -11,6 +11,8 @@ public class Connect {
 
     public static Boggled boggledImpl;
 
+    public static String sessionID;
+
     public static void createConnection(String[] args) {
         try {
             ORB orb = ORB.init(args, null);
