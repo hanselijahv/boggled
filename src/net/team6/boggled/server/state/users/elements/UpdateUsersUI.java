@@ -137,48 +137,73 @@ public class UpdateUsersUI extends ServerVerticalContainer {
         buttonContainer.setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER));
 
         ServerButton removeButton = new ServerButton("REMOVE", 16, (state) -> {
-            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this user?", "Confirm Removal", JOptionPane.YES_NO_OPTION);
-            if (confirm == JOptionPane.YES_OPTION) {
-                populateTable();
+            populateTable();
+            JButton yesButton = new JButton("Yes");
+            yesButton.setFont(font);
+            yesButton.setBackground(BoggledColors.BUTTON_COLOR);
+            yesButton.setForeground(BoggledColors.PRIMARY_COLOR);
+            yesButton.setUI(new OptionPaneButtonUI());
+            yesButton.addActionListener(e -> {
                 String id = this.id.get();
-                String username = this.username.get();
-                String password = this.password.get();
-                Account account = new Account(id, username, password);
-
+                Account account = new Account(id, null, null);
                 AccountDAO accountDAO = new AccountDAO();
-                boolean success = accountDAO.delete(account);
-                ServerText message;
+                try {
+                    boolean success = accountDAO.delete(account);
+                    if (success) {
+                        populateTable();
+                        ServerText message = new ServerText("User Removed Successfully", 15);
+                        message.setMargin(new Spacing(0));
+                        messageContainer.addUIComponent(message);
+                        java.util.Timer timer = new Timer();
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                idInput.clearText();
+                                usernameInput.clearText();
+                                passwordInput.clearText();
+                                messageContainer.removeComponent(message);
+                                timer.cancel();
+                            }
+                        }, 2000);
+                    } else {
+                        ServerText message = new ServerText("Failed to remove user", 15);
+                        message.setMargin(new Spacing(0));
+                        messageContainer.addUIComponent(message);
+                        Timer timer = new Timer();
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                messageContainer.removeComponent(message);
+                                timer.cancel();
+                            }
+                        }, 3000);
+                    }
 
-                if (success) {
-                    message = new ServerText("User Removed Successfully", 15);
-                    java.util.Timer timer = new Timer();
-                    timer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            idInput.clearText();
-                            usernameInput.clearText();
-                            passwordInput.clearText();
-                            messageContainer.removeComponent(message);
-                            timer.cancel();
-                        }
-                    }, 2000);
-
-
-                } else {
-                    message = new ServerText("Failed to remove user", 15);
-                    Timer timer = new Timer();
-                    timer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            messageContainer.removeComponent(message);
-                            timer.cancel();
-                        }
-                    }, 3000);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
                 }
 
-                message.setMargin(new Spacing(0));
-                messageContainer.addUIComponent(message);
-            }
+                Window window = SwingUtilities.getWindowAncestor(yesButton);
+                if (window != null) {
+                    window.dispose();
+                }
+            });
+
+            JButton noButton = new JButton("No");
+            noButton.setFont(font);
+            noButton.setBackground(BoggledColors.BUTTON_COLOR);
+            noButton.setForeground(BoggledColors.PRIMARY_COLOR);
+            noButton.setUI(new OptionPaneButtonUI());
+            noButton.addActionListener(e -> {
+                Window window = SwingUtilities.getWindowAncestor(noButton);
+                if (window != null) {
+                    window.dispose();
+                }
+            });
+
+            Object[] options = {yesButton, noButton};
+            JOptionPane.showOptionDialog(null, "Are you sure you want to remove this user?", "Remove User", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
+
 
         });
 
