@@ -1,6 +1,7 @@
 package net.team6.boggled.client.state.menu;
 
 
+import net.team6.boggled.client.game.Game;
 import net.team6.boggled.common.core.Size;
 import net.team6.boggled.client.game.settings.GameSettings;
 import net.team6.boggled.client.input.Input;
@@ -26,5 +27,6 @@ public class MenuState extends State {
     protected void handleInput() {
 
     }
+
 
 }

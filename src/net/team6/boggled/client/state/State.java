@@ -39,15 +39,6 @@ public abstract class State {
         time = new Time();
     }
 
-    public State(Size windowSize, Input input, ServerSettings serverSettings) {
-        this.serverSettings = serverSettings;
-        this.windowSize = windowSize;
-        this.input = input;
-        // audioPlayer = new AudioPlayer(gameSettings.getAudioSettings());
-        mouseHandler = new MouseHandler();
-        boggledCanvas = new BoggledCanvas(windowSize);
-        time = new Time();
-    }
 
     public void update(Game game) throws SQLException {
         audioPlayer.update();
@@ -108,9 +99,6 @@ public abstract class State {
         return gameSettings;
     }
 
-    public ServerSettings getBoggledSettings() {
-        return serverSettings;
-    }
 
     public Size getWindowSize() {
         return windowSize;

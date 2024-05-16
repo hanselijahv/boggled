@@ -1,6 +1,5 @@
 package net.team6.boggled.client.state.waiting;
 
-import net.team6.boggled.client.state.ingame.InGameState;
 import net.team6.boggled.common.core.Size;
 import net.team6.boggled.client.game.Game;
 import net.team6.boggled.client.game.time.Timer;
@@ -20,9 +19,7 @@ import net.team6.boggled.run.Connect;
 import net.team6.boggled.server.dev.settings.ServerSettings;
 import net.team6.boggled.utilities.BoggledColors;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.sql.SQLException;
 
 public class WaitingState extends State {
@@ -37,7 +34,7 @@ public class WaitingState extends State {
         ServerSettings serverSettings = new ServerSettings(false);
         gameMenu = new BoggledWaitingMenu(input, gameSettings);
         inputEnabled = true;
-        gameTimer = new Timer(Double.parseDouble(Connect.boggledImpl.getWaitingTime(Connect.cref)), this::lose);
+        gameTimer = new Timer(Double.parseDouble(Connect.boggledImpl.getWaitingTime(Connect.cref)), this::endWaiting);
         initializeUI();
 
         boolean isReadyToStart = Connect.boggledImpl.isGameReadyToStart();
@@ -70,7 +67,7 @@ public class WaitingState extends State {
 
     }
 
-    private void lose() {
+    private void endWaiting() {
         boggledCanvas.clear();
         inputEnabled = false;
         BoggledContainer content = new VerticalContainer();

@@ -4,6 +4,7 @@ import net.team6.boggled.client.game.settings.GameSettings;
 import net.team6.boggled.client.gui.container.VerticalContainer;
 import net.team6.boggled.client.state.ingame.InGameState;
 import net.team6.boggled.client.state.entry.EntryState;
+import net.team6.boggled.client.state.leaderboards.elements.BoggledLeaderboards;
 import net.team6.boggled.client.state.menu.MenuState;
 import net.team6.boggled.client.gui.clickable.BoggledButton;
 import net.team6.boggled.client.gui.text.BoggledHeader;
@@ -34,6 +35,8 @@ public class BoggledMainMenu extends VerticalContainer {
 
 
         }));
+
+        addUIComponent(new BoggledButton("LEADERBOARDS", 16, (state) -> ((MenuState) state).enterMenu(new BoggledLeaderboards())));
         addUIComponent(new BoggledButton("OPTIONS", 16, (state) -> ((MenuState) state).enterMenu(new BoggledOptionMenu(state.getGameSettings()))));
         addUIComponent(new BoggledButton("LOGOUT", 16, (state) -> {
             try {
