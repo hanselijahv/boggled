@@ -27,7 +27,7 @@ public class Game implements Runnable{
     public Game(int width, int height) throws IOException, FontFormatException {
         Input input = new Input();
         gameSettings = new GameSettings(false);
-        state = new MenuState(new Size(width, height), input, gameSettings);
+        state = new EntryState(new Size(width, height), input, gameSettings);
         display = new Display(width, height, input, this::resize);
     }
 

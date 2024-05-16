@@ -204,7 +204,6 @@ public class UpdateUsersUI extends ServerVerticalContainer {
             Object[] options = {yesButton, noButton};
             JOptionPane.showOptionDialog(null, "Are you sure you want to remove this user?", "Remove User", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
 
-
         });
 
         ServerButton updateButton = new ServerButton("UPDATE", 16, (state) -> {
@@ -233,7 +232,6 @@ public class UpdateUsersUI extends ServerVerticalContainer {
                         timer.cancel();
                     }
                 }, 2000);
-
 
             } else {
                 message = new ServerText("Failed to update user", 15);

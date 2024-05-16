@@ -1,67 +1,31 @@
 module BoggledApp {
 
-    struct GameWinner {
-        string gameID;
-        string playerID;
-        long winningScore;
-    };
-
-    struct RoundWinner {
-        string gameID;
-        string playerID;
-        long roundScore;
-    };
-
-    struct GamePlayer {
-        string gameID;
-        string playerID;
-        long roundWins;
-        boolean playerConnected;
-    };
-
-    exception UserNotFoundException {
+  exception UserNotFoundException {
         string reason;
     };
 
-    exception NotLoggedInException {
-        string reason;
-    };
+ exception AlreadyLoggedInException{
+          string reason;
+     };
 
-    exception InsufficientPlayersException {
-        string reason;
-    };
+  exception InsufficientPlayerException{
+          string reason;
+     };
 
-    exception InvalidWordException {
-        string reason;
-    };
+  interface Callback {
+        void callback(in string message);
+     };
 
-    interface Boggled {
-        typedef sequence<GameWinner> leaderboards;
-        typedef sequence<GamePlayer> gamePlayers;
-        typedef sequence<char> letters;
+  interface Boggled {
+        void login(in string username, in string password) raises (UserNotFoundException, AlreadyLoggedInException);
+        void joinWaitingRoom(in string playerName);
+        string say(in Callback objRef, in string message);
+        boolean isGameReadyToStart();
+        string getWaitingTime(in Callback objRef);
+        string getWaitingRoomInfo(in string playerName);
+        boolean submitWord(in string word, out boolean isValid, out boolean canForm, out string response);
+        string getGameID(in Callback objRef, in string playerName);
+        string getLetters(in string gameID);
+  };
 
-        // authentication logic
-        void login(in string username, in string password) raises (UserNotFoundException);
-        void logout(in string username) raises (NotLoggedInException);
-
-        string getSessionId(in string username);
-
-        // game logic
-        string playGame(in string username) raises (InsufficientPlayersException);
-        void sendWord(in string gameID, in string word) raises (InvalidWordException);
-        letters getLetters(in string gameID);
-        boolean isGameOver(in string gameID);
-        boolean isRoundOver(in string gameID);
-        RoundWinner getRoundWinner(in string gameID);
-        GameWinner getGameWinner(in string gameID);
-
-        // setting logic
-        long getRoundTime();
-        long getWaitingTime();
-        long getNumRounds();
-
-        // UI
-        leaderboards getLeaderboards();
-        gamePlayers getGamePlayers(in string gameID);
-    };
 };

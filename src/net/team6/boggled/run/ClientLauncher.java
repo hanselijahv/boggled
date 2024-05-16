@@ -1,6 +1,7 @@
 package net.team6.boggled.run;
 
 
+import BoggledApp.Boggled;
 import net.team6.boggled.client.game.Game;
 
 import java.applet.Applet;
@@ -10,6 +11,7 @@ import java.io.IOException;
 
 public class ClientLauncher extends Applet {
     private static final Game game;
+    static Boggled boggled;
 
     static {
         try {

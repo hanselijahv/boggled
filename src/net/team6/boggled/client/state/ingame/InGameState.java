@@ -79,8 +79,9 @@ public class InGameState extends JFrame {
         titleLabel = new JLabel("", SwingConstants.CENTER);
         titleLabel.setForeground(BoggledColors.PRIMARY_COLOR);
         titleLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
-        titleLabel.setText("00:" + Connect.boggledImpl.getRoundTime());
-        second = Connect.boggledImpl.getRoundTime();
+        // TODO
+//        titleLabel.setText("00:" + Connect.boggledImpl.getRoundTime());
+//        second = Connect.boggledImpl.getRoundTime();
         minute = 0;
         countdownTimer();
         timer.start();

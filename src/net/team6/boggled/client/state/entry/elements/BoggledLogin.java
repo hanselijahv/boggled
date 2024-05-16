@@ -1,5 +1,6 @@
 package net.team6.boggled.client.state.entry.elements;
 
+import BoggledApp.AlreadyLoggedInException;
 import BoggledApp.UserNotFoundException;
 import net.team6.boggled.client.gui.text.BoggledHeader;
 import net.team6.boggled.client.gui.tools.Spacing;
@@ -66,13 +67,10 @@ public class BoggledLogin extends VerticalContainer {
 
             try {
                 Connect.boggledImpl.login(user, pass);
-                int Test1 = Connect.boggledImpl.getNumRounds();
-                int Test2 = Connect.boggledImpl.getWaitingTime();
-                int Test3 = Connect.boggledImpl.getRoundTime();
-                System.out.println(Test1 + " " + Test2 + " " + Test3);
-                Connect.sessionID = Connect.boggledImpl.getSessionId(user);
+                //TODO
+                //Connect.sessionID = Connect.boggledImpl.getSessionId(user);
                 state.setNextState(new MenuState(state.getWindowSize(), state.getInput(), state.getGameSettings()));
-            } catch (UserNotFoundException e) {System.err.println("User '" + user + "' not found or invalid credentials.");
+            } catch (UserNotFoundException | AlreadyLoggedInException e) {System.err.println("User '" + user + "' not found or invalid credentials.");
             }
         });
     }
