@@ -1,9 +1,8 @@
 package net.team6.boggled.server.state.users.elements;
 
 import net.team6.boggled.common.core.Value;
-import net.team6.boggled.common.db.AccountDAO;
-import net.team6.boggled.common.model.Account;
-import net.team6.boggled.server.dev.Server;
+import net.team6.boggled.common.db.PlayerDAO;
+import net.team6.boggled.common.model.Player;
 import net.team6.boggled.server.gui.text.ServerText;
 import net.team6.boggled.server.state.menu.elements.ServerUsersMenu;
 import net.team6.boggled.server.gui.container.ServerContainer;
@@ -12,7 +11,6 @@ import net.team6.boggled.server.gui.input.ServerTextInput;
 import net.team6.boggled.server.gui.tools.Alignment;
 import net.team6.boggled.server.gui.tools.Spacing;
 import net.team6.boggled.server.gui.clickable.ServerButton;
-import net.team6.boggled.server.state.menu.ServerMenuState;
 import net.team6.boggled.server.gui.text.ServerHeader;
 import net.team6.boggled.server.state.users.UsersState;
 
@@ -48,9 +46,9 @@ public class CreateUsersUI extends ServerVerticalContainer {
         buttonContainer.addUIComponent(new ServerButton("CREATE", 16, (state) -> {
             String username = this.username.get();
             String password = this.password.get();
-            Account account = new Account(null, username, password);
+            Player account = new Player(null, username, password);
 
-            AccountDAO accountDAO = new AccountDAO();
+            PlayerDAO accountDAO = new PlayerDAO();
             boolean success = accountDAO.insert(account);
 
             ServerText message;

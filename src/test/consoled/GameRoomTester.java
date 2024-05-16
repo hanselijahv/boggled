@@ -1,11 +1,6 @@
 package test.consoled;
 
 
-import net.team6.boggled.common.model.Account;
-import net.team6.boggled.common.model.GameRoom;
-
-import java.util.ArrayList;
-
 public class GameRoomTester {
 //	public static void main(String[] args) {
 //

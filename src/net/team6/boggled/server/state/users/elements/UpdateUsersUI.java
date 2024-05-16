@@ -1,8 +1,8 @@
 package net.team6.boggled.server.state.users.elements;
 
 import net.team6.boggled.common.core.Value;
-import net.team6.boggled.common.db.AccountDAO;
-import net.team6.boggled.common.model.Account;
+import net.team6.boggled.common.db.PlayerDAO;
+import net.team6.boggled.common.model.Player;
 import net.team6.boggled.server.gui.container.ServerContainer;
 import net.team6.boggled.server.gui.container.ServerHorizontalContainer;
 import net.team6.boggled.server.gui.container.ServerVerticalContainer;
@@ -16,7 +16,6 @@ import net.team6.boggled.server.state.users.UsersState;
 import net.team6.boggled.utilities.BoggledColors;
 import net.team6.boggled.utilities.FontUtils;
 import net.team6.boggled.utilities.OptionPaneButtonUI;
-import net.team6.boggled.utilities.StyledButtonUI;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -145,10 +144,10 @@ public class UpdateUsersUI extends ServerVerticalContainer {
             yesButton.setUI(new OptionPaneButtonUI());
             yesButton.addActionListener(e -> {
                 String id = this.id.get();
-                Account account = new Account(id, null, null);
-                AccountDAO accountDAO = new AccountDAO();
+                Player player = new Player(id, null, null);
+                PlayerDAO playerDAO = new PlayerDAO();
                 try {
-                    boolean success = accountDAO.delete(account);
+                    boolean success = playerDAO.delete(player);
                     if (success) {
                         populateTable();
                         ServerText message = new ServerText("User Removed Successfully", 15);
@@ -211,11 +210,11 @@ public class UpdateUsersUI extends ServerVerticalContainer {
             String id = this.id.get();
             String username = this.username.get();
             String password = this.password.get();
-            Account account = new Account(id, username, password);
-            String[] params = {account.getUsername(), account.getPassword()};
+            Player player = new Player(id, username, password);
+            String[] params = {player.getUsername(), player.getPassword()};
 
-            AccountDAO accountDAO = new AccountDAO();
-            boolean success = accountDAO.update(account, params);
+            PlayerDAO playerDAO = new PlayerDAO();
+            boolean success = playerDAO.update(player, params);
 
             ServerText message;
 
@@ -305,10 +304,10 @@ public class UpdateUsersUI extends ServerVerticalContainer {
 
     private void populateTable() throws SQLException {
         tableModel.setRowCount(0);
-        AccountDAO accountDAO = new AccountDAO();
-        List<Account> accounts = accountDAO.getAll();
-        for (Account account : accounts) {
-            tableModel.addRow(new Object[]{account.getPlayerId(), account.getUsername(), account.getPassword()});
+        PlayerDAO playerDAO = new PlayerDAO();
+        List<Player> players = playerDAO.getAll();
+        for (Player player : players) {
+            tableModel.addRow(new Object[]{player.getPlayerId(), player.getUsername(), player.getPassword()});
         }
     }
 }
