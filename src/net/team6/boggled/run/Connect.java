@@ -13,6 +13,7 @@ public class Connect {
     public static Boggled boggledImpl;
     public static String sessionID;
     public static Callback cref;
+    public static String username;
 
     public static void createConnection(String[] args) {
         try {
@@ -31,4 +32,7 @@ public class Connect {
             System.out.println("Error: " + e.getMessage());
         }
     }
+
+
+
 }

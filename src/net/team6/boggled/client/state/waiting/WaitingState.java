@@ -15,6 +15,7 @@ import net.team6.boggled.client.gui.text.BoggledHeader;
 import net.team6.boggled.client.gui.text.BoggledText;
 import net.team6.boggled.client.gui.tools.Alignment;
 import net.team6.boggled.client.gui.tools.Spacing;
+import net.team6.boggled.run.Connect;
 import net.team6.boggled.server.dev.settings.ServerSettings;
 import net.team6.boggled.utilities.BoggledColors;
 
@@ -56,6 +57,7 @@ public class WaitingState extends State {
         BoggledContainer text = new VerticalContainer();
         text.setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER));
         text.setBackgroundColor(BoggledColors.MENU_BACKGROUND_COLOR);
+        text.addUIComponent(new BoggledWaitingInfo());
         text.setPadding(new Spacing(200,70));
 
         boggledCanvas.addUIComponent(text);

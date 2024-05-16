@@ -67,6 +67,7 @@ public class BoggledLogin extends VerticalContainer {
 
             try {
                 Connect.boggledImpl.login(user, pass);
+                Connect.username = user;
                 //TODO
                 //Connect.sessionID = Connect.boggledImpl.getSessionId(user);
                 state.setNextState(new MenuState(state.getWindowSize(), state.getInput(), state.getGameSettings()));
