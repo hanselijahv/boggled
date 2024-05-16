@@ -190,9 +190,7 @@ public class BoggledImplementation extends BoggledPOA {
         public long startTime;
         private Timer timer;
         private long timerDuration = getWaitingTime();
-
         private GameRoom gameRoom = new GameRoom();
-
         private String gameId;
 
         public WaitingRoom(String creator) {

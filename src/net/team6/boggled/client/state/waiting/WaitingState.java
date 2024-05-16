@@ -1,5 +1,6 @@
 package net.team6.boggled.client.state.waiting;
 
+import net.team6.boggled.client.state.ingame.InGameState;
 import net.team6.boggled.common.core.Size;
 import net.team6.boggled.client.game.Game;
 import net.team6.boggled.client.game.time.Timer;
@@ -21,23 +22,26 @@ import net.team6.boggled.utilities.BoggledColors;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class WaitingState extends State {
     private boolean showScore;
     private boolean inputEnabled;
     private final BoggledWaitingMenu gameMenu;
-
-    private final Timer gameTimer;
+    private Timer gameTimer;
 
     public WaitingState(Size windowSize, Input input, GameSettings gameSettings) throws SQLException {
         super(windowSize, input, gameSettings);
 
         ServerSettings serverSettings = new ServerSettings(false);
         gameMenu = new BoggledWaitingMenu(input, gameSettings);
-        gameTimer = new Timer(serverSettings.getGameSettings().getWaitingTime() + 1, this::lose);
         inputEnabled = true;
+        gameTimer = new Timer(Double.parseDouble(Connect.boggledImpl.getWaitingTime(Connect.cref)), this::lose);
         initializeUI();
+
+        boolean isReadyToStart = Connect.boggledImpl.isGameReadyToStart();
+        System.out.println(isReadyToStart);
 
         //audioPlayer.playMusic("main.wav");
 
@@ -108,9 +112,6 @@ public class WaitingState extends State {
             toggleScore(!showScore);
         }
     }
-
-
-
 
     @Override
     public void update(Game game) throws SQLException {

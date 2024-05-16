@@ -1,5 +1,6 @@
 package net.team6.boggled.client.state.menu.elements;
 
+import net.team6.boggled.client.game.settings.GameSettings;
 import net.team6.boggled.client.gui.container.VerticalContainer;
 import net.team6.boggled.client.state.ingame.InGameState;
 import net.team6.boggled.client.state.entry.EntryState;
@@ -27,11 +28,11 @@ public class BoggledMainMenu extends VerticalContainer {
         header.setPadding(new Spacing(0, 0, 50, 0));
         addUIComponent(header);
 
-
-
         addUIComponent(new BoggledButton("PLAY GAME", 16, (state) -> {
             Connect.boggledImpl.joinWaitingRoom(Connect.username);
             state.setNextState(new WaitingState(state.getWindowSize(), state.getInput(), state.getGameSettings()));
+
+
         }));
         addUIComponent(new BoggledButton("OPTIONS", 16, (state) -> ((MenuState) state).enterMenu(new BoggledOptionMenu(state.getGameSettings()))));
         addUIComponent(new BoggledButton("LOGOUT", 16, (state) -> {

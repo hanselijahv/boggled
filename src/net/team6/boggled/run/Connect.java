@@ -14,6 +14,7 @@ public class Connect {
     public static String sessionID;
     public static Callback cref;
     public static String username;
+    public static boolean isReadyStart;
 
     public static void createConnection(String[] args) {
         try {
