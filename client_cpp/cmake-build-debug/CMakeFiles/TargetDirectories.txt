@@ -1,0 +1,3 @@
+/Users/benny/CodeProjects/2023-2_9341-finTeam6/client_cpp/cmake-build-debug/CMakeFiles/client_c__.dir
+/Users/benny/CodeProjects/2023-2_9341-finTeam6/client_cpp/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/benny/CodeProjects/2023-2_9341-finTeam6/client_cpp/cmake-build-debug/CMakeFiles/rebuild_cache.dir

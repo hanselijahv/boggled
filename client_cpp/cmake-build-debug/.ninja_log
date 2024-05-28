@@ -1,0 +1,5 @@
+# ninja log v5
+1	394	1716899043920243653	CMakeFiles/client_c__.dir/src/boggledSK.cc.o	9d6ce0ba86ff64c1
+6	656	1716899153732027324	CMakeFiles/client_c__.dir/src/client.cpp.o	9e20687b99241e7b
+4	365	1716899290104213968	CMakeFiles/client_c__.dir/src/boggledSK.cc.o	d0477bef0198570e
+4	549	1716899290289015533	CMakeFiles/client_c__.dir/src/client.cpp.o	eadfce48bda1b07
