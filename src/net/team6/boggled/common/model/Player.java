@@ -5,10 +5,18 @@ public class Player {
     private String playerId;
     private String username;
     private String password;
+    private int highestScore;
 
     public Player(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public Player(String playerId, String username, String password, int highestScore) {
+        this.playerId = playerId;
+        this.username = username;
+        this.password = password;
+        this.highestScore = highestScore;
     }
 
     public Player(String playerId, String username, String password) {
@@ -21,6 +29,7 @@ public class Player {
         this.playerId = null;
         this.username = null;
         this.password = null;
+        this.highestScore = 0;
     }
 
     public String getPlayerId() {
@@ -45,6 +54,14 @@ public class Player {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getHighestScore() {
+        return highestScore;
+    }
+
+    public void setHighestScore(int highestScore) {
+        this.highestScore = highestScore;
     }
 
     public String toString() {
