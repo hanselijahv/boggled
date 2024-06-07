@@ -52,6 +52,15 @@ public class PlayerDAO {
         }
     }
 
+    public boolean updatePlayerHighestScore(Player player, int score) throws SQLException {
+        String sql = "UPDATE players SET highest_score = ? WHERE player_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, score);
+            statement.setString(2, player.getPlayerId());
+            return statement.executeUpdate() > 0;
+        }
+    }
+
     public List<Player> getAll() throws SQLException {
         List<Player> players = new ArrayList<>();
         String sql = "SELECT * FROM players";
