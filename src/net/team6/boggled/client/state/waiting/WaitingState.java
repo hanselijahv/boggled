@@ -30,7 +30,6 @@ public class WaitingState extends State {
     private boolean inputEnabled;
     private final BoggledWaitingMenu gameMenu;
     private Timer gameTimer;
-    private GameSettings settings = new GameSettings(true);
 
     public WaitingState(Size windowSize, Input input, GameSettings gameSettings) throws SQLException {
         super(windowSize, input, gameSettings);
@@ -120,10 +119,6 @@ public class WaitingState extends State {
         if(!showScore) {
             gameTimer.update();
             handleInput();
-            boolean isReadyToStart = Connect.boggledImpl.isGameReadyToStart();
-
-
-
         } else {
             gameTimer.update();
 

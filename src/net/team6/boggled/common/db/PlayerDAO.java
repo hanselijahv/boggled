@@ -18,7 +18,7 @@ public class PlayerDAO {
     }
 
     public boolean insert(Player player) throws SQLException {
-        String sql = "INSERT INTO players (player_id, username, password) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO players (player_id, username, password, highest_score) VALUES (?, ?, ?, ?)";
         if (usernameExists(player.getUsername())) {
             return false;
         }
@@ -26,6 +26,7 @@ public class PlayerDAO {
             statement.setString(1, generatePlayerId());
             statement.setString(2, player.getUsername());
             statement.setString(3, player.getPassword());
+            statement.setInt(4, 0);
             return statement.executeUpdate() > 0;
         }
     }
