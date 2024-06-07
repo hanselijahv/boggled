@@ -74,12 +74,22 @@ public class WaitingState extends State {
         boggledCanvas.clear();
         inputEnabled = false;
         BoggledContainer content = new VerticalContainer();
-        content.addUIComponent(new BoggledHeader("NO PLAYERS JOINED", 72));
-        gameMenu.setHeaderContent(content);
-        cleanup();
 
-        //audioPlayer.playMusic("SFX_UI_ROOM_ERROR.wav");
-        toggleMenu(true);
+        if (Connect.boggledImpl.isGameReadyToStart()) {
+            try {
+                new InGameState(gameSettings);
+            } catch (FontFormatException | IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            content.addUIComponent(new BoggledHeader("NOT ENOUGH PLAYERS JOINED", 72));
+            gameMenu.setHeaderContent(content);
+            cleanup();
+
+            //audioPlayer.playMusic("SFX_UI_ROOM_ERROR.wav");
+            toggleMenu(true);
+        }
+
     }
 
     public void toggleScore(boolean show) {
