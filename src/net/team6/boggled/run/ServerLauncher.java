@@ -2,7 +2,6 @@ package net.team6.boggled.run;
 
 import BoggledApp.Boggled;
 import BoggledApp.BoggledHelper;
-import BoggledApp.BoggledImplementation;
 import net.team6.boggled.server.dev.Server;
 import net.team6.boggled.common.db.DatabaseConnector;
 import org.omg.CORBA.ORB;
@@ -46,7 +45,7 @@ public class ServerLauncher extends Applet {
 //            org.omg.CORBA.Object ref = rootpoa.servant_to_reference(my);
 //            Boggled href = BoggledHelper.narrow(ref);
 
-            boggledImplementation.setORB(orb);
+            boggledImplementation.setOrb(orb);
 
             Object objRef = orb.resolve_initial_references("NameService");
             NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
