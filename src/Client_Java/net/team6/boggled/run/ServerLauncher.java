@@ -1,7 +1,7 @@
 package Client_Java.net.team6.boggled.run;
 
-import BoggledApp.Boggled;
-import BoggledApp.BoggledHelper;
+import Server_Java.BoggledApp.Boggled;
+import Server_Java.BoggledApp.BoggledHelper;
 import Client_Java.net.team6.boggled.common.db.DatabaseConnector;
 import Client_Java.net.team6.boggled.server.dev.Server;
 import org.omg.CORBA.ORB;

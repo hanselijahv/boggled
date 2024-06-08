@@ -1,9 +1,9 @@
 package Server_Java.net.team6.boggled.run;
 
-import BoggledApp.AlreadyLoggedInException;
-import BoggledApp.BoggledPOA;
-import BoggledApp.Callback;
-import BoggledApp.UserNotFoundException;
+import Server_Java.BoggledApp.AlreadyLoggedInException;
+import Server_Java.BoggledApp.BoggledPOA;
+import Server_Java.BoggledApp.Callback;
+import Server_Java.BoggledApp.UserNotFoundException;
 import Server_Java.net.team6.boggled.common.model.GameRoom;
 import Server_Java.net.team6.boggled.common.model.Player;
 import Server_Java.net.team6.boggled.common.model.RoundRoom;
@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static net.team6.boggled.common.db.PlayerDAO.playerDAOImpl;
+import static Server_Java.net.team6.boggled.common.db.PlayerDAO.playerDAOImpl;
 
 public class BoggledImplementation extends BoggledPOA {
     private ConcurrentHashMap<String, WaitingRoom> waitingRooms = new ConcurrentHashMap<>();

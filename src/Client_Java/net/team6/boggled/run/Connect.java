@@ -1,7 +1,7 @@
 package Client_Java.net.team6.boggled.run;
 
 
-import BoggledApp.*;
+import Server_Java.BoggledApp.*;
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;

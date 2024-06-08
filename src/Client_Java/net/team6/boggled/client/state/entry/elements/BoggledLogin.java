@@ -1,7 +1,7 @@
 package Client_Java.net.team6.boggled.client.state.entry.elements;
 
-import BoggledApp.AlreadyLoggedInException;
-import BoggledApp.UserNotFoundException;
+import Server_Java.BoggledApp.AlreadyLoggedInException;
+import Server_Java.BoggledApp.UserNotFoundException;
 import Client_Java.net.team6.boggled.client.gui.clickable.BoggledButton;
 import Client_Java.net.team6.boggled.client.gui.container.BoggledContainer;
 import Client_Java.net.team6.boggled.client.gui.container.VerticalContainer;

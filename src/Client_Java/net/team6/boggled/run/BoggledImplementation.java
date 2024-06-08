@@ -1,13 +1,10 @@
 package Client_Java.net.team6.boggled.run;
 
-import BoggledApp.AlreadyLoggedInException;
-import BoggledApp.BoggledPOA;
-import BoggledApp.Callback;
-import BoggledApp.UserNotFoundException;
-import Client_Java.net.team6.boggled.common.model.GameRoom;
+import Server_Java.BoggledApp.AlreadyLoggedInException;
+import Server_Java.BoggledApp.BoggledPOA;
+import Server_Java.BoggledApp.Callback;
+import Server_Java.BoggledApp.UserNotFoundException;
 import Client_Java.net.team6.boggled.common.model.Player;
-import Client_Java.net.team6.boggled.common.model.RoundRoom;
-import Client_Java.net.team6.boggled.common.model.WaitingRoom;
 import org.omg.CORBA.BooleanHolder;
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.StringHolder;
