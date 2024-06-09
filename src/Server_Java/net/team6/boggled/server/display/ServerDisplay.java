@@ -1,7 +1,7 @@
 package Server_Java.net.team6.boggled.server.display;
 
-import Server_Java.net.team6.boggled.client.game.ResizeCallback;
 import Server_Java.net.team6.boggled.common.core.Size;
+import Server_Java.net.team6.boggled.server.app.ResizeCallback;
 import Server_Java.net.team6.boggled.server.input.ServerInput;
 import Server_Java.net.team6.boggled.server.state.ServerState;
 import Server_Java.net.team6.boggled.utilities.BoggledColors;

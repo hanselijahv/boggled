@@ -1,6 +1,6 @@
 package Server_Java.net.team6.boggled.server.input;
 
-import Server_Java.net.team6.boggled.client.gui.component.BoggledImage;
+import Client_Java.net.team6.boggled.client.gui.component.BoggledImage;
 import Server_Java.net.team6.boggled.server.state.ServerState;
 
 import java.sql.SQLException;

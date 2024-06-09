@@ -8,7 +8,6 @@ public class GameSettings {
     private double gameSpeedMultiplier;
     private final AudioSettings audioSettings;
     private final Value<Boolean> fullScreenMode;
-    private Settings settings;
 
     public GameSettings(boolean debugMode) {
         this.debugMode = debugMode;
@@ -43,9 +42,5 @@ public class GameSettings {
 
     public AudioSettings getAudioSettings() {
         return audioSettings;
-    }
-
-    public Settings getGameSettings() {
-        return settings;
     }
 }

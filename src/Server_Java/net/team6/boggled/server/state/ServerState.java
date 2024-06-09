@@ -1,8 +1,7 @@
 package Server_Java.net.team6.boggled.server.state;
 
 
-import Server_Java.net.team6.boggled.client.game.settings.GameSettings;
-import Server_Java.net.team6.boggled.client.game.time.Time;
+import Client_Java.net.team6.boggled.client.game.time.Time;
 import Server_Java.net.team6.boggled.common.core.Size;
 import Server_Java.net.team6.boggled.server.audio.ServerAudioPlayer;
 import Server_Java.net.team6.boggled.server.dev.Server;
@@ -23,7 +22,6 @@ public abstract class ServerState {
     private ServerState nextState;
     protected ServerAudioPlayer serverAudioPlayer;
     protected ServerCanvas serverCanvas;
-    protected GameSettings gameSettings;
     protected ServerSettings serverSettings;
     protected Size windowSize;
     protected ServerMouseHandler serverMouseHandler;
@@ -93,10 +91,6 @@ public abstract class ServerState {
 
     public ServerAudioPlayer getAudioPlayer() {
         return serverAudioPlayer;
-    }
-
-    public GameSettings getGameSettings() {
-        return gameSettings;
     }
 
     public ServerSettings getBoggledSettings() {

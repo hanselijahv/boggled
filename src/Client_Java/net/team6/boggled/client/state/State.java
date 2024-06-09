@@ -10,7 +10,6 @@ import Client_Java.net.team6.boggled.client.input.Input;
 import Client_Java.net.team6.boggled.client.input.KeyInputConsumer;
 import Client_Java.net.team6.boggled.client.input.MouseHandler;
 import Client_Java.net.team6.boggled.common.core.Size;
-import Client_Java.net.team6.boggled.server.dev.settings.ServerSettings;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,7 +22,6 @@ public abstract class State {
     protected AudioPlayer audioPlayer;
     protected BoggledCanvas boggledCanvas;
     protected GameSettings gameSettings;
-    protected ServerSettings serverSettings;
     protected Size windowSize;
     protected MouseHandler mouseHandler;
     protected KeyInputConsumer keyInputConsumer;
