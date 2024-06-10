@@ -75,7 +75,7 @@ public class ServerText extends ServerComponent {
 
     private void createFont() {
         try {
-            InputStream inputStream = getClass().getResourceAsStream("/font/MP16REG.ttf");
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("font/MP16REG.ttf");
             Font customFont = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(inputStream));
             font = customFont.deriveFont(fontStyle, fontSize);
         } catch (IOException ioe) {
