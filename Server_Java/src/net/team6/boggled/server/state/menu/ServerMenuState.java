@@ -11,7 +11,7 @@ public class ServerMenuState extends ServerState {
     public ServerMenuState(Size windowSize, ServerInput serverInput, ServerSettings serverSettings) {
         super(windowSize, serverInput, serverSettings);
 
-        serverCsanvas.addUIComponent(new ServerMainMenu());
+        serverCanvas.addUIComponent(new ServerMainMenu());
 
     }
 

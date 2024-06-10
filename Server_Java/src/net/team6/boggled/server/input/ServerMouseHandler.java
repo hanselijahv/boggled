@@ -1,6 +1,7 @@
 package net.team6.boggled.server.input;
 
 
+import net.team6.boggled.server.gui.component.BoggledImage;
 import net.team6.boggled.server.state.ServerState;
 
 import java.sql.SQLException;

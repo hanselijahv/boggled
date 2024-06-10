@@ -1,12 +1,12 @@
 package net.team6.boggled.server.gui.clickable;
 
-import Server_Java.net.team6.boggled.common.core.Size;
-import Server_Java.net.team6.boggled.server.gui.container.ServerContainer;
-import Server_Java.net.team6.boggled.server.gui.container.ServerVerticalContainer;
-import Server_Java.net.team6.boggled.server.gui.text.ServerText;
-import Server_Java.net.team6.boggled.server.gui.tools.Spacing;
-import Server_Java.net.team6.boggled.server.state.ServerState;
-import Server_Java.net.team6.boggled.utilities.BoggledColors;
+import net.team6.boggled.common.core.Size;
+import net.team6.boggled.server.gui.container.ServerContainer;
+import net.team6.boggled.server.gui.container.ServerVerticalContainer;
+import net.team6.boggled.server.gui.text.ServerText;
+import net.team6.boggled.server.gui.tools.Spacing;
+import net.team6.boggled.server.state.ServerState;
+import net.team6.boggled.utilities.BoggledColors;
 
 import java.awt.*;
 import java.sql.SQLException;
@@ -59,7 +59,7 @@ public class ServerButton extends ServerClickable {
     @Override
     public void onClick(ServerState state) throws SQLException {
         serverClickAction.execute(state);
-       // state.getAudioPlayer().playSound("SFX_UI_MenuSelections.wav");
+       // state.getAudioPlayer().playSound("SFX_UI_MenuSelections.wav"); TODO: check
     }
 
     @Override

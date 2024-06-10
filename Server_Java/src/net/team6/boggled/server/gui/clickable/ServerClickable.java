@@ -1,9 +1,9 @@
 package net.team6.boggled.server.gui.clickable;
 
-import Server_Java.net.team6.boggled.common.core.Position;
-import Server_Java.net.team6.boggled.server.gui.component.ServerComponent;
-import Server_Java.net.team6.boggled.server.input.ServerMouseConsumer;
-import Server_Java.net.team6.boggled.server.state.ServerState;
+import net.team6.boggled.common.core.Position;
+import net.team6.boggled.server.gui.component.ServerComponent;
+import net.team6.boggled.server.input.ServerMouseConsumer;
+import net.team6.boggled.server.state.ServerState;
 
 import java.awt.*;
 import java.sql.SQLException;

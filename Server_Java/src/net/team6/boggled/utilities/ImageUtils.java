@@ -1,6 +1,6 @@
 package net.team6.boggled.utilities;
 
-import Server_Java.net.team6.boggled.common.core.Size;
+import net.team6.boggled.common.core.Size;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

@@ -1,8 +1,8 @@
 package net.team6.boggled.server.dev.settings;
 
-import Server_Java.net.team6.boggled.common.core.Value;
-import Server_Java.net.team6.boggled.common.db.SettingsDAO;
-import Server_Java.net.team6.boggled.common.model.Settings;
+import net.team6.boggled.common.core.Value;
+import net.team6.boggled.common.db.SettingsDAO;
+import net.team6.boggled.common.model.Settings;
 
 import java.sql.SQLException;
 

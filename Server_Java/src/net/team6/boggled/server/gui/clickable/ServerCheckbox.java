@@ -1,14 +1,14 @@
 package net.team6.boggled.server.gui.clickable;
 
-import Server_Java.net.team6.boggled.common.core.Size;
-import Server_Java.net.team6.boggled.common.core.Value;
-import Server_Java.net.team6.boggled.server.gui.component.ServerComponent;
-import Server_Java.net.team6.boggled.server.gui.container.ServerContainer;
-import Server_Java.net.team6.boggled.server.gui.container.ServerHorizontalContainer;
-import Server_Java.net.team6.boggled.server.gui.text.ServerText;
-import Server_Java.net.team6.boggled.server.gui.tools.Spacing;
-import Server_Java.net.team6.boggled.server.state.ServerState;
-import Server_Java.net.team6.boggled.utilities.ImageUtils;
+import net.team6.boggled.common.core.Size;
+import net.team6.boggled.common.core.Value;
+import net.team6.boggled.server.gui.component.ServerComponent;
+import net.team6.boggled.server.gui.container.ServerContainer;
+import net.team6.boggled.server.gui.container.ServerHorizontalContainer;
+import net.team6.boggled.server.gui.text.ServerText;
+import net.team6.boggled.server.gui.tools.Spacing;
+import net.team6.boggled.server.state.ServerState;
+import net.team6.boggled.utilities.ImageUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

@@ -1,7 +1,7 @@
 package net.team6.boggled.utilities;
 
-import Server_Java.net.team6.boggled.client.audio.AudioPlayer;
-import Server_Java.net.team6.boggled.client.game.settings.GameSettings;
+import net.team6.boggled.server.audio.ServerAudioPlayer;
+import net.team6.boggled.server.dev.settings.ServerSettings;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -9,6 +9,7 @@ import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
 public class StyledButtonUI extends BasicButtonUI {
 
@@ -25,8 +26,13 @@ public class StyledButtonUI extends BasicButtonUI {
             @Override
             public void mousePressed(MouseEvent e) {
                 button.setBackground(BoggledColors.BUTTON_PRESSED_COLOR);
-                GameSettings gameSettings = new GameSettings(false);
-                AudioPlayer audioPlayer = new AudioPlayer(gameSettings.getAudioSettings());
+			ServerSettings gameSettings = null;
+			try {
+				gameSettings = new ServerSettings(false);
+			} catch (SQLException ex) {
+				throw new RuntimeException(ex);
+			}
+			ServerAudioPlayer audioPlayer = new ServerAudioPlayer(gameSettings.getAudioSettings());
                 audioPlayer.playSound("SFX_UI_MenuSelections.wav");
             }
 

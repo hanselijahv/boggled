@@ -1,6 +1,6 @@
 package net.team6.boggled.server.audio;
 
-import Server_Java.net.team6.boggled.server.dev.settings.ServerAudioSettings;
+import net.team6.boggled.server.dev.settings.ServerAudioSettings;
 
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
