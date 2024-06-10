@@ -1,6 +1,6 @@
 package net.team6.boggled.client.audio;
 
-import Client_Java.net.team6.boggled.client.game.settings.AudioSettings;
+import net.team6.boggled.client.game.settings.AudioSettings;
 
 import javax.sound.sampled.*;
 import java.io.IOException;

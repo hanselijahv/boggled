@@ -1,24 +1,23 @@
 package net.team6.boggled.client.state.waiting;
 
-import Client_Java.net.team6.boggled.client.game.Game;
-import Client_Java.net.team6.boggled.client.game.settings.GameSettings;
-import Client_Java.net.team6.boggled.client.game.time.Timer;
-import Client_Java.net.team6.boggled.client.gui.container.BoggledContainer;
-import Client_Java.net.team6.boggled.client.gui.container.HorizontalContainer;
-import Client_Java.net.team6.boggled.client.gui.container.VerticalContainer;
-import Client_Java.net.team6.boggled.client.gui.text.BoggledHeader;
-import Client_Java.net.team6.boggled.client.gui.text.BoggledText;
-import Client_Java.net.team6.boggled.client.gui.tools.Alignment;
-import Client_Java.net.team6.boggled.client.gui.tools.Spacing;
-import Client_Java.net.team6.boggled.client.input.Input;
-import Client_Java.net.team6.boggled.client.state.State;
-import Client_Java.net.team6.boggled.client.state.ingame.InGameState;
-import Client_Java.net.team6.boggled.client.state.waiting.elements.BoggledWaitingMenu;
-import Client_Java.net.team6.boggled.client.state.waiting.elements.BoggledWaitingTimer;
-import Client_Java.net.team6.boggled.common.core.Size;
-import Client_Java.net.team6.boggled.run.Connect;
-import Client_Java.net.team6.boggled.server.dev.settings.ServerSettings;
-import Client_Java.net.team6.boggled.utilities.BoggledColors;
+import net.team6.boggled.client.game.Game;
+import net.team6.boggled.client.game.settings.GameSettings;
+import net.team6.boggled.client.game.time.Timer;
+import net.team6.boggled.client.gui.container.BoggledContainer;
+import net.team6.boggled.client.gui.container.HorizontalContainer;
+import net.team6.boggled.client.gui.container.VerticalContainer;
+import net.team6.boggled.client.gui.text.BoggledHeader;
+import net.team6.boggled.client.gui.text.BoggledText;
+import net.team6.boggled.client.gui.tools.Alignment;
+import net.team6.boggled.client.gui.tools.Spacing;
+import net.team6.boggled.client.input.Input;
+import net.team6.boggled.client.state.State;
+import net.team6.boggled.client.state.ingame.InGameState;
+import net.team6.boggled.client.state.waiting.elements.BoggledWaitingMenu;
+import net.team6.boggled.client.state.waiting.elements.BoggledWaitingTimer;
+import net.team6.boggled.common.core.Size;
+import net.team6.boggled.run.Connect;
+import net.team6.boggled.utilities.BoggledColors;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -31,10 +30,9 @@ public class WaitingState extends State {
     private final BoggledWaitingMenu gameMenu;
     private Timer gameTimer;
 
-    public WaitingState(Size windowSize, Input input, GameSettings gameSettings) throws SQLException {
+    public WaitingState(Size windowSize, Input input, GameSettings gameSettings) throws SQLException, IOException, FontFormatException {
         super(windowSize, input, gameSettings);
 
-        ServerSettings serverSettings = new ServerSettings(false);
         gameMenu = new BoggledWaitingMenu(input, gameSettings);
         inputEnabled = true;
         gameTimer = new Timer(Double.parseDouble(Connect.boggledImpl.getWaitingTime(Connect.cref)), this::endWaiting);

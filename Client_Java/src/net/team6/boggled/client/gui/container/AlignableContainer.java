@@ -1,7 +1,7 @@
 package net.team6.boggled.client.gui.container;
 
-import Client_Java.net.team6.boggled.common.core.Position;
-import Client_Java.net.team6.boggled.common.core.Size;
+import net.team6.boggled.common.core.Position;
+import net.team6.boggled.common.core.Size;
 
 public class AlignableContainer extends BoggledContainer {
 

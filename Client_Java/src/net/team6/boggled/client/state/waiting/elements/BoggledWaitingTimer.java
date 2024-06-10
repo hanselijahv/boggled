@@ -1,10 +1,10 @@
 package net.team6.boggled.client.state.waiting.elements;
 
-import Client_Java.net.team6.boggled.client.gui.container.HorizontalContainer;
-import Client_Java.net.team6.boggled.client.gui.text.BoggledText;
-import Client_Java.net.team6.boggled.client.gui.tools.Alignment;
-import Client_Java.net.team6.boggled.client.state.State;
-import Client_Java.net.team6.boggled.run.Connect;
+import net.team6.boggled.client.gui.container.HorizontalContainer;
+import net.team6.boggled.client.gui.text.BoggledText;
+import net.team6.boggled.client.gui.tools.Alignment;
+import net.team6.boggled.client.state.State;
+import net.team6.boggled.run.Connect;
 
 import java.sql.SQLException;
 

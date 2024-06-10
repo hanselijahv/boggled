@@ -1,10 +1,10 @@
 package net.team6.boggled.client.gui.component;
 
-import Client_Java.net.team6.boggled.client.gui.container.BoggledContainer;
-import Client_Java.net.team6.boggled.client.gui.tools.Spacing;
-import Client_Java.net.team6.boggled.client.state.State;
-import Client_Java.net.team6.boggled.common.core.Position;
-import Client_Java.net.team6.boggled.common.core.Size;
+import net.team6.boggled.client.gui.container.BoggledContainer;
+import net.team6.boggled.client.gui.tools.Spacing;
+import net.team6.boggled.client.state.State;
+import net.team6.boggled.common.core.Position;
+import net.team6.boggled.common.core.Size;
 
 import java.awt.*;
 import java.sql.SQLException;

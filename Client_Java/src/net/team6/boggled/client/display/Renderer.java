@@ -1,7 +1,7 @@
 package net.team6.boggled.client.display;
 
 
-import Client_Java.net.team6.boggled.client.state.State;
+import net.team6.boggled.client.state.State;
 
 import javax.swing.*;
 import java.awt.*;

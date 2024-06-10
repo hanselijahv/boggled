@@ -1,6 +1,6 @@
 package net.team6.boggled.client.game.time;
 
-import Client_Java.net.team6.boggled.client.game.Game;
+import net.team6.boggled.client.game.Game;
 
 public class Time {
 

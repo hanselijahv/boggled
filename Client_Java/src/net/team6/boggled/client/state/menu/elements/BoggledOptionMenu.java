@@ -1,18 +1,18 @@
 package net.team6.boggled.client.state.menu.elements;
 
-import Client_Java.net.team6.boggled.client.game.settings.GameSettings;
-import Client_Java.net.team6.boggled.client.gui.clickable.BoggledButton;
-import Client_Java.net.team6.boggled.client.gui.clickable.BoggledCheckbox;
-import Client_Java.net.team6.boggled.client.gui.clickable.BoggledSlider;
-import Client_Java.net.team6.boggled.client.gui.container.BoggledContainer;
-import Client_Java.net.team6.boggled.client.gui.container.VerticalContainer;
-import Client_Java.net.team6.boggled.client.gui.text.BoggledText;
-import Client_Java.net.team6.boggled.client.gui.tools.Alignment;
-import Client_Java.net.team6.boggled.client.gui.tools.Spacing;
-import Client_Java.net.team6.boggled.client.state.State;
-import Client_Java.net.team6.boggled.client.state.menu.MenuState;
-import Client_Java.net.team6.boggled.client.state.menu.elements.BoggledMainMenu;
-import Client_Java.net.team6.boggled.utilities.BoggledColors;
+import net.team6.boggled.client.game.settings.GameSettings;
+import net.team6.boggled.client.gui.clickable.BoggledButton;
+import net.team6.boggled.client.gui.clickable.BoggledCheckbox;
+import net.team6.boggled.client.gui.clickable.BoggledSlider;
+import net.team6.boggled.client.gui.container.BoggledContainer;
+import net.team6.boggled.client.gui.container.VerticalContainer;
+import net.team6.boggled.client.gui.text.BoggledText;
+import net.team6.boggled.client.gui.tools.Alignment;
+import net.team6.boggled.client.gui.tools.Spacing;
+import net.team6.boggled.client.state.State;
+import net.team6.boggled.client.state.menu.MenuState;
+import net.team6.boggled.client.state.menu.elements.BoggledMainMenu;
+import net.team6.boggled.utilities.BoggledColors;
 
 import java.sql.SQLException;
 

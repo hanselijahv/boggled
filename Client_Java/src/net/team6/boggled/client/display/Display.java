@@ -1,12 +1,12 @@
 package net.team6.boggled.client.display;
 
 
-import Client_Java.net.team6.boggled.client.display.Renderer;
-import Client_Java.net.team6.boggled.client.game.ResizeCallback;
-import Client_Java.net.team6.boggled.client.input.Input;
-import Client_Java.net.team6.boggled.client.state.State;
-import Client_Java.net.team6.boggled.common.core.Size;
-import Client_Java.net.team6.boggled.utilities.BoggledColors;
+import net.team6.boggled.client.display.Renderer;
+import net.team6.boggled.client.game.ResizeCallback;
+import net.team6.boggled.client.input.Input;
+import net.team6.boggled.client.state.State;
+import net.team6.boggled.common.core.Size;
+import net.team6.boggled.utilities.BoggledColors;
 
 import javax.swing.*;
 import java.awt.*;

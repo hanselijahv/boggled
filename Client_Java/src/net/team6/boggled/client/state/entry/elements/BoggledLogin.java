@@ -1,17 +1,17 @@
 package net.team6.boggled.client.state.entry.elements;
 
-import Client_Java.net.team6.boggled.client.gui.clickable.BoggledButton;
-import Client_Java.net.team6.boggled.client.gui.container.BoggledContainer;
-import Client_Java.net.team6.boggled.client.gui.container.VerticalContainer;
-import Client_Java.net.team6.boggled.client.gui.input.BoggledTextInput;
-import Client_Java.net.team6.boggled.client.gui.text.BoggledHeader;
-import Client_Java.net.team6.boggled.client.gui.tools.Alignment;
-import Client_Java.net.team6.boggled.client.gui.tools.Spacing;
-import Client_Java.net.team6.boggled.client.state.menu.MenuState;
-import Client_Java.net.team6.boggled.common.core.Value;
-import Client_Java.net.team6.boggled.run.Connect;
-import Server_Java.BoggledApp.AlreadyLoggedInException;
-import Server_Java.BoggledApp.UserNotFoundException;
+import BoggledApp.AlreadyLoggedInException;
+import BoggledApp.UserNotFoundException;
+import net.team6.boggled.client.gui.clickable.BoggledButton;
+import net.team6.boggled.client.gui.container.BoggledContainer;
+import net.team6.boggled.client.gui.container.VerticalContainer;
+import net.team6.boggled.client.gui.input.BoggledTextInput;
+import net.team6.boggled.client.gui.text.BoggledHeader;
+import net.team6.boggled.client.gui.tools.Alignment;
+import net.team6.boggled.client.gui.tools.Spacing;
+import net.team6.boggled.client.state.menu.MenuState;
+import net.team6.boggled.common.core.Value;
+import net.team6.boggled.run.Connect;
 
 public class BoggledLogin extends VerticalContainer {
     private final Value<String> username;

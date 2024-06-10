@@ -1,15 +1,15 @@
 package net.team6.boggled.client.state.menu.elements;
 
-import Client_Java.net.team6.boggled.client.gui.clickable.BoggledButton;
-import Client_Java.net.team6.boggled.client.gui.container.VerticalContainer;
-import Client_Java.net.team6.boggled.client.gui.text.BoggledHeader;
-import Client_Java.net.team6.boggled.client.gui.tools.Alignment;
-import Client_Java.net.team6.boggled.client.gui.tools.Spacing;
-import Client_Java.net.team6.boggled.client.state.entry.EntryState;
-import Client_Java.net.team6.boggled.client.state.leaderboards.elements.BoggledLeaderboards;
-import Client_Java.net.team6.boggled.client.state.menu.MenuState;
-import Client_Java.net.team6.boggled.client.state.waiting.WaitingState;
-import Client_Java.net.team6.boggled.run.Connect;
+import net.team6.boggled.client.gui.clickable.BoggledButton;
+import net.team6.boggled.client.gui.container.VerticalContainer;
+import net.team6.boggled.client.gui.text.BoggledHeader;
+import net.team6.boggled.client.gui.tools.Alignment;
+import net.team6.boggled.client.gui.tools.Spacing;
+import net.team6.boggled.client.state.entry.EntryState;
+import net.team6.boggled.client.state.leaderboards.elements.BoggledLeaderboards;
+import net.team6.boggled.client.state.menu.MenuState;
+import net.team6.boggled.client.state.waiting.WaitingState;
+import net.team6.boggled.run.Connect;
 
 public class BoggledMainMenu extends VerticalContainer {
 

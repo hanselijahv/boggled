@@ -1,10 +1,10 @@
 package net.team6.boggled.client.input;
 
-import Client_Java.net.team6.boggled.client.gui.component.BoggledImage;
-import Client_Java.net.team6.boggled.client.input.Input;
-import Client_Java.net.team6.boggled.client.input.MouseAction;
-import Client_Java.net.team6.boggled.client.input.MouseConsumer;
-import Client_Java.net.team6.boggled.client.state.State;
+import net.team6.boggled.client.gui.component.BoggledImage;
+import net.team6.boggled.client.input.Input;
+import net.team6.boggled.client.input.MouseAction;
+import net.team6.boggled.client.input.MouseConsumer;
+import net.team6.boggled.client.state.State;
 
 import java.sql.SQLException;
 import java.util.Optional;

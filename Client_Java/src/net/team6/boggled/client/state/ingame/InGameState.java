@@ -1,10 +1,10 @@
 package net.team6.boggled.client.state.ingame;
 
-import Client_Java.net.team6.boggled.client.audio.AudioPlayer;
-import Client_Java.net.team6.boggled.client.game.settings.GameSettings;
-import Client_Java.net.team6.boggled.utilities.BoggledColors;
-import Client_Java.net.team6.boggled.utilities.FontUtils;
-import Client_Java.net.team6.boggled.utilities.StyledButtonUI;
+import net.team6.boggled.client.audio.AudioPlayer;
+import net.team6.boggled.client.game.settings.GameSettings;
+import net.team6.boggled.utilities.BoggledColors;
+import net.team6.boggled.utilities.FontUtils;
+import net.team6.boggled.utilities.StyledButtonUI;
 
 import javax.swing.Timer;
 import javax.swing.*;

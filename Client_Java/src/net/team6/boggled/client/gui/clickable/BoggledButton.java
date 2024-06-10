@@ -1,14 +1,15 @@
 package net.team6.boggled.client.gui.clickable;
 
-import Client_Java.net.team6.boggled.client.gui.container.BoggledContainer;
-import Client_Java.net.team6.boggled.client.gui.container.VerticalContainer;
-import Client_Java.net.team6.boggled.client.gui.text.BoggledText;
-import Client_Java.net.team6.boggled.client.gui.tools.Spacing;
-import Client_Java.net.team6.boggled.client.state.State;
-import Client_Java.net.team6.boggled.common.core.Size;
-import Client_Java.net.team6.boggled.utilities.BoggledColors;
+import net.team6.boggled.client.gui.container.BoggledContainer;
+import net.team6.boggled.client.gui.container.VerticalContainer;
+import net.team6.boggled.client.gui.text.BoggledText;
+import net.team6.boggled.client.gui.tools.Spacing;
+import net.team6.boggled.client.state.State;
+import net.team6.boggled.common.core.Size;
+import net.team6.boggled.utilities.BoggledColors;
 
 import java.awt.*;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class BoggledButton extends BoggledClickable {
@@ -70,8 +71,12 @@ public class BoggledButton extends BoggledClickable {
 
     @Override
     public void onClick(State state) throws SQLException {
-        clickAction.execute(state);
-        //state.getAudioPlayer().playSound("SFX_UI_MenuSelections.wav");
+	    try {
+		    clickAction.execute(state);
+	    } catch (IOException | FontFormatException e) {
+		    throw new RuntimeException(e);
+	    }
+	    //state.getAudioPlayer().playSound("SFX_UI_MenuSelections.wav");
     }
 
     @Override

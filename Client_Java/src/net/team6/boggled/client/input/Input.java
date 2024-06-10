@@ -1,6 +1,6 @@
 package net.team6.boggled.client.input;
 
-import Client_Java.net.team6.boggled.common.core.Position;
+import net.team6.boggled.common.core.Position;
 
 import java.awt.event.*;
 import java.util.ArrayList;

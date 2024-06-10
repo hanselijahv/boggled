@@ -1,11 +1,11 @@
 package net.team6.boggled.client.game;
 
-import Client_Java.net.team6.boggled.client.display.Display;
-import Client_Java.net.team6.boggled.client.game.settings.GameSettings;
-import Client_Java.net.team6.boggled.client.input.Input;
-import Client_Java.net.team6.boggled.client.state.State;
-import Client_Java.net.team6.boggled.client.state.entry.EntryState;
-import Client_Java.net.team6.boggled.common.core.Size;
+import net.team6.boggled.client.display.Display;
+import net.team6.boggled.client.game.settings.GameSettings;
+import net.team6.boggled.client.input.Input;
+import net.team6.boggled.client.state.State;
+import net.team6.boggled.client.state.entry.EntryState;
+import net.team6.boggled.common.core.Size;
 
 import java.awt.*;
 import java.io.IOException;

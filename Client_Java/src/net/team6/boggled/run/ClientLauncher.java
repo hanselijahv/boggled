@@ -1,8 +1,7 @@
 package net.team6.boggled.run;
 
-
-import Client_Java.net.team6.boggled.client.game.Game;
-import Server_Java.BoggledApp.Boggled;
+import BoggledApp.Boggled;
+import net.team6.boggled.client.game.Game;
 
 import java.applet.Applet;
 import java.awt.*;

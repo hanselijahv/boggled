@@ -1,9 +1,9 @@
 package net.team6.boggled.client.gui.component;
 
-import Client_Java.net.team6.boggled.client.gui.tools.Spacing;
-import Client_Java.net.team6.boggled.client.state.State;
-import Client_Java.net.team6.boggled.common.core.Size;
-import Client_Java.net.team6.boggled.utilities.ImageUtils;
+import net.team6.boggled.client.gui.tools.Spacing;
+import net.team6.boggled.client.state.State;
+import net.team6.boggled.common.core.Size;
+import net.team6.boggled.utilities.ImageUtils;
 
 import java.awt.*;
 import java.sql.SQLException;

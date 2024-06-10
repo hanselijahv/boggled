@@ -1,15 +1,15 @@
 package net.team6.boggled.client.state;
 
-import Client_Java.net.team6.boggled.client.audio.AudioPlayer;
-import Client_Java.net.team6.boggled.client.game.Game;
-import Client_Java.net.team6.boggled.client.game.settings.GameSettings;
-import Client_Java.net.team6.boggled.client.game.time.Time;
-import Client_Java.net.team6.boggled.client.gui.component.BoggledCanvas;
-import Client_Java.net.team6.boggled.client.gui.container.AlignableContainer;
-import Client_Java.net.team6.boggled.client.input.Input;
-import Client_Java.net.team6.boggled.client.input.KeyInputConsumer;
-import Client_Java.net.team6.boggled.client.input.MouseHandler;
-import Client_Java.net.team6.boggled.common.core.Size;
+import net.team6.boggled.client.audio.AudioPlayer;
+import net.team6.boggled.client.game.Game;
+import net.team6.boggled.client.game.settings.GameSettings;
+import net.team6.boggled.client.game.time.Time;
+import net.team6.boggled.client.gui.component.BoggledCanvas;
+import net.team6.boggled.client.gui.container.AlignableContainer;
+import net.team6.boggled.client.input.Input;
+import net.team6.boggled.client.input.KeyInputConsumer;
+import net.team6.boggled.client.input.MouseHandler;
+import net.team6.boggled.common.core.Size;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

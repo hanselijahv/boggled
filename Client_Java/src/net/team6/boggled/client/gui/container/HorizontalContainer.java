@@ -1,8 +1,8 @@
 package net.team6.boggled.client.gui.container;
 
-import Client_Java.net.team6.boggled.client.gui.component.BoggledComponent;
-import Client_Java.net.team6.boggled.common.core.Position;
-import Client_Java.net.team6.boggled.common.core.Size;
+import net.team6.boggled.client.gui.component.BoggledComponent;
+import net.team6.boggled.common.core.Position;
+import net.team6.boggled.common.core.Size;
 
 public class HorizontalContainer extends BoggledContainer {
     @Override

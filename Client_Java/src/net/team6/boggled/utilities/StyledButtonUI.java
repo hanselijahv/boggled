@@ -1,7 +1,7 @@
 package net.team6.boggled.utilities;
 
-import Client_Java.net.team6.boggled.client.audio.AudioPlayer;
-import Client_Java.net.team6.boggled.client.game.settings.GameSettings;
+import net.team6.boggled.client.audio.AudioPlayer;
+import net.team6.boggled.client.game.settings.GameSettings;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
