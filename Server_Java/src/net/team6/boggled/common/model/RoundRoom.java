@@ -147,13 +147,14 @@ public class RoundRoom {
 
 	private void loadDictionary() {
 		dictionary = new HashSet<>();
-		try (BufferedReader br = new BufferedReader(new FileReader("res/text/words.txt"))) {
+		try (BufferedReader br = new BufferedReader(new FileReader("Server_Java/res/text/words.txt"))) {
 			String line;
 			while ((line = br.readLine()) != null) {
 				dictionary.add(line.toLowerCase());
 			}
 		} catch (IOException e) {
 			System.err.println("Error reading dictionary file: " + e.getMessage());
+			e.printStackTrace(System.out);
 			System.exit(1);
 		}
 	}

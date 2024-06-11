@@ -227,7 +227,7 @@ public class InGameState extends JFrame {
 
     public static void loadDictionary() {
         dictionary = new HashSet<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("res/text/words.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("Client_Java/res/text/words.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 dictionary.add(line.toLowerCase());
