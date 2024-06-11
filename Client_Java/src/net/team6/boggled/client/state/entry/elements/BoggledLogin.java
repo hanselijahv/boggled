@@ -2,6 +2,7 @@ package net.team6.boggled.client.state.entry.elements;
 
 import BoggledApp.AlreadyLoggedInException;
 import BoggledApp.UserNotFoundException;
+import net.team6.boggled.client.display.Display;
 import net.team6.boggled.client.gui.clickable.BoggledButton;
 import net.team6.boggled.client.gui.container.BoggledContainer;
 import net.team6.boggled.client.gui.container.VerticalContainer;
@@ -13,6 +14,8 @@ import net.team6.boggled.client.state.menu.MenuState;
 import net.team6.boggled.common.core.Value;
 import net.team6.boggled.run.Connect;
 
+import javax.swing.*;
+
 public class BoggledLogin extends VerticalContainer {
     private final Value<String> username;
     private final Value<String> password;
@@ -23,9 +26,9 @@ public class BoggledLogin extends VerticalContainer {
         this.password = new Value<>("");
         centerChildren = true;
 
-        setPadding(new Spacing(0,0,50,0));
+        setPadding(new Spacing(0, 0, 50, 0));
         final BoggledHeader header = new BoggledHeader("Boggled", 120);
-        header.setPadding(new Spacing(0,0,50,0));
+        header.setPadding(new Spacing(0, 0, 50, 0));
         addUIComponent(header);
 
         BoggledContainer contentContainer = new VerticalContainer();
@@ -72,9 +75,11 @@ public class BoggledLogin extends VerticalContainer {
                 //Connect.sessionID = Connect.boggledImpl.getSessionId(user);
                 state.setNextState(new MenuState(state.getWindowSize(), state.getInput(), state.getGameSettings()));
             } catch (UserNotFoundException e) {
-                System.err.println("User '" + user + "' not found or invalid credentials.");
+                JOptionPane.showMessageDialog(null, "User " + user + " not found or invalid credentials.");
             } catch (AlreadyLoggedInException e) {
-                System.err.println("User '" + user + "' already logged in.");
+                JOptionPane.showMessageDialog(null, "User " + user + " already logged in");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "An error occurred while trying to login.");
             }
         });
     }
