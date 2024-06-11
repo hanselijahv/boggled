@@ -35,8 +35,7 @@ public class BoggledMainMenu extends VerticalContainer {
         addUIComponent(new BoggledButton("OPTIONS", 16, (state) -> ((MenuState) state).enterMenu(new BoggledOptionMenu(state.getGameSettings()))));
         addUIComponent(new BoggledButton("LOGOUT", 16, (state) -> {
             try {
-                // TODO
-                //Connect.boggledImpl.logout(Connect.sessionID);
+                Connect.boggledImpl.logout(Connect.username);
                 state.setNextState(new EntryState(state.getWindowSize(), state.getInput(), state.getGameSettings()));
             } catch (Exception e) {
                 System.out.println(e.getMessage());

@@ -1,9 +1,6 @@
 package net.team6.boggled.run;
 
-import BoggledApp.AlreadyLoggedInException;
-import BoggledApp.BoggledPOA;
-import BoggledApp.Callback;
-import BoggledApp.UserNotFoundException;
+import BoggledApp.*;
 import net.team6.boggled.common.model.GameRoom;
 import net.team6.boggled.common.model.Player;
 import net.team6.boggled.common.model.RoundRoom;
@@ -135,14 +132,13 @@ public class BoggledImplementation extends BoggledPOA {
         return room.isReadyToStart();
     }
 
-    //TODO: FOR GAME ROOM
+
     @Override
     public boolean submitWord(String gameID, String playerName, String word, BooleanHolder isValid, BooleanHolder canForm, StringHolder response) {
         GameRoom gameRoom = gameRooms.get(gameID);
         RoundRoom roundRoom = gameRoom.getCurrentRound();
-        if (roundRoom.canFormWord(word)) {
-            System.out.println(word);
-            isValid.value = roundRoom.getDictionary().contains(word.toLowerCase());
+        if (roundRoom.getDictionary().contains(word.toLowerCase())) {
+            isValid.value = true;
             canForm.value = true;
             response.value = "Word is valid!";
             roundRoom.submitWord(playerName,word);
@@ -154,13 +150,14 @@ public class BoggledImplementation extends BoggledPOA {
         }
     }
 
-    /* private void logout(String username) throws NotLoggedInException {
+    @Override
+    public void logout(String username) throws NotLoggedInException {
         if (loggedInUsers.contains(username)) {
             loggedInUsers.remove(username);
         } else {
             throw new NotLoggedInException("User not logged in: " + username);
         }
-    }*/
+    }
 
     private String generateSessionId() {
         return UUID.randomUUID().toString();

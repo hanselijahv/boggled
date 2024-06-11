@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ClientLauncher" type="Application" factoryName="Application" nameIsGenerated="true">
+    <option name="MAIN_CLASS_NAME" value="net.team6.boggled.run.ClientLauncher" />
+    <module name="Client_Java" />
+    <option name="PROGRAM_PARAMETERS" value="-ORBInitialPort 1055 -ORBInitialHost localhost" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="net.team6.boggled.run.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

@@ -12,6 +12,10 @@ module BoggledApp {
           string reason;
      };
 
+  exception NotLoggedInException{
+          string reason;
+     };
+
   interface Callback {
         void message(in string message);
      };
@@ -26,5 +30,6 @@ module BoggledApp {
         boolean submitWord(in string gameID, in string playerName, in string word, out boolean isValid, out boolean canForm, out string response);
         string getGameID(in Callback objRef, in string playerName);
         string getLetters(in string gameID);
+        void logout(in string username) raises (NotLoggedInException);
   };
 };
