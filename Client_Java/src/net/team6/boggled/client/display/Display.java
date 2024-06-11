@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.image.BufferStrategy;
+import java.util.Objects;
 
 
 public class Display extends JFrame {
@@ -21,7 +22,7 @@ public class Display extends JFrame {
     private final Renderer renderer;
 
     public Display(int width, int height, Input input, ResizeCallback resizeCallback) {
-        ImageIcon img = new ImageIcon("res/icons/clientIcon.png");
+        ImageIcon img = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("icons/clientIcon.png")));
         this.setIconImage(img.getImage());
         setTitle("Boggled");
         setDefaultCloseOperation(EXIT_ON_CLOSE);

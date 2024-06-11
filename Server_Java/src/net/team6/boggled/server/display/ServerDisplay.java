@@ -11,6 +11,8 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.image.BufferStrategy;
+import java.io.InputStream;
+import java.util.Objects;
 
 public class ServerDisplay extends JFrame {
 
@@ -19,7 +21,7 @@ public class ServerDisplay extends JFrame {
 
 
     public ServerDisplay(int width, int height, ServerInput serverInput, ResizeCallback resizeCallback) {
-        ImageIcon img = new ImageIcon("res/icons/serverIcon.png");
+        ImageIcon img = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("icons/serverIcon.png")));
         this.setIconImage(img.getImage());
 
         setTitle("Boggled Server Settings");
