@@ -154,6 +154,14 @@ public class BoggledImplementation extends BoggledPOA {
         }
     }
 
+    /* private void logout(String username) throws NotLoggedInException {
+        if (loggedInUsers.contains(username)) {
+            loggedInUsers.remove(username);
+        } else {
+            throw new NotLoggedInException("User not logged in: " + username);
+        }
+    }*/
+
     private String generateSessionId() {
         return UUID.randomUUID().toString();
     }
@@ -165,4 +173,5 @@ public class BoggledImplementation extends BoggledPOA {
     public ConcurrentHashMap<String, GameRoom> getGameRooms() {
         return gameRooms;
     }
+
 }
