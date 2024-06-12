@@ -112,7 +112,6 @@ public class BoggledImplementation extends BoggledPOA {
     public String getLetters(String gameID) {
         GameRoom gameRoom = gameRooms.get(gameID);
         List<Character> lettersList = gameRoom.getCurrentRound().getRandomLetters();
-        System.out.println("LETTERS: " + lettersList);
         StringBuilder stringBuilder = new StringBuilder(lettersList.size());
         for (Character character : lettersList) {
             stringBuilder.append(character);
@@ -157,6 +156,53 @@ public class BoggledImplementation extends BoggledPOA {
         } else {
             throw new NotLoggedInException("User not logged in: " + username);
         }
+    }
+
+    @Override
+    public String gameScore(String gameID){
+        GameRoom gameRoom = gameRooms.get(gameID);
+        StringBuilder scores = new StringBuilder("Current Game scores:\n");
+        for (Map.Entry<String, Integer> entry : gameRoom.getPlayerStandings().entrySet()) {
+            scores.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+        }
+        return scores.toString();
+    }
+
+    @Override
+    public int roundPoints(String gameID, String username){
+        GameRoom gameRoom = gameRooms.get(gameID);
+        RoundRoom roundRoom = gameRoom.getCurrentRound();
+        return roundRoom.getPlayerPoint(username);
+    }
+
+    @Override
+    public int playerPoints(String gameId, String username){
+        GameRoom gameRoom = gameRooms.get(gameId);
+        return gameRoom.getPlayerPoints(username);
+    }
+
+    @Override
+    public String gameWinner(String gameId){
+        GameRoom gameRoom = gameRooms.get(gameId);
+        return gameRoom.getGameWinner();
+    }
+
+    @Override
+    public boolean isGameFinished(String gameId){
+        GameRoom gameRoom = gameRooms.get(gameId);
+        return gameRoom.gameOver();
+    }
+
+    @Override
+    public String roundWinner(String gameId){
+        GameRoom gameRoom = gameRooms.get(gameId);
+        return gameRoom.getCurrentRound().getRoundWinner();
+    }
+
+    @Override
+    public int currentRound(String gameId){
+        GameRoom gameRoom = gameRooms.get(gameId);
+        return gameRoom.getCurrentRoundNumber();
     }
 
     private String generateSessionId() {

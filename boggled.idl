@@ -31,5 +31,12 @@ module BoggledApp {
         string getGameID(in Callback objRef, in string playerName);
         string getLetters(in string gameID);
         void logout(in string username) raises (NotLoggedInException);
+        string gameWinner(in string gameID);
+        string roundWinner(in string gameID);
+        long roundPoints(in string gameID, in string playerName);
+        long playerPoints(in string gameID, in string playerName);
+        boolean isGameFinished(in string gameID);
+        string gameScore(in string gameID);
+        long currentRound(in string gameID);
   };
 };

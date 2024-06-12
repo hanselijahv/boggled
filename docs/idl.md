@@ -1,4 +1,4 @@
-# Generating IDL Files for Client and Server
+# Generating IDL Files for terminalclient.Client and Server
 
 This document provides the commands needed to generate Interface Definition Language (IDL) files for both the client and the server in the Boggled game project.
 
@@ -16,7 +16,7 @@ idlj -fall -td "../Server_Java/src" "../CORBA IDL/boggled.idl"
 
 This command will generate all files (`-fall`) for the `boggled.idl` file and place them in the `Server_Java/src` directory.
 
-## Generating IDL Files for the Client
+## Generating IDL Files for the terminalclient.Client
 
 To generate IDL files for the client, navigate to the root directory of your project and run the following command:
 

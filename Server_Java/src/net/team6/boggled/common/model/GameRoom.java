@@ -43,8 +43,7 @@ public class GameRoom {
 				System.out.println(playerWordsListMap);
 				getCurrentRound().endRound();
 				if(gameOver()){
-					System.out.println("GAME OVER");
-					System.exit(0);
+					return;
 				}
 				try {
 					Thread.sleep(3000);
@@ -89,6 +88,12 @@ public class GameRoom {
 		return false;
 	}
 
+
+	public int getPlayerPoints(String username) {
+		return playerScores.getOrDefault(username, 0);
+	}
+
+
 	public int getRoundTime() {
 		int roundTime;
 		try {
@@ -122,7 +127,7 @@ public class GameRoom {
 	}
 
 	public void printGameScores() {
-		System.out.println("Current scores:");
+		System.out.println("Current Game scores:");
 		for (Map.Entry<String, Integer> entry : playerStandings.entrySet()) {
 			System.out.println(entry.getKey() + ": " + entry.getValue());
 		}

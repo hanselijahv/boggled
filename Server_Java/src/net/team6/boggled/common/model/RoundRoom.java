@@ -24,6 +24,17 @@ public class RoundRoom {
 		this.players = players;
 		loadDictionary();
 		randomLetters = generateRandomLetters();
+		printPossibleWords();
+		printLetters();
+	}
+
+	public String printLetters() {
+		List<Character> lettersList = randomLetters;
+		StringBuilder stringBuilder = new StringBuilder(lettersList.size());
+		for (Character character : lettersList) {
+			stringBuilder.append(character);
+		}
+		return stringBuilder.toString();
 	}
 
 	public void submitWord(String playerName, String word) {
@@ -36,6 +47,16 @@ public class RoundRoom {
 		} else {
 			System.out.println("Invalid word submission by " + playerName + ": " + word);
 		}
+	}
+
+	public void printPossibleWords() {
+		List<String> possibleWords = new ArrayList<>();
+		for (String word : dictionary) {
+			if (canFormWord(word)) {
+				possibleWords.add(word);
+			}
+		}
+		System.out.println(String.join(", ", possibleWords));
 	}
 
 	public void endRound() {
@@ -68,8 +89,12 @@ public class RoundRoom {
 		printRoundScores();
 	}
 
+	public int getPlayerPoint(String username) {
+		return roundScores.getOrDefault(username, 0);
+	}
+
 	public void printRoundScores() {
-		System.out.println("Current scores:");
+		System.out.println("Current Round scores:");
 		for (Map.Entry<String, Integer> entry : roundScores.entrySet()) {
 			System.out.println(entry.getKey() + ": " + entry.getValue());
 		}
