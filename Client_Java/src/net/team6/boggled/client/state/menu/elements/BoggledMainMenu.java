@@ -27,8 +27,6 @@ public class BoggledMainMenu extends VerticalContainer {
         addUIComponent(new BoggledButton("PLAY GAME", 16, (state) -> {
             Connect.boggledImpl.joinWaitingRoom(Connect.username);
             state.setNextState(new WaitingState(state.getWindowSize(), state.getInput(), state.getGameSettings()));
-
-
         }));
 
         addUIComponent(new BoggledButton("LEADERBOARDS", 16, (state) -> ((MenuState) state).enterMenu(new BoggledLeaderboards())));

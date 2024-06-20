@@ -32,17 +32,10 @@ public class WaitingState extends State {
 
     public WaitingState(Size windowSize, Input input, GameSettings gameSettings) throws SQLException, IOException, FontFormatException {
         super(windowSize, input, gameSettings);
-
         gameMenu = new BoggledWaitingMenu(input, gameSettings);
         inputEnabled = true;
         gameTimer = new Timer(Double.parseDouble(Connect.boggledImpl.getWaitingTime(Connect.cref)), this::endWaiting);
         initializeUI();
-
-        boolean isReadyToStart = Connect.boggledImpl.isGameReadyToStart();
-        System.out.println(isReadyToStart);
-
-        //audioPlayer.playMusic("main.wav");
-
     }
 
     private void initializeUI() {

@@ -53,7 +53,7 @@ public class WaitingRoom {
 				System.out.println("Waiting room dissolved: " + creator);
 				timer.cancel();
 			}
-		}, timerDuration * 1000);
+		}, (timerDuration + 2) * 1000);
 	}
 
 	public void joinPlayer(String playerName) {
