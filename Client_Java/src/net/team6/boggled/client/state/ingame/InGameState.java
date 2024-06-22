@@ -8,7 +8,6 @@ import net.team6.boggled.run.Connect;
 import net.team6.boggled.utilities.BoggledColors;
 import net.team6.boggled.utilities.FontUtils;
 import net.team6.boggled.utilities.StyledButtonUI;
-import org.omg.CORBA.Object;
 
 import javax.swing.Timer;
 import javax.swing.*;
@@ -20,8 +19,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.List;
@@ -50,11 +47,10 @@ public class InGameState extends JFrame {
     private final Font textFieldFont = FontUtils.loadFont("/font/MP16REG.ttf", 42);
 
     // TODO: tidying
-    private static Boggled boggledImpl = Connect.boggledImpl;
-    private static Callback cref = Connect.cref;
-    private static String playerName = Connect.username;
-    private static String gameID = Connect.boggledImpl.getGameID(cref, playerName);
-    private static final String GAME_DURATION = boggledImpl.getRoundTime(cref, gameID);
+    private final static Boggled boggledImpl = Connect.boggledImpl;
+    private final static Callback cref = Connect.cref;
+    private final static String playerName = Connect.username;
+    private final static String gameID = Connect.boggledImpl.getGameID(cref, playerName);
 
 
     public InGameState(GameSettings gameSettings) throws IOException, FontFormatException {
@@ -70,8 +66,13 @@ public class InGameState extends JFrame {
         System.out.println("cref: " + cref.toString());
         System.out.println("Playername: " + playerName.toString());
         System.out.println("gameID: " + gameID.toString());
-        System.out.println("GameDuration: " + GAME_DURATION.toString());
 
+
+        try {
+            Thread.sleep(1100);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
         addUIComponents();
         setVisible(true);
 
@@ -95,10 +96,10 @@ public class InGameState extends JFrame {
         titleLabel = new JLabel("", SwingConstants.CENTER);
         titleLabel.setForeground(BoggledColors.PRIMARY_COLOR);
         titleLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
-        // TODO
-//        titleLabel.setText("00:" + Connect.boggledImpl.getRoundTime());
-//        second = Connect.boggledImpl.getRoundTime();
-        minute = 0;
+        String GAME_DURATION = boggledImpl.getRoundTime(cref, gameID);
+        minute = Integer.parseInt(GAME_DURATION) / 60;
+        second = Integer.parseInt(GAME_DURATION)  % 60;
+
         countdownTimer();
         timer.start();
 
