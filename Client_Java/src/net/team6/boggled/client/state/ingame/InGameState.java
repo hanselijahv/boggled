@@ -1,10 +1,14 @@
 package net.team6.boggled.client.state.ingame;
 
+import BoggledApp.Boggled;
+import BoggledApp.Callback;
 import net.team6.boggled.client.audio.AudioPlayer;
 import net.team6.boggled.client.game.settings.GameSettings;
+import net.team6.boggled.run.Connect;
 import net.team6.boggled.utilities.BoggledColors;
 import net.team6.boggled.utilities.FontUtils;
 import net.team6.boggled.utilities.StyledButtonUI;
+import org.omg.CORBA.Object;
 
 import javax.swing.Timer;
 import javax.swing.*;
@@ -33,7 +37,8 @@ public class InGameState extends JFrame {
     private static Set<String> dictionary;
     private static final List<String> words = new ArrayList<>();
     private static final int MIN_WORD_LENGTH = 4;
-    private static final int GAME_DURATION = 30;
+
+
     JLabel titleLabel;
     int second, minute;
     String ddSecond, ddMinute;
@@ -44,6 +49,13 @@ public class InGameState extends JFrame {
     private final Font font = FontUtils.loadFont("/font/MP16REG.ttf", 68);
     private final Font textFieldFont = FontUtils.loadFont("/font/MP16REG.ttf", 42);
 
+    private static Boggled boggledImpl = Connect.boggledImpl;
+    private static Callback cref = Connect.cref;
+    private static String playerName = Connect.username;
+    private static String gameID = Connect.boggledImpl.getGameID(cref, playerName);
+    private static final String GAME_DURATION = boggledImpl.getRoundTime(cref, gameID);
+
+
     public InGameState(GameSettings gameSettings) throws IOException, FontFormatException {
         AudioPlayer audioPlayer = new AudioPlayer(gameSettings.getAudioSettings());
         setTitle("Boggled");
@@ -52,6 +64,12 @@ public class InGameState extends JFrame {
         getContentPane().setBackground(BoggledColors.SYSTEM_COLOR);
         setExtendedState(Frame.MAXIMIZED_BOTH);
 
+        // test TODO: Delete
+        System.out.println("boggledImpl: " + boggledImpl.toString());
+        System.out.println("cref: " + cref.toString());
+        System.out.println("Playername: " + playerName.toString());
+        System.out.println("gameID: " + gameID.toString());
+        System.out.println("GameDuration: " + GAME_DURATION.toString());
 
         loadDictionary();
         addUIComponents();
