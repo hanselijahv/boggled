@@ -49,6 +49,7 @@ public class InGameState extends JFrame {
     private final Font font = FontUtils.loadFont("/font/MP16REG.ttf", 68);
     private final Font textFieldFont = FontUtils.loadFont("/font/MP16REG.ttf", 42);
 
+    // TODO: tidying
     private static Boggled boggledImpl = Connect.boggledImpl;
     private static Callback cref = Connect.cref;
     private static String playerName = Connect.username;
@@ -71,7 +72,6 @@ public class InGameState extends JFrame {
         System.out.println("gameID: " + gameID.toString());
         System.out.println("GameDuration: " + GAME_DURATION.toString());
 
-        loadDictionary();
         addUIComponents();
         setVisible(true);
 
@@ -119,7 +119,11 @@ public class InGameState extends JFrame {
         JPanel gridPanel = new JPanel(new GridLayout(2, 10, 5, 5)); // 5 pixel gaps
         gridPanel.setBackground(BoggledColors.SYSTEM_COLOR);
 
-        letters = generateRandomLetters();
+        letters = getLetters(gameID);
+
+        //TODO: delete
+        System.out.println("LETTERS: " + letters);
+
         for (int i = 0; i < 20; i++) {
             JButton button = new JButton(letters.get(i).toString());
             button.setMargin(new Insets(5, 5, 5, 5));
@@ -243,25 +247,23 @@ public class InGameState extends JFrame {
         return wordScore;
     }
 
-    public static void loadDictionary() {
-        dictionary = new HashSet<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("Client_Java/res/text/words.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                dictionary.add(line.toLowerCase());
-            }
-        } catch (IOException e) {
-            System.err.println("Error reading dictionary file: " + e.getMessage());
-            System.exit(1);
+    public static List<Character> getLetters(String gameID) {
+        if (boggledImpl == null) {
+            throw new IllegalStateException("Boggled Implementation is null");
         }
-    }
+        if (gameID == null) {
+            throw new IllegalArgumentException("Game ID is null");
+        }
 
-    public static List<Character> generateRandomLetters() {
-        List<Character> randomLetters = new ArrayList<>();
-        randomLetters.addAll(generateRandomVowels());
-        randomLetters.addAll(generateRandomConsonants());
-        Collections.shuffle(randomLetters);
-        return randomLetters;
+        System.out.println("TEST gameID: " + gameID);
+        String lettersString = boggledImpl.getLetters(gameID);
+
+        System.out.println("TEST letters: " + lettersString);
+        List<Character> lettersList = new ArrayList<>();
+        for (char c : lettersString.toCharArray()) {
+            lettersList.add(c);
+        }
+        return lettersList;
     }
 
     private static List<Character> generateRandomVowels() {
