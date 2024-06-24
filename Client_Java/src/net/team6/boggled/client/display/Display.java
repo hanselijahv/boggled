@@ -26,7 +26,7 @@ public class Display extends JFrame {
         this.setIconImage(img.getImage());
         setTitle("Boggled");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setUndecorated(false);
 
         addComponentListener(new ComponentAdapter() {
             @Override

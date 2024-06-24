@@ -56,10 +56,10 @@ public class InGameState extends JFrame {
     public InGameState(GameSettings gameSettings) throws IOException, FontFormatException {
         AudioPlayer audioPlayer = new AudioPlayer(gameSettings.getAudioSettings());
         setTitle("Boggled");
-        setUndecorated(true);
+        setUndecorated(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         getContentPane().setBackground(BoggledColors.SYSTEM_COLOR);
-        setExtendedState(Frame.MAXIMIZED_BOTH);
+        setExtendedState(Frame.ICONIFIED);
 
         // test TODO: Delete
         System.out.println("boggledImpl: " + boggledImpl.toString());

@@ -26,7 +26,7 @@ public class ServerDisplay extends JFrame {
 
         setTitle("Boggled Server Settings");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setUndecorated(false);
 
         addComponentListener(new ComponentAdapter() {
             @Override

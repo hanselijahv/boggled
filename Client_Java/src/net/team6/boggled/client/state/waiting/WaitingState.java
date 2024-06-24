@@ -80,7 +80,6 @@ public class WaitingState extends State {
             //audioPlayer.playMusic("SFX_UI_ROOM_ERROR.wav");
             toggleMenu(true);
         }
-
     }
 
     public void toggleScore(boolean show) {
