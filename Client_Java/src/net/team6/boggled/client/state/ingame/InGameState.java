@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 @SuppressWarnings({"Duplicates", "SpellCheckingInspection"})
@@ -37,7 +38,7 @@ public class InGameState extends JFrame {
 
 
     JLabel titleLabel;
-    int second, minute;
+    String second, minute;
     String ddSecond, ddMinute;
     DecimalFormat dFormat = new DecimalFormat("00");
     Timer timer;
@@ -59,7 +60,7 @@ public class InGameState extends JFrame {
         setUndecorated(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         getContentPane().setBackground(BoggledColors.SYSTEM_COLOR);
-        setExtendedState(Frame.ICONIFIED);
+        setExtendedState(Frame.MAXIMIZED_BOTH);
 
         // test TODO: Delete
         System.out.println("boggledImpl: " + boggledImpl.toString());
@@ -97,8 +98,8 @@ public class InGameState extends JFrame {
         titleLabel.setForeground(BoggledColors.PRIMARY_COLOR);
         titleLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
         String GAME_DURATION = boggledImpl.getRoundTime(cref, gameID);
-        minute = Integer.parseInt(GAME_DURATION) / 60;
-        second = Integer.parseInt(GAME_DURATION)  % 60;
+        minute = String.valueOf(Integer.parseInt(GAME_DURATION) / 60);
+        second = String.valueOf(Integer.parseInt(GAME_DURATION)  % 60);
 
         countdownTimer();
         timer.start();
@@ -357,22 +358,24 @@ public class InGameState extends JFrame {
     }
 
     public void countdownTimer() {
+        AtomicInteger intSecond = new AtomicInteger(Integer.parseInt(second));
+        final int[] intMinute = {Integer.parseInt(minute)};
 
         timer = new Timer(1000, e -> {
 
-            second--;
-            ddSecond = dFormat.format(second);
-            ddMinute = dFormat.format(minute);
+            intSecond.getAndDecrement();
+            ddSecond = dFormat.format(intSecond);
+            ddMinute = dFormat.format(intMinute[0]);
             titleLabel.setText(ddMinute + ":" + ddSecond);
 
-            if(second==-1) {
-                second = 59;
-                minute--;
-                ddSecond = dFormat.format(second);
-                ddMinute = dFormat.format(minute);
+            if(intSecond.get() == -1) {
+                intSecond.set(59);
+                intMinute[0]--;
+                ddSecond = dFormat.format(intSecond);
+                ddMinute = dFormat.format(intMinute[0]);
                 titleLabel.setText(ddMinute + ":" + ddSecond);
             }
-            if(minute==0 && second==0) {
+            if(intMinute[0] == 0 && Integer.parseInt(intSecond.toString()) == 0) {
                 timer.stop();
             }
         });
