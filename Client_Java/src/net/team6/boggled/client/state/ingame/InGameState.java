@@ -36,7 +36,7 @@ public class InGameState extends JFrame {
     private final static Callback cref = Connect.cref;
     private final static String playerName = Connect.username;
     private final static String gameID = Connect.boggledImpl.getGameID(cref, playerName);
-    private final static String roundRemainingTime = Connect.boggledImpl.getRoundTime(cref, gameID);
+//    private final static String roundRemainingTime = Connect.boggledImpl.getRoundTime(cref, gameID);
     public static List<Character> letters;
     private static int totalScore;
     public static DefaultListModel<String> listModel = new DefaultListModel<>();
@@ -179,6 +179,7 @@ public class InGameState extends JFrame {
         panel.add(scrollPane, topRightConstraints);
 
         // round number
+
         JLabel roundLabel = new JLabel("ROUND " + Connect.boggledImpl.currentRound(gameID));
         roundLabel.setForeground(BoggledColors.PRIMARY_COLOR);
         roundLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 35));
@@ -193,6 +194,24 @@ public class InGameState extends JFrame {
         topLabelConstraints.fill = GridBagConstraints.HORIZONTAL;
 
         panel.add(roundLabel, topLabelConstraints);
+
+        String playersScores = boggledImpl.gameScore(gameID);
+        System.out.println("GAME SCORE: " +  playersScores);
+
+        JLabel gameScoreLabel = new JLabel("<html>Game Score: <br><br>" + playersScores.replace("\n", "<br>") + "</html>", SwingConstants.LEFT);
+        gameScoreLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+        gameScoreLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 20));
+        gameScoreLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        GridBagConstraints gameScoreLabelConstraints = new GridBagConstraints();
+        gameScoreLabelConstraints.gridx = 0;
+        gameScoreLabelConstraints.gridy = 1;
+        gameScoreLabelConstraints.weightx = 1.0;
+        gameScoreLabelConstraints.weighty = 0.1;
+        gameScoreLabelConstraints.fill = GridBagConstraints.NONE;
+        gameScoreLabelConstraints.anchor = GridBagConstraints.WEST;
+
+        panel.add(gameScoreLabel, gameScoreLabelConstraints);
 
         titleLabel = new JLabel("", SwingConstants.CENTER);
         titleLabel.setForeground(BoggledColors.PRIMARY_COLOR);
@@ -457,6 +476,21 @@ public class InGameState extends JFrame {
                     overlayPanel.add(scoreLabel);
                     overlayPanel.add(Box.createVerticalGlue());
 
+                    JButton menuButton = new JButton("Back to Menu");
+                    menuButton.setForeground(BoggledColors.PRIMARY_COLOR);
+                    menuButton.setBackground(BoggledColors.BUTTON_COLOR);
+                    menuButton.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 42));
+                    menuButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+                    menuButton.setUI(new StyledButtonUI());
+
+                    menuButton.addActionListener(a -> {
+                        // TODO: go to menu
+                    });
+
+                    overlayPanel.add(Box.createVerticalGlue());
+                    overlayPanel.add(menuButton);
+                    overlayPanel.add(Box.createVerticalStrut(40));
+
                     getContentPane().add(overlayPanel);
                     revalidate();
                 } else {
@@ -495,15 +529,19 @@ public class InGameState extends JFrame {
                     JPanel overlayPanel = new JPanel();
                     overlayPanel.setLayout(new BoxLayout(overlayPanel, BoxLayout.Y_AXIS));
                     overlayPanel.setBackground(new Color(0, 0, 0, 250));
+                    overlayPanel.add(Box.createVerticalGlue());
+
                     JLabel roundWinnerLabel = new JLabel("DRAW", SwingConstants.CENTER);
                     roundWinnerLabel.setForeground(BoggledColors.PRIMARY_COLOR);
                     roundWinnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
                     roundWinnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
                     overlayPanel.add(roundWinnerLabel);
                     overlayPanel.add(Box.createVerticalGlue());
+
                     getContentPane().add(overlayPanel);
                     revalidate();
                 }
+
                 Timer delayTimer = new Timer(5000, event -> {
                     getContentPane().removeAll();
                     addUIComponents();

@@ -77,7 +77,6 @@ public class GameRoom {
 				Integer highScore = playerScores.get(gameWinner);
 				if (highScore != null) {
 					winningScore = highScore;
-					System.out.println("WINNING SCORE!:::::: " + winningScore);
 					System.out.println("High score of the game winner " + gameWinner + ": " + highScore);
 				}
 				return true;
@@ -122,6 +121,9 @@ public class GameRoom {
 
 	public void setPlayers(List<String> players) {
 		this.players = players;
+		for (String player : players) {
+			playerStandings.putIfAbsent(player, 0);
+		}
 	}
 
 	public void printGameScores() {
