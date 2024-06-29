@@ -2,6 +2,7 @@ package net.team6.boggled.client.state.ingame;
 
 import BoggledApp.Boggled;
 import BoggledApp.Callback;
+import BoggledApp.NoWinnerException;
 import net.team6.boggled.client.audio.AudioPlayer;
 import net.team6.boggled.client.game.settings.GameSettings;
 import net.team6.boggled.run.Connect;
@@ -233,14 +234,18 @@ public class InGameState extends JFrame {
             Connect.boggledImpl.submitWord(gameID, playerName, inputText, isWordValid, canForm, response);
 
             if (response.value.equalsIgnoreCase("Word is invalid!")) {
+
                 submissionDescription.setText(inputText + " is invalid!");
                 submissionDescription.setForeground(Color.RED);
-            }
 
-            if (response.value.equalsIgnoreCase("Word is valid!")) {
+            } else if (response.value.equalsIgnoreCase("Word is valid")) {
+
                 submissionDescription.setText(inputText + "is valid!");
                 submissionDescription.setForeground(Color.GREEN);
+
             }
+
+
 
             System.out.println(response.value);
             System.out.println("Text entered: " + inputText);
@@ -348,6 +353,51 @@ public class InGameState extends JFrame {
 
             if(intMinute[0] == 0 && Integer.parseInt(intSecond.toString()) == 0) {
                 timer.stop();
+
+                String roundWinner;
+                try {
+                    roundWinner = boggledImpl.roundWinner(gameID);
+                    getContentPane().removeAll();
+                    JPanel overlayPanel = new JPanel();
+                    overlayPanel.setLayout(new BoxLayout(overlayPanel, BoxLayout.Y_AXIS));
+                    overlayPanel.setBackground(new Color(0, 0, 0, 100));
+                    JLabel roundWinnerLabel = new JLabel("Round Winner", SwingConstants.CENTER);
+                    roundWinnerLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+                    roundWinnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
+                    roundWinnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                    overlayPanel.add(Box.createVerticalGlue());
+                    overlayPanel.add(roundWinnerLabel);
+
+                    JLabel winnerLabel = new JLabel(roundWinner, SwingConstants.CENTER);
+                    winnerLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+                    winnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 68));
+                    winnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                    overlayPanel.add(winnerLabel);
+
+                    JLabel scoreLabel = new JLabel("YOUR SCORE: "+boggledImpl.roundPoints(gameID, playerName), SwingConstants.CENTER);
+                    scoreLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+                    scoreLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 42));
+                    scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                    overlayPanel.add(scoreLabel);
+                    overlayPanel.add(Box.createVerticalGlue());
+
+                    getContentPane().add(overlayPanel);
+                    revalidate();
+                } catch (NoWinnerException ex){
+                    getContentPane().removeAll();
+                    JPanel overlayPanel = new JPanel();
+                    overlayPanel.setLayout(new BoxLayout(overlayPanel, BoxLayout.Y_AXIS));
+                    overlayPanel.setBackground(new Color(0, 0, 0, 100));
+                    JLabel roundWinnerLabel = new JLabel("DRAW", SwingConstants.CENTER);
+                    roundWinnerLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+                    roundWinnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
+                    roundWinnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                    overlayPanel.add(roundWinnerLabel);
+                    overlayPanel.add(Box.createVerticalGlue());
+                    getContentPane().add(overlayPanel);
+                    revalidate();
+                }
+
 
                 Timer delayTimer = new Timer(5000, event -> {
                     getContentPane().removeAll();

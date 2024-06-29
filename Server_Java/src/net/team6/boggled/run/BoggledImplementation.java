@@ -194,9 +194,14 @@ public class BoggledImplementation extends BoggledPOA {
     }
 
     @Override
-    public String roundWinner(String gameId){
+    public String roundWinner(String gameId) throws NoWinnerException {
         GameRoom gameRoom = gameRooms.get(gameId);
-        return gameRoom.getCurrentRound().getRoundWinner();
+        gameRoom.getCurrentRound().getRoundWinner();
+        if(gameRoom.getCurrentRound().getRoundWinner() == null){
+            throw new NoWinnerException("No winner for this round");
+        } else {
+            return gameRoom.getCurrentRound().getRoundWinner();
+        }
     }
 
     @Override
