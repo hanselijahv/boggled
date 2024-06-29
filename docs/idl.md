@@ -21,7 +21,7 @@ This command will generate all files (`-fall`) for the `boggled.idl` file and pl
 To generate IDL files for the client, navigate to the root directory of your project and run the following command:
 
 ```bash
-idlj -fclient -td "../Client_Java/src" "../CORBA IDL/boggled.idl"
+idlj -fclient -td "../Client_Java/src" "boggled.idl"
 ```
 
 This command will generate client-side files (`-fclient`) for the `boggled.idl` file and place them in the `Client_JAVA/src` directory.

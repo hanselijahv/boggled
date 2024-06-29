@@ -20,6 +20,10 @@ module BoggledApp {
         void message(in string message);
      };
 
+     struct Leaderboards {
+         sequence<string> leaderboard;
+       };
+
   interface Boggled {
         void login(in string username, in string password) raises (UserNotFoundException, AlreadyLoggedInException);
         void joinWaitingRoom(in string playerName);
@@ -38,5 +42,6 @@ module BoggledApp {
         boolean isGameFinished(in string gameID);
         string gameScore(in string gameID);
         long currentRound(in string gameID);
+        Leaderboards getLeaderboard();
   };
 };
