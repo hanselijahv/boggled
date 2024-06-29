@@ -42,13 +42,12 @@ public class InGameState extends JFrame {
     public static DefaultListModel<String> listModel = new DefaultListModel<>();
     private final Font font = FontUtils.loadFont("/font/MP16REG.ttf", 68);
     private final Font textFieldFont = FontUtils.loadFont("/font/MP16REG.ttf", 42);
-    JLabel titleLabel, submissionDescription;
+    JLabel titleLabel, submissionDescription, wordsLabel;
     String second, minute;
     String ddSecond, ddMinute;
     DecimalFormat dFormat = new DecimalFormat("00");
     Timer timer;
     private JTextField inputField;
-
 
     public InGameState(GameSettings gameSettings) throws IOException, FontFormatException {
         AudioPlayer audioPlayer = new AudioPlayer(gameSettings.getAudioSettings());
@@ -108,21 +107,38 @@ public class InGameState extends JFrame {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(BoggledColors.SYSTEM_COLOR);
 
+        // words label
+        wordsLabel = new JLabel("Words Submitted");
+        wordsLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+        wordsLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 12));
+        wordsLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
+
+        GridBagConstraints topRightLabelConstraints = new GridBagConstraints();
+        topRightLabelConstraints.gridx = 1;
+        topRightLabelConstraints.gridy = 0;
+        topRightLabelConstraints.weightx = 0.1;
+        topRightLabelConstraints.weighty = 0.1;
+        topRightLabelConstraints.anchor = GridBagConstraints.NORTHEAST;
+        topRightLabelConstraints.fill = GridBagConstraints.BOTH;
+        topRightLabelConstraints.insets = new Insets(0, 0, 60, 0);
+
+        panel.add(wordsLabel, topRightLabelConstraints);
+
         // valid submitted words
         JPanel smallPanel = new JPanel();
         smallPanel.setLayout(new BoxLayout(smallPanel, BoxLayout.Y_AXIS));
-        smallPanel.setPreferredSize(new Dimension(10, 100));
+        smallPanel.setPreferredSize(new Dimension(100, 100));
 
 //        listItems = new ArrayList<>();
 //        JList<String> itemList = new JList<>(listItems.toArray(new String[0]));
         JList<String> itemList = new JList<>(listModel);
         itemList.setBackground(BoggledColors.MENU_BACKGROUND_COLOR);
         itemList.setForeground(BoggledColors.PRIMARY_COLOR);
-        itemList.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 20));
+        itemList.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 12));
 
         JScrollPane scrollPane = new JScrollPane(itemList);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
-        scrollPane.setPreferredSize(new Dimension(10, 100));
+        scrollPane.setPreferredSize(new Dimension(100, 100));
 
         // customize scrollbar
         scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
@@ -155,10 +171,11 @@ public class InGameState extends JFrame {
         GridBagConstraints topRightConstraints = new GridBagConstraints();
         topRightConstraints.gridx = 1;
         topRightConstraints.gridy = 0;
-        topRightConstraints.weightx = 0.2;
-        topRightConstraints.weighty = 0.2;
+        topRightConstraints.weightx = 0.1;
+        topRightConstraints.weighty = 0.1;
         topRightConstraints.anchor = GridBagConstraints.NORTHEAST;
         topRightConstraints.fill = GridBagConstraints.BOTH;
+        topRightConstraints.insets = new Insets(50, 0, 0, 40);
         panel.add(scrollPane, topRightConstraints);
 
         // round number
