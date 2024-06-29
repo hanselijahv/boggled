@@ -3,8 +3,10 @@ package net.team6.boggled.client.state.leaderboards.elements;
 import BoggledApp.Leaderboards;
 import net.team6.boggled.client.gui.clickable.BoggledButton;
 import net.team6.boggled.client.gui.component.BoggledComponent;
+import net.team6.boggled.client.gui.component.BoggledHorizontalDivider;
+import net.team6.boggled.client.gui.component.BoggledVerticalDivider;
 import net.team6.boggled.client.gui.container.BoggledContainer;
-import net.team6.boggled.client.gui.container.HorizontalContainer;
+import net.team6.boggled.client.gui.container.GridContainer;
 import net.team6.boggled.client.gui.container.VerticalContainer;
 import net.team6.boggled.client.gui.text.BoggledHeader;
 import net.team6.boggled.client.gui.text.BoggledText;
@@ -26,13 +28,16 @@ public class BoggledLeaderboards extends VerticalContainer {
     }
 
     private BoggledComponent createScoreRows(){
-        BoggledContainer scoreRow = new VerticalContainer();
+        GridContainer scoreGrid = new GridContainer(3); // 3 columns for Place, Username, and Score
 
-        BoggledContainer headerRow = new HorizontalContainer();
-        headerRow.addUIComponent(new BoggledText("PLACE", 16));
-        headerRow.addUIComponent(new BoggledText("USERNAME", 16));
-        headerRow.addUIComponent(new BoggledText("SCORE", 16));
-        scoreRow.addUIComponent(headerRow);
+        scoreGrid.addUIComponent(new BoggledText("PLACE", 18));
+        scoreGrid.addUIComponent(new BoggledText("USERNAME", 18));
+        scoreGrid.addUIComponent(new BoggledText("SCORE", 18));
+
+        // Add a divider
+        scoreGrid.addUIComponent(new BoggledVerticalDivider());
+        scoreGrid.addUIComponent(new BoggledVerticalDivider());
+        scoreGrid.addUIComponent(new BoggledVerticalDivider());
 
         Leaderboards leaderboards = Connect.boggledImpl.getLeaderboard();
         String[] leaderboardArray = leaderboards.leaderboard;
@@ -42,16 +47,12 @@ public class BoggledLeaderboards extends VerticalContainer {
             String username = playerData[0];
             String score = playerData[1];
 
-            BoggledContainer row = new HorizontalContainer();
-            row.addUIComponent(new BoggledText(String.format("%-5s", (i+1) + "."), 16)); // increased width to 5
-            row.addUIComponent(new BoggledText(String.format("%-15s", username), 16)); // increased width to 15
-            row.addUIComponent(new BoggledText(String.format("%-7s", score), 16)); // increased width to 7
-
-            scoreRow.addUIComponent(row);
+            scoreGrid.addUIComponent(new BoggledText((i+1) + ".", 14));
+            scoreGrid.addUIComponent(new BoggledText(username, 14));
+            scoreGrid.addUIComponent(new BoggledText(score, 14));
         }
 
-        return scoreRow;
+        return scoreGrid;
     }
-
 
 }
