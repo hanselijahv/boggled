@@ -377,6 +377,21 @@ public class InGameState extends JFrame {
                     overlayPanel.add(scoreLabel);
                     overlayPanel.add(Box.createVerticalGlue());
 
+                    JButton menuButton = new JButton("Back to Menu");
+                    menuButton.setForeground(BoggledColors.PRIMARY_COLOR);
+                    menuButton.setBackground(BoggledColors.BUTTON_COLOR);
+                    menuButton.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 42));
+                    menuButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+                    menuButton.setUI(new StyledButtonUI());
+
+                    menuButton.addActionListener(a -> {
+                        // TODO: go to menu
+                    });
+
+                    overlayPanel.add(Box.createVerticalGlue());
+                    overlayPanel.add(menuButton);
+                    overlayPanel.add(Box.createVerticalStrut(40));
+
                     getContentPane().add(overlayPanel);
                     revalidate();
                 } else {
@@ -414,15 +429,19 @@ public class InGameState extends JFrame {
                     JPanel overlayPanel = new JPanel();
                     overlayPanel.setLayout(new BoxLayout(overlayPanel, BoxLayout.Y_AXIS));
                     overlayPanel.setBackground(new Color(0, 0, 0, 250));
+                    overlayPanel.add(Box.createVerticalGlue());
+
                     JLabel roundWinnerLabel = new JLabel("DRAW", SwingConstants.CENTER);
                     roundWinnerLabel.setForeground(BoggledColors.PRIMARY_COLOR);
                     roundWinnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
                     roundWinnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
                     overlayPanel.add(roundWinnerLabel);
                     overlayPanel.add(Box.createVerticalGlue());
+
                     getContentPane().add(overlayPanel);
                     revalidate();
                 }
+
                 Timer delayTimer = new Timer(5000, event -> {
                     getContentPane().removeAll();
                     addUIComponents();
