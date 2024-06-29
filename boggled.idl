@@ -40,6 +40,7 @@ module BoggledApp {
         string getLetters(in string gameID);
         void logout(in string username) raises (NotLoggedInException);
         string gameWinner(in string gameID);
+        long getWinnerScore(in string gameID);
         string roundWinner(in string gameID) raises (NoWinnerException);
         long roundPoints(in string gameID, in string playerName);
         long playerPoints(in string gameID, in string playerName);

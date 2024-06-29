@@ -188,6 +188,12 @@ public class BoggledImplementation extends BoggledPOA {
     }
 
     @Override
+    public int getWinnerScore(String gameID) {
+        GameRoom gameRoom = gameRooms.get(gameID);
+        return gameRoom.getWinningScore();
+    }
+
+    @Override
     public boolean isGameFinished(String gameId){
         GameRoom gameRoom = gameRooms.get(gameId);
         return gameRoom.gameOver();

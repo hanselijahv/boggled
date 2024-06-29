@@ -14,9 +14,11 @@ public class GameRoom {
 	private RoundRoom currentRound;
 	public List<String> players;
 	private String gameWinner;
+	private int winningScore;
 	private int currentRoundNumber = 0;
 	public long startTime;
 	private Timer timer;
+
 
 	private int numOfRoundsNeedToWin = getNumRounds();
 	private int roundTime = getRoundTime();
@@ -74,6 +76,8 @@ public class GameRoom {
 				gameWinner = entry.getKey();
 				Integer highScore = playerScores.get(gameWinner);
 				if (highScore != null) {
+					winningScore = highScore;
+					System.out.println("WINNING SCORE!:::::: " + winningScore);
 					System.out.println("High score of the game winner " + gameWinner + ": " + highScore);
 				}
 				return true;
@@ -157,5 +161,9 @@ public class GameRoom {
 
 	public Timer getTimer() {
 		return timer;
+	}
+
+	public int getWinningScore() {
+		return winningScore;
 	}
 }
