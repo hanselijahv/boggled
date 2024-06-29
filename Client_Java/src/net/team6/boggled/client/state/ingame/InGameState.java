@@ -89,14 +89,29 @@ public class InGameState extends JFrame {
         });
 
         audioPlayer.playMusic("main.wav");
-    }
 
+
+    }
 
     public void addUIComponents() {
 
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(BoggledColors.SYSTEM_COLOR);
 
+        JLabel roundLabel = new JLabel("ROUND " + Connect.boggledImpl.currentRound(gameID));
+        roundLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+        roundLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 35));
+        roundLabel.setBorder(new EmptyBorder(20, 30, 0, 0));
+
+        GridBagConstraints topLabelConstraints = new GridBagConstraints();
+        topLabelConstraints.gridx = 0;
+        topLabelConstraints.gridy = -1;
+        topLabelConstraints.weightx = 1.0;
+        topLabelConstraints.weighty = 0.1;
+        topLabelConstraints.anchor = GridBagConstraints.NORTHWEST;
+        topLabelConstraints.fill = GridBagConstraints.HORIZONTAL;
+
+        panel.add(roundLabel, topLabelConstraints);
 
         titleLabel = new JLabel("", SwingConstants.CENTER);
         titleLabel.setForeground(BoggledColors.PRIMARY_COLOR);
@@ -413,12 +428,11 @@ public class InGameState extends JFrame {
             if(intMinute[0] == 0 && Integer.parseInt(intSecond.toString()) == 0) {
                 timer.stop();
 
-                // Add a delay of 5 seconds after the timer stops
                 Timer delayTimer = new Timer(5000, event -> {
-
-                    System.out.println("Starting 0");
-                    countdownTimer();
-
+                    getContentPane().removeAll();
+                    addUIComponents();
+                    revalidate();
+                    repaint();
                 });
                 delayTimer.setRepeats(false); // Make sure the timer only runs once
                 delayTimer.start();
