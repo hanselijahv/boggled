@@ -93,13 +93,25 @@ public class InGameState extends JFrame {
 
     }
 
-
-
     public void addUIComponents() {
 
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(BoggledColors.SYSTEM_COLOR);
 
+        JLabel roundLabel = new JLabel("ROUND " + Connect.boggledImpl.currentRound(gameID));
+        roundLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+        roundLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 35));
+        roundLabel.setBorder(new EmptyBorder(20, 30, 0, 0));
+
+        GridBagConstraints topLabelConstraints = new GridBagConstraints();
+        topLabelConstraints.gridx = 0;
+        topLabelConstraints.gridy = -1;
+        topLabelConstraints.weightx = 1.0;
+        topLabelConstraints.weighty = 0.1;
+        topLabelConstraints.anchor = GridBagConstraints.NORTHWEST;
+        topLabelConstraints.fill = GridBagConstraints.HORIZONTAL;
+
+        panel.add(roundLabel, topLabelConstraints);
 
         titleLabel = new JLabel("", SwingConstants.CENTER);
         titleLabel.setForeground(BoggledColors.PRIMARY_COLOR);
