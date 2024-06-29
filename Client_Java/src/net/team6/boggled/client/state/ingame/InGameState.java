@@ -35,9 +35,8 @@ public class InGameState extends JFrame {
     private final static Callback cref = Connect.cref;
     private final static String playerName = Connect.username;
     private final static String gameID = Connect.boggledImpl.getGameID(cref, playerName);
-    private final static String roundRemainingTime = Connect.boggledImpl.getRoundTime(cref, gameID);
+//    private final static String roundRemainingTime = Connect.boggledImpl.getRoundTime(cref, gameID);
     public static List<Character> letters;
-    private static int totalScore;
     private final Font font = FontUtils.loadFont("/font/MP16REG.ttf", 68);
     private final Font textFieldFont = FontUtils.loadFont("/font/MP16REG.ttf", 42);
     JLabel titleLabel, submissionDescription;
@@ -46,7 +45,6 @@ public class InGameState extends JFrame {
     DecimalFormat dFormat = new DecimalFormat("00");
     Timer timer;
     private JTextField inputField;
-
 
     public InGameState(GameSettings gameSettings) throws IOException, FontFormatException {
         AudioPlayer audioPlayer = new AudioPlayer(gameSettings.getAudioSettings());
@@ -57,13 +55,11 @@ public class InGameState extends JFrame {
         setResizable(false);
         setSize(1290, 800);
 
-
-        // test TODO: Delete
-        System.out.println("boggledImpl: " + boggledImpl.toString());
-        System.out.println("cref: " + cref.toString());
-        System.out.println("Playername: " + playerName.toString());
-        System.out.println("gameID: " + gameID.toString());
-
+//        // test TODO: Delete
+//        System.out.println("boggledImpl: " + boggledImpl.toString());
+//        System.out.println("cref: " + cref.toString());
+//        System.out.println("Playername: " + playerName.toString());
+//        System.out.println("gameID: " + gameID.toString());
 
         try {
             Thread.sleep(1100);
@@ -81,8 +77,6 @@ public class InGameState extends JFrame {
         });
 
         audioPlayer.playMusic("main.wav");
-
-
     }
 
     public static List<Character> getLetters(String gameID) {
@@ -125,6 +119,24 @@ public class InGameState extends JFrame {
         topLabelConstraints.fill = GridBagConstraints.HORIZONTAL;
 
         panel.add(roundLabel, topLabelConstraints);
+
+        String playersScores = boggledImpl.gameScore(gameID);
+        System.out.println("GAME SCORE: " +  playersScores);
+
+        JLabel gameScoreLabel = new JLabel("Game Score: " + playersScores, SwingConstants.CENTER);
+        gameScoreLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+        gameScoreLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 20));
+        gameScoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        GridBagConstraints gameScoreLabelConstraints = new GridBagConstraints();
+        gameScoreLabelConstraints.gridx = 0;
+        gameScoreLabelConstraints.gridy = 1;
+        gameScoreLabelConstraints.weightx = 1.0;
+        gameScoreLabelConstraints.weighty = 0.1;
+        gameScoreLabelConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gameScoreLabelConstraints.anchor = GridBagConstraints.WEST; //
+
+        panel.add(gameScoreLabel, gameScoreLabelConstraints);
 
         titleLabel = new JLabel("", SwingConstants.CENTER);
         titleLabel.setForeground(BoggledColors.PRIMARY_COLOR);

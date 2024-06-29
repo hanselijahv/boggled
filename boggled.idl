@@ -47,6 +47,7 @@ module BoggledApp {
         boolean isGameFinished(in string gameID);
         string gameScore(in string gameID);
         long currentRound(in string gameID);
+        long totalRounds(in string gameID);
         Leaderboards getLeaderboard();
   };
 };
