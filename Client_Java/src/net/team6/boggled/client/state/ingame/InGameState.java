@@ -12,7 +12,6 @@ import net.team6.boggled.utilities.StyledButtonUI;
 import org.omg.CORBA.BooleanHolder;
 import org.omg.CORBA.StringHolder;
 
-import javax.swing.Timer;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
@@ -24,31 +23,29 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @SuppressWarnings({"Duplicates"})
 public class InGameState extends JFrame {
-    private static int totalScore;
-    public static List<Character> letters;
-
-    JLabel titleLabel, submissionDescription;
-    String second, minute;
-    String ddSecond, ddMinute;
-    DecimalFormat dFormat = new DecimalFormat("00");
-    Timer timer;
-
-    private JTextField inputField;
-    private final Font font = FontUtils.loadFont("/font/MP16REG.ttf", 68);
-    private final Font textFieldFont = FontUtils.loadFont("/font/MP16REG.ttf", 42);
-
     // TODO: tidying
     private final static Boggled boggledImpl = Connect.boggledImpl;
     private final static Callback cref = Connect.cref;
     private final static String playerName = Connect.username;
     private final static String gameID = Connect.boggledImpl.getGameID(cref, playerName);
     private final static String roundRemainingTime = Connect.boggledImpl.getRoundTime(cref, gameID);
+    public static List<Character> letters;
+    private static int totalScore;
+    private final Font font = FontUtils.loadFont("/font/MP16REG.ttf", 68);
+    private final Font textFieldFont = FontUtils.loadFont("/font/MP16REG.ttf", 42);
+    JLabel titleLabel, submissionDescription;
+    String second, minute;
+    String ddSecond, ddMinute;
+    DecimalFormat dFormat = new DecimalFormat("00");
+    Timer timer;
+    private JTextField inputField;
 
 
     public InGameState(GameSettings gameSettings) throws IOException, FontFormatException {
@@ -70,7 +67,7 @@ public class InGameState extends JFrame {
 
         try {
             Thread.sleep(1100);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         addUIComponents();
@@ -86,6 +83,25 @@ public class InGameState extends JFrame {
         audioPlayer.playMusic("main.wav");
 
 
+    }
+
+    public static List<Character> getLetters(String gameID) {
+        if (boggledImpl == null) {
+            throw new IllegalStateException("Boggled Implementation is null");
+        }
+        if (gameID == null) {
+            throw new IllegalArgumentException("Game ID is null");
+        }
+
+        System.out.println("TODO TEST gameID: " + gameID);
+        String lettersString = boggledImpl.getLetters(gameID);
+
+        System.out.println("TODO TEST letters: " + lettersString);
+        List<Character> lettersList = new ArrayList<>();
+        for (char c : lettersString.toCharArray()) {
+            lettersList.add(c);
+        }
+        return lettersList;
     }
 
     public void addUIComponents() {
@@ -115,7 +131,7 @@ public class InGameState extends JFrame {
         titleLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
         String GAME_DURATION = boggledImpl.getRoundTime(cref, gameID);
         minute = String.valueOf(Integer.parseInt(GAME_DURATION) / 60);
-        second = String.valueOf(Integer.parseInt(GAME_DURATION)  % 60);
+        second = String.valueOf(Integer.parseInt(GAME_DURATION) % 60);
 
         countdownTimer();
         timer.start();
@@ -201,7 +217,7 @@ public class InGameState extends JFrame {
         inputField.setFont(textFieldFont);
         inputField.setBackground(BoggledColors.MENU_BACKGROUND_COLOR);
         inputField.setForeground(BoggledColors.PRIMARY_COLOR);
-        inputField.setBorder( new EmptyBorder(10, 10, 10, 10));
+        inputField.setBorder(new EmptyBorder(10, 10, 10, 10));
         inputField.setHorizontalAlignment(JTextField.RIGHT);
 
         inputField.addActionListener(e -> {
@@ -273,25 +289,6 @@ public class InGameState extends JFrame {
         return inputField;
     }
 
-    public static List<Character> getLetters(String gameID) {
-        if (boggledImpl == null) {
-            throw new IllegalStateException("Boggled Implementation is null");
-        }
-        if (gameID == null) {
-            throw new IllegalArgumentException("Game ID is null");
-        }
-
-        System.out.println("TODO TEST gameID: " + gameID);
-        String lettersString = boggledImpl.getLetters(gameID);
-
-        System.out.println("TODO TEST letters: " + lettersString);
-        List<Character> lettersList = new ArrayList<>();
-        for (char c : lettersString.toCharArray()) {
-            lettersList.add(c);
-        }
-        return lettersList;
-    }
-
     private boolean isMaxLimitReached(char letter) {
         String input = inputField.getText().toLowerCase();
         long count = input.chars().filter(ch -> ch == letter).count();
@@ -341,7 +338,7 @@ public class InGameState extends JFrame {
             ddMinute = dFormat.format(intMinute[0]);
             titleLabel.setText(ddMinute + ":" + ddSecond);
 
-            if(intSecond.get() == -1) {
+            if (intSecond.get() == -1) {
                 intSecond.set(59);
                 intMinute[0]--;
                 ddSecond = dFormat.format(intSecond);
@@ -349,62 +346,65 @@ public class InGameState extends JFrame {
                 titleLabel.setText(ddMinute + ":" + ddSecond);
             }
 
-            if(intMinute[0] == 0 && Integer.parseInt(intSecond.toString()) == 0) {
+            if (intMinute[0] == 0 && Integer.parseInt(intSecond.toString()) == 0) {
                 timer.stop();
 
-                String roundWinner;
-                try {
-                    roundWinner = boggledImpl.roundWinner(gameID);
-                    getContentPane().removeAll();
-                    JPanel overlayPanel = new JPanel();
-                    overlayPanel.setLayout(new BoxLayout(overlayPanel, BoxLayout.Y_AXIS));
-                    overlayPanel.setBackground(new Color(0, 0, 0, 250));
-                    JLabel roundWinnerLabel = new JLabel("Round Winner", SwingConstants.CENTER);
-                    roundWinnerLabel.setForeground(BoggledColors.PRIMARY_COLOR);
-                    roundWinnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
-                    roundWinnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-                    overlayPanel.add(Box.createVerticalGlue());
-                    overlayPanel.add(roundWinnerLabel);
+                if (boggledImpl.isGameFinished(gameID)) {
+                    String gameWinner = boggledImpl.gameWinner(gameID);
+                    System.out.println("WINNER FOR GAME:" + gameWinner);
+                } else {
+                    String roundWinner;
+                    try {
+                        roundWinner = boggledImpl.roundWinner(gameID);
+                        getContentPane().removeAll();
+                        JPanel overlayPanel = new JPanel();
+                        overlayPanel.setLayout(new BoxLayout(overlayPanel, BoxLayout.Y_AXIS));
+                        overlayPanel.setBackground(new Color(0, 0, 0, 250));
+                        JLabel roundWinnerLabel = new JLabel("Round Winner", SwingConstants.CENTER);
+                        roundWinnerLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+                        roundWinnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
+                        roundWinnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                        overlayPanel.add(Box.createVerticalGlue());
+                        overlayPanel.add(roundWinnerLabel);
 
-                    JLabel winnerLabel = new JLabel(roundWinner, SwingConstants.CENTER);
-                    winnerLabel.setForeground(BoggledColors.PRIMARY_COLOR);
-                    winnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 68));
-                    winnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-                    overlayPanel.add(winnerLabel);
+                        JLabel winnerLabel = new JLabel(roundWinner, SwingConstants.CENTER);
+                        winnerLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+                        winnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 68));
+                        winnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                        overlayPanel.add(winnerLabel);
 
-                    JLabel scoreLabel = new JLabel("YOUR SCORE: "+boggledImpl.roundPoints(gameID, playerName), SwingConstants.CENTER);
-                    scoreLabel.setForeground(BoggledColors.PRIMARY_COLOR);
-                    scoreLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 42));
-                    scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-                    overlayPanel.add(scoreLabel);
-                    overlayPanel.add(Box.createVerticalGlue());
+                        JLabel scoreLabel = new JLabel("YOUR SCORE: " + boggledImpl.roundPoints(gameID, playerName), SwingConstants.CENTER);
+                        scoreLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+                        scoreLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 42));
+                        scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                        overlayPanel.add(scoreLabel);
+                        overlayPanel.add(Box.createVerticalGlue());
 
-                    getContentPane().add(overlayPanel);
-                    revalidate();
-                } catch (NoWinnerException ex){
-                    getContentPane().removeAll();
-                    JPanel overlayPanel = new JPanel();
-                    overlayPanel.setLayout(new BoxLayout(overlayPanel, BoxLayout.Y_AXIS));
-                    overlayPanel.setBackground(new Color(0, 0, 0, 250));
-                    JLabel roundWinnerLabel = new JLabel("DRAW", SwingConstants.CENTER);
-                    roundWinnerLabel.setForeground(BoggledColors.PRIMARY_COLOR);
-                    roundWinnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
-                    roundWinnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-                    overlayPanel.add(roundWinnerLabel);
-                    overlayPanel.add(Box.createVerticalGlue());
-                    getContentPane().add(overlayPanel);
-                    revalidate();
+                        getContentPane().add(overlayPanel);
+                        revalidate();
+                    } catch (NoWinnerException ex) {
+                        getContentPane().removeAll();
+                        JPanel overlayPanel = new JPanel();
+                        overlayPanel.setLayout(new BoxLayout(overlayPanel, BoxLayout.Y_AXIS));
+                        overlayPanel.setBackground(new Color(0, 0, 0, 250));
+                        JLabel roundWinnerLabel = new JLabel("DRAW", SwingConstants.CENTER);
+                        roundWinnerLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+                        roundWinnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
+                        roundWinnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                        overlayPanel.add(roundWinnerLabel);
+                        overlayPanel.add(Box.createVerticalGlue());
+                        getContentPane().add(overlayPanel);
+                        revalidate();
+                    }
+                    Timer delayTimer = new Timer(5000, event -> {
+                        getContentPane().removeAll();
+                        addUIComponents();
+                        revalidate();
+                        repaint();
+                    });
+                    delayTimer.setRepeats(false); // Make sure the timer only runs once
+                    delayTimer.start();
                 }
-
-
-                Timer delayTimer = new Timer(5000, event -> {
-                    getContentPane().removeAll();
-                    addUIComponents();
-                    revalidate();
-                    repaint();
-                });
-                delayTimer.setRepeats(false); // Make sure the timer only runs once
-                delayTimer.start();
             }
         });
         timer.start();
