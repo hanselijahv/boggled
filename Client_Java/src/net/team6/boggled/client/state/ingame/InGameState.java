@@ -89,7 +89,10 @@ public class InGameState extends JFrame {
         });
 
         audioPlayer.playMusic("main.wav");
+
+
     }
+
 
 
     public void addUIComponents() {
@@ -412,8 +415,18 @@ public class InGameState extends JFrame {
             }
             if(intMinute[0] == 0 && Integer.parseInt(intSecond.toString()) == 0) {
                 timer.stop();
+                
+                Timer delayTimer = new Timer(5000, event -> {
+                    getContentPane().removeAll();
+                    addUIComponents();
+                    revalidate();
+                    repaint();
+                });
+                delayTimer.setRepeats(false); // Make sure the timer only runs once
+                delayTimer.start();
             }
         });
+        timer.start();
     }
 
 }
