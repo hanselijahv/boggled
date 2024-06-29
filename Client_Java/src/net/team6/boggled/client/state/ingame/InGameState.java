@@ -233,19 +233,14 @@ public class InGameState extends JFrame {
             Connect.boggledImpl.submitWord(gameID, playerName, inputText, isWordValid, canForm, response);
 
             if (response.value.equalsIgnoreCase("Word is invalid!")) {
-
                 submissionDescription.setText(inputText + " is invalid!");
                 submissionDescription.setForeground(Color.RED);
-
-            } else if (response.value.equalsIgnoreCase("Word is valid")) {
-
-                submissionDescription.setText(inputText + "is valid!");
-                submissionDescription.setForeground(Color.GREEN);
-
             }
 
-            timer.setRepeats(false);
-            timer.start();
+            if (response.value.equalsIgnoreCase("Word is valid!")) {
+                submissionDescription.setText(inputText + "is valid!");
+                submissionDescription.setForeground(Color.GREEN);
+            }
 
             System.out.println(response.value);
             System.out.println("Text entered: " + inputText);
