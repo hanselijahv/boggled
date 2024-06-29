@@ -27,9 +27,6 @@ import java.util.List;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static net.team6.boggled.run.Connect.username;
-
-
 @SuppressWarnings({"Duplicates"})
 public class InGameState extends JFrame {
     private static int totalScore;
@@ -48,7 +45,7 @@ public class InGameState extends JFrame {
     // TODO: tidying
     private final static Boggled boggledImpl = Connect.boggledImpl;
     private final static Callback cref = Connect.cref;
-    private final static String playerName = username;
+    private final static String playerName = Connect.username;
     private final static String gameID = Connect.boggledImpl.getGameID(cref, playerName);
     private final static String roundRemainingTime = Connect.boggledImpl.getRoundTime(cref, gameID);
 
@@ -59,7 +56,9 @@ public class InGameState extends JFrame {
         setUndecorated(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         getContentPane().setBackground(BoggledColors.SYSTEM_COLOR);
-        setExtendedState(Frame.MAXIMIZED_BOTH);
+        setResizable(false);
+        setSize(1290, 800);
+
 
         // test TODO: Delete
         System.out.println("boggledImpl: " + boggledImpl.toString());
@@ -132,13 +131,13 @@ public class InGameState extends JFrame {
 
         // word submission description
 
-        submissionDescription = new JLabel("Your Text Here", SwingConstants.CENTER);
+        submissionDescription = new JLabel("Enter Word", SwingConstants.CENTER);
         submissionDescription.setForeground(BoggledColors.PRIMARY_COLOR);
         submissionDescription.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 20));
 
         GridBagConstraints bottomLabelConstraints = new GridBagConstraints();
         bottomLabelConstraints.gridx = GridBagConstraints.RELATIVE;
-        bottomLabelConstraints.gridy = 3;
+        bottomLabelConstraints.gridy = 2;
         bottomLabelConstraints.gridwidth = GridBagConstraints.REMAINDER;
         bottomLabelConstraints.weightx = 1.0;
         bottomLabelConstraints.weighty = 0.05;
@@ -231,7 +230,23 @@ public class InGameState extends JFrame {
             BooleanHolder isWordValid = new BooleanHolder();
             BooleanHolder canForm = new BooleanHolder();
             StringHolder response = new StringHolder();
-            Connect.boggledImpl.submitWord(gameID, username, inputText, isWordValid, canForm, response);
+            Connect.boggledImpl.submitWord(gameID, playerName, inputText, isWordValid, canForm, response);
+
+            if (response.value.equalsIgnoreCase("Word is invalid!")) {
+
+                submissionDescription.setText(inputText + " is invalid!");
+                submissionDescription.setForeground(Color.RED);
+
+            } else if (response.value.equalsIgnoreCase("Word is valid")) {
+
+                submissionDescription.setText(inputText + "is valid!");
+                submissionDescription.setForeground(Color.GREEN);
+
+            }
+
+            timer.setRepeats(false);
+            timer.start();
+
             System.out.println(response.value);
             System.out.println("Text entered: " + inputText);
             inputField.setText("");
