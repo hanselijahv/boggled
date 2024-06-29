@@ -29,15 +29,16 @@ public class BoggledLeaderboards extends VerticalContainer {
 
     private BoggledComponent createScoreRows(){
         GridContainer scoreGrid = new GridContainer(3); // 3 columns for Place, Username, and Score
+        Alignment centerText = new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER);
 
-        scoreGrid.addUIComponent(new BoggledText("PLACE", 18));
-        scoreGrid.addUIComponent(new BoggledText("USERNAME", 18));
-        scoreGrid.addUIComponent(new BoggledText("SCORE", 18));
+        scoreGrid.addUIComponent(new BoggledText("PLACE", 27));
+        scoreGrid.addUIComponent(new BoggledText("NAME", 27));
+        scoreGrid.addUIComponent(new BoggledText("SCORE", 27));
 
         // Add a divider
-        scoreGrid.addUIComponent(new BoggledVerticalDivider());
-        scoreGrid.addUIComponent(new BoggledVerticalDivider());
-        scoreGrid.addUIComponent(new BoggledVerticalDivider());
+        scoreGrid.addUIComponent(new BoggledVerticalDivider(200));
+        scoreGrid.addUIComponent(new BoggledVerticalDivider(200));
+        scoreGrid.addUIComponent(new BoggledVerticalDivider(200));
 
         Leaderboards leaderboards = Connect.boggledImpl.getLeaderboard();
         String[] leaderboardArray = leaderboards.leaderboard;
@@ -47,9 +48,11 @@ public class BoggledLeaderboards extends VerticalContainer {
             String username = playerData[0];
             String score = playerData[1];
 
-            scoreGrid.addUIComponent(new BoggledText((i+1) + ".", 14));
-            scoreGrid.addUIComponent(new BoggledText(username, 14));
-            scoreGrid.addUIComponent(new BoggledText(score, 14));
+            if (!score.equals("0")) {
+                scoreGrid.addUIComponent(new BoggledText((i+1) + ".", 25));
+                scoreGrid.addUIComponent(new BoggledText(username, 25));
+                scoreGrid.addUIComponent(new BoggledText(score, 25));
+            }
         }
 
         return scoreGrid;
