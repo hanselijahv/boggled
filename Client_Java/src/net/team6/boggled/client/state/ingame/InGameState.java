@@ -16,6 +16,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -37,6 +38,8 @@ public class InGameState extends JFrame {
     private final static String gameID = Connect.boggledImpl.getGameID(cref, playerName);
 //    private final static String roundRemainingTime = Connect.boggledImpl.getRoundTime(cref, gameID);
     public static List<Character> letters;
+    private static int totalScore;
+    public static DefaultListModel<String> listModel = new DefaultListModel<>();
     private final Font font = FontUtils.loadFont("/font/MP16REG.ttf", 68);
     private final Font textFieldFont = FontUtils.loadFont("/font/MP16REG.ttf", 42);
     JLabel titleLabel, submissionDescription;
@@ -55,11 +58,11 @@ public class InGameState extends JFrame {
         setResizable(false);
         setSize(1290, 800);
 
-//        // test TODO: Delete
-//        System.out.println("boggledImpl: " + boggledImpl.toString());
-//        System.out.println("cref: " + cref.toString());
-//        System.out.println("Playername: " + playerName.toString());
-//        System.out.println("gameID: " + gameID.toString());
+        // test TODO: Delete
+        System.out.println("boggledImpl: " + boggledImpl.toString());
+        System.out.println("cref: " + cref.toString());
+        System.out.println("Playername: " + playerName.toString());
+        System.out.println("gameID: " + gameID.toString());
 
         try {
             Thread.sleep(1100);
@@ -77,6 +80,7 @@ public class InGameState extends JFrame {
         });
 
         audioPlayer.playMusic("main.wav");
+
     }
 
     public static List<Character> getLetters(String gameID) {
@@ -102,6 +106,59 @@ public class InGameState extends JFrame {
 
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(BoggledColors.SYSTEM_COLOR);
+
+        // valid submitted words
+        JPanel smallPanel = new JPanel();
+        smallPanel.setLayout(new BoxLayout(smallPanel, BoxLayout.Y_AXIS));
+        smallPanel.setPreferredSize(new Dimension(10, 100));
+
+//        listItems = new ArrayList<>();
+//        JList<String> itemList = new JList<>(listItems.toArray(new String[0]));
+        JList<String> itemList = new JList<>(listModel);
+        itemList.setBackground(BoggledColors.MENU_BACKGROUND_COLOR);
+        itemList.setForeground(BoggledColors.PRIMARY_COLOR);
+        itemList.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 20));
+
+        JScrollPane scrollPane = new JScrollPane(itemList);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.setPreferredSize(new Dimension(10, 100));
+
+        // customize scrollbar
+        scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = BoggledColors.PRIMARY_COLOR;
+                this.trackColor = BoggledColors.MENU_BACKGROUND_COLOR;
+                this.thumbColor = Color.GRAY;
+            }
+
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                return createZeroButton();
+            }
+
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                return createZeroButton();
+            }
+
+            private JButton createZeroButton() {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                button.setMinimumSize(new Dimension(0, 0));
+                button.setMaximumSize(new Dimension(0, 0));
+                return button;
+            }
+        });
+
+        GridBagConstraints topRightConstraints = new GridBagConstraints();
+        topRightConstraints.gridx = 1;
+        topRightConstraints.gridy = 0;
+        topRightConstraints.weightx = 0.2;
+        topRightConstraints.weighty = 0.2;
+        topRightConstraints.anchor = GridBagConstraints.NORTHEAST;
+        topRightConstraints.fill = GridBagConstraints.BOTH;
+        panel.add(scrollPane, topRightConstraints);
 
         // round number
 
@@ -151,9 +208,12 @@ public class InGameState extends JFrame {
         GridBagConstraints titleConstraints = new GridBagConstraints();
         titleConstraints.gridx = 0;
         titleConstraints.gridy = 0;
+        titleConstraints.gridwidth = GridBagConstraints.REMAINDER;
         titleConstraints.weightx = 1.0;
         titleConstraints.weighty = 0.1;
+        titleConstraints.anchor = GridBagConstraints.CENTER;
         titleConstraints.fill = GridBagConstraints.HORIZONTAL;
+
         panel.add(titleLabel, titleConstraints);
 
         JTextField inputField = inputField();
@@ -166,7 +226,7 @@ public class InGameState extends JFrame {
 
         GridBagConstraints bottomLabelConstraints = new GridBagConstraints();
         bottomLabelConstraints.gridx = GridBagConstraints.RELATIVE;
-        bottomLabelConstraints.gridy = 2;
+        bottomLabelConstraints.gridy = 3;
         bottomLabelConstraints.gridwidth = GridBagConstraints.REMAINDER;
         bottomLabelConstraints.weightx = 1.0;
         bottomLabelConstraints.weighty = 0.05;
@@ -174,7 +234,6 @@ public class InGameState extends JFrame {
         bottomLabelConstraints.fill = GridBagConstraints.HORIZONTAL;
 
         panel.add(submissionDescription, bottomLabelConstraints);
-
 
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         buttonPanel.setBackground(BoggledColors.SYSTEM_COLOR);
@@ -204,15 +263,19 @@ public class InGameState extends JFrame {
         GridBagConstraints buttonConstraints = new GridBagConstraints();
         buttonConstraints.gridx = 0;
         buttonConstraints.gridy = 1;
+        buttonConstraints.gridwidth = GridBagConstraints.REMAINDER;
         buttonConstraints.weightx = 1.0;
         buttonConstraints.weighty = 0.9;
-        buttonConstraints.fill = GridBagConstraints.BOTH;
+        buttonConstraints.anchor = GridBagConstraints.CENTER;
+        buttonConstraints.fill = GridBagConstraints.HORIZONTAL;
 
         GridBagConstraints inputFieldConstraints = new GridBagConstraints();
         inputFieldConstraints.gridx = 0;
         inputFieldConstraints.gridy = 2;
+        inputFieldConstraints.gridwidth = GridBagConstraints.REMAINDER;
         inputFieldConstraints.weightx = 1;
         inputFieldConstraints.weighty = 0.1;
+        inputFieldConstraints.anchor = GridBagConstraints.CENTER;
         inputFieldConstraints.insets = new Insets(0, 300, 100, 300);
         inputFieldConstraints.fill = GridBagConstraints.HORIZONTAL;
 
@@ -271,6 +334,12 @@ public class InGameState extends JFrame {
                 submissionDescription.setText(inputText + " is valid!");
                 submissionDescription.setForeground(Color.GREEN);
 
+                if (!listModel.contains(inputText)) {
+                    listModel.addElement(inputText);
+                    System.out.println(listModel);
+                    repaint();
+                    revalidate();
+                }
             }
 
             System.out.println(response.value);
@@ -408,6 +477,7 @@ public class InGameState extends JFrame {
                     revalidate();
                 } else {
                     String roundWinner;
+                    listModel.clear();
                 try {
                     roundWinner = boggledImpl.roundWinner(gameID);
                     getContentPane().removeAll();
