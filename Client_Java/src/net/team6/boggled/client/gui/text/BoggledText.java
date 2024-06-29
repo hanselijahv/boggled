@@ -1,6 +1,7 @@
 package net.team6.boggled.client.gui.text;
 
 import net.team6.boggled.client.gui.component.BoggledComponent;
+import net.team6.boggled.client.gui.tools.Alignment;
 import net.team6.boggled.client.state.State;
 import net.team6.boggled.common.core.Size;
 import net.team6.boggled.utilities.BoggledColors;
@@ -25,6 +26,7 @@ public class BoggledText extends BoggledComponent {
     private Color shadowColor;
 
     private Font font;
+    private Alignment alignment;
 
     public BoggledText(String text, int fontSize) {
         this.text = text;

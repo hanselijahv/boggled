@@ -29,10 +29,11 @@ public class BoggledLeaderboards extends VerticalContainer {
 
     private BoggledComponent createScoreRows(){
         GridContainer scoreGrid = new GridContainer(3); // 3 columns for Place, Username, and Score
+        Alignment centerText = new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER);
 
-        scoreGrid.addUIComponent(new BoggledText("PLACE", 30));
-        scoreGrid.addUIComponent(new BoggledText("NAME", 30));
-        scoreGrid.addUIComponent(new BoggledText("SCORE", 30));
+        scoreGrid.addUIComponent(new BoggledText("PLACE", 27));
+        scoreGrid.addUIComponent(new BoggledText("NAME", 27));
+        scoreGrid.addUIComponent(new BoggledText("SCORE", 27));
 
         // Add a divider
         scoreGrid.addUIComponent(new BoggledVerticalDivider(200));
