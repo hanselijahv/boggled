@@ -27,6 +27,7 @@ public class GameRoom {
 
 	public void start(){
 		currentRound = new RoundRoom(this, players);
+		currentRoundNumber++;
 		startTime = System.currentTimeMillis();
 		timer = new Timer();
 		timer.schedule(new TimerTask() {
@@ -57,7 +58,7 @@ public class GameRoom {
 			}
 		}, roundTime * 1000L);
 		printGameScores();
-		currentRoundNumber++;
+
 	}
 
 	public String getRemainingTime() {
@@ -67,7 +68,6 @@ public class GameRoom {
 		return String.format("%02d", seconds);
 	}
 
-	//TODO: CREATE DAO for the player tables which will compare first the score on the table before insertion
 	public boolean gameOver() {
 		for (Map.Entry<String, Integer> entry : playerStandings.entrySet()) {
 			if (entry.getValue() >= numOfRoundsNeedToWin) {

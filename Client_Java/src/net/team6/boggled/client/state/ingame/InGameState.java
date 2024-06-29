@@ -35,7 +35,7 @@ public class InGameState extends JFrame {
     private static int totalScore;
     public static List<Character> letters;
 
-    JLabel titleLabel;
+    JLabel titleLabel, submissionDescription;
     String second, minute;
     String ddSecond, ddMinute;
     DecimalFormat dFormat = new DecimalFormat("00");
@@ -93,6 +93,8 @@ public class InGameState extends JFrame {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(BoggledColors.SYSTEM_COLOR);
 
+        // round number
+
         JLabel roundLabel = new JLabel("ROUND " + Connect.boggledImpl.currentRound(gameID));
         roundLabel.setForeground(BoggledColors.PRIMARY_COLOR);
         roundLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 35));
@@ -127,6 +129,23 @@ public class InGameState extends JFrame {
         panel.add(titleLabel, titleConstraints);
 
         JTextField inputField = inputField();
+
+        // word submission description
+
+        submissionDescription = new JLabel("Your Text Here", SwingConstants.CENTER);
+        submissionDescription.setForeground(BoggledColors.PRIMARY_COLOR);
+        submissionDescription.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 20));
+
+        GridBagConstraints bottomLabelConstraints = new GridBagConstraints();
+        bottomLabelConstraints.gridx = GridBagConstraints.RELATIVE;
+        bottomLabelConstraints.gridy = 3;
+        bottomLabelConstraints.gridwidth = GridBagConstraints.REMAINDER;
+        bottomLabelConstraints.weightx = 1.0;
+        bottomLabelConstraints.weighty = 0.05;
+        bottomLabelConstraints.anchor = GridBagConstraints.CENTER;
+        bottomLabelConstraints.fill = GridBagConstraints.HORIZONTAL;
+
+        panel.add(submissionDescription, bottomLabelConstraints);
 
 
         JPanel buttonPanel = new JPanel(new GridBagLayout());
@@ -316,6 +335,7 @@ public class InGameState extends JFrame {
                 ddMinute = dFormat.format(intMinute[0]);
                 titleLabel.setText(ddMinute + ":" + ddSecond);
             }
+
             if(intMinute[0] == 0 && Integer.parseInt(intSecond.toString()) == 0) {
                 timer.stop();
 
