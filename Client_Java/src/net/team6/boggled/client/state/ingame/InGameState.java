@@ -199,8 +199,8 @@ public class InGameState extends JFrame {
         System.out.println("GAME SCORE: " +  playersScores);
 
         JLabel gameScoreLabel = new JLabel("<html>Game Score: <br><br>" + playersScores.replace("\n", "<br>") + "</html>", SwingConstants.LEFT);
-        gameScoreLabel.setForeground(BoggledColors.PRIMARY_COLOR);
         gameScoreLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 20));
+        gameScoreLabel.setForeground(BoggledColors.PRIMARY_COLOR);
         gameScoreLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         GridBagConstraints gameScoreLabelConstraints = new GridBagConstraints();
@@ -210,6 +210,7 @@ public class InGameState extends JFrame {
         gameScoreLabelConstraints.weighty = 0.1;
         gameScoreLabelConstraints.fill = GridBagConstraints.NONE;
         gameScoreLabelConstraints.anchor = GridBagConstraints.WEST;
+        gameScoreLabelConstraints.insets = new Insets(0, 30, 0, 0);
 
         panel.add(gameScoreLabel, gameScoreLabelConstraints);
 
@@ -250,6 +251,7 @@ public class InGameState extends JFrame {
         bottomLabelConstraints.weighty = 0.05;
         bottomLabelConstraints.anchor = GridBagConstraints.CENTER;
         bottomLabelConstraints.fill = GridBagConstraints.HORIZONTAL;
+        bottomLabelConstraints.insets = new Insets(0, 300, 100, 300);
 
         panel.add(submissionDescription, bottomLabelConstraints);
 
@@ -294,7 +296,7 @@ public class InGameState extends JFrame {
         inputFieldConstraints.weightx = 1;
         inputFieldConstraints.weighty = 0.1;
         inputFieldConstraints.anchor = GridBagConstraints.CENTER;
-        inputFieldConstraints.insets = new Insets(0, 300, 100, 300);
+        inputFieldConstraints.insets = new Insets(0, 300, 0, 300);
         inputFieldConstraints.fill = GridBagConstraints.HORIZONTAL;
 
         panel.add(inputField, inputFieldConstraints);
