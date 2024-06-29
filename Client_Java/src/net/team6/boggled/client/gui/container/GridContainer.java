@@ -20,8 +20,10 @@ public class GridContainer extends BoggledContainer {
 		// Calculate the size of the grid based on the size of the child components and the number of columns
 		int maxChildWidth = components.stream().mapToInt(component -> component.getSize().getWidth()).max().orElse(0);
 		int maxChildHeight = components.stream().mapToInt(component -> component.getSize().getHeight()).max().orElse(0);
+
 		int totalWidth = maxChildWidth * columns;
 		int totalHeight = maxChildHeight * ((components.size() + columns - 1) / columns);
+
 		return new Size(totalWidth, totalHeight);
 	}
 
@@ -30,6 +32,8 @@ public class GridContainer extends BoggledContainer {
 		// Position the child components in a grid
 		int maxChildWidth = components.stream().mapToInt(component -> component.getSize().getWidth()).max().orElse(0);
 		int maxChildHeight = components.stream().mapToInt(component -> component.getSize().getHeight()).max().orElse(0);
+		int totalWidth = maxChildWidth * columns;
+
 		for (int i = 0; i < components.size(); i++) {
 			int x = (i % columns) * maxChildWidth;
 			int y = (i / columns) * maxChildHeight;

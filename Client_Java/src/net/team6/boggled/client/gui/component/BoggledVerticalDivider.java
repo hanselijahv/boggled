@@ -8,8 +8,8 @@ import java.awt.image.BufferedImage;
 import java.sql.SQLException;
 
 public class BoggledVerticalDivider extends BoggledComponent {
-	public BoggledVerticalDivider() {
-		this.setSize(new Size(100, 2));
+	public BoggledVerticalDivider(int size) {
+		this.setSize(new Size(size, 5));
 	}
 
 	@Override
