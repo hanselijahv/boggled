@@ -234,12 +234,19 @@ public class InGameState extends JFrame {
             Connect.boggledImpl.submitWord(gameID, playerName, inputText, isWordValid, canForm, response);
 
             if (response.value.equalsIgnoreCase("Word is invalid!")) {
+
                 submissionDescription.setText(inputText + " is invalid!");
                 submissionDescription.setForeground(Color.RED);
-            } else if (response.value.equalsIgnoreCase("Word is valid!")) {
+
+            } else if (response.value.equalsIgnoreCase("Word is valid")) {
+
                 submissionDescription.setText(inputText + "is valid!");
                 submissionDescription.setForeground(Color.GREEN);
+
             }
+
+            timer.setRepeats(false);
+            timer.start();
 
             System.out.println(response.value);
             System.out.println("Text entered: " + inputText);
@@ -354,7 +361,7 @@ public class InGameState extends JFrame {
                     getContentPane().removeAll();
                     JPanel overlayPanel = new JPanel();
                     overlayPanel.setLayout(new BoxLayout(overlayPanel, BoxLayout.Y_AXIS));
-                    overlayPanel.setBackground(new Color(0, 0, 0, 250));
+                    overlayPanel.setBackground(new Color(0, 0, 0, 100));
                     JLabel roundWinnerLabel = new JLabel("Round Winner", SwingConstants.CENTER);
                     roundWinnerLabel.setForeground(BoggledColors.PRIMARY_COLOR);
                     roundWinnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
