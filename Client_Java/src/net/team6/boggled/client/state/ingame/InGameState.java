@@ -8,6 +8,8 @@ import net.team6.boggled.run.Connect;
 import net.team6.boggled.utilities.BoggledColors;
 import net.team6.boggled.utilities.FontUtils;
 import net.team6.boggled.utilities.StyledButtonUI;
+import org.omg.CORBA.BooleanHolder;
+import org.omg.CORBA.StringHolder;
 
 import javax.swing.Timer;
 import javax.swing.*;
@@ -25,6 +27,8 @@ import java.util.List;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static net.team6.boggled.run.Connect.username;
+
 
 @SuppressWarnings({"Duplicates", "SpellCheckingInspection"})
 public class InGameState extends JFrame {
@@ -35,7 +39,6 @@ public class InGameState extends JFrame {
     private static Set<String> dictionary;
     private static final List<String> words = new ArrayList<>();
     private static final int MIN_WORD_LENGTH = 4;
-
 
     JLabel titleLabel;
     String second, minute;
@@ -50,8 +53,9 @@ public class InGameState extends JFrame {
     // TODO: tidying
     private final static Boggled boggledImpl = Connect.boggledImpl;
     private final static Callback cref = Connect.cref;
-    private final static String playerName = Connect.username;
+    private final static String playerName = username;
     private final static String gameID = Connect.boggledImpl.getGameID(cref, playerName);
+    private final static String roundRemainingTime = Connect.boggledImpl.getRoundTime(cref, gameID);
 
 
     public InGameState(GameSettings gameSettings) throws IOException, FontFormatException {
@@ -191,6 +195,37 @@ public class InGameState extends JFrame {
 
             @Override
             public void keyReleased(KeyEvent e) {
+            }
+        });
+
+        inputField.addActionListener(e -> {
+            String inputText = inputField.getText();
+            BooleanHolder isWordValid = new BooleanHolder();
+            BooleanHolder canForm = new BooleanHolder();
+            StringHolder response = new StringHolder();
+            Connect.boggledImpl.submitWord(gameID, username, inputText, isWordValid, canForm, response);
+            System.out.println(response.value);
+            System.out.println("Text entered: " + inputText);
+            inputField.setText("");
+        });
+
+        inputField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char typedChar = e.getKeyChar();
+                if (!letters.contains(typedChar) || isMaxLimitReached(typedChar)) {
+                    e.consume();
+                }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
             }
         });
 
