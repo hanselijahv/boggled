@@ -89,7 +89,10 @@ public class InGameState extends JFrame {
         });
 
         audioPlayer.playMusic("main.wav");
+
+
     }
+
 
 
     public void addUIComponents() {
@@ -413,12 +416,11 @@ public class InGameState extends JFrame {
             if(intMinute[0] == 0 && Integer.parseInt(intSecond.toString()) == 0) {
                 timer.stop();
 
-                // Add a delay of 5 seconds after the timer stops
                 Timer delayTimer = new Timer(5000, event -> {
-
-                    System.out.println("Starting 0");
-                    countdownTimer();
-
+                    getContentPane().removeAll();
+                    addUIComponents();
+                    revalidate();
+                    repaint();
                 });
                 delayTimer.setRepeats(false); // Make sure the timer only runs once
                 delayTimer.start();
