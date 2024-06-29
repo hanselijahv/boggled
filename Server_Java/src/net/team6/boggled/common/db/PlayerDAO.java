@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.sql.DriverManager.getConnection;
+
 public class PlayerDAO {
     private final Connection connection;
     public static PlayerDAO playerDAOImpl = new PlayerDAO();
@@ -52,13 +54,36 @@ public class PlayerDAO {
         }
     }
 
-    public boolean updatePlayerHighestScore(Player player, int score) throws SQLException {
-        String sql = "UPDATE players SET highest_score = ? WHERE player_id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, score);
-            statement.setString(2, player.getPlayerId());
-            return statement.executeUpdate() > 0;
+    // TODO: Implement once game gui is done
+    public boolean updateHighestScore(Player player, int score) throws SQLException {
+        if (score < player.getHighestScore()) {
+            return false;
+        } else {
+            String sql = "UPDATE players SET highest_score = ? WHERE username = ?";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, score);
+                statement.setString(2, player.getUsername());
+                return statement.executeUpdate() > 0;
+            }
         }
+    }
+
+    public List<Player> getTop5PlayersWithHighestScores() throws SQLException {
+        List<Player> topPlayers = new ArrayList<>();
+
+        String sql = "SELECT * FROM players ORDER BY highest_score DESC LIMIT 5";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            String username = rs.getString("username");
+            int highestScore = rs.getInt("highest_score");
+            Player player = new Player(null, username, null);
+            player.setHighestScore(highestScore);
+            topPlayers.add(player);
+        }
+
+        return topPlayers;
     }
 
     public List<Player> getAll() throws SQLException {

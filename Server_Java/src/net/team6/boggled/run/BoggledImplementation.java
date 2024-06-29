@@ -205,6 +205,25 @@ public class BoggledImplementation extends BoggledPOA {
         return gameRoom.getCurrentRoundNumber();
     }
 
+    @Override
+    public Leaderboards getLeaderboard() {
+        List<Player> players;
+        try {
+            players = playerDAOImpl.getTop5PlayersWithHighestScores();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        String[] leaderboardArray = new String[players.size()];
+        for (int i = 0; i < players.size(); i++) {
+            Player player = players.get(i);
+            leaderboardArray[i] = player.getUsername() + "," + player.getHighestScore();
+        }
+        Leaderboards leaderboards = new Leaderboards();
+        leaderboards.leaderboard = leaderboardArray;
+        return leaderboards;
+    }
+
     private String generateSessionId() {
         return UUID.randomUUID().toString();
     }
