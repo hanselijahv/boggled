@@ -45,12 +45,6 @@ public class GameRoom {
 				if(gameOver()){
 					return;
 				}
-				try {
-					Thread.sleep(3000);
-				} catch (InterruptedException e) {
-					throw new RuntimeException(e);
-				}
-
 				for (int i = 5; i != 0; i--) {
 					System.out.println("Round starting in " + i + " seconds...");
 					try {
