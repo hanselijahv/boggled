@@ -6,6 +6,7 @@ import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
+import terminalclient.CallbackServant;
 
 public class Connect {
 
