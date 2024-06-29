@@ -180,18 +180,18 @@ public class InGameState extends JFrame {
         String playersScores = boggledImpl.gameScore(gameID);
         System.out.println("GAME SCORE: " +  playersScores);
 
-        JLabel gameScoreLabel = new JLabel("Game Score: " + playersScores, SwingConstants.CENTER);
+        JLabel gameScoreLabel = new JLabel("<html>Game Score: <br><br>" + playersScores.replace("\n", "<br>") + "</html>", SwingConstants.LEFT);
         gameScoreLabel.setForeground(BoggledColors.PRIMARY_COLOR);
         gameScoreLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 20));
-        gameScoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        gameScoreLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         GridBagConstraints gameScoreLabelConstraints = new GridBagConstraints();
         gameScoreLabelConstraints.gridx = 0;
         gameScoreLabelConstraints.gridy = 1;
         gameScoreLabelConstraints.weightx = 1.0;
         gameScoreLabelConstraints.weighty = 0.1;
-        gameScoreLabelConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gameScoreLabelConstraints.anchor = GridBagConstraints.WEST; //
+        gameScoreLabelConstraints.fill = GridBagConstraints.NONE;
+        gameScoreLabelConstraints.anchor = GridBagConstraints.WEST;
 
         panel.add(gameScoreLabel, gameScoreLabelConstraints);
 
