@@ -1,5 +1,7 @@
 package net.team6.boggled.common.model;
 
+import net.team6.boggled.common.db.PlayerDAO;
+
 import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -8,8 +10,8 @@ import static net.team6.boggled.common.db.SettingsDAO.settingsDAOImpl;
 
 
 public class GameRoom {
-	private ConcurrentHashMap<String, Integer> playerStandings = new ConcurrentHashMap<>();
-	private ConcurrentHashMap<String, Integer> playerScores = new ConcurrentHashMap<>();
+	private final ConcurrentHashMap<String, Integer> playerStandings = new ConcurrentHashMap<>();
+	private final ConcurrentHashMap<String, Integer> playerScores = new ConcurrentHashMap<>();
 
 	private RoundRoom currentRound;
 	public List<String> players;
@@ -19,9 +21,8 @@ public class GameRoom {
 	public long startTime;
 	private Timer timer;
 
-
-	private int numOfRoundsNeedToWin = getNumRounds();
-	private int roundTime = getRoundTime();
+	private final int numOfRoundsNeedToWin = getNumRounds();
+	private final int roundTime = getRoundTime();
 
 	public RoundRoom getCurrentRound() {
 		return currentRound;
@@ -78,13 +79,18 @@ public class GameRoom {
 				if (highScore != null) {
 					winningScore = highScore;
 					System.out.println("High score of the game winner " + gameWinner + ": " + highScore);
+					PlayerDAO playerDAOImpl = new PlayerDAO();
+					try {
+						playerDAOImpl.updateHighestScore(gameWinner, highScore);
+					} catch (SQLException e) {
+						throw new RuntimeException(e);
+					}
 				}
 				return true;
 			}
 		}
 		return false;
 	}
-
 
 	public int getPlayerPoints(String username) {
 		return playerScores.getOrDefault(username, 0);

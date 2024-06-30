@@ -3,6 +3,7 @@ package net.team6.boggled.client.state.ingame;
 import BoggledApp.Boggled;
 import BoggledApp.Callback;
 import BoggledApp.NoWinnerException;
+import BoggledApp.NotLoggedInException;
 import net.team6.boggled.client.audio.AudioPlayer;
 import net.team6.boggled.client.game.settings.GameSettings;
 import net.team6.boggled.run.Connect;
@@ -38,7 +39,6 @@ public class InGameState extends JFrame {
     private final static String gameID = Connect.boggledImpl.getGameID(cref, playerName);
 //    private final static String roundRemainingTime = Connect.boggledImpl.getRoundTime(cref, gameID);
     public static List<Character> letters;
-    private static int totalScore;
     public static DefaultListModel<String> listModel = new DefaultListModel<>();
     private final Font font = FontUtils.loadFont("/font/MP16REG.ttf", 68);
     private final Font textFieldFont = FontUtils.loadFont("/font/MP16REG.ttf", 42);
@@ -53,7 +53,7 @@ public class InGameState extends JFrame {
         AudioPlayer audioPlayer = new AudioPlayer(gameSettings.getAudioSettings());
         setTitle("Boggled");
         setUndecorated(false);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setBackground(BoggledColors.SYSTEM_COLOR);
         setResizable(false);
         setSize(1290, 800);
@@ -69,6 +69,7 @@ public class InGameState extends JFrame {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
         addUIComponents();
         setVisible(true);
 
@@ -76,7 +77,12 @@ public class InGameState extends JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 audioPlayer.clear();
-            }
+			try {
+				Connect.boggledImpl.logout(playerName);
+			} catch (NotLoggedInException ex) {
+				throw new RuntimeException(ex);
+			}
+		}
         });
 
         audioPlayer.playMusic("main.wav");
@@ -481,7 +487,7 @@ public class InGameState extends JFrame {
                     JButton menuButton = new JButton("Back to Menu");
                     menuButton.setForeground(BoggledColors.PRIMARY_COLOR);
                     menuButton.setBackground(BoggledColors.BUTTON_COLOR);
-                    menuButton.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 42));
+                    menuButton.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 30));
                     menuButton.setAlignmentX(Component.CENTER_ALIGNMENT);
                     menuButton.setUI(new StyledButtonUI());
 
@@ -537,8 +543,11 @@ public class InGameState extends JFrame {
                     roundWinnerLabel.setForeground(BoggledColors.PRIMARY_COLOR);
                     roundWinnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
                     roundWinnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-                    overlayPanel.add(roundWinnerLabel);
-                    overlayPanel.add(Box.createVerticalGlue());
+
+                    overlayPanel.setLayout(new GridBagLayout());
+                    GridBagConstraints gbc = new GridBagConstraints();
+                    gbc.anchor = GridBagConstraints.CENTER;
+                    overlayPanel.add(roundWinnerLabel, gbc);
 
                     getContentPane().add(overlayPanel);
                     revalidate();
