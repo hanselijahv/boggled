@@ -37,16 +37,17 @@ public class InGameState extends JFrame {
     private final static Callback cref = Connect.cref;
     private final static String playerName = Connect.username;
     private final static String gameID = Connect.boggledImpl.getGameID(cref, playerName);
+    private static String gameDuration =  Connect.boggledImpl.getRoundTime(cref, gameID);
 //    private final static String roundRemainingTime = Connect.boggledImpl.getRoundTime(cref, gameID);
+    String second, minute;
+    String ddSecond, ddMinute;
+    DecimalFormat dFormat = new DecimalFormat("00");
     public static List<Character> letters;
     public static DefaultListModel<String> listModel = new DefaultListModel<>();
     private final Font font = FontUtils.loadFont("/font/MP16REG.ttf", 68);
     private final Font textFieldFont = FontUtils.loadFont("/font/MP16REG.ttf", 42);
-    JPanel overlayPanel = new JPanel();
+
     JLabel titleLabel, submissionDescription, wordsLabel, gameScoreLabel;
-    String second, minute;
-    String ddSecond, ddMinute;
-    DecimalFormat dFormat = new DecimalFormat("00");
     Timer timer;
     private JTextField inputField;
     private JDialog dialog;
@@ -66,6 +67,7 @@ public class InGameState extends JFrame {
         System.out.println("cref: " + cref.toString());
         System.out.println("Playername: " + playerName.toString());
         System.out.println("gameID: " + gameID.toString());
+        System.out.println("GAME_DURATION: " + gameDuration);
 
         try {
             Thread.sleep(1100);
@@ -117,7 +119,7 @@ public class InGameState extends JFrame {
 
             playersScores = playersScores.replace("\n", "<br>");
 
-            JLabel gameScoreLabel = new JLabel("<html>Game Score:<br>" + playersScores + "</html>");
+            JLabel gameScoreLabel = new JLabel("Game Score:" + playersScores);
             gameScoreLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 30));
             gameScoreLabel.setForeground(Color.WHITE);
             gameScoreLabel.setBorder(new EmptyBorder(50, 50, 50, 50));
@@ -285,9 +287,9 @@ public class InGameState extends JFrame {
         titleLabel = new JLabel("", SwingConstants.CENTER);
         titleLabel.setForeground(BoggledColors.PRIMARY_COLOR);
         titleLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
-        String GAME_DURATION = boggledImpl.getRoundTime(cref, gameID);
-        minute = String.valueOf(Integer.parseInt(GAME_DURATION) / 60);
-        second = String.valueOf(Integer.parseInt(GAME_DURATION) % 60);
+        gameDuration = boggledImpl.getRoundTime(cref, gameID);
+        minute = String.valueOf(Integer.parseInt(gameDuration) / 60);
+        second = String.valueOf(Integer.parseInt(gameDuration) % 60);
 
         countdownTimer();
         timer.start();

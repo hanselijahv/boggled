@@ -22,7 +22,7 @@ public class GameRoom {
 	private Timer timer;
 
 	private final int numOfRoundsNeedToWin = getNumRounds();
-	private final int roundTime = getRoundTime();
+	private final int roundTime = getRoundTime() + 2;
 
 	public RoundRoom getCurrentRound() {
 		return currentRound;
@@ -67,8 +67,7 @@ public class GameRoom {
 	public String getRemainingTime() {
 		long elapsedTime = System.currentTimeMillis() - startTime;
 		long remainingTime = Math.max(0, roundTime - (elapsedTime / 1000));
-		long seconds = (remainingTime % 60);
-		return String.format("%02d", seconds);
+		return String.valueOf(remainingTime);
 	}
 
 	public boolean gameOver() {
