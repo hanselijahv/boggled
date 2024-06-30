@@ -46,14 +46,18 @@ public class WaitingRoom {
 						gameRoom.start();
 						getGameRooms().put(gameId, gameRoom);
 						System.out.println("GAME STARTED FOR GAME: " + gameId + "\nPLAYERS: " + gameRoom.players);
-						getWaitingRooms().clear();
 					}
 				}
-				getWaitingRooms().remove(creator);
 				System.out.println("Waiting room dissolved: " + creator);
+				new Timer().schedule(new TimerTask() {
+					@Override
+					public void run() {
+						getWaitingRooms().clear();
+					}
+				}, 500);
 				timer.cancel();
 			}
-		}, (timerDuration + 1) * 1000);
+		}, (timerDuration) * 1000);
 	}
 
 	public void joinPlayer(String playerName) {

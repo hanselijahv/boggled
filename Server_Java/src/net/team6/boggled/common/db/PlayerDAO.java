@@ -9,8 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.sql.DriverManager.getConnection;
-
 public class PlayerDAO {
     private final Connection connection;
     public static PlayerDAO playerDAOImpl = new PlayerDAO();
@@ -54,18 +52,24 @@ public class PlayerDAO {
         }
     }
 
-    // TODO: Implement once game gui is done
-    public boolean updateHighestScore(Player player, int score) throws SQLException {
-        if (score < player.getHighestScore()) {
-            return false;
-        } else {
-            String sql = "UPDATE players SET highest_score = ? WHERE username = ?";
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setInt(1, score);
-                statement.setString(2, player.getUsername());
-                return statement.executeUpdate() > 0;
+    public boolean updateHighestScore(String username, int score) throws SQLException {
+        String sql = "SELECT highest_score FROM players WHERE username = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int currentHighScore = resultSet.getInt(1);
+                if (score > currentHighScore) {
+                    sql = "UPDATE players SET highest_score = ? WHERE username = ?";
+                    try (PreparedStatement updateStatement = connection.prepareStatement(sql)) {
+                        updateStatement.setInt(1, score);
+                        updateStatement.setString(2, username);
+                        return updateStatement.executeUpdate() > 0;
+                    }
+                }
             }
         }
+        return false;
     }
 
     public List<Player> getTop5PlayersWithHighestScores() throws SQLException {
