@@ -42,12 +42,15 @@ public class InGameState extends JFrame {
     public static DefaultListModel<String> listModel = new DefaultListModel<>();
     private final Font font = FontUtils.loadFont("/font/MP16REG.ttf", 68);
     private final Font textFieldFont = FontUtils.loadFont("/font/MP16REG.ttf", 42);
-    JLabel titleLabel, submissionDescription, wordsLabel;
+    JPanel overlayPanel = new JPanel();
+    JLabel titleLabel, submissionDescription, wordsLabel, gameScoreLabel;
     String second, minute;
     String ddSecond, ddMinute;
     DecimalFormat dFormat = new DecimalFormat("00");
     Timer timer;
     private JTextField inputField;
+    private JDialog dialog;
+    private boolean dialogVisible;
 
     public InGameState(GameSettings gameSettings) throws IOException, FontFormatException {
         AudioPlayer audioPlayer = new AudioPlayer(gameSettings.getAudioSettings());
@@ -79,8 +82,63 @@ public class InGameState extends JFrame {
             }
         });
 
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+            @Override
+            public boolean dispatchKeyEvent(KeyEvent e) {
+                if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_TAB) {
+                    if (!dialogVisible) {
+                        showCustomDialog();
+                        dialogVisible = true;
+                    }
+                } else if (e.getID() == KeyEvent.KEY_RELEASED && e.getKeyCode() == KeyEvent.VK_TAB) {
+                    if (dialogVisible) {
+                        closeCustomDialog();
+                        dialogVisible = false;
+                    }
+                }
+                return false;
+            }
+        });
+
         audioPlayer.playMusic("main.wav");
 
+    }
+
+    private void showCustomDialog() {
+        if (dialog == null) {
+            String playersScores = boggledImpl.gameScore(gameID);
+            System.out.println(playersScores);
+
+            playersScores = playersScores.replace("\n", "<br>");
+
+            JLabel gameScoreLabel = new JLabel("<html>Game Score:<br>" + playersScores + "</html>");
+            gameScoreLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 30));
+            gameScoreLabel.setForeground(Color.WHITE);
+            gameScoreLabel.setBorder(new EmptyBorder(50, 50, 50, 50));
+
+            // custom JDialog
+            dialog = new JDialog(this, Dialog.ModalityType.MODELESS);
+            dialog.setUndecorated(true);
+            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            dialog.setResizable(false);
+
+            JPanel contentPane = new JPanel(new BorderLayout());
+            contentPane.setBackground(BoggledColors.MENU_BACKGROUND_COLOR);
+            contentPane.add(gameScoreLabel, BorderLayout.CENTER);
+
+            dialog.setContentPane(contentPane);
+            dialog.pack();
+            dialog.setLocationRelativeTo(this);
+            dialog.setVisible(true);
+        }
+    }
+
+
+    private void closeCustomDialog() {
+        if (dialog != null) {
+            dialog.dispose();
+            dialog = null;
+        }
     }
 
     public static List<Character> getLetters(String gameID) {
@@ -195,24 +253,28 @@ public class InGameState extends JFrame {
 
         panel.add(roundLabel, topLabelConstraints);
 
-        String playersScores = boggledImpl.gameScore(gameID);
-        System.out.println("GAME SCORE: " +  playersScores);
+        // game score
 
-        JLabel gameScoreLabel = new JLabel("<html>Game Score: <br><br>" + playersScores.replace("\n", "<br>") + "</html>", SwingConstants.LEFT);
-        gameScoreLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 20));
-        gameScoreLabel.setForeground(BoggledColors.PRIMARY_COLOR);
-        gameScoreLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+//        String playersScores = boggledImpl.gameScore(gameID);
+//        System.out.println("GAME SCORE: " +  playersScores);
+//
+//        JLabel gameScoreLabel = new JLabel("<html>Game Score: <br><br>" + playersScores.replace("\n", "<br>") + "</html>", SwingConstants.LEFT);
+//        gameScoreLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 20));
+//        gameScoreLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+//        gameScoreLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+//
+//        GridBagConstraints gameScoreLabelConstraints = new GridBagConstraints();
+//        gameScoreLabelConstraints.gridx = 0;
+//        gameScoreLabelConstraints.gridy = 1;
+//        gameScoreLabelConstraints.weightx = 1.0;
+//        gameScoreLabelConstraints.weighty = 0.1;
+//        gameScoreLabelConstraints.fill = GridBagConstraints.NONE;
+//        gameScoreLabelConstraints.anchor = GridBagConstraints.WEST;
+//        gameScoreLabelConstraints.insets = new Insets(0, 30, 0, 0);
+//
+//        panel.add(gameScoreLabel, gameScoreLabelConstraints);
 
-        GridBagConstraints gameScoreLabelConstraints = new GridBagConstraints();
-        gameScoreLabelConstraints.gridx = 0;
-        gameScoreLabelConstraints.gridy = 1;
-        gameScoreLabelConstraints.weightx = 1.0;
-        gameScoreLabelConstraints.weighty = 0.1;
-        gameScoreLabelConstraints.fill = GridBagConstraints.NONE;
-        gameScoreLabelConstraints.anchor = GridBagConstraints.WEST;
-        gameScoreLabelConstraints.insets = new Insets(0, 30, 0, 0);
-
-        panel.add(gameScoreLabel, gameScoreLabelConstraints);
+        // title
 
         titleLabel = new JLabel("", SwingConstants.CENTER);
         titleLabel.setForeground(BoggledColors.PRIMARY_COLOR);
