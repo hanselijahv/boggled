@@ -35,6 +35,7 @@ public class WaitingState extends State {
         gameMenu = new BoggledWaitingMenu(input, gameSettings);
         inputEnabled = true;
         gameTimer = new Timer(Double.parseDouble(Connect.boggledImpl.getWaitingTime(Connect.cref)), this::endWaiting);
+        gameTimer.start();
         initializeUI();
     }
 
