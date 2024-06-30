@@ -13,6 +13,7 @@ import net.team6.boggled.client.gui.tools.Spacing;
 import net.team6.boggled.client.input.Input;
 import net.team6.boggled.client.state.State;
 import net.team6.boggled.client.state.ingame.InGameState;
+import net.team6.boggled.client.state.menu.elements.BoggledMainMenu;
 import net.team6.boggled.client.state.waiting.elements.BoggledWaitingMenu;
 import net.team6.boggled.client.state.waiting.elements.BoggledWaitingTimer;
 import net.team6.boggled.common.core.Size;
@@ -68,6 +69,8 @@ public class WaitingState extends State {
         BoggledContainer content = new VerticalContainer();
 
         if (Connect.boggledImpl.isGameReadyToStart()) {
+            cleanup();
+            boggledCanvas.addUIComponent(new BoggledMainMenu());
             try {
                 new InGameState(gameSettings);
             } catch (FontFormatException | IOException e) {
