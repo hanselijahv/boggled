@@ -40,6 +40,6 @@ public class BoggledMainMenu extends VerticalContainer {
             }
         }));
 
-        addUIComponent(new BoggledButton("EXIT", 16, (state) -> ((MenuState) state).enterMenu(new BoggledExitMenu())));
+        // addUIComponent(new BoggledButton("EXIT", 16, (state) -> ((MenuState) state).enterMenu(new BoggledExitMenu())));
     }
 }
