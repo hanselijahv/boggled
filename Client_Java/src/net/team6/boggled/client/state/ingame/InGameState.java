@@ -218,6 +218,7 @@ public class InGameState extends JFrame {
         titleLabel.setForeground(BoggledColors.PRIMARY_COLOR);
         titleLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
         String GAME_DURATION = boggledImpl.getRoundTime(cref, gameID);
+        System.out.println("GAME DURATION: " + GAME_DURATION);
         minute = String.valueOf(Integer.parseInt(GAME_DURATION) / 60);
         second = String.valueOf(Integer.parseInt(GAME_DURATION) % 60);
 
