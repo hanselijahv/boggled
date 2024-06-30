@@ -383,7 +383,7 @@ public class InGameState extends JFrame {
         inputField.setBackground(BoggledColors.MENU_BACKGROUND_COLOR);
         inputField.setForeground(BoggledColors.PRIMARY_COLOR);
         inputField.setBorder(new EmptyBorder(10, 10, 10, 10));
-        inputField.setHorizontalAlignment(JTextField.RIGHT);
+        inputField.setHorizontalAlignment(JTextField.CENTER);
 
         inputField.addActionListener(e -> {
             inputField.setText("");
