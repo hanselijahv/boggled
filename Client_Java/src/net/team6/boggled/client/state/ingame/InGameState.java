@@ -169,7 +169,6 @@ public class InGameState extends JFrame {
     }
 
     public void addUIComponents() {
-
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(BoggledColors.SYSTEM_COLOR);
 
@@ -261,6 +260,8 @@ public class InGameState extends JFrame {
 
         panel.add(roundLabel, topLabelConstraints);
 
+
+
         // game score
 
 //        String playersScores = boggledImpl.gameScore(gameID);
@@ -291,8 +292,9 @@ public class InGameState extends JFrame {
         minute = String.valueOf(Integer.parseInt(gameDuration) / 60);
         second = String.valueOf(Integer.parseInt(gameDuration) % 60);
 
-        countdownTimer();
-        timer.start();
+       // countdownTimer();
+        //timer.start();
+        startRemainingTimeChecker();
 
         GridBagConstraints titleConstraints = new GridBagConstraints();
         titleConstraints.gridx = 0;
@@ -629,6 +631,134 @@ public class InGameState extends JFrame {
         }
         });
         timer.start();
+    }
+
+    public void startRemainingTimeChecker() {
+        Thread thread = new Thread(() -> {
+            while (true) {
+                String remainingTime = boggledImpl.getRoundTime(cref, gameID);
+                titleLabel.setText(remainingTime);
+
+                if (remainingTime.equals("0")) {
+                    SwingUtilities.invokeLater(() -> {
+                        if (boggledImpl.isGameFinished(gameID)) {
+                            String gameWinner = boggledImpl.gameWinner(gameID);
+                            System.out.println("WINNER FOR GAME:" + gameWinner);
+
+                            getContentPane().removeAll();
+                            JPanel overlayPanel = new JPanel();
+                            overlayPanel.setLayout(new BoxLayout(overlayPanel, BoxLayout.Y_AXIS));
+                            overlayPanel.setBackground(new Color(0, 0, 0, 250));
+                            JLabel gameWinnerLabel = new JLabel("Game Winner", SwingConstants.CENTER);
+                            gameWinnerLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+                            gameWinnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
+                            gameWinnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                            overlayPanel.add(Box.createVerticalGlue());
+                            overlayPanel.add(gameWinnerLabel);
+
+                            JLabel winnerLabel = new JLabel(gameWinner, SwingConstants.CENTER);
+                            winnerLabel.setForeground(Color.YELLOW);
+                            winnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 68));
+                            winnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                            overlayPanel.add(winnerLabel);
+
+                            JLabel scoreLabel = new JLabel(boggledImpl.getWinnerScore(gameID) + " points!", SwingConstants.CENTER);
+                            scoreLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+                            scoreLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 42));
+                            scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                            overlayPanel.add(scoreLabel);
+                            overlayPanel.add(Box.createVerticalGlue());
+
+                            JButton menuButton = new JButton("Back to Menu");
+                            menuButton.setForeground(BoggledColors.PRIMARY_COLOR);
+                            menuButton.setBackground(BoggledColors.BUTTON_COLOR);
+                            menuButton.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 30));
+                            menuButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+                            menuButton.setUI(new StyledButtonUI());
+
+                            menuButton.addActionListener(a -> {
+                                this.dispose();
+                            });
+
+                            overlayPanel.add(Box.createVerticalGlue());
+                            overlayPanel.add(menuButton);
+                            overlayPanel.add(Box.createVerticalStrut(40));
+
+                            getContentPane().add(overlayPanel);
+                            revalidate();
+                        } else {
+                            String roundWinner;
+                            listModel.clear();
+                            try {
+                                roundWinner = boggledImpl.roundWinner(gameID);
+                                getContentPane().removeAll();
+                                JPanel overlayPanel = new JPanel();
+                                overlayPanel.setLayout(new BoxLayout(overlayPanel, BoxLayout.Y_AXIS));
+                                overlayPanel.setBackground(new Color(0, 0, 0, 250));
+                                JLabel roundWinnerLabel = new JLabel("Round Winner", SwingConstants.CENTER);
+                                roundWinnerLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+                                roundWinnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
+                                roundWinnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                                overlayPanel.add(Box.createVerticalGlue());
+                                overlayPanel.add(roundWinnerLabel);
+
+                                JLabel winnerLabel = new JLabel(roundWinner, SwingConstants.CENTER);
+                                winnerLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+                                winnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 68));
+                                winnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                                overlayPanel.add(winnerLabel);
+
+                                JLabel scoreLabel = new JLabel("YOUR SCORE: " + boggledImpl.roundPoints(gameID, playerName), SwingConstants.CENTER);
+                                scoreLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+                                scoreLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 42));
+                                scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                                overlayPanel.add(scoreLabel);
+                                overlayPanel.add(Box.createVerticalGlue());
+
+                                getContentPane().add(overlayPanel);
+                                revalidate();
+                            } catch (NoWinnerException ex) {
+                                getContentPane().removeAll();
+                                JPanel overlayPanel = new JPanel();
+                                overlayPanel.setLayout(new BoxLayout(overlayPanel, BoxLayout.Y_AXIS));
+                                overlayPanel.setBackground(new Color(0, 0, 0, 250));
+                                overlayPanel.add(Box.createVerticalGlue());
+
+                                JLabel roundWinnerLabel = new JLabel("DRAW", SwingConstants.CENTER);
+                                roundWinnerLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+                                roundWinnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
+                                roundWinnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                                overlayPanel.setLayout(new GridBagLayout());
+                                GridBagConstraints gbc = new GridBagConstraints();
+                                gbc.anchor = GridBagConstraints.CENTER;
+                                overlayPanel.add(roundWinnerLabel, gbc);
+
+                                getContentPane().add(overlayPanel);
+                                revalidate();
+                            }
+
+                            Timer delayTimer = new Timer(5000, event -> {
+                                getContentPane().removeAll();
+                                addUIComponents();
+                                revalidate();
+                                repaint();
+                            });
+                            delayTimer.setRepeats(false); // Make sure the timer only runs once
+                            delayTimer.start();
+                        }
+                    });
+                }
+
+                try {
+                    Thread.sleep(850);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
     }
 
 }
