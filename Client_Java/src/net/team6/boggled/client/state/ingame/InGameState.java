@@ -38,7 +38,6 @@ public class InGameState extends JFrame {
     private final static String playerName = Connect.username;
     private final static String gameID = Connect.boggledImpl.getGameID(cref, playerName);
     private static String gameDuration =  Connect.boggledImpl.getRoundTime(cref, gameID);
-//    private final static String roundRemainingTime = Connect.boggledImpl.getRoundTime(cref, gameID);
     String second, minute;
     String ddSecond, ddMinute;
     DecimalFormat dFormat = new DecimalFormat("00");
@@ -119,7 +118,7 @@ public class InGameState extends JFrame {
 
             playersScores = playersScores.replace("\n", "<br>");
 
-            JLabel gameScoreLabel = new JLabel("Game Score:" + playersScores);
+            gameScoreLabel = new JLabel("Game Score:" + playersScores);
             gameScoreLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 30));
             gameScoreLabel.setForeground(Color.WHITE);
             gameScoreLabel.setBorder(new EmptyBorder(50, 50, 50, 50));
@@ -195,8 +194,6 @@ public class InGameState extends JFrame {
         smallPanel.setLayout(new BoxLayout(smallPanel, BoxLayout.Y_AXIS));
         smallPanel.setPreferredSize(new Dimension(100, 100));
 
-//        listItems = new ArrayList<>();
-//        JList<String> itemList = new JList<>(listItems.toArray(new String[0]));
         JList<String> itemList = new JList<>(listModel);
         itemList.setBackground(BoggledColors.MENU_BACKGROUND_COLOR);
         itemList.setForeground(BoggledColors.PRIMARY_COLOR);
@@ -261,28 +258,25 @@ public class InGameState extends JFrame {
 
         panel.add(roundLabel, topLabelConstraints);
 
-        // game score
+        // username display
 
-//        String playersScores = boggledImpl.gameScore(gameID);
-//        System.out.println("GAME SCORE: " +  playersScores);
-//
-//        JLabel gameScoreLabel = new JLabel("<html>Game Score: <br><br>" + playersScores.replace("\n", "<br>") + "</html>", SwingConstants.LEFT);
-//        gameScoreLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 20));
-//        gameScoreLabel.setForeground(BoggledColors.PRIMARY_COLOR);
-//        gameScoreLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-//
-//        GridBagConstraints gameScoreLabelConstraints = new GridBagConstraints();
-//        gameScoreLabelConstraints.gridx = 0;
-//        gameScoreLabelConstraints.gridy = 1;
-//        gameScoreLabelConstraints.weightx = 1.0;
-//        gameScoreLabelConstraints.weighty = 0.1;
-//        gameScoreLabelConstraints.fill = GridBagConstraints.NONE;
-//        gameScoreLabelConstraints.anchor = GridBagConstraints.WEST;
-//        gameScoreLabelConstraints.insets = new Insets(0, 30, 0, 0);
-//
-//        panel.add(gameScoreLabel, gameScoreLabelConstraints);
+        JLabel newLabel = new JLabel("» " + playerName);
+        newLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+        newLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 20));
+        newLabel.setBorder(new EmptyBorder(0, 30, 0, 0));
 
-        // title
+        GridBagConstraints newLabelConstraints = new GridBagConstraints();
+        newLabelConstraints.gridx = 0;
+        newLabelConstraints.gridy = 1;
+        newLabelConstraints.weightx = 1.0;
+        newLabelConstraints.weighty = 0.1;
+        newLabelConstraints.anchor = GridBagConstraints.NORTHWEST;
+        newLabelConstraints.fill = GridBagConstraints.HORIZONTAL;
+        newLabelConstraints.insets = new Insets(10, 0, 0, 0); // Decrease the top margin
+
+        panel.add(newLabel, newLabelConstraints);
+
+        // timer display
 
         titleLabel = new JLabel("", SwingConstants.CENTER);
         titleLabel.setForeground(BoggledColors.PRIMARY_COLOR);
