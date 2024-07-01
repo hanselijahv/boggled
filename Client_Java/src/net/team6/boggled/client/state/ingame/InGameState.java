@@ -33,17 +33,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 @SuppressWarnings({"Duplicates"})
 public class InGameState extends JFrame {
     // TODO: tidying
-    private final static Boggled boggledImpl = Connect.boggledImpl;
-    private final static Callback cref = Connect.cref;
-    private final static String playerName = Connect.username;
-    private final static String gameID = Connect.boggledImpl.getGameID(cref, playerName);
-    private static String gameDuration =  Connect.boggledImpl.getRoundTime(cref, gameID);
+    private static Boggled boggledImpl = Connect.boggledImpl;
+    private Callback cref = Connect.cref;
+    private String playerName = Connect.username;
+    private String gameID = Connect.boggledImpl.getGameID(cref, playerName);
+    private String gameDuration =  Connect.boggledImpl.getRoundTime(cref, gameID);
 //    private final static String roundRemainingTime = Connect.boggledImpl.getRoundTime(cref, gameID);
     String second, minute;
     String ddSecond, ddMinute;
     DecimalFormat dFormat = new DecimalFormat("00");
-    public static List<Character> letters;
-    public static DefaultListModel<String> listModel = new DefaultListModel<>();
+    public  List<Character> letters;
+    public  DefaultListModel<String> listModel = new DefaultListModel<>();
     private final Font font = FontUtils.loadFont("/font/MP16REG.ttf", 68);
     private final Font textFieldFont = FontUtils.loadFont("/font/MP16REG.ttf", 42);
 
@@ -556,7 +556,7 @@ public class InGameState extends JFrame {
                     menuButton.setUI(new StyledButtonUI());
 
                     menuButton.addActionListener(a -> {
-                        // TODO: go to menu
+                        this.dispose();
                     });
 
                     overlayPanel.add(Box.createVerticalGlue());
