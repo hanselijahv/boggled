@@ -56,6 +56,7 @@ public class ServerDisplay extends JFrame {
         //setSize(Toolkit.getDefaultToolkit().getScreenSize());
         setLocationRelativeTo(null);
         setVisible(true);
+        setResizable(false);
 
     }
 

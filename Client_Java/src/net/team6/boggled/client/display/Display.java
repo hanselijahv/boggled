@@ -55,6 +55,7 @@ public class Display extends JFrame {
 
         setLocationRelativeTo(null);
         setVisible(true);
+        setResizable(false);
     }
 
     public void render(State state) {
