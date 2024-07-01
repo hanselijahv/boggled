@@ -13,12 +13,18 @@ import net.team6.boggled.client.gui.tools.Spacing;
 import net.team6.boggled.client.state.menu.MenuState;
 import net.team6.boggled.common.core.Value;
 import net.team6.boggled.run.Connect;
+import net.team6.boggled.utilities.BoggledColors;
+import net.team6.boggled.utilities.FontUtils;
+import net.team6.boggled.utilities.OptionPaneButtonUI;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class BoggledLogin extends VerticalContainer {
     private final Value<String> username;
     private final Value<String> password;
+
+    private Font font = FontUtils.loadFont("/font/MP16REG.ttf", 16);
 
     public BoggledLogin() {
         alignment = new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER);
@@ -68,6 +74,13 @@ public class BoggledLogin extends VerticalContainer {
             String user = username.get();
             String pass = password.get();
 
+            UIManager.put("OptionPane.background", BoggledColors.SYSTEM_COLOR);
+            UIManager.put("Panel.background", BoggledColors.SYSTEM_COLOR);
+            UIManager.put("OptionPane.messageFont", font);
+            UIManager.put("OptionPane.messageForeground", BoggledColors.PRIMARY_COLOR);
+
+            JOptionPane optionPane;
+
             try {
                 Connect.boggledImpl.login(user, pass);
                 Connect.username = user;
@@ -75,13 +88,55 @@ public class BoggledLogin extends VerticalContainer {
                 //Connect.sessionID = Connect.boggledImpl.getSessionId(user);
                 state.setNextState(new MenuState(state.getWindowSize(), state.getInput(), state.getGameSettings()));
             } catch (UserNotFoundException e) {
-                JOptionPane.showMessageDialog(null, "User " + user + " not found or invalid credentials.");
+                optionPane = new JOptionPane(
+                        "User " + user + " not found or invalid credentials.",
+                        JOptionPane.ERROR_MESSAGE,
+                        JOptionPane.OK_OPTION,
+                        null,
+                        new Object[]{getOkButton()},
+                        null
+                );
+                JDialog dialog = optionPane.createDialog("Error");
+                dialog.setVisible(true);
             } catch (AlreadyLoggedInException e) {
-                JOptionPane.showMessageDialog(null, "User " + user + " already logged in");
+                optionPane = new JOptionPane(
+                        "User " + user + " already logged in",
+                        JOptionPane.WARNING_MESSAGE,
+                        JOptionPane.OK_OPTION,
+                        null,
+                        new Object[]{getOkButton()},
+                        null
+                );
+                JDialog dialog = optionPane.createDialog("Error");
+                dialog.setVisible(true);
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "An error occurred while trying to login.");
+                optionPane = new JOptionPane(
+                        "An error occurred while trying to login.",
+                        JOptionPane.ERROR_MESSAGE,
+                        JOptionPane.OK_OPTION,
+                        null,
+                        new Object[]{getOkButton()},
+                        null
+                );
+                JDialog dialog = optionPane.createDialog("Error");
+                dialog.setVisible(true);
             }
         });
+    }
+
+    private JButton getOkButton() {
+        JButton okButton = new JButton("OK");
+        okButton.setFont(font);
+        okButton.setBackground(BoggledColors.BUTTON_COLOR);
+        okButton.setForeground(BoggledColors.PRIMARY_COLOR);
+        okButton.setUI(new OptionPaneButtonUI());
+        okButton.addActionListener(e -> {
+            Window window = SwingUtilities.getWindowAncestor(okButton);
+            if (window != null) {
+                window.dispose();
+            }
+        });
+        return okButton;
     }
 }
 
