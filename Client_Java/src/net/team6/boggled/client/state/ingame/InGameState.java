@@ -18,6 +18,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.plaf.basic.BasicScrollBarUI;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -114,27 +116,66 @@ public class InGameState extends JFrame {
 
     private void showCustomDialog() {
         if (dialog == null) {
+
             String playersScores = boggledImpl.gameScore(gameID);
             System.out.println(playersScores);
 
-            playersScores = playersScores.replace("\n", "<br>");
+            String[] rows = playersScores.split("\n");
 
-            JLabel gameScoreLabel = new JLabel("Game Score:" + playersScores);
-            gameScoreLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 30));
-            gameScoreLabel.setForeground(Color.WHITE);
-            gameScoreLabel.setBorder(new EmptyBorder(50, 50, 50, 50));
+            String[] listData = new String[rows.length + 2];
+            listData[0] = "Game Score";
+            listData[1] = "";
+
+            for (int i = 0; i < rows.length; i++) {
+                listData[i + 2] = rows[i];
+            }
+
+            JList<String> list = new JList<>(listData);
+            list.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 30));
+            list.setForeground(Color.WHITE);
+            list.setBackground(BoggledColors.MENU_BACKGROUND_COLOR);
 
             // custom JDialog
             dialog = new JDialog(this, Dialog.ModalityType.MODELESS);
             dialog.setUndecorated(true);
             dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             dialog.setResizable(false);
+            dialog.setEnabled(false);
+            dialog.getContentPane().setBackground(BoggledColors.MENU_BACKGROUND_COLOR);
 
-            JPanel contentPane = new JPanel(new BorderLayout());
-            contentPane.setBackground(BoggledColors.MENU_BACKGROUND_COLOR);
-            contentPane.add(gameScoreLabel, BorderLayout.CENTER);
+            JScrollPane scrollPane = new JScrollPane(list);
+            scrollPane.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
+            scrollPane.setBackground(BoggledColors.MENU_BACKGROUND_COLOR);
 
-            dialog.setContentPane(contentPane);
+            // customize scrollbar
+            scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+                @Override
+                protected void configureScrollBarColors() {
+                    this.trackColor = BoggledColors.MENU_BACKGROUND_COLOR;
+                    this.thumbColor = Color.GRAY;
+                }
+
+                @Override
+                protected JButton createDecreaseButton(int orientation) {
+                    return createZeroButton();
+                }
+
+                @Override
+                protected JButton createIncreaseButton(int orientation) {
+                    return createZeroButton();
+                }
+
+                private JButton createZeroButton() {
+                    JButton button = new JButton();
+                    button.setPreferredSize(new Dimension(0, 0));
+                    button.setMinimumSize(new Dimension(0, 0));
+                    button.setMaximumSize(new Dimension(0, 0));
+                    return button;
+                }
+            });
+
+            dialog.add(scrollPane);
+
             dialog.pack();
             dialog.setLocationRelativeTo(this);
             dialog.setVisible(true);
