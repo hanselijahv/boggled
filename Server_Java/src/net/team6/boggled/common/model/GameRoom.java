@@ -22,7 +22,7 @@ public class GameRoom {
 	private Timer timer;
 
 	private final int numOfRoundsNeedToWin = getNumRounds();
-	private final int roundTime = getRoundTime() + 2;
+	private final int roundTime = getRoundTime()+1;
 
 	public RoundRoom getCurrentRound() {
 		return currentRound;
