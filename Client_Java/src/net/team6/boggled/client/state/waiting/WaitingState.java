@@ -29,21 +29,18 @@ public class WaitingState extends State {
     private boolean showScore;
     private boolean inputEnabled;
     private final BoggledWaitingMenu gameMenu;
-    private Timer gameTimer;
 
     public WaitingState(Size windowSize, Input input, GameSettings gameSettings) throws SQLException, IOException, FontFormatException {
         super(windowSize, input, gameSettings);
         gameMenu = new BoggledWaitingMenu(input, gameSettings);
         inputEnabled = true;
-        gameTimer = new Timer(Double.parseDouble(Connect.boggledImpl.getWaitingTime(Connect.cref)), this::endWaiting);
-        gameTimer.start();
         initializeUI();
     }
 
     private void initializeUI() {
         BoggledContainer timer = new HorizontalContainer();
         timer.setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.START));
-        timer.addUIComponent(new BoggledWaitingTimer());
+        timer.addUIComponent(new BoggledWaitingTimer(this));
 
         BoggledContainer label = new VerticalContainer();
         label.setAlignment(new Alignment(Alignment.Position.CENTER, Alignment.Position.START));
@@ -63,7 +60,7 @@ public class WaitingState extends State {
 
     }
 
-    private void endWaiting() {
+    public void endWaiting() {
         boggledCanvas.clear();
         inputEnabled = false;
         BoggledContainer content = new VerticalContainer();
@@ -117,20 +114,8 @@ public class WaitingState extends State {
         }
     }
 
-    @Override
-    public void update(Game game) throws SQLException {
-        super.update(game);
-        if(!showScore) {
-            gameTimer.update();
-            handleInput();
-        } else {
-            gameTimer.update();
 
-        }
-    }
 
-    public Timer getGameTimer() {
-        return gameTimer;
-    }
+
 
 }
