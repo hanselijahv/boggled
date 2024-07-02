@@ -448,6 +448,11 @@ public class InGameState extends JFrame {
                 submissionDescription.setText(inputText + " is invalid!");
                 submissionDescription.setForeground(Color.RED);
 
+            } else if (listModel.contains(inputText)) {
+
+                submissionDescription.setText(inputText + " is already submitted!");
+                submissionDescription.setForeground(Color.YELLOW);
+
             } else if (response.value.equalsIgnoreCase("Word is valid!")) {
 
                 submissionDescription.setText(inputText + " is valid!");
