@@ -8,7 +8,7 @@ import java.util.List;
 /**
  *
  */
-public class SettingsDAO implements DAO<Settings> {
+public class SettingsDAO  {
 
     private final Connection connection;
     public static SettingsDAO settingsDAOImpl = new SettingsDAO();
@@ -17,7 +17,6 @@ public class SettingsDAO implements DAO<Settings> {
         this.connection = DatabaseConnector.getInstance().getConnection();
     }
 
-    @Override
     public List<Settings> getAll() throws SQLException {
         List<Settings> settingsList = new ArrayList<>();
         try (
@@ -37,14 +36,7 @@ public class SettingsDAO implements DAO<Settings> {
         return settingsList;
     }
 
-    @Override
-    public boolean insert(Settings settings) throws SQLException {
-        return false;   // TODO: Implement
-    }
-
-    // TODO: Resolve missing reference for setting
-    @Override
-    public boolean update(Settings settings, String[] params) throws SQLException {
+    public boolean update(Settings settings) throws SQLException {
         String query = "UPDATE settings SET waiting_time = ?, round_time = ?, number_of_rounds = ?";
         try(PreparedStatement statement = connection.prepareStatement(query)){
             statement.setInt(1,settings.getWaitingTime());
@@ -54,10 +46,5 @@ public class SettingsDAO implements DAO<Settings> {
         } catch (SQLException e) {
             throw new SQLException("[ERROR] Failed to update settings: " + e.getMessage());
         }
-    }
-
-    @Override
-    public boolean delete(Settings settings) throws SQLException {
-        return false;   // TODO: Implement
     }
 }

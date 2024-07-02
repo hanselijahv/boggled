@@ -3,6 +3,7 @@ package net.team6.boggled.client.state.waiting;
 import net.team6.boggled.client.game.Game;
 import net.team6.boggled.client.game.settings.GameSettings;
 import net.team6.boggled.client.game.time.Timer;
+import net.team6.boggled.client.gui.clickable.BoggledButton;
 import net.team6.boggled.client.gui.container.BoggledContainer;
 import net.team6.boggled.client.gui.container.HorizontalContainer;
 import net.team6.boggled.client.gui.container.VerticalContainer;
@@ -67,9 +68,11 @@ public class WaitingState extends State {
 
         if (Connect.boggledImpl.isGameReadyToStart()) {
             cleanup();
-            boggledCanvas.addUIComponent(new BoggledMainMenu());
+            BoggledMainMenu boggledMainMenu = new BoggledMainMenu();
+            boggledCanvas.addUIComponent(boggledMainMenu);
             try {
-                new InGameState(gameSettings);
+                new InGameState(gameSettings, boggledMainMenu);
+
             } catch (FontFormatException | IOException e) {
                 throw new RuntimeException(e);
             }

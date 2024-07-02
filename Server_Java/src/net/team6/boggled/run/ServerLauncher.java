@@ -34,16 +34,9 @@ public class ServerLauncher extends Applet {
             POA rootpoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
             rootpoa.the_POAManager().activate();
 
-//            BoggledServant my = new BoggledServant();
-//            my.setORB(orb);
-
             BoggledImplementation boggledImplementation = new BoggledImplementation();
             Object ref = rootpoa.servant_to_reference(boggledImplementation);
             Boggled href = BoggledHelper.narrow(ref);
-
-            // get object reference from the servant
-//            org.omg.CORBA.Object ref = rootpoa.servant_to_reference(my);
-//            Boggled href = BoggledHelper.narrow(ref);
 
             boggledImplementation.setOrb(orb);
 
@@ -56,7 +49,6 @@ public class ServerLauncher extends Applet {
             System.out.println("Boggled Server Running ...");
 
             orb.run();
-
 
         } catch (Exception e) {
             System.err.println("ERROR: " + e);

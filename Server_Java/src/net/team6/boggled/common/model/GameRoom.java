@@ -1,6 +1,6 @@
 package net.team6.boggled.common.model;
 
-import net.team6.boggled.common.db.PlayerDAO;
+import static net.team6.boggled.common.db.PlayerDAO.playerDAOImpl;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -78,7 +78,6 @@ public class GameRoom {
 				if (highScore != null) {
 					winningScore = highScore;
 					System.out.println("High score of the game winner " + gameWinner + ": " + highScore);
-					PlayerDAO playerDAOImpl = new PlayerDAO();
 					try {
 						playerDAOImpl.updateHighestScore(gameWinner, highScore);
 					} catch (SQLException e) {

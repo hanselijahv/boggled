@@ -6,6 +6,7 @@ import BoggledApp.NoWinnerException;
 import BoggledApp.NotLoggedInException;
 import net.team6.boggled.client.audio.AudioPlayer;
 import net.team6.boggled.client.game.settings.GameSettings;
+import net.team6.boggled.client.state.menu.elements.BoggledMainMenu;
 import net.team6.boggled.run.Connect;
 import net.team6.boggled.utilities.BoggledColors;
 import net.team6.boggled.utilities.FontUtils;
@@ -32,42 +33,42 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @SuppressWarnings({"Duplicates"})
 public class InGameState extends JFrame {
-    // TODO: tidying
-    private static Boggled boggledImpl = Connect.boggledImpl;
-    private Callback cref = Connect.cref;
-    private String playerName = Connect.username;
-    private String gameID = Connect.boggledImpl.getGameID(cref, playerName);
-    private String gameDuration =  Connect.boggledImpl.getRoundTime(cref, gameID);
-//    private final static String roundRemainingTime = Connect.boggledImpl.getRoundTime(cref, gameID);
-    String second, minute;
-    String ddSecond, ddMinute;
-    DecimalFormat dFormat = new DecimalFormat("00");
-    public  List<Character> letters;
-    public  DefaultListModel<String> listModel = new DefaultListModel<>();
+    // Constants
     private final Font font = FontUtils.loadFont("/font/MP16REG.ttf", 68);
     private final Font textFieldFont = FontUtils.loadFont("/font/MP16REG.ttf", 42);
-
-    JLabel titleLabel, submissionDescription, wordsLabel, gameScoreLabel;
-    Timer timer;
+    // Static fields
+    private static final Boggled boggledImpl = Connect.boggledImpl;
+    // Instance fields
+    private final Callback cref = Connect.cref;
+    private final String playerName = Connect.username;
+    private final String gameID = boggledImpl.getGameID(cref, playerName);
+	// UI Components
+    private JLabel titleLabel;
+    private JLabel submissionDescription;
     private JTextField inputField;
     private JDialog dialog;
+    private AudioPlayer audioPlayer;
+    private BoggledMainMenu boggledMainMenu;
+    // Model
+    public DefaultListModel<String> listModel = new DefaultListModel<>();
+    public List<Character> letters;
+    // Timer related fields
+    private Timer timer;
+    private String second, minute;
+    private String ddSecond, ddMinute;
+    private final DecimalFormat dFormat = new DecimalFormat("00");
+    // State
     private boolean dialogVisible;
 
-    public InGameState(GameSettings gameSettings) throws IOException, FontFormatException {
-        AudioPlayer audioPlayer = new AudioPlayer(gameSettings.getAudioSettings());
+    public InGameState(GameSettings gameSettings, BoggledMainMenu boggledMainMenu) throws IOException, FontFormatException {
+        this.boggledMainMenu = boggledMainMenu;
+        audioPlayer = new AudioPlayer(gameSettings.getAudioSettings());
         setTitle("Boggled");
-        setUndecorated(false);
+        setUndecorated(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setBackground(BoggledColors.SYSTEM_COLOR);
         setResizable(false);
-        setSize(1290, 800);
-
-        // test TODO: Delete
-        System.out.println("boggledImpl: " + boggledImpl.toString());
-        System.out.println("cref: " + cref.toString());
-        System.out.println("Playername: " + playerName.toString());
-        System.out.println("gameID: " + gameID.toString());
-        System.out.println("GAME_DURATION: " + gameDuration);
+        setSize(1920, 1080);
 
         try {
             Thread.sleep(1100);
@@ -83,32 +84,35 @@ public class InGameState extends JFrame {
             public void windowClosing(WindowEvent e) {
                 audioPlayer.clear();
 			try {
-				Connect.boggledImpl.logout(playerName);
+				boggledImpl.logout(playerName);
 			} catch (NotLoggedInException ex) {
 				throw new RuntimeException(ex);
 			}
 		}
         });
 
-        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
-            @Override
-            public boolean dispatchKeyEvent(KeyEvent e) {
-                if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_TAB) {
-                    if (!dialogVisible) {
-                        showCustomDialog();
-                        dialogVisible = true;
-                    }
-                } else if (e.getID() == KeyEvent.KEY_RELEASED && e.getKeyCode() == KeyEvent.VK_TAB) {
-                    if (dialogVisible) {
-                        closeCustomDialog();
-                        dialogVisible = false;
-                    }
-                }
-                return false;
-            }
-        });
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(e -> {
+		if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_TAB) {
+		    if (!dialogVisible) {
+			  showCustomDialog();
+			  dialogVisible = true;
+		    }
+		} else if (e.getID() == KeyEvent.KEY_RELEASED && e.getKeyCode() == KeyEvent.VK_TAB) {
+		    if (dialogVisible) {
+			  closeCustomDialog();
+			  dialogVisible = false;
+		    }
+		}
+		return false;
+	  });
 
         audioPlayer.playMusic("main.wav");
+
+        // disable main menu buttons when ingame
+        boggledMainMenu.getPlayGameB().setEnabled(false);
+        boggledMainMenu.getLeaderboardB().setEnabled(false);
+        boggledMainMenu.getOptionsB().setEnabled(false);
+        boggledMainMenu.getLogoutB().setEnabled(false);
 
     }
 
@@ -212,7 +216,7 @@ public class InGameState extends JFrame {
         panel.setBackground(BoggledColors.SYSTEM_COLOR);
 
         // words label
-        wordsLabel = new JLabel("Words Submitted");
+	    JLabel wordsLabel = new JLabel("Words Submitted");
         wordsLabel.setForeground(BoggledColors.PRIMARY_COLOR);
         wordsLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 12));
         wordsLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -246,8 +250,7 @@ public class InGameState extends JFrame {
         scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
             @Override
             protected void configureScrollBarColors() {
-                this.thumbColor = BoggledColors.PRIMARY_COLOR;
-                this.trackColor = BoggledColors.MENU_BACKGROUND_COLOR;
+			this.trackColor = BoggledColors.MENU_BACKGROUND_COLOR;
                 this.thumbColor = Color.GRAY;
             }
 
@@ -277,12 +280,12 @@ public class InGameState extends JFrame {
         topRightConstraints.weighty = 0.1;
         topRightConstraints.anchor = GridBagConstraints.NORTHEAST;
         topRightConstraints.fill = GridBagConstraints.BOTH;
-        topRightConstraints.insets = new Insets(50, 0, 0, 40);
+        topRightConstraints.insets = new Insets(35, 0, 0, 40);
         panel.add(scrollPane, topRightConstraints);
 
         // round number
 
-        JLabel roundLabel = new JLabel("ROUND " + Connect.boggledImpl.currentRound(gameID));
+        JLabel roundLabel = new JLabel("ROUND " + boggledImpl.currentRound(gameID));
         roundLabel.setForeground(BoggledColors.PRIMARY_COLOR);
         roundLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 35));
         roundLabel.setBorder(new EmptyBorder(20, 30, 0, 0));
@@ -320,7 +323,7 @@ public class InGameState extends JFrame {
         titleLabel = new JLabel("", SwingConstants.CENTER);
         titleLabel.setForeground(BoggledColors.PRIMARY_COLOR);
         titleLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
-        gameDuration = boggledImpl.getRoundTime(cref, gameID);
+	    String gameDuration = boggledImpl.getRoundTime(cref, gameID);
         minute = String.valueOf(Integer.parseInt(gameDuration) / 60);
         second = String.valueOf(Integer.parseInt(gameDuration) % 60);
 
@@ -419,9 +422,7 @@ public class InGameState extends JFrame {
         inputField.setBorder(new EmptyBorder(10, 10, 10, 10));
         inputField.setHorizontalAlignment(JTextField.CENTER);
 
-        inputField.addActionListener(e -> {
-            inputField.setText("");
-        });
+        inputField.addActionListener(e -> inputField.setText(""));
 
         inputField.addKeyListener(new KeyListener() {
             @Override
@@ -446,7 +447,7 @@ public class InGameState extends JFrame {
             BooleanHolder isWordValid = new BooleanHolder();
             BooleanHolder canForm = new BooleanHolder();
             StringHolder response = new StringHolder();
-            Connect.boggledImpl.submitWord(gameID, playerName, inputText, isWordValid, canForm, response);
+            boggledImpl.submitWord(gameID, playerName, inputText, isWordValid, canForm, response);
 
             if (response.value.equalsIgnoreCase("Word is invalid!")) {
 
@@ -591,6 +592,13 @@ public class InGameState extends JFrame {
 
                     menuButton.addActionListener(a -> {
                         this.dispose();
+                        audioPlayer.clear();
+
+                        boggledMainMenu.getPlayGameB().setEnabled(true);
+                        boggledMainMenu.getLeaderboardB().setEnabled(true);
+                        boggledMainMenu.getOptionsB().setEnabled(true);
+                        boggledMainMenu.getLogoutB().setEnabled(true);
+
                     });
 
                     overlayPanel.add(Box.createVerticalGlue());
@@ -663,134 +671,6 @@ public class InGameState extends JFrame {
         }
         });
         timer.start();
-    }
-
-    public void startRemainingTimeChecker() {
-        Thread thread = new Thread(() -> {
-            while (true) {
-                String remainingTime = boggledImpl.getRoundTime(cref, gameID);
-                titleLabel.setText(remainingTime);
-
-                if (remainingTime.equals("0")) {
-                    SwingUtilities.invokeLater(() -> {
-                        if (boggledImpl.isGameFinished(gameID)) {
-                            String gameWinner = boggledImpl.gameWinner(gameID);
-                            System.out.println("WINNER FOR GAME:" + gameWinner);
-
-                            getContentPane().removeAll();
-                            JPanel overlayPanel = new JPanel();
-                            overlayPanel.setLayout(new BoxLayout(overlayPanel, BoxLayout.Y_AXIS));
-                            overlayPanel.setBackground(new Color(0, 0, 0, 250));
-                            JLabel gameWinnerLabel = new JLabel("Game Winner", SwingConstants.CENTER);
-                            gameWinnerLabel.setForeground(BoggledColors.PRIMARY_COLOR);
-                            gameWinnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
-                            gameWinnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-                            overlayPanel.add(Box.createVerticalGlue());
-                            overlayPanel.add(gameWinnerLabel);
-
-                            JLabel winnerLabel = new JLabel(gameWinner, SwingConstants.CENTER);
-                            winnerLabel.setForeground(Color.YELLOW);
-                            winnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 68));
-                            winnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-                            overlayPanel.add(winnerLabel);
-
-                            JLabel scoreLabel = new JLabel(boggledImpl.getWinnerScore(gameID) + " points!", SwingConstants.CENTER);
-                            scoreLabel.setForeground(BoggledColors.PRIMARY_COLOR);
-                            scoreLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 42));
-                            scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-                            overlayPanel.add(scoreLabel);
-                            overlayPanel.add(Box.createVerticalGlue());
-
-                            JButton menuButton = new JButton("Back to Menu");
-                            menuButton.setForeground(BoggledColors.PRIMARY_COLOR);
-                            menuButton.setBackground(BoggledColors.BUTTON_COLOR);
-                            menuButton.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 30));
-                            menuButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-                            menuButton.setUI(new StyledButtonUI());
-
-                            menuButton.addActionListener(a -> {
-                                this.dispose();
-                            });
-
-                            overlayPanel.add(Box.createVerticalGlue());
-                            overlayPanel.add(menuButton);
-                            overlayPanel.add(Box.createVerticalStrut(40));
-
-                            getContentPane().add(overlayPanel);
-                            revalidate();
-                        } else {
-                            String roundWinner;
-                            listModel.clear();
-                            try {
-                                roundWinner = boggledImpl.roundWinner(gameID);
-                                getContentPane().removeAll();
-                                JPanel overlayPanel = new JPanel();
-                                overlayPanel.setLayout(new BoxLayout(overlayPanel, BoxLayout.Y_AXIS));
-                                overlayPanel.setBackground(new Color(0, 0, 0, 250));
-                                JLabel roundWinnerLabel = new JLabel("Round Winner", SwingConstants.CENTER);
-                                roundWinnerLabel.setForeground(BoggledColors.PRIMARY_COLOR);
-                                roundWinnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
-                                roundWinnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-                                overlayPanel.add(Box.createVerticalGlue());
-                                overlayPanel.add(roundWinnerLabel);
-
-                                JLabel winnerLabel = new JLabel(roundWinner, SwingConstants.CENTER);
-                                winnerLabel.setForeground(BoggledColors.PRIMARY_COLOR);
-                                winnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 68));
-                                winnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-                                overlayPanel.add(winnerLabel);
-
-                                JLabel scoreLabel = new JLabel("YOUR SCORE: " + boggledImpl.roundPoints(gameID, playerName), SwingConstants.CENTER);
-                                scoreLabel.setForeground(BoggledColors.PRIMARY_COLOR);
-                                scoreLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 42));
-                                scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-                                overlayPanel.add(scoreLabel);
-                                overlayPanel.add(Box.createVerticalGlue());
-
-                                getContentPane().add(overlayPanel);
-                                revalidate();
-                            } catch (NoWinnerException ex) {
-                                getContentPane().removeAll();
-                                JPanel overlayPanel = new JPanel();
-                                overlayPanel.setLayout(new BoxLayout(overlayPanel, BoxLayout.Y_AXIS));
-                                overlayPanel.setBackground(new Color(0, 0, 0, 250));
-                                overlayPanel.add(Box.createVerticalGlue());
-
-                                JLabel roundWinnerLabel = new JLabel("DRAW", SwingConstants.CENTER);
-                                roundWinnerLabel.setForeground(BoggledColors.PRIMARY_COLOR);
-                                roundWinnerLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 100));
-                                roundWinnerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-                                overlayPanel.setLayout(new GridBagLayout());
-                                GridBagConstraints gbc = new GridBagConstraints();
-                                gbc.anchor = GridBagConstraints.CENTER;
-                                overlayPanel.add(roundWinnerLabel, gbc);
-
-                                getContentPane().add(overlayPanel);
-                                revalidate();
-                            }
-
-                            Timer delayTimer = new Timer(5000, event -> {
-                                getContentPane().removeAll();
-                                addUIComponents();
-                                revalidate();
-                                repaint();
-                            });
-                            delayTimer.setRepeats(false); // Make sure the timer only runs once
-                            delayTimer.start();
-                        }
-                    });
-                }
-
-                try {
-                    Thread.sleep(850);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        thread.start();
     }
 
 }
