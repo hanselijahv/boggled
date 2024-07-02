@@ -219,7 +219,7 @@ public class BoggledImplementation extends BoggledPOA {
     @Override
     public int totalRounds(String gameID) {
         GameRoom gameRoom = gameRooms.get(gameID);
-        return gameRoom.getNumRounds();
+        return gameRoom.getNumOfRoundsNeedToWin();
     }
 
     @Override
