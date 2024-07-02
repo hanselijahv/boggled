@@ -36,10 +36,6 @@ public class BoggledOptionMenu extends VerticalContainer {
 
         BoggledContainer labelContainer = new VerticalContainer();
 
-        labelContainer.addUIComponent(new BoggledCheckbox("FULLSCREEN", settings.isFullScreenMode()));
-        labelContainer.setMargin(new Spacing(0));
-        labelContainer.setPadding(new Spacing(10));
-
         BoggledContainer contentContainer = new VerticalContainer();
         contentContainer.setMargin(new Spacing(0));
         contentContainer.setPadding(new Spacing(10));

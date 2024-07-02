@@ -52,23 +52,24 @@ public class PlayerDAO {
         }
     }
 
-    public void  updateHighestScore(String username, int score) throws SQLException {
-        String sql = "SELECT highest_score FROM players WHERE username = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, username);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                int currentHighScore = resultSet.getInt(1);
-                if (score > currentHighScore) {
-                    sql = "UPDATE players SET highest_score = ? WHERE username = ?";
-                    try (PreparedStatement updateStatement = connection.prepareStatement(sql)) {
-                        updateStatement.setInt(1, score);
-                        updateStatement.setString(2, username);
-                    }
+    public void updateHighestScore(String username, int score) throws SQLException {
+    String sql = "SELECT highest_score FROM players WHERE username = ?";
+    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        statement.setString(1, username);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            int currentHighScore = resultSet.getInt(1);
+            if (score > currentHighScore) {
+                sql = "UPDATE players SET highest_score = ? WHERE username = ?";
+                try (PreparedStatement updateStatement = connection.prepareStatement(sql)) {
+                    updateStatement.setInt(1, score);
+                    updateStatement.setString(2, username);
+                    updateStatement.executeUpdate();
                 }
             }
         }
     }
+}
 
     public List<Player> getTop5PlayersWithHighestScores() throws SQLException {
         List<Player> topPlayers = new ArrayList<>();
