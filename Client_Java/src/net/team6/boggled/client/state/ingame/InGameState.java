@@ -323,9 +323,9 @@ public class InGameState extends JFrame {
         minute = String.valueOf(Integer.parseInt(gameDuration) / 60);
         second = String.valueOf(Integer.parseInt(gameDuration) % 60);
 
-       // countdownTimer();
-        //timer.start();
-        startRemainingTimeChecker();
+        countdownTimer();
+        timer.start();
+        //startRemainingTimeChecker();
 
         GridBagConstraints titleConstraints = new GridBagConstraints();
         titleConstraints.gridx = 0;
