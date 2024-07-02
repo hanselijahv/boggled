@@ -98,6 +98,7 @@ public class BoggledLogin extends VerticalContainer {
                 );
                 JDialog dialog = optionPane.createDialog("Error");
                 dialog.setVisible(true);
+                dialog.setUndecorated(true);
             } catch (AlreadyLoggedInException e) {
                 optionPane = new JOptionPane(
                         "User " + user + " already logged in",
@@ -109,6 +110,7 @@ public class BoggledLogin extends VerticalContainer {
                 );
                 JDialog dialog = optionPane.createDialog("Error");
                 dialog.setVisible(true);
+                dialog.setUndecorated(true);
             } catch (Exception e) {
                 optionPane = new JOptionPane(
                         "An error occurred while trying to login.",
@@ -120,6 +122,7 @@ public class BoggledLogin extends VerticalContainer {
                 );
                 JDialog dialog = optionPane.createDialog("Error");
                 dialog.setVisible(true);
+                dialog.setUndecorated(true);
             }
         });
     }
