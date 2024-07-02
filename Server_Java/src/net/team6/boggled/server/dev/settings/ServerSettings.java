@@ -1,8 +1,8 @@
 package net.team6.boggled.server.dev.settings;
 
 import net.team6.boggled.common.core.Value;
-import net.team6.boggled.common.db.SettingsDAO;
 import net.team6.boggled.common.model.Settings;
+import static net.team6.boggled.common.db.SettingsDAO.settingsDAOImpl;
 
 import java.sql.SQLException;
 
@@ -15,8 +15,7 @@ public class ServerSettings {
     public ServerSettings(boolean debugMode) throws SQLException {
         gameSpeedMultiplier = 1;
         audioSettings = new ServerAudioSettings();
-        SettingsDAO settingsDAO = new SettingsDAO();
-        settings = settingsDAO.getAll().get(0);
+        settings = settingsDAOImpl.getAll().get(0);
         fullScreenMode = new Value<>(false);
     }
 

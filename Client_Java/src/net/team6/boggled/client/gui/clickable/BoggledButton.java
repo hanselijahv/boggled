@@ -5,6 +5,7 @@ import net.team6.boggled.client.gui.container.VerticalContainer;
 import net.team6.boggled.client.gui.text.BoggledText;
 import net.team6.boggled.client.gui.tools.Spacing;
 import net.team6.boggled.client.state.State;
+import net.team6.boggled.client.state.menu.MenuState;
 import net.team6.boggled.common.core.Size;
 import net.team6.boggled.utilities.BoggledColors;
 
@@ -16,10 +17,10 @@ public class BoggledButton extends BoggledClickable {
 
     private BoggledContainer container;
     private BoggledText label;
-
     private ClickAction clickAction;
-
+    private boolean enabled = true;
     protected Color backgroundColor;
+
 
     public BoggledButton(String label, int fontSize, ClickAction clickAction) {
         this.label = new BoggledText(label, fontSize);
@@ -69,14 +70,21 @@ public class BoggledButton extends BoggledClickable {
     protected void onFocus(State state) {
     }
 
+
     @Override
     public void onClick(State state) throws SQLException {
-	    try {
-		    clickAction.execute(state);
-	    } catch (IOException | FontFormatException e) {
-		    throw new RuntimeException(e);
-	    }
-	    //state.getAudioPlayer().playSound("SFX_UI_MenuSelections.wav");
+        if (enabled) { // Check if the button is enabled
+            try {
+                if (state instanceof MenuState) {
+                    clickAction.execute(state);
+                } else {
+                    // TODO HANDLE WHEN STATE IS OPTION OR LEADERBOARD
+                    System.out.println("Invalid state: " + state.getClass().getSimpleName());
+                }
+            } catch (IOException | FontFormatException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @Override
@@ -95,5 +103,8 @@ public class BoggledButton extends BoggledClickable {
     }
 
 
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 }
 
