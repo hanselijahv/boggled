@@ -19,6 +19,12 @@ public class RoundRoom {
 	private Set<String> dictionary;
 	private String roundWinner;
 
+	/**
+	 * Constructor for the RoundRoom class.
+	 *
+	 * @param gameRoom the GameRoom instance
+	 * @param players the list of players
+	 */
 	public RoundRoom(GameRoom gameRoom, List<String> players) {
 		this.gameRoom = gameRoom;
 		this.players = players;
@@ -28,6 +34,11 @@ public class RoundRoom {
 		printLetters();
 	}
 
+	/**
+	 * Prints the letters for the round.
+	 *
+	 * @return the letters as a string
+	 */
 	public String printLetters() {
 		List<Character> lettersList = randomLetters;
 		StringBuilder stringBuilder = new StringBuilder(lettersList.size());
@@ -37,6 +48,12 @@ public class RoundRoom {
 		return stringBuilder.toString();
 	}
 
+	/**
+	 * Submits a word for a player.
+	 *
+	 * @param playerName the name of the player
+	 * @param word the word to submit
+	 */
 	public void submitWord(String playerName, String word) {
 		if (!playerWords.containsKey(playerName)) {
 			playerWords.put(playerName, new HashSet<>());
@@ -49,6 +66,9 @@ public class RoundRoom {
 		}
 	}
 
+	/**
+	 * Prints the possible words for the round.
+	 */
 	public void printPossibleWords() {
 		List<String> possibleWords = new ArrayList<>();
 		for (String word : dictionary) {
@@ -59,6 +79,9 @@ public class RoundRoom {
 		System.out.println(String.join(", ", possibleWords));
 	}
 
+	/**
+	 * Ends the round and calculates the scores.
+	 */
 	public void endRound() {
 		Map<String, Integer> scores = calculateScores();
 		this.roundWinner = null;
@@ -89,10 +112,19 @@ public class RoundRoom {
 		printRoundScores();
 	}
 
+	/**
+	 * Gets the points for a player.
+	 *
+	 * @param username the username of the player
+	 * @return the points of the player
+	 */
 	public int getPlayerPoint(String username) {
 		return roundScores.getOrDefault(username, 0);
 	}
 
+	/**
+	 * Prints the scores for the round.
+	 */
 	public void printRoundScores() {
 		System.out.println("Current Round scores:");
 		for (Map.Entry<String, Integer> entry : roundScores.entrySet()) {
@@ -100,6 +132,11 @@ public class RoundRoom {
 		}
 	}
 
+	/**
+	 * Generates random letters for the round.
+	 *
+	 * @return the list of random letters
+	 */
 	public List<Character> generateRandomLetters() {
 		List<Character> randomLetters = new ArrayList<>();
 		randomLetters.addAll(generateRandomVowels());
@@ -108,6 +145,10 @@ public class RoundRoom {
 		return randomLetters;
 	}
 
+	/**
+	 * Generates random vowels for the round.
+	 * @return the list of random vowels
+	 */
 	private List<Character> generateRandomVowels() {
 		List<Character> vowels = new ArrayList<>();
 		Random random = new Random();
@@ -118,6 +159,10 @@ public class RoundRoom {
 		return vowels;
 	}
 
+	/**
+	 * Generates random consonants for the round.
+	 * @return the list of random consonants
+	 */
 	private List<Character> generateRandomConsonants() {
 		List<Character> consonants = new ArrayList<>();
 		Random random = new Random();
@@ -131,6 +176,12 @@ public class RoundRoom {
 		return consonants;
 	}
 
+	/**
+	 * Checks if a word can be formed with the round's letters.
+	 *
+	 * @param word the word to check
+	 * @return true if the word can be formed, false otherwise
+	 */
 	public boolean canFormWord(String word) {
 		List<Character> remainingLetters = new ArrayList<>(randomLetters);
 		for (char letter : word.toCharArray()) {
@@ -150,10 +201,21 @@ public class RoundRoom {
 		return true;
 	}
 
+	/**
+	 * Checks if a word is valid.
+	 *
+	 * @param word the word to check
+	 * @return true if the word is valid, false otherwise
+	 */
 	private boolean isValidWord(String word) {
 		return dictionary.contains(word.toLowerCase());
 	}
 
+	/**
+	 * Calculates the scores for the round.
+	 *
+	 * @return a map of player usernames to their scores
+	 */
 	private Map<String, Integer> calculateScores() {
 		Map<String, Integer> scores = new HashMap<>();
 		for (String player : players) {
@@ -170,6 +232,9 @@ public class RoundRoom {
 		return scores;
 	}
 
+	/**
+	 * Loads the dictionary from a file.
+	 */
 	private void loadDictionary() {
 		dictionary = new HashSet<>();
 		try (BufferedReader br = new BufferedReader(new FileReader("Server_Java/res/text/words.txt"))) {
@@ -184,6 +249,11 @@ public class RoundRoom {
 		}
 	}
 
+	/**
+	 * Gets the words submitted by the players.
+	 *
+	 * @return a map of player usernames to their submitted words
+	 */
 	public ConcurrentHashMap<String, Set<String>> getPlayerWords() {
 		return playerWords;
 	}

@@ -120,7 +120,6 @@ public class InGameState extends JFrame {
         if (dialog == null) {
             String playersScores = boggledImpl.gameScore(gameID);
             final String maxScore = String.valueOf(boggledImpl.totalRounds(gameID));
-            System.out.println(playersScores);
 
             String[] rows = playersScores.split("\n");
 
@@ -184,7 +183,6 @@ public class InGameState extends JFrame {
         }
     }
 
-
     private void closeCustomDialog() {
         if (dialog != null) {
             dialog.dispose();
@@ -200,10 +198,7 @@ public class InGameState extends JFrame {
             throw new IllegalArgumentException("Game ID is null");
         }
 
-        System.out.println("TODO TEST gameID: " + gameID);
         String lettersString = boggledImpl.getLetters(gameID);
-
-        System.out.println("TODO TEST letters: " + lettersString);
         List<Character> lettersList = new ArrayList<>();
         for (char c : lettersString.toCharArray()) {
             lettersList.add(c);
@@ -370,8 +365,7 @@ public class InGameState extends JFrame {
 
         letters = getLetters(gameID);
 
-        //TODO: delete
-        System.out.println("LETTERS: " + letters);
+        System.out.println("LETTERS: " + letters);  // debug
 
         for (int i = 0; i < 20; i++) {
             JButton button = new JButton(letters.get(i).toString());
@@ -461,14 +455,11 @@ public class InGameState extends JFrame {
 
                 if (!listModel.contains(inputText)) {
                     listModel.addElement(inputText);
-                    System.out.println(listModel);
                     repaint();
                     revalidate();
                 }
             }
 
-            System.out.println(response.value);
-            System.out.println("Text entered: " + inputText);
             inputField.setText("");
         });
 

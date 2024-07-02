@@ -15,17 +15,44 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static net.team6.boggled.common.db.PlayerDAO.playerDAOImpl;
 
+/**
+ * This class is the implementation of the Boggled game.
+ * It extends the BoggledPOA class and implements all the methods defined in the Boggled interface.
+ * It manages the game rooms, waiting rooms, sessions, and logged-in users.
+ */
 public class BoggledImplementation extends BoggledPOA {
-    private ConcurrentHashMap<String, WaitingRoom> waitingRooms = new ConcurrentHashMap<>();
-    private ConcurrentHashMap<String, GameRoom> gameRooms = new ConcurrentHashMap<>();
-    private final Map<String, String> sessionMap = new HashMap<>();     // sessionId -> username
-    private final Set<String> loggedInUsers = new HashSet<>();
-    private ORB orb;
 
+    // concurrent hash map to store waiting rooms, with room ID as the key and the WaitingRoom object as the value
+    private ConcurrentHashMap<String, WaitingRoom> waitingRooms = new ConcurrentHashMap<>();
+
+    // concurrent hash map to store game rooms, with room ID as the key and the GameRoom object as the value
+    private ConcurrentHashMap<String, GameRoom> gameRooms = new ConcurrentHashMap<>();
+
+    // map to store session data, with session ID as the key and the username as the value
+    private final Map<String, String> sessionMap = new HashMap<>();
+
+    // set to store the usernames of all currently logged-in users
+    private final Set<String> loggedInUsers = new HashSet<>();
+
+    private ORB orb;    // ORB
+
+    /**
+     * Sets the ORB for this Boggled implementation.
+     *
+     * @param orb the ORB to set
+     */
     public void setOrb(ORB orb) {
         this.orb = orb;
     }
 
+    /**
+     * Logs in a user with the given username and password.
+     *
+     * @param username the username of the user
+     * @param password the password of the user
+     * @throws UserNotFoundException if the user is not found
+     * @throws AlreadyLoggedInException if the user is already logged in
+     */
     @Override
     public void login(String username, String password) throws UserNotFoundException, AlreadyLoggedInException {
         Player account = new Player(null, username, password);
@@ -48,6 +75,11 @@ public class BoggledImplementation extends BoggledPOA {
         loggedInUsers.add(username);
     }
 
+    /**
+     * Adds a player to the waiting room.
+     *
+     * @param playerName the name of the player
+     */
     @Override
     public void joinWaitingRoom(String playerName) {
         WaitingRoom room = null;
@@ -64,6 +96,12 @@ public class BoggledImplementation extends BoggledPOA {
         System.out.println(getWaitingRoomInfo(playerName));
     }
 
+    /**
+     * Gets the waiting time for a player.
+     *
+     * @param objRef the callback object reference
+     * @return the remaining waiting time
+     */
     @Override
     public String getWaitingTime(Callback objRef) {
         String remainingTime;
@@ -76,6 +114,12 @@ public class BoggledImplementation extends BoggledPOA {
         return remainingTime;
     }
 
+    /**
+     * Gets the waiting room information for a player.
+     *
+     * @param playerName the name of the player
+     * @return the waiting room information
+     */
     @Override
     public String getWaitingRoomInfo(String playerName) {
         for (WaitingRoom room : waitingRooms.values()) {
@@ -86,6 +130,13 @@ public class BoggledImplementation extends BoggledPOA {
         return "No waiting room found for player: " + playerName;
     }
 
+    /**
+     * Gets the round time for a game.
+     *
+     * @param objRef the callback object reference
+     * @param gameID the game ID
+     * @return the remaining round time
+     */
     @Override
     public String getRoundTime(Callback objRef, String gameID) {
         String remainingTime;
@@ -98,6 +149,13 @@ public class BoggledImplementation extends BoggledPOA {
         return remainingTime;
     }
 
+    /**
+     * Gets the game ID for a player.
+     *
+     * @param objRef the callback object reference
+     * @param playerName the name of the player
+     * @return the game ID
+     */
     @Override
     public String getGameID(Callback objRef, String playerName) {
         try {
@@ -108,6 +166,12 @@ public class BoggledImplementation extends BoggledPOA {
         }
     }
 
+    /**
+     * Gets the letters for a game.
+     *
+     * @param gameID the game ID
+     * @return the letters
+     */
     @Override
     public String getLetters(String gameID) {
         GameRoom gameRoom = gameRooms.get(gameID);
@@ -119,7 +183,11 @@ public class BoggledImplementation extends BoggledPOA {
         return stringBuilder.toString();
     }
 
-
+    /**
+     * Checks if the game is ready to start.
+     *
+     * @return true if the game is ready to start, false otherwise
+     */
     @Override
     public boolean isGameReadyToStart() {
         WaitingRoom room;
@@ -131,7 +199,17 @@ public class BoggledImplementation extends BoggledPOA {
         return room.isReadyToStart();
     }
 
-
+    /**
+     * Submits a word for a player in a game.
+     *
+     * @param gameID the game ID
+     * @param playerName the name of the player
+     * @param word the word to submit
+     * @param isValid a holder for the validity of the word
+     * @param canForm a holder for the ability to form the word
+     * @param response a holder for the response message
+     * @return true if the word is submitted successfully, false otherwise
+     */
     @Override
     public boolean submitWord(String gameID, String playerName, String word, BooleanHolder isValid, BooleanHolder canForm, StringHolder response) {
         GameRoom gameRoom = gameRooms.get(gameID);
@@ -149,6 +227,12 @@ public class BoggledImplementation extends BoggledPOA {
         }
     }
 
+    /**
+     * Logs out a user with the given username.
+     *
+     * @param username the username of the user
+     * @throws NotLoggedInException if the user is not logged in
+     */
     @Override
     public void logout(String username) throws NotLoggedInException {
         if (loggedInUsers.contains(username)) {
@@ -158,6 +242,12 @@ public class BoggledImplementation extends BoggledPOA {
         }
     }
 
+    /**
+     * Gets the game score for a game.
+     *
+     * @param gameID the game ID
+     * @return the game score
+     */
     @Override
     public String gameScore(String gameID){
         GameRoom gameRoom = gameRooms.get(gameID);
@@ -168,6 +258,13 @@ public class BoggledImplementation extends BoggledPOA {
         return scores.toString();
     }
 
+    /**
+     * Gets the round points for a player in a game.
+     *
+     * @param gameID the game ID
+     * @param username the username of the player
+     * @return the round points
+     */
     @Override
     public int roundPoints(String gameID, String username){
         GameRoom gameRoom = gameRooms.get(gameID);
@@ -175,30 +272,62 @@ public class BoggledImplementation extends BoggledPOA {
         return roundRoom.getPlayerPoint(username);
     }
 
+    /**
+     * Gets the total points for a player in a game.
+     *
+     * @param gameId the game ID
+     * @param username the username of the player
+     * @return the total points
+     */
     @Override
     public int playerPoints(String gameId, String username){
         GameRoom gameRoom = gameRooms.get(gameId);
         return gameRoom.getPlayerPoints(username);
     }
 
+    /**
+     * Gets the game winner for a game.
+     *
+     * @param gameId the game ID
+     * @return the game winner
+     */
     @Override
     public String gameWinner(String gameId){
         GameRoom gameRoom = gameRooms.get(gameId);
         return gameRoom.getGameWinner();
     }
 
+    /**
+     * Gets the winner's score for a game.
+     *
+     * @param gameID the game ID
+     * @return the winner's score
+     */
     @Override
     public int getWinnerScore(String gameID) {
         GameRoom gameRoom = gameRooms.get(gameID);
         return gameRoom.getWinningScore();
     }
 
+    /**
+     * Checks if the game is finished.
+     *
+     * @param gameId the game ID
+     * @return true if the game is finished, false otherwise
+     */
     @Override
     public boolean isGameFinished(String gameId){
         GameRoom gameRoom = gameRooms.get(gameId);
         return gameRoom.gameOver();
     }
 
+    /**
+     * Gets the round winner for a game.
+     *
+     * @param gameId the game ID
+     * @throws NoWinnerException if there is no winner for the round
+     * @return the round winner
+     */
     @Override
     public String roundWinner(String gameId) throws NoWinnerException {
         GameRoom gameRoom = gameRooms.get(gameId);
@@ -210,18 +339,35 @@ public class BoggledImplementation extends BoggledPOA {
         }
     }
 
+    /**
+     * Gets the current round number for a game.
+     *
+     * @param gameId the game ID
+     * @return the current round number
+     */
     @Override
     public int currentRound(String gameId){
         GameRoom gameRoom = gameRooms.get(gameId);
         return gameRoom.getCurrentRoundNumber();
     }
 
+    /**
+     * Gets the total number of rounds needed to win for a game.
+     *
+     * @param gameID the game ID
+     * @return the total number of rounds needed to win
+     */
     @Override
     public int totalRounds(String gameID) {
         GameRoom gameRoom = gameRooms.get(gameID);
         return gameRoom.getNumOfRoundsNeedToWin();
     }
 
+    /**
+     * Gets the leaderboard of the game.
+     *
+     * @return the leaderboard
+     */
     @Override
     public Leaderboards getLeaderboard() {
         List<Player> players;
@@ -241,14 +387,29 @@ public class BoggledImplementation extends BoggledPOA {
         return leaderboards;
     }
 
+    /**
+     * Generates a session ID.
+     *
+     * @return the generated session ID
+     */
     private String generateSessionId() {
         return UUID.randomUUID().toString();
     }
 
+    /**
+     * Gets the waiting rooms.
+     *
+     * @return the waiting rooms
+     */
     public ConcurrentHashMap<String, WaitingRoom> getWaitingRooms() {
         return waitingRooms;
     }
 
+    /**
+     * Gets the game rooms.
+     *
+     * @return the game rooms
+     */
     public ConcurrentHashMap<String, GameRoom> getGameRooms() {
         return gameRooms;
     }

@@ -24,6 +24,12 @@ public class WaitingRoom {
 
 	private BoggledImplementation boggledImplementation;  // test
 
+	/**
+	 * Constructor for the WaitingRoom class.
+	 *
+	 * @param boggledImplementation the BoggledImplementation instance
+	 * @param creator the creator of the waiting room
+	 */
 	public WaitingRoom(BoggledImplementation boggledImplementation, String creator) {
 		this.boggledImplementation = boggledImplementation;
 		gameId = gameRoom.createGameId();
@@ -60,18 +66,38 @@ public class WaitingRoom {
 		}, (timerDuration) * 1000);
 	}
 
+	/**
+	 * Adds a player to the waiting room.
+	 *
+	 * @param playerName the name of the player
+	 */
 	public void joinPlayer(String playerName) {
 		players.put(playerName, true);
 	}
 
+	/**
+	 * Checks if the waiting room is ready to start a game.
+	 *
+	 * @return true if the waiting room is ready to start a game, false otherwise
+	 */
 	public boolean isReadyToStart() {
 		return players.size() >= 2;
 	}
 
+	/**
+	 * Checks if there are not enough players in the waiting room.
+	 *
+	 * @return true if there are not enough players, false otherwise
+	 */
 	public boolean isNotEnough() {
 		return players.size() <= 1;
 	}
 
+	/**
+	 * Returns the remaining time for the waiting room.
+	 *
+	 * @return the remaining time in seconds
+	 */
 	public String getRemainingTime() {
 		long elapsedTime = System.currentTimeMillis() - startTime;
 		long remainingTime = Math.max(0, timerDuration - (elapsedTime / 1000));
@@ -79,10 +105,16 @@ public class WaitingRoom {
 		return String.format("%02d", seconds);
 	}
 
+
 	public List<String> getPlayers() {
 		return new ArrayList<>(players.keySet());
 	}
 
+	/**
+	 * Returns the waiting time for the waiting room.
+	 *
+	 * @return the waiting time in seconds
+	 */
 	public int getWaitingTime() {
 		int duration;
 		try {

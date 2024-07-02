@@ -8,10 +8,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static net.team6.boggled.common.db.SettingsDAO.settingsDAOImpl;
 
-
+/**
+ * Represents a game room that contains multiple rounds.
+ *
+ */
 public class GameRoom {
-	private final ConcurrentHashMap<String, Integer> playerStandings = new ConcurrentHashMap<>();
-	private final ConcurrentHashMap<String, Integer> playerScores = new ConcurrentHashMap<>();
+	private final ConcurrentHashMap<String, Integer> playerStandings = new ConcurrentHashMap<>(); // player -> rounds won
+	private final ConcurrentHashMap<String, Integer> playerScores = new ConcurrentHashMap<>();	// player -> total score
 
 	private RoundRoom currentRound;
 	public List<String> players;
@@ -21,13 +24,12 @@ public class GameRoom {
 	public long startTime;
 	private Timer timer;
 
-	private final int numOfRoundsNeedToWin = getNumRounds();
-	private final int roundTime = getRoundTime()+1;
+	private final int numOfRoundsNeedToWin = getNumRounds();	// number of rounds needed to win the game
+	private final int roundTime = getRoundTime()+1;	// round time in seconds
 
-	public RoundRoom getCurrentRound() {
-		return currentRound;
-	}
-
+	/**
+	 * Starts the game and schedules the end of the round.
+	 */
 	public void start(){
 		currentRound = new RoundRoom(this, players);
 		currentRoundNumber++;
@@ -64,12 +66,22 @@ public class GameRoom {
 
 	}
 
+	/**
+	 * Returns the remaining time for the current round.
+	 *
+	 * @return the remaining time in seconds
+	 */
 	public String getRemainingTime() {
 		long elapsedTime = System.currentTimeMillis() - startTime;
 		long remainingTime = Math.max(0, roundTime - (elapsedTime / 1000));
 		return String.valueOf(remainingTime);
 	}
 
+	/**
+	 * Checks if the game is over.
+	 *
+	 * @return true if the game is over, false otherwise
+	 */
 	public boolean gameOver() {
 		for (Map.Entry<String, Integer> entry : playerStandings.entrySet()) {
 			if (entry.getValue() >= numOfRoundsNeedToWin) {
@@ -90,11 +102,21 @@ public class GameRoom {
 		return false;
 	}
 
+	/**
+	 * Returns the total points of a player in the game.
+	 *
+	 * @param username the username of the player
+	 * @return the total points of the player
+	 */
 	public int getPlayerPoints(String username) {
 		return playerScores.getOrDefault(username, 0);
 	}
 
-
+	/**
+	 * Returns the round time.
+	 *
+	 * @return the round time in seconds
+	 */
 	public int getRoundTime() {
 		int roundTime;
 		try {
@@ -107,6 +129,11 @@ public class GameRoom {
 		return roundTime;
 	}
 
+	/**
+	 * Returns the number of rounds needed to win the game.
+	 *
+	 * @return the number of rounds
+	 */
 	public int getNumRounds() {
 		int numOfRounds;
 		try {
@@ -119,10 +146,20 @@ public class GameRoom {
 		return numOfRounds;
 	}
 
+	/**
+	 * Creates a unique game ID.
+	 *
+	 * @return the game ID
+	 */
 	public String createGameId() {
 		return UUID.randomUUID().toString();
 	}
 
+	/**
+	 * Sets the players for the game.
+	 *
+	 * @param players the list of players
+	 */
 	public void setPlayers(List<String> players) {
 		this.players = players;
 		for (String player : players) {
@@ -130,11 +167,23 @@ public class GameRoom {
 		}
 	}
 
+	/**
+	 * Prints the current game scores.
+	 */
 	public void printGameScores() {
 		System.out.println("Current Game scores:");
 		for (Map.Entry<String, Integer> entry : playerStandings.entrySet()) {
 			System.out.println(entry.getKey() + ": " + entry.getValue());
 		}
+	}
+
+	/**
+	 * Returns the current round.
+	 *
+	 * @return the current round
+	 */
+	public RoundRoom getCurrentRound() {
+		return currentRound;
 	}
 
 	public int getNumOfRoundsNeedToWin() {

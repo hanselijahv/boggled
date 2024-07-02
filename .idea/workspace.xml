@@ -4,15 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f9905697-2b0f-4be3-95ab-f2a45b561e17" name="Changes" comment="Merge remote-tracking branch 'origin/refactor' into refactor&#10;&#10;# Conflicts:&#10;#&#9;.idea/runConfigurations/ServerLauncher.xml&#10;#&#9;out/production/Server_Java/net/team6/boggled/server/display/ServerDisplay.class">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boggled.idl" beforeDir="false" afterPath="$PROJECT_DIR$/boggled.idl" afterDir="false" />
+    <list default="true" id="f9905697-2b0f-4be3-95ab-f2a45b561e17" name="Changes" comment="cleanup and javadoc">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client_Java/res/text/words.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client_Java/src/net/team6/boggled/client/state/entry/elements/BoggledLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/net/team6/boggled/client/state/entry/elements/BoggledLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_Java/src/net/team6/boggled/run/BoggledImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/net/team6/boggled/run/BoggledImplementation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/server/state/users/elements/UpdateUsersUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/server/state/users/elements/UpdateUsersUI$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/server/state/users/elements/UpdateUsersUI$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/server/state/users/elements/UpdateUsersUI$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/server/state/users/elements/UpdateUsersUI$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/server/state/users/elements/UpdateUsersUI$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/server/state/users/elements/UpdateUsersUI$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/server/state/users/elements/UpdateUsersUI$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/server/state/users/elements/UpdateUsersUI$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/server/state/users/elements/UpdateUsersUI$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/server/state/users/elements/UpdateUsersUI$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/server/state/users/elements/UpdateUsersUI$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/server/state/users/elements/UpdateUsersUI$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/server/state/users/elements/UpdateUsersUI$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/server/state/users/elements/UpdateUsersUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/server/state/users/elements/UpdateUsersUI.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2ihALHQ4MLNIT9Bfw5ws8XC41KW" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="autoscrollToSource" value="true" />
@@ -23,7 +40,15 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "git-widget-placeholder": "Merging refactor"
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "refactor",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.github.copilot.settings.ApplicationConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager" selected="Application.ClientLauncher">
@@ -33,11 +58,54 @@
       <item itemvalue="Shell Script.ORBD" />
     </list>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task id="LOCAL-00001" summary="cleanup idl">
+      <option name="closed" value="true" />
+      <created>1719930166769</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1719930166769</updated>
+    </task>
+    <task id="LOCAL-00002" summary="cleanup and javadoc">
+      <option name="closed" value="true" />
+      <created>1719932143309</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1719932143309</updated>
+    </task>
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f9905697-2b0f-4be3-95ab-f2a45b561e17" name="Changes" comment="cleanup and javadoc" />
+      <created>1719932377669</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1719932377669</updated>
+      <workItem from="1719932378922" duration="734000" />
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Merge remote-tracking branch 'origin/refactor' into refactor&#10;&#10;# Conflicts:&#10;#&#9;.idea/runConfigurations/ServerLauncher.xml&#10;#&#9;out/production/Server_Java/net/team6/boggled/server/display/ServerDisplay.class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/refactor' into refactor&#10;&#10;# Conflicts:&#10;#&#9;.idea/runConfigurations/ServerLauncher.xml&#10;#&#9;out/production/Server_Java/net/team6/boggled/server/display/ServerDisplay.class" />
+    <MESSAGE value="cleanup idl" />
+    <MESSAGE value="cleanup and javadoc" />
+    <option name="LAST_COMMIT_MESSAGE" value="cleanup and javadoc" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

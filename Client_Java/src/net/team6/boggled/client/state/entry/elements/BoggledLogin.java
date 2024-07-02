@@ -2,7 +2,6 @@ package net.team6.boggled.client.state.entry.elements;
 
 import BoggledApp.AlreadyLoggedInException;
 import BoggledApp.UserNotFoundException;
-import net.team6.boggled.client.display.Display;
 import net.team6.boggled.client.gui.clickable.BoggledButton;
 import net.team6.boggled.client.gui.container.BoggledContainer;
 import net.team6.boggled.client.gui.container.VerticalContainer;
@@ -84,9 +83,6 @@ public class BoggledLogin extends VerticalContainer {
             try {
                 Connect.boggledImpl.login(user, pass);
                 Connect.username = user;
-
-                //TODO
-                //Connect.sessionID = Connect.boggledImpl.getSessionId(user);
                 state.setNextState(new MenuState(state.getWindowSize(), state.getInput(), state.getGameSettings()));
             } catch (UserNotFoundException e) {
                 optionPane = new JOptionPane(
