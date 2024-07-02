@@ -84,6 +84,7 @@ public class BoggledLogin extends VerticalContainer {
             try {
                 Connect.boggledImpl.login(user, pass);
                 Connect.username = user;
+
                 //TODO
                 //Connect.sessionID = Connect.boggledImpl.getSessionId(user);
                 state.setNextState(new MenuState(state.getWindowSize(), state.getInput(), state.getGameSettings()));
@@ -97,7 +98,6 @@ public class BoggledLogin extends VerticalContainer {
                         null
                 );
                 JDialog dialog = optionPane.createDialog("Error");
-                dialog.setUndecorated(true);
                 dialog.setVisible(true);
             } catch (AlreadyLoggedInException e) {
                 optionPane = new JOptionPane(
@@ -109,7 +109,6 @@ public class BoggledLogin extends VerticalContainer {
                         null
                 );
                 JDialog dialog = optionPane.createDialog("Error");
-                dialog.setUndecorated(true);
                 dialog.setVisible(true);
             } catch (Exception e) {
                 optionPane = new JOptionPane(
@@ -121,7 +120,6 @@ public class BoggledLogin extends VerticalContainer {
                         null
                 );
                 JDialog dialog = optionPane.createDialog("Error");
-                dialog.setUndecorated(true);
                 dialog.setVisible(true);
             }
         });
