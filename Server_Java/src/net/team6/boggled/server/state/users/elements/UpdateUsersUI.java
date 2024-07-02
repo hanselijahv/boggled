@@ -18,12 +18,14 @@ import net.team6.boggled.utilities.FontUtils;
 import net.team6.boggled.utilities.OptionPaneButtonUI;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Timer;
@@ -77,6 +79,9 @@ public class UpdateUsersUI extends ServerVerticalContainer {
         table.setGridColor(BoggledColors.SYSTEM_COLOR);
         table.setRowHeight(25);
         table.setSelectionBackground(BoggledColors.TABLE_HIGHLIGHTED_COLOR);
+        table.removeColumn(table.getColumnModel().getColumn(0));
+        table.setRowSelectionAllowed(true);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 
         JTableHeader tableHeader = table.getTableHeader();
@@ -124,8 +129,92 @@ public class UpdateUsersUI extends ServerVerticalContainer {
 
             JButton cancelButton = getCancelButton();
 
+            JTextField searchField = new JTextField();
+            searchField.setFocusable(false);
+            searchField.setFont(font);
+            searchField.setBackground(BoggledColors.SYSTEM_COLOR);
+            searchField.setForeground(BoggledColors.PRIMARY_COLOR);
+            searchField.setBorder(BorderFactory.createCompoundBorder(
+                    searchField.getBorder(),
+                    BorderFactory.createEmptyBorder(10,10,10,10)
+            ));
+
+            String placeholderText = "Search username...";
+            searchField.setText(placeholderText);
+            searchField.setForeground(new Color(128,128,128,128));
+
+            searchField.addFocusListener(new FocusListener() {
+                @Override
+                public void focusGained(FocusEvent e) {
+                    if (searchField.getText().equals(placeholderText)) {
+                        SwingUtilities.invokeLater(() -> {
+                            searchField.setText("");
+                            searchField.setForeground(BoggledColors.PRIMARY_COLOR);
+                        });
+                    }
+                }
+
+                @Override
+                public void focusLost(FocusEvent e) {
+                    if (searchField.getText().isEmpty()) {
+                        searchField.setForeground(new Color(128, 128, 128, 128));
+                        searchField.setText(placeholderText);
+                    }
+                }
+            });
+
+            searchField.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyTyped(KeyEvent e) {
+                    if (searchField.getText().equals(placeholderText)) {
+                        SwingUtilities.invokeLater(() -> {
+                            searchField.setText("");
+                            searchField.setForeground(BoggledColors.PRIMARY_COLOR);
+                        });
+                    }
+                }
+            });
+
+            searchField.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    searchField.setFocusable(true);
+                    searchField.requestFocusInWindow(); // This line is optional. It sets the focus to the searchField when it is clicked.
+                }
+            });
+
+
+            searchField.getDocument().addDocumentListener(new DocumentListener() {
+                @Override
+                public void insertUpdate(DocumentEvent e) {
+                    if (!searchField.getText().equals(placeholderText)) {
+                        filterTable(searchField.getText());
+                    }
+                }
+
+                @Override
+                public void removeUpdate(DocumentEvent e) {
+                    if (!searchField.getText().equals(placeholderText)) {
+                        filterTable(searchField.getText());
+                    }
+                }
+
+                @Override
+                public void changedUpdate(DocumentEvent e) {
+                    if (!searchField.getText().equals(placeholderText)) {
+                        filterTable(searchField.getText());
+                    }
+                }
+            });
+
+            JPanel container = new JPanel(new BorderLayout());
+
+            container.add(searchField, BorderLayout.NORTH);
+            container.add(scrollPane, BorderLayout.CENTER);
+
             Object[] options = {okButton, cancelButton};
-            JOptionPane.showOptionDialog(null, scrollPane, "Select a User", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
+            JOptionPane.showOptionDialog(null, container, "Select a User", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
+
         }));
 
 
@@ -250,7 +339,7 @@ public class UpdateUsersUI extends ServerVerticalContainer {
         });
         removeButton.setMargin(new Spacing(0, 10, 0, 0));
         updateButton.setMargin(new Spacing(0, 0, 0, 10));
-        contentContainer.addUIComponent(idInput);
+        // contentContainer.addUIComponent(idInput);
         contentContainer.addUIComponent(usernameInput);
         contentContainer.addUIComponent(passwordInput);
 
@@ -265,6 +354,18 @@ public class UpdateUsersUI extends ServerVerticalContainer {
         contentContainer.addUIComponent(messageContainer);
 
         addUIComponent(new ServerButton("BACK", 16, (state) -> state.setNextState(new UsersState(state.getWindowSize(), state.getInput(), state.getBoggledSettings()))));
+
+    }
+
+    private void filterTable(String searchText) {
+        TableRowSorter<DefaultTableModel> rowSorter = new TableRowSorter<>(tableModel);
+        table.setRowSorter(rowSorter);
+
+        if (searchText.trim().isEmpty()) {
+            rowSorter.setRowFilter(null);
+        } else {
+            rowSorter.setRowFilter(RowFilter.regexFilter(searchText, 1));
+        }
 
     }
 
