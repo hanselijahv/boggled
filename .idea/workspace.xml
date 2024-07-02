@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f9905697-2b0f-4be3-95ab-f2a45b561e17" name="Changes" comment="Merge remote-tracking branch 'origin/refactor' into refactor&#10;&#10;# Conflicts:&#10;#&#9;.idea/runConfigurations/ServerLauncher.xml&#10;#&#9;out/production/Server_Java/net/team6/boggled/server/display/ServerDisplay.class">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boggled.idl" beforeDir="false" afterPath="$PROJECT_DIR$/boggled.idl" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="openDirectoriesWithSingleClick" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="sortKey" value="BY_TIME_DESCENDING" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "Merging refactor"
+  }
+}]]></component>
+  <component name="RunManager" selected="Application.ClientLauncher">
+    <list>
+      <item itemvalue="Application.ClientLauncher" />
+      <item itemvalue="Application.ServerLauncher" />
+      <item itemvalue="Shell Script.ORBD" />
+    </list>
+  </component>
+  <component name="TaskManager">
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Merge remote-tracking branch 'origin/refactor' into refactor&#10;&#10;# Conflicts:&#10;#&#9;.idea/runConfigurations/ServerLauncher.xml&#10;#&#9;out/production/Server_Java/net/team6/boggled/server/display/ServerDisplay.class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/refactor' into refactor&#10;&#10;# Conflicts:&#10;#&#9;.idea/runConfigurations/ServerLauncher.xml&#10;#&#9;out/production/Server_Java/net/team6/boggled/server/display/ServerDisplay.class" />
+  </component>
+</project>

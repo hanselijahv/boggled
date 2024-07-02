@@ -24,30 +24,35 @@ module BoggledApp {
         void message(in string message);
      };
 
-     struct Leaderboards {
-         sequence<string> leaderboard;
-       };
+ struct Leaderboards {
+     sequence<string> leaderboard;
+   };
 
-  interface Boggled {
-        void login(in string username, in string password) raises (UserNotFoundException, AlreadyLoggedInException);
-        void joinWaitingRoom(in string playerName);
-        boolean isGameReadyToStart();
-        string getWaitingTime(in Callback objRef);
-        string getWaitingRoomInfo(in string playerName);
-        string getRoundTime(in Callback objRef, in string gameID);
-        boolean submitWord(in string gameID, in string playerName, in string word, out boolean isValid, out boolean canForm, out string response);
-        string getGameID(in Callback objRef, in string playerName);
-        string getLetters(in string gameID);
-        void logout(in string username) raises (NotLoggedInException);
-        string gameWinner(in string gameID);
-        long getWinnerScore(in string gameID);
-        string roundWinner(in string gameID) raises (NoWinnerException);
-        long roundPoints(in string gameID, in string playerName);
-        long playerPoints(in string gameID, in string playerName);
-        boolean isGameFinished(in string gameID);
-        string gameScore(in string gameID);
-        long currentRound(in string gameID);
-        long totalRounds(in string gameID);
-        Leaderboards getLeaderboard();
-  };
+   interface Boggled {
+          // User related methods
+          void login(in string username, in string password) raises (UserNotFoundException, AlreadyLoggedInException);
+          void logout(in string username) raises (NotLoggedInException);
+
+          // Game related
+          void joinWaitingRoom(in string playerName);
+          boolean isGameReadyToStart();
+          string getWaitingTime(in Callback objRef);
+          string getWaitingRoomInfo(in string playerName);
+          string getRoundTime(in Callback objRef, in string gameID);
+          boolean submitWord(in string gameID, in string playerName, in string word, out boolean isValid, out boolean canForm, out string response);
+          string getGameID(in Callback objRef, in string playerName);
+          string getLetters(in string gameID);
+          boolean isGameFinished(in string gameID);
+          long currentRound(in string gameID);
+          long totalRounds(in string gameID);
+
+          // score related
+          string gameWinner(in string gameID);
+          long getWinnerScore(in string gameID);
+          string roundWinner(in string gameID) raises (NoWinnerException);
+          long roundPoints(in string gameID, in string playerName);
+          long playerPoints(in string gameID, in string playerName);
+          string gameScore(in string gameID);
+          Leaderboards getLeaderboard();
+    };
 };
