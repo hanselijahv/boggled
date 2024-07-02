@@ -210,6 +210,41 @@ public class InGameState extends JFrame {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(BoggledColors.SYSTEM_COLOR);
 
+        // round number
+
+        JLabel roundLabel = new JLabel("ROUND " + boggledImpl.currentRound(gameID));
+        roundLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+        roundLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 35));
+        roundLabel.setBorder(new EmptyBorder(20, 30, 0, 0));
+
+        GridBagConstraints topLabelConstraints = new GridBagConstraints();
+        topLabelConstraints.gridx = 0;
+        topLabelConstraints.gridy = -1;
+        topLabelConstraints.weightx = 1.0;
+        topLabelConstraints.weighty = 0.1;
+        topLabelConstraints.anchor = GridBagConstraints.NORTHWEST;
+        topLabelConstraints.fill = GridBagConstraints.HORIZONTAL;
+
+        panel.add(roundLabel, topLabelConstraints);
+
+        // username display
+
+        JLabel newLabel = new JLabel("» " + playerName);
+        newLabel.setForeground(BoggledColors.PRIMARY_COLOR);
+        newLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 20));
+        newLabel.setBorder(new EmptyBorder(0, 30, 20, 0));
+
+        GridBagConstraints newLabelConstraints = new GridBagConstraints();
+        newLabelConstraints.gridx = 0;
+        newLabelConstraints.gridy = 1;
+        newLabelConstraints.weightx = 1.0;
+        newLabelConstraints.weighty = 0.1;
+        newLabelConstraints.anchor = GridBagConstraints.NORTHWEST;
+        newLabelConstraints.fill = GridBagConstraints.HORIZONTAL;
+//        newLabelConstraints.insets = new Insets(10, 0, 0, 0);
+
+        panel.add(newLabel, newLabelConstraints);
+
         // words label
 	    JLabel wordsLabel = new JLabel("Words Submitted");
         wordsLabel.setForeground(BoggledColors.PRIMARY_COLOR);
@@ -223,7 +258,7 @@ public class InGameState extends JFrame {
         topRightLabelConstraints.weighty = 0.1;
         topRightLabelConstraints.anchor = GridBagConstraints.NORTHEAST;
         topRightLabelConstraints.fill = GridBagConstraints.BOTH;
-        topRightLabelConstraints.insets = new Insets(0, 0, 60, 0);
+        topRightLabelConstraints.insets = new Insets(0, 0, 120, 0);
 
         panel.add(wordsLabel, topRightLabelConstraints);
 
@@ -277,41 +312,6 @@ public class InGameState extends JFrame {
         topRightConstraints.fill = GridBagConstraints.BOTH;
         topRightConstraints.insets = new Insets(35, 0, 0, 40);
         panel.add(scrollPane, topRightConstraints);
-
-        // round number
-
-        JLabel roundLabel = new JLabel("ROUND " + boggledImpl.currentRound(gameID));
-        roundLabel.setForeground(BoggledColors.PRIMARY_COLOR);
-        roundLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 35));
-        roundLabel.setBorder(new EmptyBorder(20, 30, 0, 0));
-
-        GridBagConstraints topLabelConstraints = new GridBagConstraints();
-        topLabelConstraints.gridx = 0;
-        topLabelConstraints.gridy = -1;
-        topLabelConstraints.weightx = 1.0;
-        topLabelConstraints.weighty = 0.1;
-        topLabelConstraints.anchor = GridBagConstraints.NORTHWEST;
-        topLabelConstraints.fill = GridBagConstraints.HORIZONTAL;
-
-        panel.add(roundLabel, topLabelConstraints);
-
-        // username display
-
-        JLabel newLabel = new JLabel("» " + playerName);
-        newLabel.setForeground(BoggledColors.PRIMARY_COLOR);
-        newLabel.setFont(FontUtils.loadFont("/font/MP16REG.ttf", 20));
-        newLabel.setBorder(new EmptyBorder(0, 30, 0, 0));
-
-        GridBagConstraints newLabelConstraints = new GridBagConstraints();
-        newLabelConstraints.gridx = 0;
-        newLabelConstraints.gridy = 1;
-        newLabelConstraints.weightx = 1.0;
-        newLabelConstraints.weighty = 0.1;
-        newLabelConstraints.anchor = GridBagConstraints.NORTHWEST;
-        newLabelConstraints.fill = GridBagConstraints.HORIZONTAL;
-        newLabelConstraints.insets = new Insets(10, 0, 0, 0); // Decrease the top margin
-
-        panel.add(newLabel, newLabelConstraints);
 
         // timer display
 
