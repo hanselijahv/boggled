@@ -115,6 +115,7 @@ public class InGameState extends JFrame {
     private void showCustomDialog() {
         if (dialog == null) {
             String playersScores = boggledImpl.gameScore(gameID);
+            final String maxScore = String.valueOf(boggledImpl.totalRounds(gameID));
             System.out.println(playersScores);
 
             String[] rows = playersScores.split("\n");
@@ -124,7 +125,7 @@ public class InGameState extends JFrame {
             listData[1] = "";
 
             for (int i = 0; i < rows.length; i++) {
-                listData[i + 2] = rows[i];
+                listData[i + 2] = rows[i] + maxScore;
             }
 
             JList<String> list = new JList<>(listData);
@@ -323,9 +324,9 @@ public class InGameState extends JFrame {
         minute = String.valueOf(Integer.parseInt(gameDuration) / 60);
         second = String.valueOf(Integer.parseInt(gameDuration) % 60);
 
-       // countdownTimer();
-        //timer.start();
-        startRemainingTimeChecker();
+        countdownTimer();
+        timer.start();
+        //startRemainingTimeChecker();
 
         GridBagConstraints titleConstraints = new GridBagConstraints();
         titleConstraints.gridx = 0;

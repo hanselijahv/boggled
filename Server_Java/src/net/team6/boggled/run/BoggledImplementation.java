@@ -163,7 +163,7 @@ public class BoggledImplementation extends BoggledPOA {
         GameRoom gameRoom = gameRooms.get(gameID);
         StringBuilder scores = new StringBuilder();
         for (Map.Entry<String, Integer> entry : gameRoom.getPlayerStandings().entrySet()) {
-            scores.append(entry.getKey()).append(" - ").append(entry.getValue()).append("/").append(totalRounds(gameID)).append("\n");
+            scores.append(entry.getKey()).append(" - ").append(entry.getValue()).append("/").append("\n");
         }
         return scores.toString();
     }
@@ -219,7 +219,7 @@ public class BoggledImplementation extends BoggledPOA {
     @Override
     public int totalRounds(String gameID) {
         GameRoom gameRoom = gameRooms.get(gameID);
-        return gameRoom.getNumRounds();
+        return gameRoom.getNumOfRoundsNeedToWin();
     }
 
     @Override
