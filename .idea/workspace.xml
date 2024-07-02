@@ -4,13 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f9905697-2b0f-4be3-95ab-f2a45b561e17" name="Changes" comment="implement InsufficientPlayerException">
+    <list default="true" id="f9905697-2b0f-4be3-95ab-f2a45b561e17" name="Changes" comment="fix class cast boggledButton">
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/ClientLauncher.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/ORBD.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/ServerLauncher.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client_Java/src/net/team6/boggled/client/state/menu/elements/BoggledMainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/net/team6/boggled/client/state/menu/elements/BoggledMainMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/net/team6/boggled/client/state/waiting/WaitingState.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/net/team6/boggled/client/state/waiting/WaitingState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client_Java/src/net/team6/boggled/client/state/menu/elements/BoggledOptionMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/net/team6/boggled/client/state/menu/elements/BoggledOptionMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_Java/src/net/team6/boggled/common/db/PlayerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/net/team6/boggled/common/db/PlayerDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/orb.db/NC0" beforeDir="false" afterPath="$PROJECT_DIR$/orb.db/NC0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/menu/elements/BoggledMainMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/menu/elements/BoggledMainMenu.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/waiting/WaitingState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/waiting/WaitingState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/menu/elements/BoggledOptionMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/menu/elements/BoggledOptionMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/common/db/PlayerDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/common/db/PlayerDAO.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,60 +46,24 @@
     <option name="showLibraryContents" value="true" />
     <option name="sortKey" value="BY_TIME_DESCENDING" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.ClientLauncher.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ServerLauncher.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Shell Script.ORBD.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.github.copilot.settings.ApplicationConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.ClientLauncher.executor": "Run",
+    "Application.ServerLauncher.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Shell Script.ORBD.executor": "Run",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.github.copilot.settings.ApplicationConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="Application.ClientLauncher">
-    <configuration name="ClientLauncher" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="net.team6.boggled.run.ClientLauncher" />
-      <module name="Client_Java" />
-      <option name="PROGRAM_PARAMETERS" value="-ORBInitialPort 8000 -ORBInitialHost 100.72.48.81" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="net.team6.boggled.run.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ServerLauncher" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="net.team6.boggled.run.ServerLauncher" />
-      <module name="Server_Java" />
-      <option name="PROGRAM_PARAMETERS" value="-ORBInitialPort 8000 -ORBInitialHost localhost" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ORBD" type="ShConfigurationType">
-      <option name="SCRIPT_TEXT" value="orbd -ORBInitialPort 8000 -ORBInitialHost localhost" />
-      <option name="INDEPENDENT_SCRIPT_PATH" value="false" />
-      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/res/bat/runORBD.bat" />
-      <option name="SCRIPT_OPTIONS" value="" />
-      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
-      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
-      <option name="INTERPRETER_PATH" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="EXECUTE_IN_TERMINAL" value="true" />
-      <option name="EXECUTE_SCRIPT_FILE" value="false" />
-      <envs />
-      <method v="2" />
-    </configuration>
+}]]></component>
+  <component name="RunManager" selected="Application.ServerLauncher">
     <list>
       <item itemvalue="Application.ClientLauncher" />
       <item itemvalue="Application.ServerLauncher" />
@@ -147,7 +120,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719933790394</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fix class cast boggledButton">
+      <option name="closed" value="true" />
+      <created>1719937920451</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1719937920451</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,7 +150,19 @@
     <MESSAGE value="cleanup idl" />
     <MESSAGE value="cleanup and javadoc" />
     <MESSAGE value="implement InsufficientPlayerException" />
-    <option name="LAST_COMMIT_MESSAGE" value="implement InsufficientPlayerException" />
+    <MESSAGE value="fix class cast boggledButton" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix class cast boggledButton" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Client_Java/src/net/team6/boggled/client/state/leaderboards/elements/BoggledLeaderboards.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
