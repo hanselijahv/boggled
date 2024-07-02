@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f9905697-2b0f-4be3-95ab-f2a45b561e17" name="Changes" comment="implement InsufficientPlayerException">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/net/team6/boggled/client/state/menu/elements/BoggledMainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/net/team6/boggled/client/state/menu/elements/BoggledMainMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/net/team6/boggled/client/state/waiting/WaitingState.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/net/team6/boggled/client/state/waiting/WaitingState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orb.db/NC0" beforeDir="false" afterPath="$PROJECT_DIR$/orb.db/NC0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/menu/elements/BoggledMainMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/menu/elements/BoggledMainMenu.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/waiting/WaitingState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/waiting/WaitingState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +23,9 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -37,27 +38,28 @@
     <option name="showLibraryContents" value="true" />
     <option name="sortKey" value="BY_TIME_DESCENDING" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.ClientLauncher.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ServerLauncher.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Shell Script.ORBD.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.github.copilot.settings.ApplicationConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.ClientLauncher.executor": "Run",
+    "Application.ServerLauncher.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Shell Script.ORBD.executor": "Run",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.github.copilot.settings.ApplicationConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Application.ClientLauncher">
     <configuration name="ClientLauncher" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="net.team6.boggled.run.ClientLauncher" />
       <module name="Client_Java" />
-      <option name="PROGRAM_PARAMETERS" value="-ORBInitialPort 8000 -ORBInitialHost 100.72.48.81" />
+      <option name="PROGRAM_PARAMETERS" value="-ORBInitialPort 8000 -ORBInitialHost 100.94.140.35" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="net.team6.boggled.run.*" />
@@ -71,13 +73,13 @@
     <configuration name="ServerLauncher" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="net.team6.boggled.run.ServerLauncher" />
       <module name="Server_Java" />
-      <option name="PROGRAM_PARAMETERS" value="-ORBInitialPort 8000 -ORBInitialHost localhost" />
+      <option name="PROGRAM_PARAMETERS" value="-ORBInitialPort 8000 -ORBInitialHost 100.72.48.81" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="ORBD" type="ShConfigurationType">
-      <option name="SCRIPT_TEXT" value="orbd -ORBInitialPort 8000 -ORBInitialHost localhost" />
+      <option name="SCRIPT_TEXT" value="orbd -ORBInitialPort 8000 -ORBInitialHost 100.72.48.81" />
       <option name="INDEPENDENT_SCRIPT_PATH" value="false" />
       <option name="SCRIPT_PATH" value="$PROJECT_DIR$/res/bat/runORBD.bat" />
       <option name="SCRIPT_OPTIONS" value="" />
@@ -100,8 +102,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+        <option value="jdk-1.8.0_402-azul-1.8.0_402-4caba194b151-32bb955f" />
       </set>
     </attachedChunks>
   </component>
@@ -130,6 +131,7 @@
       <option name="presentableId" value="Default" />
       <updated>1719932377669</updated>
       <workItem from="1719932378922" duration="3885000" />
+      <workItem from="1719937926793" duration="3557000" />
     </task>
     <task id="LOCAL-00003" summary="cleanup and javadoc">
       <option name="closed" value="true" />
@@ -147,7 +149,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719933790394</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="config">
+      <option name="closed" value="true" />
+      <created>1719938115484</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1719938115484</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
