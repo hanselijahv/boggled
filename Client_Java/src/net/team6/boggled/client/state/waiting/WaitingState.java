@@ -1,10 +1,7 @@
 package net.team6.boggled.client.state.waiting;
 
 import BoggledApp.InsufficientPlayerException;
-import net.team6.boggled.client.game.Game;
 import net.team6.boggled.client.game.settings.GameSettings;
-import net.team6.boggled.client.game.time.Timer;
-import net.team6.boggled.client.gui.clickable.BoggledButton;
 import net.team6.boggled.client.gui.container.BoggledContainer;
 import net.team6.boggled.client.gui.container.HorizontalContainer;
 import net.team6.boggled.client.gui.container.VerticalContainer;
@@ -15,6 +12,7 @@ import net.team6.boggled.client.gui.tools.Spacing;
 import net.team6.boggled.client.input.Input;
 import net.team6.boggled.client.state.State;
 import net.team6.boggled.client.state.ingame.InGameState;
+import net.team6.boggled.client.state.menu.MenuState;
 import net.team6.boggled.client.state.menu.elements.BoggledMainMenu;
 import net.team6.boggled.client.state.waiting.elements.BoggledWaitingMenu;
 import net.team6.boggled.client.state.waiting.elements.BoggledWaitingTimer;
@@ -71,9 +69,12 @@ public class WaitingState extends State {
             boolean readyToStart = Connect.boggledImpl.isGameReadyToStart();
 
             if (readyToStart) {
+
+                MenuState menuState = new MenuState(windowSize, input, gameSettings);
                 cleanup();
                 BoggledMainMenu boggledMainMenu = new BoggledMainMenu();
                 boggledCanvas.addUIComponent(boggledMainMenu);
+                this.setNextState(menuState);
                 try {
                     new InGameState(gameSettings, boggledMainMenu);
                 } catch (FontFormatException | IOException e) {

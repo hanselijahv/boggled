@@ -4,99 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f9905697-2b0f-4be3-95ab-f2a45b561e17" name="Changes" comment="cleanup and javadoc">
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/ClientLauncher.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/ORBD.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/ServerLauncher.xml" beforeDir="false" />
+    <list default="true" id="f9905697-2b0f-4be3-95ab-f2a45b561e17" name="Changes" comment="implement InsufficientPlayerException">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/AlreadyLoggedInException.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/AlreadyLoggedInException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/AlreadyLoggedInExceptionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/AlreadyLoggedInExceptionHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/AlreadyLoggedInExceptionHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/AlreadyLoggedInExceptionHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/Boggled.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/Boggled.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/BoggledHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/BoggledHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/BoggledHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/BoggledHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/BoggledOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/BoggledOperations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/BoggledPOA.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/BoggledPOA.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/Callback.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/Callback.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/CallbackHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/CallbackHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/CallbackHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/CallbackHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/CallbackOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/CallbackOperations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/InsufficientPlayerException.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/InsufficientPlayerException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/InsufficientPlayerExceptionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/InsufficientPlayerExceptionHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/InsufficientPlayerExceptionHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/InsufficientPlayerExceptionHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/Leaderboards.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/Leaderboards.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/LeaderboardsHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/LeaderboardsHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/LeaderboardsHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/LeaderboardsHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/NoWinnerException.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/NoWinnerException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/NoWinnerExceptionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/NoWinnerExceptionHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/NoWinnerExceptionHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/NoWinnerExceptionHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/NotLoggedInException.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/NotLoggedInException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/NotLoggedInExceptionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/NotLoggedInExceptionHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/NotLoggedInExceptionHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/NotLoggedInExceptionHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/UserNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/UserNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/UserNotFoundExceptionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/UserNotFoundExceptionHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/UserNotFoundExceptionHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/UserNotFoundExceptionHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/_BoggledStub.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/_BoggledStub.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/BoggledApp/_CallbackStub.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/BoggledApp/_CallbackStub.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client_Java/src/net/team6/boggled/client/state/menu/elements/BoggledMainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/net/team6/boggled/client/state/menu/elements/BoggledMainMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client_Java/src/net/team6/boggled/client/state/waiting/WaitingState.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/net/team6/boggled/client/state/waiting/WaitingState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/AlreadyLoggedInException.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/AlreadyLoggedInException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/AlreadyLoggedInExceptionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/AlreadyLoggedInExceptionHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/AlreadyLoggedInExceptionHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/AlreadyLoggedInExceptionHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/Boggled.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/Boggled.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/BoggledHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/BoggledHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/BoggledHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/BoggledHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/BoggledOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/BoggledOperations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/BoggledPOA.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/BoggledPOA.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/Callback.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/Callback.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/CallbackHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/CallbackHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/CallbackHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/CallbackHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/CallbackOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/CallbackOperations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/CallbackPOA.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/CallbackPOA.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/InsufficientPlayerException.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/InsufficientPlayerException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/InsufficientPlayerExceptionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/InsufficientPlayerExceptionHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/InsufficientPlayerExceptionHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/InsufficientPlayerExceptionHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/Leaderboards.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/Leaderboards.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/LeaderboardsHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/LeaderboardsHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/LeaderboardsHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/LeaderboardsHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/NoWinnerException.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/NoWinnerException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/NoWinnerExceptionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/NoWinnerExceptionHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/NoWinnerExceptionHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/NoWinnerExceptionHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/NotLoggedInException.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/NotLoggedInException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/NotLoggedInExceptionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/NotLoggedInExceptionHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/NotLoggedInExceptionHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/NotLoggedInExceptionHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/UserNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/UserNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/UserNotFoundExceptionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/UserNotFoundExceptionHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/UserNotFoundExceptionHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/UserNotFoundExceptionHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/_BoggledStub.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/_BoggledStub.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/BoggledApp/_CallbackStub.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/BoggledApp/_CallbackStub.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/net/team6/boggled/run/BoggledImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/net/team6/boggled/run/BoggledImplementation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boggled.idl" beforeDir="false" afterPath="$PROJECT_DIR$/boggled.idl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/orb.db/NC0" beforeDir="false" afterPath="$PROJECT_DIR$/orb.db/NC0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Client_Java/BoggledApp/BoggledOperations.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/BoggledApp/BoggledOperations.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Client_Java/BoggledApp/BoggledPOA.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/BoggledApp/BoggledPOA.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Client_Java/BoggledApp/_BoggledStub.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/BoggledApp/_BoggledStub.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/entry/elements/BoggledLogin.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/entry/elements/BoggledLogin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/ingame/InGameState.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/menu/elements/BoggledMainMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/menu/elements/BoggledMainMenu.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/waiting/WaitingState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Client_Java/net/team6/boggled/client/state/waiting/WaitingState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Client_Java/text/words.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server_Java/BoggledApp/BoggledOperations.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server_Java/BoggledApp/BoggledOperations.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server_Java/BoggledApp/BoggledPOA.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server_Java/BoggledApp/BoggledPOA.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server_Java/BoggledApp/_BoggledStub.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server_Java/BoggledApp/_BoggledStub.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/common/model/GameRoom$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/common/model/GameRoom$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/common/model/GameRoom.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/common/model/GameRoom.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/common/model/RoundRoom.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/common/model/RoundRoom.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/common/model/WaitingRoom$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/common/model/WaitingRoom$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/common/model/WaitingRoom$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/common/model/WaitingRoom$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/common/model/WaitingRoom.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/common/model/WaitingRoom.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/run/BoggledImplementation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/run/BoggledImplementation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/server/gui/clickable/ServerButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server_Java/net/team6/boggled/server/gui/clickable/ServerButton.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -239,11 +153,23 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Merge remote-tracking branch 'origin/refactor' into refactor&#10;&#10;# Conflicts:&#10;#&#9;.idea/runConfigurations/ServerLauncher.xml&#10;#&#9;out/production/Server_Java/net/team6/boggled/server/display/ServerDisplay.class" />
     <MESSAGE value="cleanup idl" />
     <MESSAGE value="cleanup and javadoc" />
-    <option name="LAST_COMMIT_MESSAGE" value="cleanup and javadoc" />
+    <MESSAGE value="implement InsufficientPlayerException" />
+    <option name="LAST_COMMIT_MESSAGE" value="implement InsufficientPlayerException" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
