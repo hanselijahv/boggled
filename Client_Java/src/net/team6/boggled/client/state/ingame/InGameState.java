@@ -6,6 +6,7 @@ import BoggledApp.NoWinnerException;
 import BoggledApp.NotLoggedInException;
 import net.team6.boggled.client.audio.AudioPlayer;
 import net.team6.boggled.client.game.settings.GameSettings;
+import net.team6.boggled.client.state.menu.elements.BoggledMainMenu;
 import net.team6.boggled.run.Connect;
 import net.team6.boggled.utilities.BoggledColors;
 import net.team6.boggled.utilities.FontUtils;
@@ -47,6 +48,7 @@ public class InGameState extends JFrame {
     private JTextField inputField;
     private JDialog dialog;
     private AudioPlayer audioPlayer;
+    private BoggledMainMenu boggledMainMenu;
     // Model
     public DefaultListModel<String> listModel = new DefaultListModel<>();
     public List<Character> letters;
@@ -58,14 +60,15 @@ public class InGameState extends JFrame {
     // State
     private boolean dialogVisible;
 
-    public InGameState(GameSettings gameSettings) throws IOException, FontFormatException {
+    public InGameState(GameSettings gameSettings, BoggledMainMenu boggledMainMenu) throws IOException, FontFormatException {
+        this.boggledMainMenu = boggledMainMenu;
         audioPlayer = new AudioPlayer(gameSettings.getAudioSettings());
         setTitle("Boggled");
-        setUndecorated(false);
+        setUndecorated(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setBackground(BoggledColors.SYSTEM_COLOR);
         setResizable(false);
-        setSize(1290, 800);
+        setSize(1920, 1080);
 
         try {
             Thread.sleep(1100);
@@ -104,6 +107,12 @@ public class InGameState extends JFrame {
 	  });
 
         audioPlayer.playMusic("main.wav");
+
+        // disable main menu buttons when ingame
+        boggledMainMenu.getPlayGameB().setEnabled(false);
+        boggledMainMenu.getLeaderboardB().setEnabled(false);
+        boggledMainMenu.getOptionsB().setEnabled(false);
+        boggledMainMenu.getLogoutB().setEnabled(false);
 
     }
 
@@ -584,6 +593,12 @@ public class InGameState extends JFrame {
                     menuButton.addActionListener(a -> {
                         this.dispose();
                         audioPlayer.clear();
+
+                        boggledMainMenu.getPlayGameB().setEnabled(true);
+                        boggledMainMenu.getLeaderboardB().setEnabled(true);
+                        boggledMainMenu.getOptionsB().setEnabled(true);
+                        boggledMainMenu.getLogoutB().setEnabled(true);
+
                     });
 
                     overlayPanel.add(Box.createVerticalGlue());

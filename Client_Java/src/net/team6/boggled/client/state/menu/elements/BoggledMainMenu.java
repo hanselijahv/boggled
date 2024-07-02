@@ -15,8 +15,28 @@ import net.team6.boggled.common.core.Size;
 import net.team6.boggled.run.Connect;
 
 public class BoggledMainMenu extends VerticalContainer {
+    private BoggledButton playGameB;
+    private BoggledButton leaderboardB;
+    private BoggledButton optionsB;
+    private BoggledButton logoutB;
+
 
     public BoggledMainMenu() {
+
+        playGameB = new BoggledButton("PLAY GAME", 16, (state) -> {
+            Connect.boggledImpl.joinWaitingRoom(Connect.username);
+            state.setNextState(new WaitingState(state.getWindowSize(), state.getInput(), state.getGameSettings()));
+        });
+        leaderboardB = new BoggledButton("LEADERBOARDS", 16, (state) -> ((MenuState) state).enterMenu(new BoggledLeaderboards()));
+        optionsB = new BoggledButton("OPTIONS", 16, (state) -> ((MenuState) state).enterMenu(new BoggledOptionMenu(state.getGameSettings())));
+        logoutB = new BoggledButton("LOGOUT", 16, (state) -> {
+            try {
+                Connect.boggledImpl.logout(Connect.username);
+                state.setNextState(new EntryState(state.getWindowSize(), state.getInput(), state.getGameSettings()));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        });
 
         alignment = new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER);
         centerChildren = true;
@@ -33,24 +53,27 @@ public class BoggledMainMenu extends VerticalContainer {
         label.setRelativePosition(new Position(100,100));
 
         addUIComponent(label);
-
-        addUIComponent(new BoggledButton("PLAY GAME", 16, (state) -> {
-            Connect.boggledImpl.joinWaitingRoom(Connect.username);
-            state.setNextState(new WaitingState(state.getWindowSize(), state.getInput(), state.getGameSettings()));
-        }));
-
-        addUIComponent(new BoggledButton("LEADERBOARDS", 16, (state) -> ((MenuState) state).enterMenu(new BoggledLeaderboards())));
-        addUIComponent(new BoggledButton("OPTIONS", 16, (state) -> ((MenuState) state).enterMenu(new BoggledOptionMenu(state.getGameSettings()))));
-        addUIComponent(new BoggledButton("LOGOUT", 16, (state) -> {
-            try {
-                Connect.boggledImpl.logout(Connect.username);
-                state.setNextState(new EntryState(state.getWindowSize(), state.getInput(), state.getGameSettings()));
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }));
-
+        addUIComponent(playGameB);
+        addUIComponent(leaderboardB);
+        addUIComponent(optionsB);
+        addUIComponent(logoutB);
 
         // addUIComponent(new BoggledButton("EXIT", 16, (state) -> ((MenuState) state).enterMenu(new BoggledExitMenu())));
+    }
+
+    public BoggledButton getPlayGameB() {
+        return playGameB;
+    }
+
+    public BoggledButton getLeaderboardB() {
+        return leaderboardB;
+    }
+
+    public BoggledButton getOptionsB() {
+        return optionsB;
+    }
+
+    public BoggledButton getLogoutB() {
+        return logoutB;
     }
 }
