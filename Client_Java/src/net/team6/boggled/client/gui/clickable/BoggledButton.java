@@ -16,10 +16,10 @@ public class BoggledButton extends BoggledClickable {
 
     private BoggledContainer container;
     private BoggledText label;
-
     private ClickAction clickAction;
-
+    private boolean enabled = true;
     protected Color backgroundColor;
+
 
     public BoggledButton(String label, int fontSize, ClickAction clickAction) {
         this.label = new BoggledText(label, fontSize);
@@ -71,12 +71,13 @@ public class BoggledButton extends BoggledClickable {
 
     @Override
     public void onClick(State state) throws SQLException {
-	    try {
-		    clickAction.execute(state);
-	    } catch (IOException | FontFormatException e) {
-		    throw new RuntimeException(e);
-	    }
-	    //state.getAudioPlayer().playSound("SFX_UI_MenuSelections.wav");
+        if (enabled) { // Check if the button is enabled
+            try {
+                clickAction.execute(state);
+            } catch (IOException | FontFormatException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @Override
@@ -95,5 +96,8 @@ public class BoggledButton extends BoggledClickable {
     }
 
 
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 }
 

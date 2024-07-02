@@ -36,7 +36,7 @@ public class SettingsDAO  {
         return settingsList;
     }
 
-    public boolean update(Settings settings, String[] params) throws SQLException {
+    public boolean update(Settings settings) throws SQLException {
         String query = "UPDATE settings SET waiting_time = ?, round_time = ?, number_of_rounds = ?";
         try(PreparedStatement statement = connection.prepareStatement(query)){
             statement.setInt(1,settings.getWaitingTime());

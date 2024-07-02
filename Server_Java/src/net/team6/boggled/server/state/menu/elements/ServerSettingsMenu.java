@@ -74,10 +74,8 @@ public class ServerSettingsMenu extends ServerVerticalContainer {
         int rTime = (int) roundTimeSlider.getValue();
         int nRounds = (int) numRoundsSlider.getValue();
 
-        String[] params = {String.valueOf(wTime), String.valueOf(rTime), String.valueOf(nRounds)};
-
         Settings oldSettings = state.getBoggledSettings().getGameSettings();
-        settingsDAOImpl.update(oldSettings, params);
+        settingsDAOImpl.update(oldSettings);
 
         state.getBoggledSettings().getGameSettings().setWaitingTime(wTime);
         waitTimeText.setText(String.format("WAIT TIME: %ds", wTime));

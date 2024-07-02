@@ -16,7 +16,6 @@ import net.team6.boggled.run.Connect;
 
 public class BoggledMainMenu extends VerticalContainer {
 
-
     public BoggledMainMenu() {
 
         alignment = new Alignment(Alignment.Position.CENTER, Alignment.Position.CENTER);
@@ -50,6 +49,7 @@ public class BoggledMainMenu extends VerticalContainer {
                 System.out.println(e.getMessage());
             }
         }));
+
 
         // addUIComponent(new BoggledButton("EXIT", 16, (state) -> ((MenuState) state).enterMenu(new BoggledExitMenu())));
     }
