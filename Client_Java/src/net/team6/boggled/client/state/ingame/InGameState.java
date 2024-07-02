@@ -38,7 +38,7 @@ public class InGameState extends JFrame {
     private String playerName = Connect.username;
     private String gameID = Connect.boggledImpl.getGameID(cref, playerName);
     private String gameDuration =  Connect.boggledImpl.getRoundTime(cref, gameID);
-//    private final static String roundRemainingTime = Connect.boggledImpl.getRoundTime(cref, gameID);
+    private String maxWins = String.valueOf(Connect.boggledImpl.totalRounds(gameID));
     String second, minute;
     String ddSecond, ddMinute;
     DecimalFormat dFormat = new DecimalFormat("00");
@@ -114,17 +114,17 @@ public class InGameState extends JFrame {
 
     private void showCustomDialog() {
         if (dialog == null) {
-            String playersScores = boggledImpl.gameScore(gameID);
-            System.out.println(playersScores);
+            String playerScores = boggledImpl.gameScore(gameID);
+            System.out.println(playerScores);
 
-            String[] rows = playersScores.split("\n");
+            String[] rows = playerScores.split("\n");
 
             String[] listData = new String[rows.length + 2];
             listData[0] = "Game Score";
             listData[1] = "";
 
             for (int i = 0; i < rows.length; i++) {
-                listData[i + 2] = rows[i];
+                listData[i + 2] = rows[i] + maxWins;
             }
 
             JList<String> list = new JList<>(listData);
