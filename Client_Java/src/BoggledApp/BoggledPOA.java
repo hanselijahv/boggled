@@ -76,8 +76,12 @@ public abstract class BoggledPOA extends org.omg.PortableServer.Servant
        case 2:  // BoggledApp/Boggled/isGameReadyToStart
        {
          boolean $result = false;
-         $result = this.isGameReadyToStart ();
-         out = $rh.createReply();
+		 try {
+			 $result = this.isGameReadyToStart ();
+		 } catch (InsufficientPlayerException e) {
+			 throw new RuntimeException(e);
+		 }
+		 out = $rh.createReply();
          out.write_boolean ($result);
          break;
        }

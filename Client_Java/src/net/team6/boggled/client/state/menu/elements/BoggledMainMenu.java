@@ -28,11 +28,15 @@ public class BoggledMainMenu extends VerticalContainer {
             state.setNextState(new WaitingState(state.getWindowSize(), state.getInput(), state.getGameSettings()));
         });
 
-        leaderboardB = new BoggledButton("LEADERBOARDS", 16, (state) ->
-                  ((MenuState) state).enterMenu(new BoggledLeaderboards()));
+        leaderboardB = new BoggledButton(
+                  "LEADERBOARDS",
+                  16,
+                  (state) -> ((MenuState) state).enterMenu(new BoggledLeaderboards()));
 
-        optionsB = new BoggledButton("OPTIONS", 16, (state) ->
-                  ((MenuState) state).enterMenu(new BoggledOptionMenu(state.getGameSettings())));
+        optionsB = new BoggledButton(
+                  "OPTIONS",
+                  16,
+                  (state) -> ((MenuState) state).enterMenu(new BoggledOptionMenu(state.getGameSettings())));
 
         logoutB = new BoggledButton("LOGOUT", 16, (state) -> {
             try {
