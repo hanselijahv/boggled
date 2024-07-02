@@ -49,6 +49,7 @@ public class InGameState extends JFrame {
     private JDialog dialog;
     private AudioPlayer audioPlayer;
     private BoggledMainMenu boggledMainMenu;
+    private KeyEventDispatcher keyEventDispatcher;
     // Model
     public DefaultListModel<String> listModel = new DefaultListModel<>();
     public List<Character> letters;
@@ -91,7 +92,9 @@ public class InGameState extends JFrame {
 		}
         });
 
-        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(e -> {
+
+
+        keyEventDispatcher = e -> {
 		if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_TAB) {
 		    if (!dialogVisible) {
 			  showCustomDialog();
@@ -104,7 +107,9 @@ public class InGameState extends JFrame {
 		    }
 		}
 		return false;
-	  });
+	  };
+
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(keyEventDispatcher);
 
         audioPlayer.playMusic("main.wav");
 
@@ -241,7 +246,7 @@ public class InGameState extends JFrame {
         newLabelConstraints.weighty = 0.1;
         newLabelConstraints.anchor = GridBagConstraints.NORTHWEST;
         newLabelConstraints.fill = GridBagConstraints.HORIZONTAL;
-//        newLabelConstraints.insets = new Insets(10, 0, 0, 0);
+        //        newLabelConstraints.insets = new Insets(10, 0, 0, 0);
 
         panel.add(newLabel, newLabelConstraints);
 
@@ -594,6 +599,8 @@ public class InGameState extends JFrame {
                         boggledMainMenu.getLeaderboardB().setEnabled(true);
                         boggledMainMenu.getOptionsB().setEnabled(true);
                         boggledMainMenu.getLogoutB().setEnabled(true);
+
+                        KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(keyEventDispatcher);
 
                     });
 

@@ -90,21 +90,6 @@ public class WaitingState extends State {
         }
     }
 
-    public void toggleScore(boolean show) {
-        if(show) {
-            showScore = true;
-            BoggledContainer content = new VerticalContainer();
-            content.addUIComponent(new BoggledHeader("SCORE", 72));
-            gameMenu.setHeaderContent(content);
-            toggleMenu(true);
-
-        } else {
-            showScore = false;
-            toggleMenu(false);
-
-        }
-    }
-
     private void toggleMenu(boolean shouldShowMenu) {
         if(shouldShowMenu && !boggledCanvas.hasComponent(gameMenu)) {
             boggledCanvas.addUIComponent(gameMenu);
@@ -115,14 +100,5 @@ public class WaitingState extends State {
 
     @Override
     protected void handleInput() {
-        if (inputEnabled && input.isPressed(KeyEvent.VK_ALT)) {
-            System.out.println("Alt Pressed");
-            toggleScore(!showScore);
-        }
     }
-
-
-
-
-
 }
