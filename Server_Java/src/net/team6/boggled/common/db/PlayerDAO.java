@@ -52,7 +52,7 @@ public class PlayerDAO {
         }
     }
 
-    public boolean updateHighestScore(String username, int score) throws SQLException {
+    public void  updateHighestScore(String username, int score) throws SQLException {
         String sql = "SELECT highest_score FROM players WHERE username = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, username);
@@ -64,12 +64,10 @@ public class PlayerDAO {
                     try (PreparedStatement updateStatement = connection.prepareStatement(sql)) {
                         updateStatement.setInt(1, score);
                         updateStatement.setString(2, username);
-                        return updateStatement.executeUpdate() > 0;
                     }
                 }
             }
         }
-        return false;
     }
 
     public List<Player> getTop5PlayersWithHighestScores() throws SQLException {
@@ -126,7 +124,7 @@ public class PlayerDAO {
                 return count > 0;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
         }
         return false;
     }

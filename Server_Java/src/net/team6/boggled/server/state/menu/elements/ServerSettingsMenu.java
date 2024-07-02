@@ -1,6 +1,5 @@
 package net.team6.boggled.server.state.menu.elements;
 
-import net.team6.boggled.common.db.SettingsDAO;
 import net.team6.boggled.common.model.Settings;
 import net.team6.boggled.server.dev.settings.ServerSettings;
 import net.team6.boggled.server.gui.clickable.ServerButton;
@@ -13,6 +12,9 @@ import net.team6.boggled.server.gui.tools.Spacing;
 import net.team6.boggled.server.state.ServerState;
 import net.team6.boggled.server.state.menu.ServerMenuState;
 import net.team6.boggled.utilities.BoggledColors;
+
+import static net.team6.boggled.common.db.SettingsDAO.settingsDAOImpl;
+
 
 import java.sql.SQLException;
 
@@ -75,8 +77,7 @@ public class ServerSettingsMenu extends ServerVerticalContainer {
         String[] params = {String.valueOf(wTime), String.valueOf(rTime), String.valueOf(nRounds)};
 
         Settings oldSettings = state.getBoggledSettings().getGameSettings();
-        SettingsDAO settingsDAO = new SettingsDAO();
-        settingsDAO.update(oldSettings, params);
+        settingsDAOImpl.update(oldSettings, params);
 
         state.getBoggledSettings().getGameSettings().setWaitingTime(wTime);
         waitTimeText.setText(String.format("WAIT TIME: %ds", wTime));

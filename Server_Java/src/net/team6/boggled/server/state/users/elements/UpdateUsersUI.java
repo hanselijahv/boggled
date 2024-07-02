@@ -1,7 +1,6 @@
 package net.team6.boggled.server.state.users.elements;
 
 import net.team6.boggled.common.core.Value;
-import net.team6.boggled.common.db.PlayerDAO;
 import net.team6.boggled.common.model.Player;
 import net.team6.boggled.server.gui.clickable.ServerButton;
 import net.team6.boggled.server.gui.container.ServerContainer;
@@ -16,6 +15,8 @@ import net.team6.boggled.server.state.users.UsersState;
 import net.team6.boggled.utilities.BoggledColors;
 import net.team6.boggled.utilities.FontUtils;
 import net.team6.boggled.utilities.OptionPaneButtonUI;
+
+import static net.team6.boggled.common.db.PlayerDAO.playerDAOImpl;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -145,9 +146,8 @@ public class UpdateUsersUI extends ServerVerticalContainer {
             yesButton.addActionListener(e -> {
                 String id = this.id.get();
                 Player player = new Player(id, null, null);
-                PlayerDAO playerDAO = new PlayerDAO();
                 try {
-                    boolean success = playerDAO.delete(player);
+                    boolean success = playerDAOImpl.delete(player);
                     if (success) {
                         populateTable();
                         ServerText message = new ServerText("User Removed Successfully", 15);
@@ -213,8 +213,7 @@ public class UpdateUsersUI extends ServerVerticalContainer {
             Player player = new Player(id, username, password);
             String[] params = {player.getUsername(), player.getPassword()};
 
-            PlayerDAO playerDAO = new PlayerDAO();
-            boolean success = playerDAO.update(player, params);
+            boolean success = playerDAOImpl.update(player, params);
 
             ServerText message;
 
@@ -304,8 +303,7 @@ public class UpdateUsersUI extends ServerVerticalContainer {
 
     private void populateTable() throws SQLException {
         tableModel.setRowCount(0);
-        PlayerDAO playerDAO = new PlayerDAO();
-        List<Player> players = playerDAO.getAll();
+        List<Player> players = playerDAOImpl.getAll();
         for (Player player : players) {
             tableModel.addRow(new Object[]{player.getPlayerId(), player.getUsername(), player.getPassword()});
         }

@@ -1,7 +1,6 @@
 package net.team6.boggled.server.state.users.elements;
 
 import net.team6.boggled.common.core.Value;
-import net.team6.boggled.common.db.PlayerDAO;
 import net.team6.boggled.common.model.Player;
 import net.team6.boggled.server.gui.clickable.ServerButton;
 import net.team6.boggled.server.gui.container.ServerContainer;
@@ -13,6 +12,9 @@ import net.team6.boggled.server.gui.tools.Alignment;
 import net.team6.boggled.server.gui.tools.Spacing;
 import net.team6.boggled.server.state.menu.elements.ServerUsersMenu;
 import net.team6.boggled.server.state.users.UsersState;
+
+import static net.team6.boggled.common.db.PlayerDAO.playerDAOImpl;
+
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -48,8 +50,7 @@ public class CreateUsersUI extends ServerVerticalContainer {
             String password = this.password.get();
             Player account = new Player(null, username, password);
 
-            PlayerDAO accountDAO = new PlayerDAO();
-            boolean success = accountDAO.insert(account);
+            boolean success = playerDAOImpl.insert(account);
 
             ServerText message;
 
