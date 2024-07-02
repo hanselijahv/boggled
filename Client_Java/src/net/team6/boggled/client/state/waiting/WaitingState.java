@@ -1,5 +1,6 @@
 package net.team6.boggled.client.state.waiting;
 
+import BoggledApp.InsufficientPlayerException;
 import net.team6.boggled.client.game.Game;
 import net.team6.boggled.client.game.settings.GameSettings;
 import net.team6.boggled.client.game.time.Timer;
@@ -66,21 +67,23 @@ public class WaitingState extends State {
         inputEnabled = false;
         BoggledContainer content = new VerticalContainer();
 
-        if (Connect.boggledImpl.isGameReadyToStart()) {
-            cleanup();
-            BoggledMainMenu boggledMainMenu = new BoggledMainMenu();
-            boggledCanvas.addUIComponent(boggledMainMenu);
-            try {
-                new InGameState(gameSettings, boggledMainMenu);
+        try {
+            boolean readyToStart = Connect.boggledImpl.isGameReadyToStart();
 
-            } catch (FontFormatException | IOException e) {
-                throw new RuntimeException(e);
+            if (readyToStart) {
+                cleanup();
+                BoggledMainMenu boggledMainMenu = new BoggledMainMenu();
+                boggledCanvas.addUIComponent(boggledMainMenu);
+                try {
+                    new InGameState(gameSettings, boggledMainMenu);
+                } catch (FontFormatException | IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
-        } else {
+        } catch (InsufficientPlayerException e) {
             content.addUIComponent(new BoggledHeader("NOT ENOUGH PLAYERS JOINED", 72));
             gameMenu.setHeaderContent(content);
             cleanup();
-
             //audioPlayer.playMusic("SFX_UI_ROOM_ERROR.wav");
             toggleMenu(true);
         }

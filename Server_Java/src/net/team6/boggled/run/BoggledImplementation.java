@@ -189,13 +189,18 @@ public class BoggledImplementation extends BoggledPOA {
      * @return true if the game is ready to start, false otherwise
      */
     @Override
-    public boolean isGameReadyToStart() {
+    public boolean isGameReadyToStart() throws InsufficientPlayerException {
         WaitingRoom room;
         try {
             room = waitingRooms.values().iterator().next();
         } catch (Exception e) {
             return false;
         }
+
+        if (room.getPlayers().size() < 2) {
+            throw new InsufficientPlayerException("Not enough players to start a game in the waiting room created by " + room.getCreator());
+        }
+
         return room.isReadyToStart();
     }
 

@@ -35,7 +35,7 @@ module BoggledApp {
 
           // Game related
           void joinWaitingRoom(in string playerName);
-          boolean isGameReadyToStart();
+          boolean isGameReadyToStart() raises (InsufficientPlayerException);
           string getWaitingTime(in Callback objRef);
           string getWaitingRoomInfo(in string playerName);
           string getRoundTime(in Callback objRef, in string gameID);
