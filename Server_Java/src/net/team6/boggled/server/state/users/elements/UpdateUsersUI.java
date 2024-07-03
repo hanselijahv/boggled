@@ -104,13 +104,23 @@ public class UpdateUsersUI extends ServerVerticalContainer {
 
         table.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                int row = table.getSelectedRow();
+                int viewRow = table.getSelectedRow();
+                if (viewRow < 0) {
+                    // No selection
+                    return;
+                }
+                // Convert the row index from view to model to account for sorting/filtering
+                int modelRow = table.convertRowIndexToModel(viewRow);
+
+                // Clear existing text
                 idInput.clearText();
                 usernameInput.clearText();
                 passwordInput.clearText();
-                id.setValue((String) tableModel.getValueAt(row, 0));
-                username.setValue((String) tableModel.getValueAt(row, 1));
-                password.setValue((String) tableModel.getValueAt(row, 2));
+
+                // Since the "Player ID" column is removed from the view but exists in the model, its index is 0
+                id.setValue((String) tableModel.getValueAt(modelRow, 0));
+                username.setValue((String) tableModel.getValueAt(modelRow, 1));
+                password.setValue((String) tableModel.getValueAt(modelRow, 2));
             }
         });
 
