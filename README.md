@@ -81,7 +81,7 @@ Launch the client application to connect and participate in the game.
 
 
 ## Program Snapshots
-Below are snapshots of the Exit Survey Program showcasing the Client and Server modules:
+Below are snapshots of Boggled showcasing the Client and Server modules:
 
 **Client Login Page**
 ![Client Login](snapshots/boggled-login-client.png)
