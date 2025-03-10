@@ -37,10 +37,7 @@
 ## Requirements
 ```markdown
 - Java Development Kit (JDK) 8 or later
-- Java IDL
 - MySQL Database
-- CORBA-compliant ORB
-- Java GUI framework
 ```
 
 
