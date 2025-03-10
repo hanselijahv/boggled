@@ -1,11 +1,9 @@
 # Boggled - A Java CORBA Multiplayer Word Game
 
----
 
 ## About the Project
 **Boggled** is a multiplayer word game built using Java CORBA. It allows multiple players to connect to a server, authenticate, and compete to form unique words from randomly generated letters. The game requires at least two players to start and runs until one player wins three rounds. An administrator has special privileges to manage players and game settings.
 
----
 
 ## Features
 
@@ -34,7 +32,7 @@
     - Retrieve leaderboard data for client display.
 - **Persistent Storage**: Stores player data, scores, and game history in a **MySQL database**.
 
----
+
 
 ## Requirements
 ```markdown
@@ -45,7 +43,6 @@
 - Java GUI framework
 ```
 
----
 
 ## Setup
 
@@ -55,7 +52,6 @@ git clone https://github.com/hanselijahv/boggled.git
 cd boggled
 ```
 
----
 
 ## Running the Game
 
@@ -74,7 +70,7 @@ Launch the client application to connect and participate in the game.
 
 ![ClientLauncher](snapshots/ClientLauncher.png)
 
----
+
 
 ### Gameplay Flow:
 - 🔑 **Login**: Players must authenticate before joining the game.
@@ -85,7 +81,7 @@ Launch the client application to connect and participate in the game.
 - 📊 **Leaderboard**: Available on the **client-side**, displaying top scores.
 - 🎯 **Winning Condition**: The game continues until a player **wins three rounds**.
 
----
+
 
 ## Program Snapshots
 Below are snapshots of the Exit Survey Program showcasing the Client and Server modules:
@@ -111,7 +107,7 @@ Below are snapshots of the Exit Survey Program showcasing the Client and Server 
 **Changing Game Settings from the Server**
 ![Server Settings](snapshots/boggled-gamesettings-server.png)
 
----
+
 
 ## Contributors
 The following individuals contributed to the development of Boggled:
