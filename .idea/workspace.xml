@@ -5,16 +5,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f9905697-2b0f-4be3-95ab-f2a45b561e17" name="Changes" comment="update leaderboard not refreshing instantly">
+      <change afterPath="$PROJECT_DIR$/snapshots/ClientLauncher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/snapshots/ORBD.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/snapshots/ServerLauncher.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/ClientLauncher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/ClientLauncher.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/ORBD.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/ORBD.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/ServerLauncher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/ServerLauncher.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client_Java/src/net/team6/boggled/common/core/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client_Java/src/net/team6/boggled/common/core/Position.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/AlreadyLoggedInException.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/AlreadyLoggedInException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/AlreadyLoggedInExceptionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/AlreadyLoggedInExceptionHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/AlreadyLoggedInExceptionHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/AlreadyLoggedInExceptionHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/Boggled.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/Boggled.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/BoggledHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/BoggledHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/BoggledHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/BoggledHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/BoggledOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/BoggledOperations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/BoggledPOA.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/BoggledPOA.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/Callback.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/Callback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/CallbackHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/CallbackHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/CallbackHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/CallbackHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/CallbackOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/CallbackOperations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/CallbackPOA.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/CallbackPOA.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/InsufficientPlayerException.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/InsufficientPlayerException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/InsufficientPlayerExceptionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/InsufficientPlayerExceptionHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/InsufficientPlayerExceptionHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/InsufficientPlayerExceptionHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/Leaderboards.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/Leaderboards.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/LeaderboardsHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/LeaderboardsHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/LeaderboardsHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/LeaderboardsHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/NoWinnerException.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/NoWinnerException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/NoWinnerExceptionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/NoWinnerExceptionHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/NoWinnerExceptionHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/NoWinnerExceptionHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/NotLoggedInException.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/NotLoggedInException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/NotLoggedInExceptionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/NotLoggedInExceptionHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/NotLoggedInExceptionHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/NotLoggedInExceptionHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/UserNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/UserNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/UserNotFoundExceptionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/UserNotFoundExceptionHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/UserNotFoundExceptionHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/UserNotFoundExceptionHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/_BoggledStub.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/_BoggledStub.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoggledApp/_CallbackStub.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoggledApp/_CallbackStub.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/net/team6/boggled/run/BoggledImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/net/team6/boggled/run/BoggledImplementation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Java/src/net/team6/boggled/server/gui/container/ServerContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Java/src/net/team6/boggled/server/gui/container/ServerContainer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/orb.db/NC0" beforeDir="false" afterPath="$PROJECT_DIR$/orb.db/NC0" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,29 +69,39 @@
     <option name="showLibraryContents" value="true" />
     <option name="sortKey" value="BY_TIME_DESCENDING" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.ClientLauncher.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ServerLauncher.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Shell Script.ORBD.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.ClientLauncher.executor": "Run",
+    "Application.ServerLauncher.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Shell Script.ORBD.executor": "Run",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "configurable.group.appearance",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
-}</component>
-  <component name="RunManager" selected="Application.ServerLauncher">
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\boggled-game\snapshots" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.ClientLauncher">
     <list>
       <item itemvalue="Application.ClientLauncher" />
       <item itemvalue="Application.ServerLauncher" />
@@ -105,7 +142,7 @@
       <updated>1719932377669</updated>
       <workItem from="1719932378922" duration="3885000" />
       <workItem from="1741607979906" duration="106000" />
-      <workItem from="1741608100667" duration="2980000" />
+      <workItem from="1741608100667" duration="5477000" />
     </task>
     <task id="LOCAL-00003" summary="cleanup and javadoc">
       <option name="closed" value="true" />
