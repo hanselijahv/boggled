@@ -2,7 +2,7 @@
   <configuration default="false" name="ServerLauncher" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="net.team6.boggled.run.ServerLauncher" />
     <module name="Server_Java" />
-    <option name="PROGRAM_PARAMETERS" value="-ORBInitialPort 8000 -ORBInitialHost 100.94.140.35" />
+    <option name="PROGRAM_PARAMETERS" value="-ORBInitialPort 8000 -ORBInitialHost localhost" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

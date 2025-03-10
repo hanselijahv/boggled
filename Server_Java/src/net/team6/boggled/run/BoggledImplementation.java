@@ -23,10 +23,10 @@ import static net.team6.boggled.common.db.PlayerDAO.playerDAOImpl;
 public class BoggledImplementation extends BoggledPOA {
 
     // concurrent hash map to store waiting rooms, with room ID as the key and the WaitingRoom object as the value
-    private ConcurrentHashMap<String, WaitingRoom> waitingRooms = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, WaitingRoom> waitingRooms = new ConcurrentHashMap<>();
 
     // concurrent hash map to store game rooms, with room ID as the key and the GameRoom object as the value
-    private ConcurrentHashMap<String, GameRoom> gameRooms = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, GameRoom> gameRooms = new ConcurrentHashMap<>();
 
     // map to store session data, with session ID as the key and the username as the value
     private final Map<String, String> sessionMap = new HashMap<>();
@@ -162,7 +162,7 @@ public class BoggledImplementation extends BoggledPOA {
             WaitingRoom room = waitingRooms.values().iterator().next();
             return room.getGameId();
         } catch (Exception e) {
-            return "GAMEID ISN'T AVAILABLE";
+            return "GAME ID ISN'T AVAILABLE";
         }
     }
 

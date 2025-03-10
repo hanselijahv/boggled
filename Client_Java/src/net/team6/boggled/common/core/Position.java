@@ -25,12 +25,4 @@ public class Position {
     public int intY() {
         return (int) Math.round(y);
     }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
 }

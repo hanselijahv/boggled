@@ -134,10 +134,6 @@ public abstract class ServerContainer extends ServerComponent {
         this.centerChildren = centerChildren;
     }
 
-    public boolean hasComponent(ServerComponent component) {
-        return children.contains(component);
-    }
-
     public void clear() {
         children.clear();
     }
@@ -148,10 +144,5 @@ public abstract class ServerContainer extends ServerComponent {
 
     public List<ServerComponent> getComponents() {
         return children;
-    }
-
-    public void setDimmedBackground(Color color) {
-        backgroundColor = color;
-        generateSprite();
     }
 }
