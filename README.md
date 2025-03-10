@@ -109,7 +109,7 @@ Below are snapshots of Boggled showcasing the Client and Server modules:
 ## Contributors
 The following individuals contributed to the development of Boggled:
 
-- **Matt Danielle Bravo**
+- **[Matt Danielle Bravo](https://www.linkedin.com/in/matt-danielle-bravo-b68372284/)**
 - **[Neil Angelo Briones](https://www.linkedin.com/in/neil-briones/)**
 - **Milton Junsel Fabe**
 - **[Benny Gil Lactaotao](https://www.linkedin.com/in/benny-gil-9a0609238/)**
